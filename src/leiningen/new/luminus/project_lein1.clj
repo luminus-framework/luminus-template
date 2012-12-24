@@ -5,7 +5,7 @@
                  [lib-luminus "0.1.5"]
                  [ring/ring-jetty-adapter "1.1.0"]
                  [bultitude "0.1.7"]
-                 [clj-log "0.4.4"]]
+                 [com.taoensso/timbre "1.1.0"]]
   :plugins [[lein-ring "0.7.5"]]
   :ring {:handler {{name}}.handler/war-handler}
   :main {{name}}.server

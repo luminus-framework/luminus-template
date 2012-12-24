@@ -21,8 +21,7 @@
              ["README.md"   (render "README.md")]
              ["src/{{sanitized}}/handler.clj"      (render "handler.clj")]
              ["src/{{sanitized}}/server.clj"       (render "server.clj")]
-             ["src/{{sanitized}}/common.clj" (render "common.clj")]
-             ["resources/log4j.properties" (render "log4j.properties")]
+             ["src/{{sanitized}}/common.clj" (render "common.clj")]             
              ["resources/public/css/screen.css" (render "screen.css")]
              "resources/public/md"
              "resources/public/js"
