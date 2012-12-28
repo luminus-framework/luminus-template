@@ -9,7 +9,9 @@
                  [bultitude "0.1.7"]
                  [com.taoensso/timbre "1.1.0"]
                  [com.taoensso/tower "1.0.0"]
-                 [markdown-clj "0.9.13"]]
+                 [markdown-clj "0.9.13"]
+                 [org.clojure/java.jdbc "0.2.3"]
+                 [org.xerial/sqlite-jdbc "3.7.2"]]
   :plugins [[lein-ring "0.7.5"]]
   :ring {:handler {{name}}.handler/war-handler
          :init {{name}}.handler/init}

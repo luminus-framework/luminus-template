@@ -22,7 +22,8 @@
     (wrap-file-info)
     (wrap-reload-if-available)))
 
-(defn -main [& [port]]    
+(defn -main [& [port]]  
+  (init)
   (let [port    (if port (Integer/parseInt port) 8080)]    
     (run-jetty (get-handler) {:join? false :port port})
     (println "Server started on port [" port "].")

@@ -1,9 +1,18 @@
 (ns {{name}}.common
   (:use [hiccup.page :only [html5 include-css]]))
-       
-(defn layout [& body]
+
+(defn header []
+  [:header "your heading here"])
+
+(defn footer []
+  [:footer "-=[{{name}}]=-"])
+
+(defn layout [& content]
   (html5 
     [:head
      [:title "Welcome to {{name}}"]
      (include-css "/css/screen.css")]
-    (into [:body] body)))
+    [:body
+     (header)
+     [:div#content content]
+     (footer)]))

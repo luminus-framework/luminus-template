@@ -2,29 +2,61 @@
   (:use [leiningen.new.templates :only [renderer sanitize year ->files]]
         [leinjacker.utils :only [lein-generation]]))
 
-(def project-file
+(declare ^{:dynamic true} *render*)
+
+(defn project-file [& [prefix]]
   (if (= (lein-generation) 2)
-    "project_lein2.clj"
-    "project_lein1.clj"))
+    (str prefix "project_lein2.clj")
+    (str prefix "project_lein2.clj")))
+
+(defmulti add-feature keyword)
+
+(defmethod add-feature :+bootstrap [_] 
+  [["src/{{sanitized}}/common.clj"  (*render* "bootstrap/common.clj")]
+   ["resources/public/css/bootstrap-responsive.min.css" (*render* "bootstrap/css/bootstrap-responsive.min.css")]
+   ["resources/public/css/bootstrap.min.css" (*render* "bootstrap/css/bootstrap.min.css")]
+   ["resources/public/js/bootstrap.min.js" (*render* "bootstrap/js/bootstrap.min.js")]
+   ["resources/public/img/glyphicons-halflings-white.png" (*render* "bootstrap/img/glyphicons-halflings-white.png")]
+   ["resources/public/img/glyphicons-halflings.png" (*render* "bootstrap/img/glyphicons-halflings.png")]])
+
+(defmethod add-feature :+sqlite [_]
+  [["project.clj" (*render* (project-file (str "sqlite" java.io.File/separator)))]
+   ["src/{{sanitized}}/auth.clj" (*render* "sqlite/auth.clj")]
+   ["src/{{sanitized}}/common.clj" (*render* "sqlite/common.clj")]
+   ["src/{{sanitized}}/handler.clj" (*render* "sqlite/handler.clj")]
+   ["src/{{sanitized}}/models/db.clj" (*render* "sqlite/db.clj")]])
+
+(defmethod add-feature :default [feature]
+ (throw (new Exception (str "unrecognized feature: " feature))))
+
+(defn include-features [features]
+  (mapcat add-feature features))
 
 (defn luminus
   "Create a new Luminus project"
-  [name]
+  [name & features]
   (let [data {:name name
               :sanitized (sanitize name)
               :year (year)}
         render #((renderer "luminus") % data)]
     (println "Generating a lovely new Luminus project named" (str name "..."))
-    (->files data
-             [".gitignore"  (render "gitignore")]
-             ["project.clj" (render project-file)]
-             ["README.md"   (render "README.md")]
-             ["src/{{sanitized}}/handler.clj"      (render "handler.clj")]
-             ["src/{{sanitized}}/server.clj"       (render "server.clj")]
-             ["src/{{sanitized}}/common.clj" (render "common.clj")]             
-             ["resources/public/css/screen.css" (render "screen.css")]
-             "resources/public/md"
-             "resources/public/js"
-             "resources/public/img"
-             "src/{{sanitized}}/models"
-             ["test/{{sanitized}}/test/handler.clj" (render "handler_test.clj")])))
+    (binding [*render* render]
+      (apply (partial ->files data)             
+             (into 
+               [[".gitignore"  (*render* "gitignore")]
+                ["project.clj" (*render* (project-file))]
+                ["README.md"   (*render* "README.md")]
+                ;;core namespaces
+                ["src/{{sanitized}}/handler.clj" (*render* "handler.clj")]
+                ["src/{{sanitized}}/server.clj"  (*render* "server.clj")]
+                ["src/{{sanitized}}/common.clj"  (*render* "common.clj")]             
+                ["src/{{sanitized}}/util.clj"    (*render* "util.clj")]
+                "src/{{sanitized}}/models"
+                ;;core resources
+                ["resources/public/css/screen.css" (*render* "screen.css")]
+                "resources/public/md"
+                "resources/public/js"
+                "resources/public/img"
+                ;;tests
+                ["test/{{sanitized}}/test/handler.clj" (*render* "handler_test.clj")]]
+               (include-features features))))))
