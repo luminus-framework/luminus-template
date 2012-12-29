@@ -2,7 +2,7 @@
   (:use compojure.core)  
   (:require [noir.util.middleware :as middleware]
             [compojure.route :as route]
-            [{{name}}.common :as common]))
+            [{{name}}.views.common :as common]))
 
 (defn home [] 
   (common/layout 
