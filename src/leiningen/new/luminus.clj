@@ -46,17 +46,17 @@
                [[".gitignore"  (*render* "gitignore")]
                 ["project.clj" (*render* (project-file))]
                 ["README.md"   (*render* "README.md")]
-                ;;core namespaces
+                ;; core namespaces
                 ["src/{{sanitized}}/handler.clj" (*render* "handler.clj")]
-                ["src/{{sanitized}}/server.clj"  (*render* "server.clj")]
-                ["src/{{sanitized}}/common.clj"  (*render* "common.clj")]             
+                ["src/{{sanitized}}/server.clj"  (*render* "server.clj")]             
                 ["src/{{sanitized}}/util.clj"    (*render* "util.clj")]
-                "src/{{sanitized}}/models"
-                ;;core resources
+                ;; views
+                ["src/{{sanitized}}/views/common.clj"  (*render* "common.clj")]
+                ;; public resources, example URL: /css/screen.css
                 ["resources/public/css/screen.css" (*render* "screen.css")]
                 "resources/public/md"
                 "resources/public/js"
                 "resources/public/img"
-                ;;tests
+                ;;t ests
                 ["test/{{sanitized}}/test/handler.clj" (*render* "handler_test.clj")]]
                (include-features features))))))
