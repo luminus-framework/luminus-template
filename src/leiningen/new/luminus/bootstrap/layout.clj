@@ -1,7 +1,7 @@
-(ns {{name}}.common
+(ns {{name}}.layout
   (:use [hiccup.page :only [html5 include-css]]))
 
-(defn layout [& body]
+(defn base [& content]
   (html5 
     [:head
      [:title "Welcome to {{name}}"]
@@ -10,4 +10,13 @@
                   "/css/screen.css")     
      (include-js "//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"
                  "/js/bootstrap.min.js")]
-    (into [:body] body)))
+    [:body content])
+
+(defn common [content]
+  (base [:body [:div.navbar
+                [:a.brand {:href "/"} "Garbwell"]
+                   [:ul.nav
+                    [:li [:a {:href "/"} "Home"]]
+                    [:li [:a {:href "/about/"} "About"]]]]
+         [:div.content [:h1 "blah"] content]]
+        ))

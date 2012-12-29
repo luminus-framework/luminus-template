@@ -12,7 +12,7 @@
 (defmulti add-feature keyword)
 
 (defmethod add-feature :+bootstrap [_] 
-  [["src/{{sanitized}}/common.clj"  (*render* "bootstrap/common.clj")]
+  [["src/{{sanitized}}/views/layout.clj"  (*render* "bootstrap/layout.clj")]
    ["resources/public/css/bootstrap-responsive.min.css" (*render* "bootstrap/css/bootstrap-responsive.min.css")]
    ["resources/public/css/bootstrap.min.css" (*render* "bootstrap/css/bootstrap.min.css")]
    ["resources/public/js/bootstrap.min.js" (*render* "bootstrap/js/bootstrap.min.js")]
@@ -51,7 +51,8 @@
                 ["src/{{sanitized}}/server.clj"  (*render* "server.clj")]             
                 ["src/{{sanitized}}/util.clj"    (*render* "util.clj")]
                 ;; views
-                ["src/{{sanitized}}/views/common.clj"  (*render* "common.clj")]
+                ["src/{{sanitized}}/views/layout.clj"  (*render* "layout.clj")]
+                ["src/{{sanitized}}/views/home.clj"  (*render* "home.clj")]
                 ;; public resources, example URL: /css/screen.css
                 ["resources/public/css/screen.css" (*render* "screen.css")]
                 "resources/public/md"
