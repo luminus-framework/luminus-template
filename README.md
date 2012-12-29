@@ -6,8 +6,7 @@ The template initializes a base Luminus application.
 
 ## Installation
 
-If you're using Leiningen 2, add a plugin dependency on `[luminus/lein-template "0.2.7"]` to your `~/.lein/profiles.clj`.
-
+If you're using Leiningen 2 the template should work out of the box
 
 If you're using Leiningen 1, you'll need to install the following plugins:
 
