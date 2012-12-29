@@ -17,15 +17,21 @@ h1 {
 	color: #eee;
 }
 
-header {	
-    text-align: right;
-	border-bottom-color: #dedede;
-	border-bottom:1px solid;
-	border-color: aaa;	
-	border-bottom-style: solid;
-	padding: 15px;
-	margin-bottom: 25px;	
+.nav li {
+    float: left;
+    list-style: none;
+    padding: 5px;
 }
+
+.navbar {	
+    text-align: right;	
+	padding: 20px;
+	margin-bottom: 25px;
+}
+
+#content {
+    padding-top: 65px;
+} 
 
 footer {
     width:100%;

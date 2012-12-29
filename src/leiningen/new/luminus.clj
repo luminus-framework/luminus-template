@@ -20,9 +20,9 @@
    ["resources/public/img/glyphicons-halflings.png" (*render* "bootstrap/img/glyphicons-halflings.png")]])
 
 (defmethod add-feature :+sqlite [_]
-  [["project.clj" (*render* (project-file (str "sqlite" java.io.File/separator)))]
-   ["src/{{sanitized}}/auth.clj" (*render* "sqlite/auth.clj")]
-   ["src/{{sanitized}}/common.clj" (*render* "sqlite/common.clj")]
+  [["project.clj" (*render* (project-file (str "sqlite" java.io.File/separator)))]   
+   ["src/{{sanitized}}/views/layout.clj" (*render* "sqlite/layout.clj")]
+   ["src/{{sanitized}}/routes/auth.clj" (*render* "sqlite/auth.clj")]
    ["src/{{sanitized}}/handler.clj" (*render* "sqlite/handler.clj")]
    ["src/{{sanitized}}/models/db.clj" (*render* "sqlite/db.clj")]])
 
@@ -50,14 +50,15 @@
                 ["src/{{sanitized}}/handler.clj" (*render* "handler.clj")]
                 ["src/{{sanitized}}/server.clj"  (*render* "server.clj")]             
                 ["src/{{sanitized}}/util.clj"    (*render* "util.clj")]
+                ;; application routes
+                ["src/{{sanitized}}/routes/home.clj"  (*render* "home.clj")]
                 ;; views
-                ["src/{{sanitized}}/views/layout.clj"  (*render* "layout.clj")]
-                ["src/{{sanitized}}/views/home.clj"  (*render* "home.clj")]
+                ["src/{{sanitized}}/views/layout.clj"  (*render* "layout.clj")]                
                 ;; public resources, example URL: /css/screen.css
                 ["resources/public/css/screen.css" (*render* "screen.css")]
                 "resources/public/md"
                 "resources/public/js"
                 "resources/public/img"
-                ;;t ests
+                ;; tests
                 ["test/{{sanitized}}/test/handler.clj" (*render* "handler_test.clj")]]
                (include-features features))))))

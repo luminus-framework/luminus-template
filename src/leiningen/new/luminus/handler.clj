@@ -1,11 +1,10 @@
 (ns {{name}}.handler
-  (:use compojure.core)  
+  (:use {{name}}.routes.home
+        compojure.core)  
   (:require [noir.util.middleware :as middleware]
-            [compojure.route :as route]
-            [{{name}}.views.home :as home]))
+            [compojure.route :as route]))
 
-(defroutes app-routes
-  (GET "/" [] (home/home))
+(defroutes app-routes  
   (route/resources "/")
   (route/not-found "Not Found"))
 
@@ -19,6 +18,6 @@
 
 
 ;;append your application routes to the all-routes vector
-(def all-routes [app-routes])
+(def all-routes [home-routes app-routes])
 (def app (middleware/app-handler all-routes))
 (def war-handler (middleware/war-handler app))

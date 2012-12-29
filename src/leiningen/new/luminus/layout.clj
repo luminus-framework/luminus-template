@@ -1,8 +1,12 @@
-(ns {{name}}.layout
-  (:use [hiccup.page :only [html5 include-css]]))
+(ns {{name}}.views.layout
+  (:use [hiccup.element :only [link-to]]
+        [hiccup.page :only [html5 include-css]]))
 
 (defn header []
-  [:header "your heading here"])
+  [:div.navbar.navbar-fixed-top            
+   [:ul.nav
+    [:li (link-to "/" "Home")]
+    [:li (link-to "/about" "About")]]])
 
 (defn footer []
   [:footer "-=[{{name}}]=-"])

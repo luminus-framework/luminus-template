@@ -1,6 +1,6 @@
-(ns {{name}}.auth 
+(ns {{name}}.routes.auth 
   (:use hiccup.form compojure.core)
-  (:require [{{name}}.common :as common]            
+  (:require [{{name}}.views.layout :as layout]            
             [noir.session :as session]
             [noir.response :as resp]
             [noir.validation :as vali]
@@ -20,7 +20,7 @@
   [:div.error error])
 
 (defn register [& [id]]
-  (common/base-layout
+  (layout/base
     (form-to [:post "/register"]             
              (label {:for "id"} "user-id" "user id")
              (vali/on-error :id error-item)

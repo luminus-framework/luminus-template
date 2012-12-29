@@ -1,18 +1,14 @@
 (ns {{name}}.handler
-  (:use {{name}}.auth compojure.core)  
+  (:use {{name}}.routes.auth
+        {{name}}.routes.home
+        compojure.core)  
   (:require [noir.util.middleware :as middleware]
             [noir.session :as session]
-            [compojure.route :as route]
-            [{{name}}.common :as common]
+            [compojure.route :as route]            
             [{{name}}.models.db :as db]))
 
-(defn home [] 
-  (common/layout 
-    [:h1 
-      "Hello " (or (session/get :user) "World!")]))
 
-(defroutes app-routes
-  (GET "/" [] (home))
+(defroutes app-routes  
   (route/resources "/")
   (route/not-found "Not Found"))
 
@@ -24,7 +20,7 @@
     (db/create-tables)))
 
 ;;append your application routes to the all-routes vector
-(def all-routes [auth-routes app-routes])
+(def all-routes [auth-routes home-routes app-routes])
 (def app (middleware/app-handler all-routes))
 (def war-handler (middleware/war-handler app))
   
