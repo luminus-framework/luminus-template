@@ -5,30 +5,8 @@ body {
     font-size: 13px;       
 }
 
-#register {
-    float: left;
-    display: inline-block;   
-}
-
-h1 {
-	background-color: #444;
-	color: #eee;
-}
-
-.nav li {
-    float: left;
-    list-style: none;
-    padding: 5px;
-}
-
-.navbar {	
-    text-align: right;	
-	padding: 5px;
-	margin-bottom: 10px;
-}
-
 #content {
-    clear: both;
+    padding: 45px;
 }
 
 footer {

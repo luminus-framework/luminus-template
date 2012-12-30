@@ -15,6 +15,7 @@
   [["src/{{sanitized}}/views/layout.clj"  (*render* "bootstrap/layout.clj")]
    ["resources/public/css/bootstrap-responsive.min.css" (*render* "bootstrap/css/bootstrap-responsive.min.css")]
    ["resources/public/css/bootstrap.min.css" (*render* "bootstrap/css/bootstrap.min.css")]
+   ["resources/public/css/screen.css" (*render* "bootstrap/css/screen.css")]
    ["resources/public/js/bootstrap.min.js" (*render* "bootstrap/js/bootstrap.min.js")]
    ["resources/public/img/glyphicons-halflings-white.png" (*render* "bootstrap/img/glyphicons-halflings-white.png")]
    ["resources/public/img/glyphicons-halflings.png" (*render* "bootstrap/img/glyphicons-halflings.png")]])
