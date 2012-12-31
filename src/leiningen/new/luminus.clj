@@ -3,6 +3,7 @@
         [leinjacker.utils :only [lein-generation]]))
 
 (declare ^{:dynamic true} *render*)
+(declare ^{:dynamic true} *features*)
 
 (defn project-file [& [prefix]]
   (if (= (lein-generation) 2)
@@ -12,20 +13,25 @@
 (defmulti add-feature keyword)
 
 (defmethod add-feature :+bootstrap [_] 
-  [["src/{{sanitized}}/views/layout.clj"  (*render* "bootstrap/layout.clj")]
-   ["resources/public/css/bootstrap-responsive.min.css" (*render* "bootstrap/css/bootstrap-responsive.min.css")]
-   ["resources/public/css/bootstrap.min.css" (*render* "bootstrap/css/bootstrap.min.css")]
-   ["resources/public/css/screen.css" (*render* "bootstrap/css/screen.css")]
-   ["resources/public/js/bootstrap.min.js" (*render* "bootstrap/js/bootstrap.min.js")]
+  [["resources/public/css/bootstrap-responsive.min.css"   (*render* "bootstrap/css/bootstrap-responsive.min.css")]
+   ["resources/public/css/bootstrap.min.css"              (*render* "bootstrap/css/bootstrap.min.css")]
+   ["resources/public/css/screen.css"                     (*render* "bootstrap/css/screen.css")]
+   ["resources/public/js/bootstrap.min.js"                (*render* "bootstrap/js/bootstrap.min.js")]
    ["resources/public/img/glyphicons-halflings-white.png" (*render* "bootstrap/img/glyphicons-halflings-white.png")]
-   ["resources/public/img/glyphicons-halflings.png" (*render* "bootstrap/img/glyphicons-halflings.png")]])
+   ["resources/public/img/glyphicons-halflings.png"       (*render* "bootstrap/img/glyphicons-halflings.png")]])
 
 (defmethod add-feature :+sqlite [_]
   [["project.clj" (*render* (project-file (str "sqlite" java.io.File/separator)))]   
-   ["src/{{sanitized}}/views/layout.clj" (*render* "sqlite/layout.clj")]
-   ["src/{{sanitized}}/routes/auth.clj" (*render* "sqlite/auth.clj")]
-   ["src/{{sanitized}}/handler.clj" (*render* "sqlite/handler.clj")]
-   ["src/{{sanitized}}/models/db.clj" (*render* "sqlite/db.clj")]])
+   ["src/{{sanitized}}/models/db.clj"    (*render* "sqlite/db.clj")]])
+
+(defmethod add-feature :+site [_]
+  (remove empty?
+          (concat
+            [["src/{{sanitized}}/views/layout.clj" (*render* "site/layout.clj")]
+             ["src/{{sanitized}}/routes/auth.clj"  (*render* "site/auth.clj")]
+             ["src/{{sanitized}}/handler.clj"      (*render* "site/handler.clj")]]
+            (if-not (some #{"+bootstrap"} *features*) (add-feature :+bootstrap))
+            (if-not (some #{"+sqlite"} *features*)    (add-feature :+sqlite)))))
 
 (defmethod add-feature :default [feature]
  (throw (new Exception (str "unrecognized feature: " feature))))
@@ -38,10 +44,11 @@
   [name & features]
   (let [data {:name name
               :sanitized (sanitize name)
-              :year (year)}
-        render #((renderer "luminus") % data)]
-    (println "Generating a lovely new Luminus project named" (str name "..."))
-    (binding [*render* render]
+              :year (year)}]
+    
+    (binding [*render*   #((renderer "luminus") % data)
+              *features* features]
+      (println "Generating a lovely new Luminus project named" (str name "..."))
       (apply (partial ->files data)             
              (into 
                [[".gitignore"  (*render* "gitignore")]

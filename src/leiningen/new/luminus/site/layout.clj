@@ -1,6 +1,6 @@
 (ns {{name}}.views.layout
   (:use hiccup.form
-        [hiccup.element :only [link-to]] 
+        [hiccup.element :only [link-to]]        
         [hiccup.page :only [html5 include-js include-css]])
   (:require [noir.session :as session]))
 
@@ -26,17 +26,21 @@
                (link-to "/register" "register"))]]]]])
 
 (defn footer []
-  [:footer "-=[{{name}}]=-"])
+  [:footer "Copyright &copy; ..."])
 
 (defn base [& content]
-  (html5
+  (html5 
     [:head
      [:title "Welcome to {{name}}"]
-     (include-css "/css/screen.css")]
+     (include-css "/css/bootstrap.min.css"
+                  "/css/bootstrap-responsive.min.css"
+                  "/css/screen.css")     
+     (include-js "//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"
+                 "/js/bootstrap.min.js")]     
     [:body content]))
 
 (defn common [& content]
-  (base       
-    (header)      
+  (base
+    (header)
     [:div#content content]
     (footer)))

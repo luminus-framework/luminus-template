@@ -5,14 +5,12 @@
 
 (defn header []  
   [:div.navbar.navbar-fixed-top.navbar-inverse            
-     [:div.navbar-inner 
-      [:div.container
-       [:ul.nav
-        [:li (link-to "/" "Home")]
-        [:li (link-to "/about" "About")]]]]])
+   [:ul.nav
+    [:li (link-to "/" "Home")]
+    [:li (link-to "/about" "About")]]])
 
 (defn footer []
-  [:footer "-=[{{name}}]=-"])
+  [:footer "Copyright &copy; ..."])
 
 (defn base [& content]
   (html5 
