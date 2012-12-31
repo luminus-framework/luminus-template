@@ -54,6 +54,7 @@
                [[".gitignore"  (*render* "gitignore")]
                 ["project.clj" (*render* (project-file))]
                 ["README.md"   (*render* "README.md")]
+                ["Procfile"    (*render* "Procfile")]
                 ;; core namespaces
                 ["src/{{sanitized}}/handler.clj" (*render* "handler.clj")]
                 ["src/{{sanitized}}/server.clj"  (*render* "server.clj")]             
