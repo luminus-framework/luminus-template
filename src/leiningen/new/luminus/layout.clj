@@ -1,5 +1,6 @@
 (ns {{name}}.views.layout
   (:use hiccup.form
+        [hiccup.def :only [defhtml]] 
         [hiccup.element :only [link-to]] 
         [hiccup.page :only [html5 include-js include-css]]))
 
@@ -12,12 +13,11 @@
 (defn footer []
   [:footer "Copyright &copy; ..."])
 
-(defn base [& content]
-  (html5 
-    [:head
-     [:title "Welcome to {{name}}"]
-     (include-css "/css/screen.css")]     
-    [:body content]))
+(defhtml base [& content]   
+  [:head
+   [:title "Welcome to {{name}}"]
+   (include-css "/css/screen.css")]     
+  [:body content])
 
 (defn common [& content]
   (base
