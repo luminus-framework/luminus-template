@@ -1,20 +1,22 @@
 (ns {{name}}.models.db
   (:require [clojure.java.jdbc :as sql]
-            [noir.io :as io])
-  (:import java.sql.DriverManager 
-           java.io.File))
+            [noir.io :as io]))
+
+(def db-store "site.db")
 
 (defn db [] 
-  {:classname   "org.sqlite.JDBC",
-   :subprotocol "sqlite",
-   :subname     (str (io/resource-path) "db.sq3")})
+  {:classname   "org.h2.Driver",
+   :subprotocol "h2",  
+   :subname (str (io/resource-path) db-store)
+   :user "sa"
+   :password ""})
 
 (def db-memo (memoize db))
 
 (defn initialized?
   "checks to see if the database schema is present"
   []
-  (.exists (new File (str (io/resource-path) "db.sq3"))))
+  (.exists (new java.io.File (str (io/resource-path) db-store))))
 
 (defn create-users-table
   "creates the users table, the user has following fields

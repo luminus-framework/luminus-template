@@ -1,9 +1,11 @@
 (ns leiningen.new.luminus
-  (:use [leiningen.new.templates :only [renderer sanitize year ->files]]
+  (:use [leiningen.new.dependency-injector :only [add-dependencies]]
+        [leiningen.new.templates :only [renderer sanitize year ->files]]
         [leinjacker.utils :only [lein-generation]]))
 
+(declare ^{:dynamic true} *name*)
 (declare ^{:dynamic true} *render*)
-(declare ^{:dynamic true} *features*)
+(def features (atom nil))
 
 (defn project-file [& [prefix]]
   (if (= (lein-generation) 2)
@@ -20,9 +22,14 @@
    ["resources/public/img/glyphicons-halflings-white.png" (*render* "bootstrap/img/glyphicons-halflings-white.png")]
    ["resources/public/img/glyphicons-halflings.png"       (*render* "bootstrap/img/glyphicons-halflings.png")]])
 
-(defmethod add-feature :+sqlite [_]
-  [["project.clj" (*render* (project-file (str "sqlite" java.io.File/separator)))]   
-   ["src/{{sanitized}}/models/db.clj"    (*render* "sqlite/db.clj")]])
+(defmethod add-feature :+h2 [_]  
+  [["src/{{sanitized}}/models/db.clj"    (*render* "dbs/h2_db.clj")]])
+
+(defmethod add-feature :+sqlite [_]  
+  [["src/{{sanitized}}/models/db.clj"    (*render* "dbs/sqlite_db.clj")]])
+
+(defmethod add-feature :+postgres [_]    
+  [["src/{{sanitized}}/models/db.clj"    (*render* "dbs/postgres_db.clj")]])
 
 (defmethod add-feature :+site [_]
   (remove empty?
@@ -30,24 +37,46 @@
             [["src/{{sanitized}}/views/layout.clj" (*render* "site/layout.clj")]
              ["src/{{sanitized}}/routes/auth.clj"  (*render* "site/auth.clj")]
              ["src/{{sanitized}}/handler.clj"      (*render* "site/handler.clj")]]
-            (if-not (some #{"+bootstrap"} *features*) (add-feature :+bootstrap))
-            (if-not (some #{"+sqlite"} *features*)    (add-feature :+sqlite)))))
+            (if-not (some #{"+bootstrap"} @features) (add-feature :+bootstrap))
+            (if-not (some #{"+sqlite" "+h2" "+postgres"} @features) 
+              (do
+                (swap! features conj "+sqlite")
+                (add-feature :+sqlite))))))
+
+(defn inject-dependencies []
+  (let [project-file (str *name* java.io.File/separator "project.clj")] 
+    (cond 
+      (some #{"+sqlite"} @features)
+      (add-dependencies project-file  
+        ['org.clojure/java.jdbc "0.2.3"]
+        ['org.xerial/sqlite-jdbc "3.7.2"])
+      
+      (some #{"+h2"} @features)
+      (add-dependencies project-file 
+                        ['org.clojure/java.jdbc "0.2.3"]
+                        ['com.h2database/h2 "1.3.170"])
+      
+      (some #{"+postgres"} @features)
+      (add-dependencies project-file 
+                        ['org.clojure/java.jdbc "0.2.3"]
+                        ['postgresql/postgresql "9.1-901.jdbc4"]))))
 
 (defmethod add-feature :default [feature]
  (throw (new Exception (str "unrecognized feature: " feature))))
 
-(defn include-features [features]
-  (mapcat add-feature features))
+(defn include-features []
+  (mapcat add-feature @features))
 
 (defn luminus
   "Create a new Luminus project"
-  [name & features]
+  [name & feature-params]
   (let [data {:name name
               :sanitized (sanitize name)
               :year (year)}]
     
-    (binding [*render*   #((renderer "luminus") % data)
-              *features* features]
+    (binding [*name*     name
+              *render*   #((renderer "luminus") % data)]
+      (reset! features feature-params)
       (println "Generating a lovely new Luminus project named" (str name "..."))
       (apply (partial ->files data)             
              (into 
@@ -70,4 +99,5 @@
                 "resources/public/img"
                 ;; tests
                 ["test/{{sanitized}}/test/handler.clj" (*render* "handler_test.clj")]]
-               (include-features features))))))
+               (include-features)))
+      (inject-dependencies))))
