@@ -7,12 +7,6 @@
     (binding [*read-eval* false]
       (read r))))
 
-(defn project-to-map [project]
-  (->> project    
-    (partition 2)
-    (map vec)
-    (into {})))
-
 (defn to-project [f name version m]
   (->> m 
     (reduce 
@@ -27,6 +21,6 @@
 
 (defn add-dependencies [filename  & dependencies]
   (let [[f name version & more] (read-file filename)
-        project-map (project-to-map more)
+        project-map (apply hash-map more)
         updated (update-in project-map [:dependencies] into dependencies)]    
     (write-project filename f name version updated)))
