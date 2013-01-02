@@ -1,5 +1,5 @@
 (ns leiningen.new.luminus
-  (:use [leiningen.new.dependency-injector :only [add-dependencies]]
+  (:use [leiningen.new.dependency-injector]
         [leiningen.new.templates :only [renderer sanitize year ->files]]
         [leinjacker.utils :only [lein-generation]]))
 
@@ -22,14 +22,19 @@
    ["resources/public/img/glyphicons-halflings-white.png" (*render* "bootstrap/img/glyphicons-halflings-white.png")]
    ["resources/public/img/glyphicons-halflings.png"       (*render* "bootstrap/img/glyphicons-halflings.png")]])
 
+(defmethod add-feature :+cljs [_]
+  [["src-cljs/{{sanitized}}/tetris.cljs" (*render* "cljs/tetris.cljs")]
+   ["src-cljs/{{sanitized}}/game.cljs" (*render* "cljs/game.cljs")]
+   ["resources/public/tetris.html" (*render* "cljs/tetris.html")]])
+
 (defmethod add-feature :+h2 [_]  
-  [["src/{{sanitized}}/models/db.clj"    (*render* "dbs/h2_db.clj")]])
+  [["src/{{sanitized}}/models/db.clj" (*render* "dbs/h2_db.clj")]])
 
 (defmethod add-feature :+sqlite [_]  
-  [["src/{{sanitized}}/models/db.clj"    (*render* "dbs/sqlite_db.clj")]])
+  [["src/{{sanitized}}/models/db.clj" (*render* "dbs/sqlite_db.clj")]])
 
 (defmethod add-feature :+postgres [_]    
-  [["src/{{sanitized}}/models/db.clj"    (*render* "dbs/postgres_db.clj")]])
+  [["src/{{sanitized}}/models/db.clj" (*render* "dbs/postgres_db.clj")]])
 
 (defmethod add-feature :+site [_]
   (remove empty?
@@ -46,6 +51,21 @@
 (defn inject-dependencies []
   (let [project-file (str *name* java.io.File/separator "project.clj")] 
     (cond 
+      (some #{"+cljs"} @features)
+      (do
+        (add-dependencies project-file 
+                          ['jayq "2.0.0"]
+                          ['crate "0.2.3"])
+        (add-plugins project-file ['lein-cljsbuild "0.2.10"])
+        (add-to-project 
+          project-file
+          :cljsbuild
+          {:builds
+           [{:source-path "src-cljs",      
+             :compiler {:output-to "resources/public/js/tetris.js"
+                        :optimizations :advanced
+                        :pretty-print false}}]}))
+      
       (some #{"+sqlite"} @features)
       (add-dependencies project-file  
         ['org.clojure/java.jdbc "0.2.3"]
