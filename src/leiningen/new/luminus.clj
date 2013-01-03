@@ -114,7 +114,7 @@
                 ["src/{{sanitized}}/views/layout.clj"  (*render* "layout.clj")]                
                 ;; public resources, example URL: /css/screen.css
                 ["resources/public/css/screen.css" (*render* "screen.css")]
-                "resources/public/md"
+                ["resources/public/md/docs.md" (*render* "docs.md")]
                 "resources/public/js"
                 "resources/public/img"
                 ;; tests
