@@ -36,6 +36,10 @@
 (defmethod add-feature :+postgres [_]    
   [["src/{{sanitized}}/models/db.clj" (*render* "dbs/postgres_db.clj")]])
 
+(defmethod add-feature :+heroku [_]    
+  [["Procfile" (*render* "Procfile")]])
+
+
 (defmethod add-feature :+site [_]
   (remove empty?
           (concat
@@ -65,6 +69,12 @@
              :compiler {:output-to "resources/public/js/tetris.js"
                         :optimizations :advanced
                         :pretty-print false}}]}))
+      
+      (some #{"+heroku"} @features)
+      (do 
+        (add-dependencies project-file ['environ "0.3.0"])
+        (add-plugins project-file ['environ/environ.lein "0.3.0"])
+        (add-to-project project-file :hooks ['environ.leiningen.hooks]))
       
       (some #{"+sqlite"} @features)
       (add-dependencies project-file  
@@ -102,8 +112,7 @@
              (into 
                [[".gitignore"  (*render* "gitignore")]
                 ["project.clj" (*render* (project-file))]
-                ["README.md"   (*render* "README.md")]
-                ["Procfile"    (*render* "Procfile")]
+                ["README.md"   (*render* "README.md")]                
                 ;; core namespaces
                 ["src/{{sanitized}}/handler.clj" (*render* "handler.clj")]
                 ["src/{{sanitized}}/server.clj"  (*render* "server.clj")]             

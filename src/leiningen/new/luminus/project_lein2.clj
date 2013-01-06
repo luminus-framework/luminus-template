@@ -15,5 +15,6 @@
          :init {{name}}.handler/init}
   :main {{name}}.server
   :profiles
-  {:dev {:dependencies [[ring-mock "0.1.3"]
+  {:production {:env {:production true}}
+   :dev {:dependencies [[ring-mock "0.1.3"]
                         [ring/ring-devel "1.1.0"]]}})
