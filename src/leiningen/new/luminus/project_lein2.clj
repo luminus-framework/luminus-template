@@ -9,7 +9,7 @@
                  [bultitude "0.1.7"]
                  [com.taoensso/timbre "1.1.0"]
                  [com.taoensso/tower "1.0.0"]
-                 [markdown-clj "0.9.15"]]
+                 [markdown-clj "0.9.16"]]
   :min-lein-version "2.0.0"
   :plugins [[lein-ring "0.7.5"]]
   :ring {:handler {{name}}.handler/war-handler
