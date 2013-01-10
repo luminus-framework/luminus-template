@@ -1,11 +1,15 @@
 (ns leiningen.new.dependency-injector
-  (:use clojure.pprint))
+  (:use clojure.pprint)
+  (:require [clojure.java.io :as io]))
 
 (defn- read-file [filename]
   (with-open [r (java.io.PushbackReader. 
-                  (clojure.java.io/reader filename))]
+                  (io/reader filename))]
     (binding [*read-eval* false]
-      (read r))))
+      (loop [exprs []] 
+        (if-let [expr (read r nil nil)]
+          (recur (conj exprs expr))
+          exprs)))))
 
 (defn- to-project [f name version m]
   (->> m 
@@ -14,11 +18,12 @@
       [f name version])
     (seq)))
 
+(defn- pprint-code [code]
+  (with-out-str (with-pprint-dispatch code-dispatch (pprint code))))
+
 (defn- write-project [filename f name version m]
-  (binding [*print-right-margin* 80]
-    (let [wrt (new java.io.StringWriter)]
-      (clojure.pprint/pprint (to-project f name version m) wrt)
-      (spit filename (.toString wrt)))))
+  (spit filename
+        (pprint-code (to-project f name version m))))
 
 (defn- update-item-list
   "filename is path to project.clj
@@ -26,14 +31,14 @@
    items are the items which will be appended to the value at the key
    the value being updated is expected to be a collection"
   [filename type items]
-  (let [[projectdef name version & more] (read-file filename)
+  (let [[projectdef name version & more] (first (read-file filename))
         project-map (apply hash-map more)]    
     (write-project filename projectdef name version 
                    (update-in project-map [type] 
                               #(if % (into % items) (vec items))))))
 
 (defn add-to-project [filename k v]
-  (let [[f name version & more] (read-file filename)
+  (let [[f name version & more] (first (read-file filename))
         project-map (apply hash-map more)]    
     (write-project filename f name version 
                    (assoc project-map k v))))
@@ -43,3 +48,45 @@
 
 (defn add-plugins [filename & plugins]
   (update-item-list filename :plugins plugins))
+
+(defn add-routes [filename & routes]
+  (let [handler (read-file filename)] 
+    (with-open [wrt (io/writer filename)]
+      (doseq [expr handler]
+            (.write wrt              
+              (pprint-code
+                (if (= 'all-routes (second expr))
+                  (list 'def 'all-routes (into (vec routes) (last expr)))
+                  expr)))
+            (.write wrt "\n")))))
+
+(defn update-head [head target items]
+  (cond
+    (empty? items)
+    head
+    
+    (some #(and (list? %) (= target (first %))) head)
+    (clojure.walk/prewalk
+      #(if (and (list? %) (= target (first %)))
+         (concat [target] items (rest %)) %)
+      head)
+    
+    :else
+    (conj head (cons target items))))
+
+(defn add-to-layout [filename css js]
+  (let [layout (read-file filename)]    
+    (with-open [wrt (io/writer filename)]
+      (doseq [expr layout]        
+        (.write wrt              
+          (pprint-code
+            (if (= 'base (second expr))
+              (clojure.walk/prewalk 
+                #(if (and (vector? %) (= :head (first %)))
+                   (-> %
+                     (update-head 'include-css css)
+                     (update-head 'include-js js)) 
+                   %)
+                expr)
+              expr)))
+        (.write wrt "\n")))))

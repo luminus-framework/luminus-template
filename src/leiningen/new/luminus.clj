@@ -1,7 +1,8 @@
 (ns leiningen.new.luminus
   (:use [leiningen.new.dependency-injector]
         [leiningen.new.templates :only [renderer sanitize year ->files]]
-        [leinjacker.utils :only [lein-generation]]))
+        [leinjacker.utils :only [lein-generation]])
+  (:import java.io.File))
 
 (declare ^{:dynamic true} *name*)
 (declare ^{:dynamic true} *render*)
@@ -53,43 +54,55 @@
                 (add-feature :+sqlite))))))
 
 (defn inject-dependencies []
-  (let [project-file (str *name* java.io.File/separator "project.clj")] 
-    (cond 
-      (some #{"+cljs"} @features)
-      (do
+  (let [project-file (str (sanitize *name*) File/separator "project.clj")] 
+    (doseq [feature @features] 
+      (condp = feature
+        
+        "+bootstrap"
+        (add-to-layout (.replaceAll 
+                         (str (sanitize *name*) "/src/" (sanitize *name*) "/views/layout.clj") 
+                         "/" File/separator) 
+                       ["/css/bootstrap.min.css"
+                        "/css/bootstrap-responsive.min.css"]
+                       ["//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"
+                        "/js/bootstrap.min.js"])
+        
+        "+cljs"
+        (do
+          (add-dependencies project-file 
+                            ['jayq "2.0.0"]
+                            ['crate "0.2.3"])
+          (add-plugins project-file ['lein-cljsbuild "0.2.10"])
+          (add-to-project 
+            project-file
+            :cljsbuild
+            {:builds
+             [{:source-path "src-cljs",      
+               :compiler {:output-to "resources/public/js/tetris.js"
+                          :optimizations :advanced
+                          :pretty-print false}}]}))
+        
+        "+heroku"
+        (do 
+          (add-dependencies project-file ['environ "0.3.0"])
+          (add-plugins project-file ['environ/environ.lein "0.3.0"])
+          (add-to-project project-file :hooks ['environ.leiningen.hooks]))
+        
+        "+sqlite"
+        (add-dependencies project-file  
+                          ['org.clojure/java.jdbc "0.2.3"]
+                          ['org.xerial/sqlite-jdbc "3.7.2"])
+      
+        "+h2"
         (add-dependencies project-file 
-                          ['jayq "2.0.0"]
-                          ['crate "0.2.3"])
-        (add-plugins project-file ['lein-cljsbuild "0.2.10"])
-        (add-to-project 
-          project-file
-          :cljsbuild
-          {:builds
-           [{:source-path "src-cljs",      
-             :compiler {:output-to "resources/public/js/tetris.js"
-                        :optimizations :advanced
-                        :pretty-print false}}]}))
-      
-      (some #{"+heroku"} @features)
-      (do 
-        (add-dependencies project-file ['environ "0.3.0"])
-        (add-plugins project-file ['environ/environ.lein "0.3.0"])
-        (add-to-project project-file :hooks ['environ.leiningen.hooks]))
-      
-      (some #{"+sqlite"} @features)
-      (add-dependencies project-file  
-        ['org.clojure/java.jdbc "0.2.3"]
-        ['org.xerial/sqlite-jdbc "3.7.2"])
-      
-      (some #{"+h2"} @features)
-      (add-dependencies project-file 
-                        ['org.clojure/java.jdbc "0.2.3"]
-                        ['com.h2database/h2 "1.3.170"])
-      
-      (some #{"+postgres"} @features)
-      (add-dependencies project-file 
-                        ['org.clojure/java.jdbc "0.2.3"]
-                        ['postgresql/postgresql "9.1-901.jdbc4"]))))
+                          ['org.clojure/java.jdbc "0.2.3"]
+                          ['com.h2database/h2 "1.3.170"])
+        
+        "+postgres"
+        (add-dependencies project-file 
+                          ['org.clojure/java.jdbc "0.2.3"]
+                          ['postgresql/postgresql "9.1-901.jdbc4"])
+        nil))))
 
 (defmethod add-feature :default [feature]
  (throw (new Exception (str "unrecognized feature: " feature))))
