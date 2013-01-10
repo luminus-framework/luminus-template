@@ -53,9 +53,9 @@
                 (swap! features conj "+sqlite")
                 (add-feature :+sqlite))))))
 
-(defmulti post-process keyword)
+(defmulti post-process (fn [feature _] (keyword feature)))
 
-(defmethod post-process :+bootstrap [_]
+(defmethod post-process :+bootstrap [_ project-file]
   (add-to-layout (.replaceAll 
                    (str (sanitize *name*) "/src/" (sanitize *name*) "/views/layout.clj") 
                          "/" File/separator) 
@@ -64,7 +64,7 @@
                  ["//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"
                   "/js/bootstrap.min.js"]))
 
-(defmethod post-process :+cljs [_]
+(defmethod post-process :+cljs [_ project-file]
   (add-dependencies project-file ['jayq "2.0.0"] ['crate "0.2.3"])
   (add-plugins project-file ['lein-cljsbuild "0.2.10"])
   (add-to-project 
@@ -76,22 +76,22 @@
                   :optimizations :advanced
                   :pretty-print false}}]}))
 
-(defmethod post-process :+heroku [_]
+(defmethod post-process :+heroku [_ project-file]
   (add-dependencies project-file ['environ "0.3.0"])
   (add-plugins project-file ['environ/environ.lein "0.3.0"])
   (add-to-project project-file :hooks ['environ.leiningen.hooks]))
 
-(defmethod post-process :+sqlite [_]
+(defmethod post-process :+sqlite [_ project-file]
   (add-dependencies project-file  
                     ['org.clojure/java.jdbc "0.2.3"]
                     ['org.xerial/sqlite-jdbc "3.7.2"]))
 
-(defmethod post-process :+h2 [_]
+(defmethod post-process :+h2 [_ project-file]
   (add-dependencies project-file 
                     ['org.clojure/java.jdbc "0.2.3"]
                     ['com.h2database/h2 "1.3.170"]))
 
-(defmethod post-process :+postgres [_]
+(defmethod post-process :+postgres [_ project-file]
   (add-dependencies project-file 
                     ['org.clojure/java.jdbc "0.2.3"]
                     ['postgresql/postgresql "9.1-901.jdbc4"]))
@@ -99,7 +99,7 @@
 (defn inject-dependencies []
   (let [project-file (str (sanitize *name*) File/separator "project.clj")] 
     (doseq [feature @features] 
-      (post-process feature))))
+      (post-process feature project-file))))
 
 (defmethod add-feature :default [feature]
  (throw (new Exception (str "unrecognized feature: " feature))))
