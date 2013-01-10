@@ -53,56 +53,53 @@
                 (swap! features conj "+sqlite")
                 (add-feature :+sqlite))))))
 
+(defmulti post-process keyword)
+
+(defmethod post-process :+bootstrap [_]
+  (add-to-layout (.replaceAll 
+                   (str (sanitize *name*) "/src/" (sanitize *name*) "/views/layout.clj") 
+                         "/" File/separator) 
+                 ["/css/bootstrap.min.css"
+                  "/css/bootstrap-responsive.min.css"]
+                 ["//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"
+                  "/js/bootstrap.min.js"]))
+
+(defmethod post-process :+cljs [_]
+  (add-dependencies project-file ['jayq "2.0.0"] ['crate "0.2.3"])
+  (add-plugins project-file ['lein-cljsbuild "0.2.10"])
+  (add-to-project 
+    project-file
+    :cljsbuild
+    {:builds
+     [{:source-path "src-cljs",      
+       :compiler {:output-to "resources/public/js/tetris.js"
+                  :optimizations :advanced
+                  :pretty-print false}}]}))
+
+(defmethod post-process :+heroku [_]
+  (add-dependencies project-file ['environ "0.3.0"])
+  (add-plugins project-file ['environ/environ.lein "0.3.0"])
+  (add-to-project project-file :hooks ['environ.leiningen.hooks]))
+
+(defmethod post-process :+sqlite [_]
+  (add-dependencies project-file  
+                    ['org.clojure/java.jdbc "0.2.3"]
+                    ['org.xerial/sqlite-jdbc "3.7.2"]))
+
+(defmethod post-process :+h2 [_]
+  (add-dependencies project-file 
+                    ['org.clojure/java.jdbc "0.2.3"]
+                    ['com.h2database/h2 "1.3.170"]))
+
+(defmethod post-process :+postgres [_]
+  (add-dependencies project-file 
+                    ['org.clojure/java.jdbc "0.2.3"]
+                    ['postgresql/postgresql "9.1-901.jdbc4"]))
+
 (defn inject-dependencies []
   (let [project-file (str (sanitize *name*) File/separator "project.clj")] 
     (doseq [feature @features] 
-      (condp = feature
-        
-        "+bootstrap"
-        (add-to-layout (.replaceAll 
-                         (str (sanitize *name*) "/src/" (sanitize *name*) "/views/layout.clj") 
-                         "/" File/separator) 
-                       ["/css/bootstrap.min.css"
-                        "/css/bootstrap-responsive.min.css"]
-                       ["//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"
-                        "/js/bootstrap.min.js"])
-        
-        "+cljs"
-        (do
-          (add-dependencies project-file 
-                            ['jayq "2.0.0"]
-                            ['crate "0.2.3"])
-          (add-plugins project-file ['lein-cljsbuild "0.2.10"])
-          (add-to-project 
-            project-file
-            :cljsbuild
-            {:builds
-             [{:source-path "src-cljs",      
-               :compiler {:output-to "resources/public/js/tetris.js"
-                          :optimizations :advanced
-                          :pretty-print false}}]}))
-        
-        "+heroku"
-        (do 
-          (add-dependencies project-file ['environ "0.3.0"])
-          (add-plugins project-file ['environ/environ.lein "0.3.0"])
-          (add-to-project project-file :hooks ['environ.leiningen.hooks]))
-        
-        "+sqlite"
-        (add-dependencies project-file  
-                          ['org.clojure/java.jdbc "0.2.3"]
-                          ['org.xerial/sqlite-jdbc "3.7.2"])
-      
-        "+h2"
-        (add-dependencies project-file 
-                          ['org.clojure/java.jdbc "0.2.3"]
-                          ['com.h2database/h2 "1.3.170"])
-        
-        "+postgres"
-        (add-dependencies project-file 
-                          ['org.clojure/java.jdbc "0.2.3"]
-                          ['postgresql/postgresql "9.1-901.jdbc4"])
-        nil))))
+      (post-process feature))))
 
 (defmethod add-feature :default [feature]
  (throw (new Exception (str "unrecognized feature: " feature))))
