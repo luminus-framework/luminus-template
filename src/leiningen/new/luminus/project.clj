@@ -8,7 +8,7 @@
                  [ring-server "0.2.5"]                 
                  [com.taoensso/timbre "1.1.0"]
                  [com.taoensso/tower "1.0.0"]
-                 [markdown-clj "0.9.16"]]  
+                 [markdown-clj "0.9.17"]]  
   :plugins [[lein-ring "0.8.0-SNAPSHOT"]]
   :ring {:handler {{name}}.handler/war-handler
          :init    {{name}}.handler/init
