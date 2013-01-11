@@ -36,9 +36,6 @@
 (defmethod add-feature :+postgres [_]    
   [["src/{{sanitized}}/models/db.clj" (*render* "dbs/postgres_db.clj")]])
 
-(defmethod add-feature :default [feature] 
-  (throw (new Exception (str "unrecognized feature " (name feature)))))
-
 (defmethod add-feature :+site [_]
   (remove empty?
           (concat
@@ -50,6 +47,9 @@
               (do
                 (swap! features conj "+sqlite")
                 (add-feature :+sqlite))))))
+
+(defmethod add-feature :default [feature] 
+  (throw (new Exception (str "unrecognized feature " (name feature)))))
 
 (defmulti post-process (fn [feature _] (keyword feature)))
 
@@ -88,6 +88,8 @@
   (add-dependencies project-file 
                     ['org.clojure/java.jdbc "0.2.3"]
                     ['postgresql/postgresql "9.1-901.jdbc4"]))
+
+(defmethod post-process :+default [_ _])
 
 (defn inject-dependencies []
   (let [project-file (str (sanitize *name*) File/separator "project.clj")] 
