@@ -1,4 +1,4 @@
-(ns {{name}}.server    
+(ns {{name}}.repl    
   (:use {{name}}.handler
         ring.server.standalone
         [ring.middleware file-info file]))
