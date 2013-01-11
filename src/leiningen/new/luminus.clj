@@ -13,6 +13,7 @@
     (throw (new Exception "Leiningen version 2.x is required"))))
 
 (defmulti add-feature keyword)
+(defmulti post-process (fn [feature _] (keyword feature)))
 
 (defmethod add-feature :+bootstrap [_] 
   [["resources/public/css/bootstrap-responsive.min.css"   (*render* "bootstrap/css/bootstrap-responsive.min.css")]
@@ -22,37 +23,6 @@
    ["resources/public/img/glyphicons-halflings-white.png" (*render* "bootstrap/img/glyphicons-halflings-white.png")]
    ["resources/public/img/glyphicons-halflings.png"       (*render* "bootstrap/img/glyphicons-halflings.png")]])
 
-(defmethod add-feature :+cljs [_]
-  [["src-cljs/{{sanitized}}/tetris.cljs" (*render* "cljs/tetris.cljs")]
-   ["src-cljs/{{sanitized}}/game.cljs" (*render* "cljs/game.cljs")]
-   ["resources/public/tetris.html" (*render* "cljs/tetris.html")]])
-
-(defmethod add-feature :+h2 [_]  
-  [["src/{{sanitized}}/models/db.clj" (*render* "dbs/h2_db.clj")]])
-
-(defmethod add-feature :+sqlite [_]  
-  [["src/{{sanitized}}/models/db.clj" (*render* "dbs/sqlite_db.clj")]])
-
-(defmethod add-feature :+postgres [_]    
-  [["src/{{sanitized}}/models/db.clj" (*render* "dbs/postgres_db.clj")]])
-
-(defmethod add-feature :+site [_]
-  (remove empty?
-          (concat
-            [["src/{{sanitized}}/views/layout.clj" (*render* "site/layout.clj")]
-             ["src/{{sanitized}}/routes/auth.clj"  (*render* "site/auth.clj")]
-             ["src/{{sanitized}}/handler.clj"      (*render* "site/handler.clj")]]
-            (if-not (some #{"+bootstrap"} @features) (add-feature :+bootstrap))
-            (if-not (some #{"+sqlite" "+h2" "+postgres"} @features) 
-              (do
-                (swap! features conj "+sqlite")
-                (add-feature :+sqlite))))))
-
-(defmethod add-feature :default [feature] 
-  (throw (new Exception (str "unrecognized feature " (name feature)))))
-
-(defmulti post-process (fn [feature _] (keyword feature)))
-
 (defmethod post-process :+bootstrap [_ project-file]
   (add-to-layout (.replaceAll 
                    (str (sanitize *name*) "/src/" (sanitize *name*) "/views/layout.clj") 
@@ -61,6 +31,12 @@
                   "/css/bootstrap-responsive.min.css"]
                  ["//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"
                   "/js/bootstrap.min.js"]))
+
+
+(defmethod add-feature :+cljs [_]
+  [["src-cljs/{{sanitized}}/tetris.cljs" (*render* "cljs/tetris.cljs")]
+   ["src-cljs/{{sanitized}}/game.cljs" (*render* "cljs/game.cljs")]
+   ["resources/public/tetris.html" (*render* "cljs/tetris.html")]])
 
 (defmethod post-process :+cljs [_ project-file]
   (add-dependencies project-file ['jayq "2.0.0"] ['crate "0.2.3"])
@@ -74,20 +50,46 @@
                   :optimizations :advanced
                   :pretty-print false}}]}))
 
-(defmethod post-process :+sqlite [_ project-file]
-  (add-dependencies project-file  
-                    ['org.clojure/java.jdbc "0.2.3"]
-                    ['org.xerial/sqlite-jdbc "3.7.2"]))
+(defmethod add-feature :+h2 [_]  
+  [["src/{{sanitized}}/models/db.clj" (*render* "dbs/h2_db.clj")]])
 
 (defmethod post-process :+h2 [_ project-file]
   (add-dependencies project-file 
                     ['org.clojure/java.jdbc "0.2.3"]
                     ['com.h2database/h2 "1.3.170"]))
 
+(defmethod add-feature :+sqlite [_]  
+  [["src/{{sanitized}}/models/db.clj" (*render* "dbs/sqlite_db.clj")]])
+
+(defmethod post-process :+sqlite [_ project-file]
+  (add-dependencies project-file  
+                    ['org.clojure/java.jdbc "0.2.3"]
+                    ['org.xerial/sqlite-jdbc "3.7.2"]))
+
+(defmethod add-feature :+postgres [_]    
+  [["src/{{sanitized}}/models/db.clj" (*render* "dbs/postgres_db.clj")]])
+
 (defmethod post-process :+postgres [_ project-file]
   (add-dependencies project-file 
                     ['org.clojure/java.jdbc "0.2.3"]
                     ['postgresql/postgresql "9.1-901.jdbc4"]))
+
+(defmethod add-feature :+site [_]
+  (remove empty?
+          (concat
+            [["src/{{sanitized}}/views/layout.clj" (*render* "site/layout.clj")]
+             ["src/{{sanitized}}/routes/auth.clj"  (*render* "site/auth.clj")]
+             ["src/{{sanitized}}/handler.clj"      (*render* "site/handler.clj")]]
+            (if-not (some #{"+bootstrap"} @features) (add-feature :+bootstrap))
+            (if-not (some #{"+sqlite" "+h2" "+postgres"} @features) 
+              (do
+                (swap! features conj "+sqlite")
+                (add-feature :+sqlite))))))
+
+(defmethod post-process :+site [_ _])
+
+(defmethod add-feature :default [feature] 
+  (throw (new Exception (str "unrecognized feature " (name feature)))))
 
 (defmethod post-process :+default [_ _])
 
