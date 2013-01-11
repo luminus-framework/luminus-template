@@ -8,10 +8,9 @@
 (declare ^{:dynamic true} *render*)
 (def features (atom nil))
 
-(defn project-file [& [prefix]]
-  (if (= (lein-generation) 2)
-    (str prefix "project_lein2.clj")
-    (str prefix "project_lein2.clj")))
+(defn check-lein-version [& [prefix]]
+  (if (not= (lein-generation) 2)    
+    (throw (new Exception "Leiningen version 2.x is required"))))
 
 (defmulti add-feature keyword)
 
@@ -37,9 +36,8 @@
 (defmethod add-feature :+postgres [_]    
   [["src/{{sanitized}}/models/db.clj" (*render* "dbs/postgres_db.clj")]])
 
-(defmethod add-feature :+heroku [_]    
-  [["Procfile" (*render* "Procfile")]])
-
+(defmethod add-feature :default [feature] 
+  (throw (new Exception (str "unrecognized feature " (name feature)))))
 
 (defmethod add-feature :+site [_]
   (remove empty?
@@ -76,11 +74,6 @@
                   :optimizations :advanced
                   :pretty-print false}}]}))
 
-(defmethod post-process :+heroku [_ project-file]
-  (add-dependencies project-file ['environ "0.3.0"])
-  (add-plugins project-file ['environ/environ.lein "0.3.0"])
-  (add-to-project project-file :hooks ['environ.leiningen.hooks]))
-
 (defmethod post-process :+sqlite [_ project-file]
   (add-dependencies project-file  
                     ['org.clojure/java.jdbc "0.2.3"]
@@ -99,7 +92,8 @@
 (defn inject-dependencies []
   (let [project-file (str (sanitize *name*) File/separator "project.clj")] 
     (doseq [feature @features] 
-      (post-process feature project-file))))
+      (post-process feature project-file))
+    (set-lein-version project-file "2.0.0")))
 
 (defmethod add-feature :default [feature]
  (throw (new Exception (str "unrecognized feature: " feature))))
@@ -110,6 +104,7 @@
 (defn luminus
   "Create a new Luminus project"
   [name & feature-params]
+  (check-lein-version)
   (let [data {:name name
               :sanitized (sanitize name)
               :year (year)}]
@@ -121,11 +116,12 @@
       (apply (partial ->files data)             
              (into 
                [[".gitignore"  (*render* "gitignore")]
-                ["project.clj" (*render* (project-file))]
+                ["project.clj" (*render* "project.clj")]
+                ["Procfile"    (*render* "Procfile")]
                 ["README.md"   (*render* "README.md")]                
                 ;; core namespaces
                 ["src/{{sanitized}}/handler.clj" (*render* "handler.clj")]
-                ["src/{{sanitized}}/server.clj"  (*render* "server.clj")]             
+                ["src/{{sanitized}}/repl.clj"  (*render* "repl.clj")]             
                 ["src/{{sanitized}}/util.clj"    (*render* "util.clj")]
                 ;; application routes
                 ["src/{{sanitized}}/routes/home.clj"  (*render* "home.clj")]

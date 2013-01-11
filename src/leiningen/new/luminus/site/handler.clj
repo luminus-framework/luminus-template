@@ -19,6 +19,8 @@
   (if-not (db/initialized?) 
     (db/create-tables)))
 
+(defn destroy [] (println "shutting down..."))
+
 ;;append your application routes to the all-routes vector
 (def all-routes [auth-routes home-routes app-routes])
 (def app (middleware/app-handler all-routes))

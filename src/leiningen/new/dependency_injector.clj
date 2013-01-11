@@ -22,8 +22,7 @@
   (with-out-str (with-pprint-dispatch code-dispatch (pprint code))))
 
 (defn- write-project [filename f name version m]
-  (spit filename
-        (pprint-code (to-project f name version m))))
+  (spit filename (pprint-code (to-project f name version m))))
 
 (defn- update-item-list
   "filename is path to project.clj
@@ -90,3 +89,10 @@
                 expr)
               expr)))
         (.write wrt "\n")))))
+
+(defn set-lein-version [filename version]
+  (spit filename
+        (let [project-str (slurp filename)
+              length      (dec (count project-str))]
+          (str (.substring project-str 0 (dec length))
+               "\n  :min-lein-version \"" version "\")"))))
