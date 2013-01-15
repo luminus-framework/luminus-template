@@ -2,12 +2,12 @@
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :dependencies [[org.clojure/clojure "1.4.0"]
-                 [lib-noir "0.3.4"]
+                 [lib-noir "0.3.5"]
                  [compojure "1.1.3"]
                  [hiccup "1.0.2"]
                  [ring-server "0.2.5"]                 
-                 [com.taoensso/timbre "1.1.0"]
-                 [com.taoensso/tower "1.0.0"]
+                 [com.taoensso/timbre "1.2.0"]
+                 [com.taoensso/tower "1.2.0"]
                  [markdown-clj "0.9.18"]]  
   :plugins [[lein-ring "0.8.0"]]
   :ring {:handler {{name}}.handler/war-handler

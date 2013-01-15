@@ -9,7 +9,7 @@
 (def features (atom nil))
 
 (defn check-lein-version [& [prefix]]
-  (if (not= (lein-generation) 2)    
+  (if (< (lein-generation) 2)    
     (throw (new Exception "Leiningen version 2.x is required"))))
 
 (defmulti add-feature keyword)
