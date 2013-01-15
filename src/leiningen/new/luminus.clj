@@ -58,14 +58,6 @@
                     ['org.clojure/java.jdbc "0.2.3"]
                     ['com.h2database/h2 "1.3.170"]))
 
-(defmethod add-feature :+sqlite [_]  
-  [["src/{{sanitized}}/models/db.clj" (*render* "dbs/sqlite_db.clj")]])
-
-(defmethod post-process :+sqlite [_ project-file]
-  (add-dependencies project-file  
-                    ['org.clojure/java.jdbc "0.2.3"]
-                    ['org.xerial/sqlite-jdbc "3.7.2"]))
-
 (defmethod add-feature :+postgres [_]    
   [["src/{{sanitized}}/models/db.clj" (*render* "dbs/postgres_db.clj")]])
 
@@ -81,10 +73,10 @@
              ["src/{{sanitized}}/routes/auth.clj"  (*render* "site/auth.clj")]
              ["src/{{sanitized}}/handler.clj"      (*render* "site/handler.clj")]]
             (if-not (some #{"+bootstrap"} @features) (add-feature :+bootstrap))
-            (if-not (some #{"+sqlite" "+h2" "+postgres"} @features) 
+            (if-not (some #{"+h2" "+postgres"} @features) 
               (do
-                (swap! features conj "+sqlite")
-                (add-feature :+sqlite))))))
+                (swap! features conj "+h2")
+                (add-feature :+h2))))))
 
 (defmethod post-process :+site [_ _])
 
