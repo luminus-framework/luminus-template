@@ -29,7 +29,7 @@
                          "/" File/separator) 
                  ["/css/bootstrap.min.css"
                   "/css/bootstrap-responsive.min.css"]
-                 ["//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"
+                 ["//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"
                   "/js/bootstrap.min.js"]))
 
 
