@@ -11,7 +11,7 @@ If you're using Leiningen 2 the template should work out of the box
 If you're using Leiningen 1, you'll need to install the following plugins:
 
     lein plugin install lein-newnew 0.3.5
-    lein plugin install luminus/lein-template 0.2.7
+    lein plugin install luminus/lein-template 0.3.0
 
 
 ## Usage
