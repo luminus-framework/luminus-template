@@ -24,9 +24,9 @@
    ["resources/public/img/glyphicons-halflings.png"       (*render* "bootstrap/img/glyphicons-halflings.png")]])
 
 (defmethod post-process :+bootstrap [_ project-file]
-  (add-to-layout (.replaceAll 
-                   (str (sanitize *name*) "/src/" (sanitize *name*) "/views/layout.clj") 
-                         "/" File/separator) 
+  (add-to-layout (.replaceAll
+                  (str *name* "/src/" (sanitize *name*) "/views/layout.clj")
+                         "/" File/separator)
                  ["/css/bootstrap.min.css"
                   "/css/bootstrap-responsive.min.css"]
                  ["//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"
@@ -86,8 +86,8 @@
 (defmethod post-process :+default [_ _])
 
 (defn inject-dependencies []
-  (let [project-file (str (sanitize *name*) File/separator "project.clj")] 
-    (doseq [feature @features] 
+  (let [project-file (str *name* File/separator "project.clj")]
+    (doseq [feature @features]
       (post-process feature project-file))
     (set-lein-version project-file "2.0.0")))
 
