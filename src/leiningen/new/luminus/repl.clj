@@ -1,4 +1,4 @@
-(ns {{name}}.repl    
+(ns {{name}}.repl
   (:use {{name}}.handler
         ring.server.standalone
         [ring.middleware file-info file]))
@@ -21,12 +21,12 @@
   [& [port]]
   (let [port (if port (Integer/parseInt port) 8080)]
     (reset! server
-            (serve (get-handler) 
+            (serve (get-handler)
                    {:port port 
                     :init init
                     :auto-reload? true
                     :destroy destroy 
-                    :join true}))
+                    :join? false}))
     (println "Server started on port [" port "].")
     (println (str "You can view the site at http://localhost:" port))))
 
