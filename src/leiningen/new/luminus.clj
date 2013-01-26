@@ -66,7 +66,8 @@
                     ['org.clojure/java.jdbc "0.2.3"]
                     ['postgresql/postgresql "9.1-901.jdbc4"]))
 
-(defmethod add-feature :+korma [_] )
+(defmethod add-feature :+korma [_]   
+  [["src/log4j.xml" (*render* "dbs/log4j.xml")]])
 
 (defmethod post-process :+korma [_ project-file]
   
@@ -115,7 +116,7 @@
 
 (defn luminus
   "Create a new Luminus project"
-  [name & feature-params]
+  [name & feature-params]  
   (check-lein-version)
   (let [data {:name name
               :sanitized (sanitize name)
