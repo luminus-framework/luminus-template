@@ -48,16 +48,33 @@
 (defn add-plugins [filename & plugins]
   (update-item-list filename :plugins plugins))
 
-(defn add-routes [filename & routes]
-  (let [handler (read-file filename)] 
+(defn add-to-ns [filename handler-fn & libs]
+  (let [file (read-file filename)]
     (with-open [wrt (io/writer filename)]
-      (doseq [expr handler]
-            (.write wrt              
-              (pprint-code
-                (if (= 'all-routes (second expr))
-                  (list 'def 'all-routes (into (vec routes) (last expr)))
-                  expr)))
-            (.write wrt "\n")))))
+      (doseq [expr file]
+        (.write wrt
+          (pprint-code (handler-fn expr)))
+        (.write wrt "\n")))))
+
+(defn add-required [filename & requires]
+  (add-to-ns 
+    filename 
+    (fn [expr] 
+      (if (= 'ns (first expr))
+        (clojure.walk/prewalk
+          (fn [x]
+            (if (and (coll? x) (= (first x) :require))
+              (into x requires) x))
+          expr)
+        expr))))
+
+(defn add-routes [filename & routes]
+  (add-to-ns 
+    filename 
+    (fn [expr] 
+      (if (= 'all-routes (second expr))
+        (list 'def 'all-routes (into (vec routes) (last expr)))
+        expr))))
 
 (defn update-head [head target items]
   (cond

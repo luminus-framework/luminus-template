@@ -66,6 +66,22 @@
                     ['org.clojure/java.jdbc "0.2.3"]
                     ['postgresql/postgresql "9.1-901.jdbc4"]))
 
+(defmethod add-feature :+korma [_] )
+
+(defmethod post-process :+korma [_ project-file]
+  
+  #_(let [db (.replaceAll
+             (str *name* "/src/" (sanitize *name*) "/models/db.clj")
+             "/" File/separator)] 
+    )
+  (add-dependencies project-file
+                    ['korma "0.3.0-RC2"]
+                    ['log4j "1.2.15" 
+                     :exclusions ['javax.mail/mail
+                                  'javax.jms/jms
+                                  'com.sun.jdmk/jmxtools
+                                  'com.sun.jmx/jmxri]]))
+
 (defmethod add-feature :+site [_]
   (remove empty?
           (concat
@@ -80,19 +96,19 @@
 
 (defmethod post-process :+site [_ _])
 
-(defmethod add-feature :default [feature] 
-  (throw (new Exception (str "unrecognized feature " (name feature)))))
 
-(defmethod post-process :+default [_ _])
+(defmethod add-feature :default [feature]
+ (throw (new Exception (str "unrecognized feature: " (name feature)))))
+
+(defmethod post-process :default [_ _])
+
+
 
 (defn inject-dependencies []
   (let [project-file (str *name* File/separator "project.clj")]
     (doseq [feature @features]
       (post-process feature project-file))
     (set-lein-version project-file "2.0.0")))
-
-(defmethod add-feature :default [feature]
- (throw (new Exception (str "unrecognized feature: " feature))))
 
 (defn include-features []
   (mapcat add-feature @features))
