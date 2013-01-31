@@ -1,18 +1,18 @@
-body {	
-	background-color: #fff;
-    color: #333;    
+body {
+    background-color: #fff;
+    color: #333;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 13px;       
+    font-size: 13px;
 }
 
 #register {
     float: left;
-    display: inline-block;   
+    display: inline-block;
 }
 
 h1 {
-	background-color: #444;
-	color: #eee;
+    background-color: #444;
+    color: #eee;
 }
 
 .nav li {
@@ -21,10 +21,10 @@ h1 {
     padding: 5px;
 }
 
-.navbar {	
-    text-align: right;	
-	padding: 5px;
-	margin-bottom: 10px;
+.navbar {
+    text-align: right;
+    padding: 5px;
+    margin-bottom: 10px;
 }
 
 #content {
@@ -33,13 +33,13 @@ h1 {
 
 footer {
     width:100%;
-	height:30px;
-	position:absolute;
-	bottom:0;
-	left:0;
+    height:30px;
+    position:absolute;
+    bottom:0;
+    left:0;
     padding-top: 10px;
-    text-align: center;		
-	border-color: #aaa;	
-	border-top: 1px solid;
-	border-top-style: solid;
+    text-align: center;
+    border-color: #aaa;
+    border-top: 1px solid;
+    border-top-style: solid;
 }
