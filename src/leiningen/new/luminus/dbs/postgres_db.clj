@@ -1,13 +1,13 @@
 (ns {{name}}.models.db
   (:require [clojure.java.jdbc :as sql]))
 
-(def db 
+(def db
   {:subprotocol "postgresql"
    :subname "//localhost/{{sanitized}}"
    :user "admin"
    :password "admin"})
 
-(defn initialized? [] 
+(defn initialized? []
   (throw (new Exception "TODO: initialize the database schema!")))
 
 (defn create-users-table []
@@ -36,5 +36,5 @@
 
 (defn get-user [id]
   (sql/with-connection db
-    (sql/with-query-results 
+    (sql/with-query-results
       res ["select * from users where id = ?" id] (first res))))

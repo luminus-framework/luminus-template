@@ -4,9 +4,9 @@
 
 (def db-store "site.db")
 
-(defn db [] 
+(defn db []
   {:classname   "org.h2.Driver",
-   :subprotocol "h2",  
+   :subprotocol "h2",
    :subname (str (io/resource-path) db-store)
    :user "sa"
    :password ""})
@@ -47,5 +47,5 @@
 
 (defn get-user [id]
   (sql/with-connection (db-memo)
-    (sql/with-query-results 
+    (sql/with-query-results
       res ["select * from users where id = ?" id] (first res))))
