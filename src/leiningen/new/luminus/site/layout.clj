@@ -32,11 +32,7 @@
 (defhtml base [& content]
   [:head
    [:title "Welcome to {{name}}"]
-   (include-css "/css/bootstrap.min.css"
-                "/css/bootstrap-responsive.min.css"
-                "/css/screen.css")
-   (include-js "//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"
-               "/js/bootstrap.min.js")]
+   (include-css "/css/screen.css")]
   [:body content])
 
 (defn common [& content]
