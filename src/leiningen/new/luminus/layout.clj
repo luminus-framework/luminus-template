@@ -14,10 +14,11 @@
   [:footer "Copyright &copy; ..."])
 
 (defhtml base [& content]
-  [:head
-   [:title "Welcome to {{name}}"]
-   (include-css "/css/screen.css")]
-  [:body content])
+  (html5
+   [:head
+    [:title "Welcome to {{name}}"]
+    (include-css "/css/screen.css")]
+   [:body content]))
 
 (defn common [& content]
   (base
