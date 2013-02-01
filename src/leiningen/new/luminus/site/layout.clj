@@ -7,33 +7,39 @@
 
 (defn login-menu []
   (if (session/get :user)
-    (form-to [:post "/logout"]
+    (form-to {:class "navbar-form"} [:post "/logout"]
              (submit-button "logout"))
 
-    (form-to [:post "/login"]
-             (text-field {:placeholder "user id"} "id")
-             (password-field {:placeholder "password"} "pass")
-             (submit-button "login"))))
+    (form-to {:class "navbar-form"} [:post "/login"]
+             (text-field {:class "span2"
+                          :style "margin-right: 5px"
+                          :placeholder "user id"} "id")
+             (password-field {:class "span2"
+                              :style "margin-right: 5px"
+                              :placeholder "password"} "pass")
+             (submit-button {:class "btn"} "Login"))))
 
 (defn header []
   [:div.navbar.navbar-fixed-top.navbar-inverse
-     [:div.navbar-inner
-      [:div.container
-       [:ul.nav
-        [:li (link-to "/" "Home")]
-        [:li (link-to "/about" "About")]
-        [:li (login-menu)]
-        [:li (if-not (session/get :user)
-               (link-to "/register" "register"))]]]]])
+   [:div.navbar-inner
+    [:div.container
+     [:ul.nav
+      [:li (link-to "/" "Home")]
+      [:li (link-to "/about" "About")]]
+     [:ul.nav.pull-right
+      [:li (login-menu)]
+      [:li (if-not (session/get :user)
+             (link-to "/register" "Register"))]]]]])
 
 (defn footer []
   [:footer "Copyright &copy; ..."])
 
 (defhtml base [& content]
-  [:head
-   [:title "Welcome to {{name}}"]
-   (include-css "/css/screen.css")]
-  [:body content])
+  (html5
+   [:head
+    [:title "Welcome to {{name}}"]
+    (include-css "/css/screen.css")]
+   [:body content]))
 
 (defn common [& content]
   (base

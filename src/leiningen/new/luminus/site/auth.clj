@@ -34,7 +34,7 @@
              (vali/on-error :pass1 error-item)
              [:p (password-field {:tabindex 3} "pass1")]
 
-             (submit-button {:tabindex 4} "create account"))))
+             (submit-button {:class "btn" :tabindex 4} "create account"))))
 
 (defn handle-registration [id pass pass1]
   (if (valid? id pass pass1)
