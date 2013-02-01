@@ -89,7 +89,10 @@
             [["src/{{sanitized}}/views/layout.clj" (*render* "site/layout.clj")]
              ["src/{{sanitized}}/routes/auth.clj"  (*render* "site/auth.clj")]
              ["src/{{sanitized}}/handler.clj"      (*render* "site/handler.clj")]]
-            (if-not (some #{"+bootstrap"} @features) (add-feature :+bootstrap))
+            (if-not (some #{"+bootstrap"} @features)
+              (do
+                (swap! features conj "+bootstrap")
+                (add-feature :+bootstrap)))
             (if-not (some #{"+h2" "+postgres"} @features)
               (do
                 (swap! features conj "+h2")
