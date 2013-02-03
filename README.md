@@ -23,7 +23,7 @@ Run the following command to create a new Luminus project:
 To build as standalone run:
 
 ```bash
-lein uberjar
+lein ring uberjar
 ```
 and you'll be able to run the resulting standalone jar as you would with any other executable Java jar:
 ```bash
