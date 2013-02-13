@@ -21,13 +21,12 @@
   [& [port]]
   (let [port (if port (Integer/parseInt port) 8080)]
     (reset! server
-            (serve (get-handler)
-                   {:port port
+            (serve (get-handler) 
+                   {:port port 
                     :init init
                     :auto-reload? true
-                    :destroy destroy
-                    :join? false}))
-    (println "Server started on port [" port "].")
+                    :destroy destroy 
+                    :join true}))
     (println (str "You can view the site at http://localhost:" port))))
 
 (defn stop-server []
