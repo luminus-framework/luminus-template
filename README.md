@@ -4,15 +4,9 @@ A Leiningen template for projects using [Luminus](https://github.com/yogthos/lum
 
 The template initializes a base Luminus application.
 
-## Installation
+## Requirements
 
-If you're using Leiningen 2 the template should work out of the box
-
-If you're using Leiningen 1, you'll need to install the following plugins:
-
-    lein plugin install lein-newnew 0.3.5
-    lein plugin install luminus/lein-template 0.3.0
-
+Luminus requires Leiningen version 2.x
 
 ## Usage
 
