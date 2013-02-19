@@ -2,7 +2,8 @@
   (:use [leiningen.new.dependency-injector]
         [leiningen.new.templates :only [renderer sanitize year ->files]]
         [leinjacker.utils :only [lein-generation]])
-  (:import java.io.File))
+  (:import java.io.File
+           java.util.regex.Matcher))
 
 (declare ^{:dynamic true} *name*)
 (declare ^{:dynamic true} *render*)
@@ -26,7 +27,7 @@
 (defmethod post-process :+bootstrap [_ project-file]
   (add-to-layout (.replaceAll
                   (str *name* "/src/" (sanitize *name*) "/views/layout.clj")
-                         "/" File/separator)
+                         "/" (Matcher/quoteReplacement File/separator))
                  ["/css/bootstrap.min.css"
                   "/css/bootstrap-responsive.min.css"]
                  ["//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"
