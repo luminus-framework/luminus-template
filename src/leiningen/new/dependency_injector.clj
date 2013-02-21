@@ -111,5 +111,5 @@
   (spit filename
         (let [project-str (.trim (slurp filename))
               length      (dec (count project-str))]
-          (str (.substring project-str 0 (dec length))
+          (str (.substring project-str 0 length)
                "\n  :min-lein-version \"" version "\")"))))
