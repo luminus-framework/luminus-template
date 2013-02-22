@@ -8,7 +8,7 @@
 (defn login-menu []
   (if (session/get :user)
     (form-to {:class "navbar-form"} [:post "/logout"]
-             (submit-button "logout"))
+             (submit-button {:class "btn"} "Logout"))
 
     (form-to {:class "navbar-form"} [:post "/login"]
              (text-field {:class "span2"
