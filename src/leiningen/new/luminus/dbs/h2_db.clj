@@ -1,17 +1,19 @@
 (ns {{name}}.models.db
+  (:use korma.core
+        [korma.db :only (defdb)])
   (:require [clojure.java.jdbc :as sql]
             [noir.io :as io]))
 
 (def db-store "site.db")
+(def db-spec {:classname "org.h2.Driver"
+              :subprotocol "h2"
+              :subname (str (io/resource-path) db-store)
+              :user "sa"
+              :password ""
+              :naming {:keys clojure.string/upper-case
+                       :fields clojure.string/upper-case}})
 
-(defn db []
-  {:classname   "org.h2.Driver",
-   :subprotocol "h2",
-   :subname (str (io/resource-path) db-store)
-   :user "sa"
-   :password ""})
-
-(def db-memo (memoize db))
+(defdb db db-spec)
 
 (defn initialized?
   "checks to see if the database schema is present"
@@ -22,7 +24,7 @@
   "creates the users table, the user has following fields
    id - "
   []
-  (sql/with-connection (db-memo)
+  (sql/with-connection db-spec
     (sql/create-table
       :users
       [:id "varchar(20) PRIMARY KEY"]
@@ -39,13 +41,15 @@
   []
   (create-users-table))
 
+(defentity users)
+
 (defn create-user
   "creates a user row with id and pass columns"
-  [{:keys [id] :as user}]
-  (sql/with-connection (db-memo)
-    (sql/insert-record :users user)))
+  [user]
+  (insert users
+          (values user)))
 
 (defn get-user [id]
-  (sql/with-connection (db-memo)
-    (sql/with-query-results
-      res ["select * from users where id = ?" id] (first res))))
+  (first (select users
+                 (where {:id id})
+                 (limit 1))))
