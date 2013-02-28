@@ -1,17 +1,21 @@
 (ns {{name}}.models.db
+  (:use korma.core
+        [korma.db :only (defdb)])
   (:require [clojure.java.jdbc :as sql]))
 
-(def db
+(def db-spec
   {:subprotocol "postgresql"
    :subname "//localhost/{{sanitized}}"
    :user "admin"
    :password "admin"})
 
+(def db db-spec)
+
 (defn initialized? []
   (throw (new Exception "TODO: initialize the database schema!")))
 
 (defn create-users-table []
-  (sql/with-connection db
+  (sql/with-connection db-spec
     (sql/create-table
       :users
       [:id "varchar(20) PRIMARY KEY"]
@@ -28,13 +32,15 @@
   []
   (create-users-table))
 
+(defentity users)
+
 (defn create-user
   "creates a user row with id and pass columns"
-  [{:keys [id] :as user}]
-  (sql/with-connection db
-    (sql/insert-record :users user)))
+  [user]
+  (insert users
+          (values user)))
 
 (defn get-user [id]
-  (sql/with-connection db
-    (sql/with-query-results
-      res ["select * from users where id = ?" id] (first res))))
+  (first (select users
+                 (where {:id id})
+                 (limit 1))))
