@@ -1,6 +1,6 @@
 # Luminus-Template
 
-A Leiningen template for projects using [Luminus](https://github.com/yogthos/luminus-template). 
+A Leiningen template for projects using [Luminus](http://www.luminusweb.net/). 
 
 The template initializes a base Luminus application.
 
