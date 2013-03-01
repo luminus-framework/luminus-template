@@ -1,6 +1,6 @@
 (ns {{name}}.models.schema
   (:require [clojure.java.jdbc :as sql]
-            [noir.io :as io])))
+            [noir.io :as io]))
 
 (def db-store "site.db")
 
