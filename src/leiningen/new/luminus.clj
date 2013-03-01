@@ -52,8 +52,8 @@
                   :pretty-print false}}]}))
 
 (defmethod add-feature :+h2 [_]
-  [["src/{{sanitized}}/models/db.clj" (*render* "dbs/h2_db.clj")]])
-  [["src/{{sanitized}}/models/schema.clj" (*render* "dbs/h2_schema.clj")]])
+  [["src/{{sanitized}}/models/db.clj" (*render* "dbs/db.clj")]
+   ["src/{{sanitized}}/models/schema.clj" (*render* "dbs/h2_schema.clj")]])
 
 (defmethod post-process :+h2 [_ project-file]
   (add-dependencies project-file
@@ -61,7 +61,8 @@
                     ['com.h2database/h2 "1.3.170"]))
 
 (defmethod add-feature :+postgres [_]
-  [["src/{{sanitized}}/models/db.clj" (*render* "dbs/postgres_db.clj")]])
+  [["src/{{sanitized}}/models/db.clj" (*render* "dbs/db.clj")]
+   ["src/{{sanitized}}/models/schema.clj" (*render* "dbs/postgres_schema.clj")]])
 
 (defmethod post-process :+postgres [_ project-file]
   (add-dependencies project-file

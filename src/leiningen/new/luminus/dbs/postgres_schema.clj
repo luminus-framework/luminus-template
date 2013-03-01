@@ -1,6 +1,4 @@
-(ns {{name}}.models.db
-  (:use korma.core
-        [korma.db :only (defdb)])
+(ns {{name}}.models.schema
   (:require [clojure.java.jdbc :as sql]))
 
 (def db-spec
@@ -8,8 +6,6 @@
    :subname "//localhost/{{sanitized}}"
    :user "admin"
    :password "admin"})
-
-(def db db-spec)
 
 (defn initialized? []
   (throw (new Exception "TODO: initialize the database schema!")))
@@ -31,16 +27,3 @@
   "creates the database tables used by the application"
   []
   (create-users-table))
-
-(defentity users)
-
-(defn create-user
-  "creates a user row with id and pass columns"
-  [user]
-  (insert users
-          (values user)))
-
-(defn get-user [id]
-  (first (select users
-                 (where {:id id})
-                 (limit 1))))
