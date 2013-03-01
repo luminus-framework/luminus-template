@@ -5,23 +5,17 @@
                  [lib-noir "0.4.8"]
                  [compojure "1.1.5"]
                  [hiccup "1.0.2"]
-                 [ring-server "0.2.7"]                 
+                 [ring-server "0.2.7"]
                  [com.taoensso/timbre "1.5.1"]
                  [com.taoensso/tower "1.2.0"]
-                 [korma "0.3.0-RC4"]
-                 [log4j "1.2.15"
-                  :exclusions [javax.mail/mail
-                               javax.jms/jms
-                               com.sun.jdmk/jmxtools
-                               com.sun.jmx/jmxri]]
-                 [markdown-clj "0.9.19"]]  
+                 [markdown-clj "0.9.19"]]
   :plugins [[lein-ring "0.8.2"]]
   :ring {:handler {{name}}.handler/war-handler
          :init    {{name}}.handler/init
-         :destroy {{name}}.handler/destroy}  
+         :destroy {{name}}.handler/destroy}
   :profiles
-  {:production {:ring {:open-browser? false 
-                       :stacktraces?  false 
+  {:production {:ring {:open-browser? false
+                       :stacktraces?  false
                        :auto-reload?  false}}
    :dev {:dependencies [[ring-mock "0.1.3"]
                         [ring/ring-devel "1.1.8"]]}})

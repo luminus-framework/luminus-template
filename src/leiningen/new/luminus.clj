@@ -13,6 +13,18 @@
   (if (< (lein-generation) 2)
     (throw (new Exception "Leiningen version 2.x is required"))))
 
+(defn add-sql-dependencies [project-file dependency]
+  (let [args [project-file
+              ['org.clojure/java.jdbc "0.2.3"]
+              dependency
+              ['korma "0.3.0-RC2"]
+              ['log4j "1.2.15"
+               :exclusions ['javax.mail/mail
+                            'javax.jms/jms
+                            'com.sun.jdmk/jmxtools
+                            'com.sun.jmx/jmxri]]]])
+  (apply add-dependencies args))
+
 (defmulti add-feature keyword)
 (defmulti post-process (fn [feature _] (keyword feature)))
 
@@ -52,23 +64,22 @@
                   :pretty-print false}}]}))
 
 (defmethod add-feature :+h2 [_]
-  [["src/{{sanitized}}/models/db.clj" (*render* "dbs/db.clj")]
+  [["src/log4j.xml" (*render* "dbs/log4j.xml")]
+   ["src/{{sanitized}}/models/db.clj" (*render* "dbs/db.clj")]
    ["src/{{sanitized}}/models/schema.clj" (*render* "dbs/h2_schema.clj")]])
 
 (defmethod post-process :+h2 [_ project-file]
-  (add-dependencies project-file
-                    ['org.clojure/java.jdbc "0.2.3"]
-                    ['com.h2database/h2 "1.3.170"]))
+  (add-sql-dependencies project-file
+                        ['com.h2database/h2 "1.3.170"]))
 
 (defmethod add-feature :+postgres [_]
-  [["src/{{sanitized}}/models/db.clj" (*render* "dbs/db.clj")]
+  [["src/log4j.xml" (*render* "dbs/log4j.xml")]
+   ["src/{{sanitized}}/models/db.clj" (*render* "dbs/db.clj")]
    ["src/{{sanitized}}/models/schema.clj" (*render* "dbs/postgres_schema.clj")]])
 
 (defmethod post-process :+postgres [_ project-file]
-  (add-dependencies project-file
-                    ['org.clojure/java.jdbc "0.2.3"]
-                    ['postgresql/postgresql "9.1-901.jdbc4"]))
-
+  (add-sql-dependencies project-file
+                        ['postgresql/postgresql "9.1-901.jdbc4"]))
 
 (defmethod add-feature :+site [_]
   (remove empty?
@@ -122,8 +133,6 @@
                 ["project.clj" (*render* "project.clj")]
                 ["Procfile"    (*render* "Procfile")]
                 ["README.md"   (*render* "README.md")]
-                ;;logging properties for Korma
-                ["src/log4j.xml" (*render* "dbs/log4j.xml")]
                 ;; core namespaces
                 ["src/{{sanitized}}/handler.clj" (*render* "handler.clj")]
                 ["src/{{sanitized}}/repl.clj"  (*render* "repl.clj")]
