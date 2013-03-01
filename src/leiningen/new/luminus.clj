@@ -53,6 +53,7 @@
 
 (defmethod add-feature :+h2 [_]
   [["src/{{sanitized}}/models/db.clj" (*render* "dbs/h2_db.clj")]])
+  [["src/{{sanitized}}/models/schema.clj" (*render* "dbs/h2_schema.clj")]])
 
 (defmethod post-process :+h2 [_ project-file]
   (add-dependencies project-file
