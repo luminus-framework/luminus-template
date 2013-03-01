@@ -5,7 +5,7 @@
   (:require [noir.util.middleware :as middleware]
             [noir.session :as session]
             [compojure.route :as route]
-            [{{name}}.models.db :as db]))
+            [{{name}}.models.schema :as schema]))
 
 (defroutes app-routes
   (route/resources "/")
@@ -15,8 +15,8 @@
   "runs when the application starts and checks if the database
    schema exists, calls db/create-tables if not."
   []
-  (if-not (db/initialized?)
-    (db/create-tables)))
+  (if-not (schema/initialized?)
+    (schema/create-tables)))
 
 (defn destroy [] (println "shutting down..."))
 
