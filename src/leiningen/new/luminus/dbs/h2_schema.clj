@@ -17,8 +17,6 @@
   (.exists (new java.io.File (str (io/resource-path) db-store ".h2.db"))))
 
 (defn create-users-table
-  "creates the users table, the user has following fields
-   id - "
   []
   (sql/with-connection db-spec
     (sql/create-table

@@ -8,7 +8,6 @@
 (defentity users)
 
 (defn create-user
-  "creates a user row with id and pass columns"
   [user]
   (insert users
           (values user)))
