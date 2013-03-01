@@ -8,6 +8,12 @@
                  [ring-server "0.2.7"]                 
                  [com.taoensso/timbre "1.5.1"]
                  [com.taoensso/tower "1.2.0"]
+                 [korma "0.3.0-RC4"]
+                 [log4j "1.2.15"
+                  :exclusions [javax.mail/mail
+                               javax.jms/jms
+                               com.sun.jdmk/jmxtools
+                               com.sun.jmx/jmxri]]
                  [markdown-clj "0.9.19"]]  
   :plugins [[lein-ring "0.8.2"]]
   :ring {:handler {{name}}.handler/war-handler

@@ -67,22 +67,6 @@
                     ['org.clojure/java.jdbc "0.2.3"]
                     ['postgresql/postgresql "9.1-901.jdbc4"]))
 
-(defmethod add-feature :+korma [_]
-  [["src/log4j.xml" (*render* "dbs/log4j.xml")]])
-
-(defmethod post-process :+korma [_ project-file]
-
-  #_(let [db (.replaceAll
-             (str *name* "/src/" (sanitize *name*) "/models/db.clj")
-             "/" File/separator)]
-    )
-  (add-dependencies project-file
-                    ['korma "0.3.0-RC2"]
-                    ['log4j "1.2.15"
-                     :exclusions ['javax.mail/mail
-                                  'javax.jms/jms
-                                  'com.sun.jdmk/jmxtools
-                                  'com.sun.jmx/jmxri]]))
 
 (defmethod add-feature :+site [_]
   (remove empty?
@@ -136,6 +120,8 @@
                 ["project.clj" (*render* "project.clj")]
                 ["Procfile"    (*render* "Procfile")]
                 ["README.md"   (*render* "README.md")]
+                ;;logging properties for Korma
+                ["src/log4j.xml" (*render* "dbs/log4j.xml")]
                 ;; core namespaces
                 ["src/{{sanitized}}/handler.clj" (*render* "handler.clj")]
                 ["src/{{sanitized}}/repl.clj"  (*render* "repl.clj")]
