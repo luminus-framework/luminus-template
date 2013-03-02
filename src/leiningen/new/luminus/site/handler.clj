@@ -13,7 +13,7 @@
 
 (defn init
   "runs when the application starts and checks if the database
-   schema exists, calls db/create-tables if not."
+   schema exists, calls schema/create-tables if not."
   []
   (if-not (schema/initialized?)
     (schema/create-tables)))
