@@ -14,16 +14,15 @@
     (throw (new Exception "Leiningen version 2.x is required"))))
 
 (defn add-sql-dependencies [project-file dependency]
-  (let [args [project-file
-              ['org.clojure/java.jdbc "0.2.3"]
-              dependency
-              ['korma "0.3.0-RC2"]
-              ['log4j "1.2.15"
-               :exclusions ['javax.mail/mail
-                            'javax.jms/jms
-                            'com.sun.jdmk/jmxtools
-                            'com.sun.jmx/jmxri]]]])
-  (apply add-dependencies args))
+  (add-dependencies project-file
+                    ['org.clojure/java.jdbc "0.2.3"]
+                    dependency
+                    ['korma "0.3.0-RC2"]
+                    ['log4j "1.2.15"
+                     :exclusions ['javax.mail/mail
+                                  'javax.jms/jms
+                                  'com.sun.jdmk/jmxtools
+                                  'com.sun.jmx/jmxri]]))
 
 (defmulti add-feature keyword)
 (defmulti post-process (fn [feature _] (keyword feature)))
@@ -52,7 +51,7 @@
    ["resources/public/tetris.html" (*render* "cljs/tetris.html")]])
 
 (defmethod post-process :+cljs [_ project-file]
-  (add-dependencies project-file ['jayq "2.0.0"] ['crate "0.2.3"])
+  (add-dependencies project-file ['jayq "2.0.0"] ['prismatic/dommy "0.0.2"])
   (add-plugins project-file ['lein-cljsbuild "0.2.10"])
   (add-to-project
     project-file
