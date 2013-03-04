@@ -13,27 +13,22 @@
   (vali/rule (vali/min-length? pass 5)
              [:pass "password must be at least 5 characters"])
   (vali/rule (= pass pass1)
-             [:pass "entered passwords do not match"])
+             [:pass1 "entered passwords do not match"])
   (not (vali/errors? :id :pass :pass1)))
 
-(defn error-item [[error]]
-  [:div.error error])
+(defn field [f fname flabel & [value]]
+  (let [sname (name fname)
+        error-item (fn [[error]] [:div.error error])]
+    (list (label {:for sname} sname flabel)
+          (vali/on-error fname error-item)
+          [:p (f {:tabindex 1} sname value)])))
 
 (defn register [& [id]]
   (layout/base
     (form-to [:post "/register"]
-             (label {:for "id"} "user-id" "user id")
-             (vali/on-error :id error-item)
-             [:p (text-field {:tabindex 1} "id" id)]
-
-             (label {:for "pass"} "pass" "password")
-             (vali/on-error :pass error-item)
-             [:p (password-field {:tabindex 2} "pass")]
-
-             (label {:for "pass1"} "pass1" "retype password")
-             (vali/on-error :pass1 error-item)
-             [:p (password-field {:tabindex 3} "pass1")]
-
+             (field text-field :id "user id" id)
+             (field password-field :pass "password")
+             (field password-field :pass1 "retype password")
              (submit-button {:class "btn" :tabindex 4} "create account"))))
 
 (defn handle-registration [id pass pass1]
