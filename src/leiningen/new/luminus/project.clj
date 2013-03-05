@@ -6,10 +6,10 @@
                  [compojure "1.1.5"]
                  [hiccup "1.0.2"]
                  [ring-server "0.2.7"]
-                 [com.taoensso/timbre "1.5.1"]
+                 [com.taoensso/timbre "1.5.2"]
                  [com.taoensso/tower "1.2.0"]
                  [markdown-clj "0.9.19"]]
-  :plugins [[lein-ring "0.8.2"]]
+  :plugins [[lein-ring "0.8.3"]]
   :ring {:handler {{name}}.handler/war-handler
          :init    {{name}}.handler/init
          :destroy {{name}}.handler/destroy}
