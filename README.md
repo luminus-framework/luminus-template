@@ -11,9 +11,9 @@ Luminus requires Leiningen version 2.x
 ## Usage
 
 Run the following command to create a new Luminus project:
-
-    lein new luminus <your project name>
-
+```bash
+lein new luminus <your project name>
+```
 To build as standalone run:
 
 ```bash
