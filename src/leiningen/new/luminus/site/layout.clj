@@ -1,4 +1,4 @@
-(ns testapp.views.layout
+(ns {{name}}.views.layout
   (:use noir.request)
   (:require [clabango.parser :as parser]
             [noir.session :as session]))
