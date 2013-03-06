@@ -1,0 +1,32 @@
+{% extends "{{name}}/views/templates/base.html" %}
+
+{% block navbar %}
+{% endblock %}
+
+{% block content %}
+		<form action="/register" method="POST">			
+			<label for="id">user id</label>
+			{% if id-error %}
+			<div class="error">#%id-error%#</div>
+			{% endif %}
+			<p>				
+				<input id="id" name="id" tabindex="1" type="text" value=#%id%#></input>
+			</p>
+			<label for="pass">password</label>
+			{% if pass-error %}
+			<div class="error">#%pass-error%#</div>
+			{% endif %}
+			<p>
+				<input id="pass" name="pass" tabindex="2" type="password"></input>
+			</p>
+			<label for="pass1">retype password</label>
+			{% if pass1-error %}
+			<div class="error">#%pass1-error%#</div>
+			{% endif %}
+			<p>
+				<input id="pass1" name="pass1" tabindex="3" type="password"></input>
+			</p>
+			<input class="btn" tabindex="4" type="submit" value="create account">
+		</form>
+{% endblock %}
+

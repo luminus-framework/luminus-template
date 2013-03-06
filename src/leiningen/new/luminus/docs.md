@@ -1,5 +1,3 @@
-# Welcome to {{name}}
-
 ## Some links to get started
 
 1. [HTML templating](http://www.luminusweb.net/docs/generating_html.md)

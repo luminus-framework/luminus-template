@@ -1,27 +1,10 @@
 (ns {{name}}.views.layout
-  (:use hiccup.form
-        [hiccup.def :only [defhtml]]
-        [hiccup.element :only [link-to]]
-        [hiccup.page :only [html5 include-js include-css]]))
+  (:use noir.request)
+  (:require [clabango.parser :as parser]))
 
-(defn header []
-  [:div.navbar.navbar-fixed-top.navbar-inverse
-   [:ul.nav
-    [:li (link-to "/" "Home")]
-    [:li (link-to "/about" "About")]]])
+(def template-path "{{name}}/views/templates/")
 
-(defn footer []
-  [:footer "Copyright &copy; ..."])
+(defn render [template & [params]]
+  (parser/render-file (str template-path template) 
+                      (assoc (or params {}) :context (:context *request*))))
 
-(defhtml base [& content]
-  (html5
-   [:head
-    [:title "Welcome to {{name}}"]
-    (include-css "/css/screen.css")]
-   [:body content]))
-
-(defn common [& content]
-  (base
-    (header)
-    [:div#content content]
-    (footer)))

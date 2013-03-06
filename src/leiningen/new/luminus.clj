@@ -1,5 +1,6 @@
 (ns leiningen.new.luminus
-  (:use [leiningen.new.dependency-injector]
+  (:use leiningen.new.dependency-injector
+        leiningen.new.template-parser
         [leiningen.new.templates :only [renderer sanitize year ->files]]
         [leinjacker.utils :only [lein-generation]])
   (:import java.io.File
@@ -12,6 +13,18 @@
 (defn check-lein-version [& [prefix]]
   (if (< (lein-generation) 2)
     (throw (new Exception "Leiningen version 2.x is required"))))
+
+(defn replace-tags [& templates] 
+  (doseq [template templates] 
+    (let [filename (.replaceAll
+                     (str *name* "/src/" (sanitize *name*) "/views/templates/" template)
+                     "/" (Matcher/quoteReplacement File/separator))]
+      (if (.exists (java.io.File. filename))
+        (spit filename 
+              (-> filename
+                  (slurp)
+                  (.replaceAll "#%" "{{")
+                  (.replaceAll "%#" "}}")))))))
 
 (defn add-sql-dependencies [project-file dependency]
   (add-dependencies project-file
@@ -37,12 +50,12 @@
 
 (defmethod post-process :+bootstrap [_ project-file]
   (add-to-layout (.replaceAll
-                  (str *name* "/src/" (sanitize *name*) "/views/layout.clj")
+                  (str *name* "/src/" (sanitize *name*) "/views/templates/base.html")
                          "/" (Matcher/quoteReplacement File/separator))
-                 ["/css/bootstrap.min.css"
-                  "/css/bootstrap-responsive.min.css"]
+                 ["{{context}}/css/bootstrap.min.css"
+                  "{{context}}/css/bootstrap-responsive.min.css"]
                  ["//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"
-                  "/js/bootstrap.min.js"]))
+                  "{{context}}/js/bootstrap.min.js"]))
 
 
 (defmethod add-feature :+cljs [_]
@@ -85,7 +98,9 @@
           (concat
             [["src/{{sanitized}}/views/layout.clj" (*render* "site/layout.clj")]
              ["src/{{sanitized}}/routes/auth.clj"  (*render* "site/auth.clj")]
-             ["src/{{sanitized}}/handler.clj"      (*render* "site/handler.clj")]]
+             ["src/{{sanitized}}/handler.clj"      (*render* "site/handler.clj")]
+             ["src/{{sanitized}}/views/templates/base.html"  (*render* "site/templates/base.html")]             
+             ["src/{{sanitized}}/views/templates/registration.html"  (*render* "site/templates/registration.html")]]
             (if-not (some #{"+bootstrap"} @features)
               (do
                 (swap! features conj "+bootstrap")
@@ -140,6 +155,9 @@
                 ["src/{{sanitized}}/routes/home.clj"  (*render* "home.clj")]
                 ;; views
                 ["src/{{sanitized}}/views/layout.clj"  (*render* "layout.clj")]
+                ["src/{{sanitized}}/views/templates/base.html"  (*render* "templates/base.html")]
+                ["src/{{sanitized}}/views/templates/home.html"  (*render* "templates/home.html")]
+                ["src/{{sanitized}}/views/templates/about.html" (*render* "templates/about.html")]
                 ;; public resources, example URL: /css/screen.css
                 ["resources/public/css/screen.css" (*render* "screen.css")]
                 ["resources/public/md/docs.md" (*render* "docs.md")]
@@ -148,4 +166,6 @@
                 ;; tests
                 ["test/{{sanitized}}/test/handler.clj" (*render* "handler_test.clj")]]
                (include-features)))
-      (inject-dependencies))))
+      
+      (replace-tags "base.html" "home.html" "registration.html")
+      (inject-dependencies) )))

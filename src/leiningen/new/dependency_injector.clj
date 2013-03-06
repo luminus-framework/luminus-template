@@ -76,37 +76,6 @@
         (list 'def 'all-routes (into (vec routes) (last expr)))
         expr))))
 
-(defn update-head [head target items]
-  (cond
-    (empty? items)
-    head
-
-    (some #(and (list? %) (= target (first %))) head)
-    (clojure.walk/prewalk
-      #(if (and (list? %) (= target (first %)))
-         (concat [target] items (rest %)) %)
-      head)
-
-    :else
-    (conj head (cons target items))))
-
-(defn add-to-layout [filename css js]
-  (let [layout (read-file filename)]
-    (with-open [wrt (io/writer filename)]
-      (doseq [expr layout]
-        (.write wrt
-          (pprint-code
-            (if (= 'base (second expr))
-              (clojure.walk/prewalk
-                #(if (and (vector? %) (= :head (first %)))
-                   (-> %
-                     (update-head 'include-css css)
-                     (update-head 'include-js js))
-                   %)
-                expr)
-              expr)))
-        (.write wrt "\n")))))
-
 (defn set-lein-version [filename version]
   (spit filename
         (let [project-str (.trim (slurp filename))
