@@ -6,5 +6,5 @@
 
 (defn render [template & [params]]
   (parser/render-file (str template-path template) 
-                      (assoc (or params {}) :context (:context *request*))))
+                      (assoc params :context (:context *request*))))
 
