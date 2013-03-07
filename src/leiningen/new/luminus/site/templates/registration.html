@@ -4,12 +4,12 @@
 {% endblock %}
 
 {% block content %}
-		<form action="/register" method="POST">			
+		<form action="/register" method="POST">
 			<label for="id">user id</label>
 			{% if id-error %}
 			<div class="error">#%id-error%#</div>
 			{% endif %}
-			<p>				
+			<p>
 				<input id="id" name="id" tabindex="1" type="text" value=#%id%#></input>
 			</p>
 			<label for="pass">password</label>

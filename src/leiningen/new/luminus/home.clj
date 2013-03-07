@@ -4,7 +4,7 @@
             [{{name}}.util :as util]))
 
 (defn home-page []
-  (layout/render 
+  (layout/render
     "home.html" {:content (util/md->html "/md/docs.md")}))
 
 (defn about-page []
