@@ -17,8 +17,8 @@
   (not (vali/errors? :id :pass :pass1)))
 
 (defn register [& [id]]
-  (layout/render 
-    "registration.html" 
+  (layout/render
+    "registration.html"
     {:id id
      :id-error (vali/on-error :id first)
      :pass-error (vali/on-error :pass first)

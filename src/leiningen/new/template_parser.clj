@@ -9,9 +9,10 @@
 
 (defn write-template [filename xml]
   (.transform
-    (doto 
-      (.newTransformer 
+    (doto
+      (.newTransformer
         (TransformerFactory/newInstance))
+      (.setOutputProperty OutputKeys/DOCTYPE_PUBLIC "")
       (.setOutputProperty OutputKeys/OMIT_XML_DECLARATION "yes")
       (.setOutputProperty OutputKeys/ENCODING "UTF-8")
       (.setOutputProperty OutputKeys/INDENT "yes")
@@ -34,14 +35,14 @@
 (defn add-to-layout [filename css js]
   (let [template (parse-template filename)]
     (write-template
-      filename      
-      (with-out-str 
+      filename
+      (with-out-str
         (xml/emit
-          (clojure.walk/prewalk       
+          (clojure.walk/prewalk
             (fn [item]
               (if (= :head (:tag item))
-                (update-in item [:content] 
-                           concat (map css-tag css) (map js-tag js))                
+                (update-in item [:content]
+                           concat (map css-tag css) (map js-tag js))
                 item))
             template))))))
 

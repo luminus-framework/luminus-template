@@ -14,13 +14,13 @@
   (if (< (lein-generation) 2)
     (throw (new Exception "Leiningen version 2.x is required"))))
 
-(defn replace-tags [& templates] 
-  (doseq [template templates] 
+(defn replace-tags [& templates]
+  (doseq [template templates]
     (let [filename (.replaceAll
                      (str *name* "/src/" (sanitize *name*) "/views/templates/" template)
                      "/" (Matcher/quoteReplacement File/separator))]
       (if (.exists (java.io.File. filename))
-        (spit filename 
+        (spit filename
               (-> filename
                   (slurp)
                   (.replaceAll "#%" "{{")
@@ -99,7 +99,7 @@
             [["src/{{sanitized}}/views/layout.clj" (*render* "site/layout.clj")]
              ["src/{{sanitized}}/routes/auth.clj"  (*render* "site/auth.clj")]
              ["src/{{sanitized}}/handler.clj"      (*render* "site/handler.clj")]
-             ["src/{{sanitized}}/views/templates/base.html"  (*render* "site/templates/base.html")]             
+             ["src/{{sanitized}}/views/templates/base.html"  (*render* "site/templates/base.html")]
              ["src/{{sanitized}}/views/templates/registration.html"  (*render* "site/templates/registration.html")]]
             (if-not (some #{"+bootstrap"} @features)
               (do
@@ -166,6 +166,6 @@
                 ;; tests
                 ["test/{{sanitized}}/test/handler.clj" (*render* "handler_test.clj")]]
                (include-features)))
-      
+
       (replace-tags "base.html" "home.html" "registration.html")
       (inject-dependencies) )))
