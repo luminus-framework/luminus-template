@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Welcome to {{name}}</title>
-        <link href="#%context%#/css/screen.css" rel="stylesheet" type="text/css"></link>        
+        <link href="#%context%#/css/screen.css" rel="stylesheet" type="text/css"></link>
     </head>
     <body>
     	{% block navbar %}
@@ -32,8 +32,8 @@
                                 <input class="span2" id="pass" name="pass" placeholder="password" style="margin-right: 5px" type="password"></input>
                                 <input class="btn" type="submit" value="Login"></input>
                             </form>
-                        
-						</li>						
+
+						</li>
 						<li>
 							<a href="#%context%#/register">Register</a>
 						</li>
@@ -46,7 +46,7 @@
         <div id="content">
         <h1>Welcome to {{name}}</h1>
         {% block content %}{% endblock %}
-        </div>        
+        </div>
         <footer>Copyright ...</footer>
     </body>
 </html>
