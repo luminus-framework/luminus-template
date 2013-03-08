@@ -75,6 +75,14 @@
                   :optimizations :advanced
                   :pretty-print false}}]}))
 
+(defmethod add-feature :+hiccup [_]
+  [["src/{{sanitized}}/routes/home.clj"  (*render* "hiccup/home.clj")]  
+   ["src/{{sanitized}}/views/layout.clj" (*render* "hiccup/layout.clj")]])
+
+(defmethod post-process :+hiccup [_ project-file]
+  (remove-dependencies project-file ['clabango "0.4"])
+  (add-dependencies project-file ['hiccup "1.0.2"]))
+
 (defmethod add-feature :+h2 [_]
   [["src/log4j.xml" (*render* "dbs/log4j.xml")]
    ["src/{{sanitized}}/models/db.clj" (*render* "dbs/db.clj")]
