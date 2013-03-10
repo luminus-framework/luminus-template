@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Welcome to {{name}}</title>
-        <link href="#%context%#/css/screen.css" rel="stylesheet" type="text/css"></link>
-    </head>
-    <body>
-        <div class="navbar navbar-fixed-top navbar-inverse">
-            <ul class="nav">
-                <li>
-                    <a href="#%context%#/">Home</a>
-                </li>
-                <li>
-                    <a href="#%context%#/about">About</a>
-                </li>
-            </ul>
-        </div>
-        <div id="content">
-        <h1>Welcome to {{name}}</h1>
-        {% block content %}{% endblock %}
-        </div>
-        <footer>Copyright ...</footer>
-    </body>
+<head>
+<title>Welcome to {{name}}</title>
+<link href="#%context%#/css/screen.css" rel="stylesheet" type="text/css"></link>
+</head>
+<body>
+	<div class="navbar navbar-fixed-top navbar-inverse">
+		<div class="navbar-inner">
+			<ul class="nav">
+				<li><a href="#%context%#/">Home</a></li>
+				<li><a href="#%context%#/about">About</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="content">
+		<h1>Welcome to {{name}}</h1>
+		{% block content %}{% endblock %}
+	</div>
+	<footer>Copyright ...</footer>
+</body>
 </html>
