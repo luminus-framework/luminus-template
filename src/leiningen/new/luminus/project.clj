@@ -3,8 +3,7 @@
   :url "http://example.com/FIXME"
   :dependencies [[org.clojure/clojure "1.5.0"]
                  [lib-noir "0.4.9"]
-                 [compojure "1.1.5"]
-                 [clabango "0.4"]
+                 [compojure "1.1.5"]                
                  [ring-server "0.2.7"]
                  [com.taoensso/timbre "1.5.2"]
                  [com.taoensso/tower "1.2.0"]

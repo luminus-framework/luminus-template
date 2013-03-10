@@ -24,8 +24,7 @@
         						<input class="btn" type="submit" value="Logout"></input>
 		          			</form>
 		          		</li>
-                        {% endif %}
-                        {% if not user %}
+                        {% else %}                        
 						<li>
 						    <form action="{{context}}/login" class="navbar-form" method="POST">
                                 <input class="span2" id="id" name="id" placeholder="user id" style="margin-right: 5px" type="text"></input>
