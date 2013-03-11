@@ -46,4 +46,15 @@
                 item))
             template))))))
 
+(defn replace-tags [filename]
+  (spit filename
+        (-> filename
+          (slurp)
+          (.replaceAll "#%" "{{")
+          (.replaceAll "%#" "}}"))))
+
+(defn rewrite-template-tags [path]
+  (doseq [file (rest (file-seq (clojure.java.io/file path)))]    
+    (replace-tags (str path (.getName file)))))
+
 

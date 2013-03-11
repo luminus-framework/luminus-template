@@ -19,16 +19,6 @@
     (str *name* "/src/" (sanitize *name*) (apply str path))
     "/" (Matcher/quoteReplacement File/separator)))
 
-(defn replace-tags [& templates]
-  (doseq [template templates]
-    (let [filename (sanitized-path "/views/templates/" template)]
-      (if (.exists (java.io.File. filename))
-        (spit filename
-              (-> filename
-                  (slurp)
-                  (.replaceAll "#%" "{{")
-                  (.replaceAll "%#" "}}")))))))
-
 (defn add-sql-dependencies [project-file dependency]
   (add-dependencies project-file
                     ['org.clojure/java.jdbc "0.2.3"]
@@ -173,7 +163,7 @@
         (add-dependencies project-file ['hiccup "1.0.2"]))    
       (do 
         (add-dependencies project-file ['clabango "0.5"])
-        (replace-tags "base.html" "home.html" "registration.html")))
+        (rewrite-template-tags (sanitized-path "/views/templates/"))))
     
     (doseq [feature @features]
       (post-process feature project-file))
