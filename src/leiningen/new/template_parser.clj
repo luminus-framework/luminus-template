@@ -54,7 +54,12 @@
           (.replaceAll "%#" "}}"))))
 
 (defn rewrite-template-tags [path]
-  (doseq [file (rest (file-seq (clojure.java.io/file path)))]    
-    (replace-tags (str path (.getName file)))))
+  (doseq [file (->> path
+                    clojure.java.io/file
+                    file-seq
+                    (map #(.getName %))
+                    (filter #(.endsWith % ".html")))]
+    (replace-tags (str path name))))
+
 
 
