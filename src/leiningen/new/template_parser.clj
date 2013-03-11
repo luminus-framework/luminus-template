@@ -59,7 +59,7 @@
                     file-seq
                     (map #(.getName %))
                     (filter #(.endsWith % ".html")))]
-    (replace-tags (str path name))))
+    (replace-tags (str path file))))
 
 
 
