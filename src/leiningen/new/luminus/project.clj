@@ -1,9 +1,9 @@
 (defproject {{name}} "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
-  :dependencies [[org.clojure/clojure "1.5.0"]
+  :dependencies [[org.clojure/clojure "1.5.1"]
                  [lib-noir "0.4.9"]
-                 [compojure "1.1.5"]                
+                 [compojure "1.1.5"]
                  [ring-server "0.2.7"]
                  [com.taoensso/timbre "1.5.2"]
                  [com.taoensso/tower "1.2.0"]
