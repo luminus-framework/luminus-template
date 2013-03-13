@@ -7,8 +7,7 @@
 
 (defentity users)
 
-(defn create-user
-  [user]
+(defn create-user [user]
   (insert users
           (values user)))
 
