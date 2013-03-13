@@ -1,6 +1,6 @@
 ## Some links to get started
 
-1. [HTML templating](http://www.luminusweb.net/docs/generating_html.md)
+1. [HTML templating](http://www.luminusweb.net/docs/html_templating.md)
 2. [Accessing the database](http://www.luminusweb.net/docs/database.md)
 3. [Serving static resources](http://www.luminusweb.net/docs/static_resources.md)
 4. [Setting response types](http://www.luminusweb.net/docs/responses.md)
