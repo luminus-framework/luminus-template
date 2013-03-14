@@ -1,5 +1,5 @@
 (ns {{name}}.routes.auth
-  (:use hiccup.form compojure.core)
+  (:use compojure.core)
   (:require [{{name}}.views.layout :as layout]
             [noir.session :as session]
             [noir.response :as resp]

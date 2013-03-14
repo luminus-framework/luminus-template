@@ -44,5 +44,5 @@
 (defn common [& content]
   (base
     (header)
-    [:div#content content]
+    [:div.container content]
     (footer)))
