@@ -215,11 +215,18 @@
   (let [supported-features #{"+bootstrap" "+cljs" "+hiccup" "+site" "+h2" "+postgres"}
         data {:name name
               :sanitized (sanitize name)
-              :year (year)}]
+              :year (year)}
+        unsupported (-> (set feature-params)
+                        (clojure.set/difference supported-features)
+                        (not-empty))]
 
-    (if-let  [unsupported (-> (set feature-params)
-                              (clojure.set/difference supported-features)
-                              (not-empty))]
+    (cond
+      unsupported
       (println "unrecognized options:" (format-features unsupported) 
                "\nsupported options are:" (format-features supported-features))
+
+      (.exists (new File name))
+      (println "Could not create project because a directory named" name "already exists!")
+
+      :else
       (generate-project name feature-params data)) ))
