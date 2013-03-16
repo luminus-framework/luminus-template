@@ -147,8 +147,7 @@
 
 (defmethod add-feature :default [feature]
  (throw (new Exception 
-             (str "unrecognized feature: " (name feature)
-                  "\navailable features: +bootstrap +cljs +hiccup +site +h2 +postgres"))))
+             (str "unrecognized feature: " (name feature)))))
 
 (defmethod post-process :default [_ _])
 
@@ -156,60 +155,71 @@
   (mapcat add-feature @features))
 
 (defn inject-dependencies []
-  (let [project-file (str *name* File/separator "project.clj")]
-    
-    (let [hiccup? (some #{"+hiccup"} @features)]
-      (if hiccup? 
-        (add-dependencies project-file ['hiccup "1.0.2"]))    
-      (do 
+  (let [project-file (str *name* File/separator "project.clj")
+        hiccup? (or (some #{"+hiccup"} @features) (some #{"+site-hiccup"} @features))]
+
+    (if hiccup?
+        (add-dependencies project-file ['hiccup "1.0.2"])
+        (do
         (add-dependencies project-file ['clabango "0.5"])
         (rewrite-template-tags (sanitized-path "/views/templates/"))))
-    
+
     (doseq [feature @features]
       (post-process feature project-file))
     (set-lein-version project-file "2.0.0")))
+
+(defn generate-project [name feature-params data]
+  (binding [*name*     name
+            *render*   #((renderer "luminus") % data)]
+    (reset! features 
+            (cond
+              (and (some #{"+hiccup"} feature-params) (some #{"+site"} feature-params))
+              (->> feature-params (remove #{"+hiccup" "+site"}) (cons "+site-hiccup"))
+              
+              (some #{"+hiccup"} feature-params) feature-params
+
+              (some #{"+site"} feature-params)
+              (->> feature-params (remove #{"+site"}) (cons "+site-clabango"))
+
+              :else (cons "+clabango" feature-params)))
+
+    (println "Generating a lovely new Luminus project named" (str name "..."))
+
+    (apply (partial ->files data)
+           (into
+             [[".gitignore"  (*render* "gitignore")]
+              ["project.clj" (*render* "project.clj")]
+              ["Procfile"    (*render* "Procfile")]
+              ["README.md"   (*render* "README.md")]
+              ;; core namespaces
+              ["src/{{sanitized}}/handler.clj" (*render* "handler.clj")]
+              ["src/{{sanitized}}/repl.clj"  (*render* "repl.clj")]
+              ["src/{{sanitized}}/util.clj"    (*render* "util.clj")]                               
+              ;; public resources, example URL: /css/screen.css
+              ["resources/public/css/screen.css" (*render* "screen.css")]
+              ["resources/public/md/docs.md" (*render* "docs.md")]
+              "resources/public/js"
+              "resources/public/img"
+              ;; tests
+              ["test/{{sanitized}}/test/handler.clj" (*render* "handler_test.clj")]]               
+             (include-features)))      
+    (inject-dependencies) ))
+
+(defn format-features [features]
+  (apply str (interpose ", " features)))
 
 (defn luminus
   "Create a new Luminus project"
   [name & feature-params]
   (check-lein-version)
-  (let [data {:name name
+  (let [supported-features #{"+bootstrap" "+cljs" "+hiccup" "+site" "+h2" "+postgres"}
+        data {:name name
               :sanitized (sanitize name)
               :year (year)}]
 
-    (binding [*name*     name
-              *render*   #((renderer "luminus") % data)]
-      (reset! features 
-              (cond 
-                (and (some #{"+hiccup"} feature-params) (some #{"+site"} feature-params))
-                (->> feature-params (remove #{"+hiccup" "+site"}) (cons "+site-hiccup"))
-                
-                (some #{"+hiccup"} feature-params) feature-params
-                
-                (some #{"+site"} feature-params)
-                (->> feature-params (remove #{"+site"}) (cons "+site-clabango"))
-                
-                :else (cons "+clabango" feature-params)))
-      
-      
-      (println "Generating a lovely new Luminus project named" (str name "..."))
-      
-      (apply (partial ->files data)
-             (into 
-               [[".gitignore"  (*render* "gitignore")]
-                ["project.clj" (*render* "project.clj")]
-                ["Procfile"    (*render* "Procfile")]
-                ["README.md"   (*render* "README.md")]
-                ;; core namespaces
-                ["src/{{sanitized}}/handler.clj" (*render* "handler.clj")]
-                ["src/{{sanitized}}/repl.clj"  (*render* "repl.clj")]
-                ["src/{{sanitized}}/util.clj"    (*render* "util.clj")]                               
-                ;; public resources, example URL: /css/screen.css
-                ["resources/public/css/screen.css" (*render* "screen.css")]
-                ["resources/public/md/docs.md" (*render* "docs.md")]
-                "resources/public/js"
-                "resources/public/img"
-                ;; tests
-                ["test/{{sanitized}}/test/handler.clj" (*render* "handler_test.clj")]]               
-               (include-features)))      
-      (inject-dependencies) )))
+    (if-let  [unsupported (-> (set feature-params)
+                              (clojure.set/difference supported-features)
+                              (not-empty))]
+      (println "unrecognized options:" (format-features unsupported) 
+               "\nsupported options are:" (format-features supported-features))
+      (generate-project name feature-params data)) ))
