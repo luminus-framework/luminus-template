@@ -158,14 +158,15 @@
   (let [project-file (str *name* File/separator "project.clj")
         hiccup? (or (some #{"+hiccup"} @features) (some #{"+site-hiccup"} @features))]
 
-    (if hiccup?
-        (add-dependencies project-file ['hiccup "1.0.2"])
-        (do
-        (add-dependencies project-file ['clabango "0.5"])
-        (rewrite-template-tags (sanitized-path "/views/templates/"))))
-
     (doseq [feature @features]
       (post-process feature project-file))
+    
+    (if hiccup?
+      (add-dependencies project-file ['hiccup "1.0.2"])
+      (do
+        (add-dependencies project-file ['clabango "0.5"])
+        (rewrite-template-tags (sanitized-path "/views/templates/"))))
+    
     (set-lein-version project-file "2.0.0")))
 
 (defn generate-project [name feature-params data]

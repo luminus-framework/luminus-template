@@ -50,6 +50,8 @@
   (spit filename
         (-> filename
           (slurp)
+          (.replaceAll "\\{%" "\n{%")
+          (.replaceAll "%\\}" "%}\n")
           (.replaceAll "#%" "{{")
           (.replaceAll "%#" "}}"))))
 
@@ -60,6 +62,4 @@
                     (map #(.getName %))
                     (filter #(.endsWith % ".html")))]
     (replace-tags (str path file))))
-
-
 
