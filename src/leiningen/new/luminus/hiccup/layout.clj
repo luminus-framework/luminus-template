@@ -24,5 +24,8 @@
 (defn common [& content]
   (base
     (header)
-    [:div.container content]
+    
+    [:div.container
+     [:h1 "Welcome to {{name}}"]
+     content]
     (footer)))

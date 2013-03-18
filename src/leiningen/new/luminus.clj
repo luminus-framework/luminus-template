@@ -156,7 +156,7 @@
 
 (defn inject-dependencies []
   (let [project-file (str *name* File/separator "project.clj")
-        hiccup? (or (some #{"+hiccup"} @features) (some #{"+site-hiccup"} @features))]
+        hiccup? (some #{"+hiccup" "+site-hiccup"} @features)]
 
     (doseq [feature @features]
       (post-process feature project-file))

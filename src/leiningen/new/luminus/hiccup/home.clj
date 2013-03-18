@@ -4,12 +4,12 @@
             [{{name}}.util :as util]))
 
 (defn home-page []
-  (layout/common
+  (layout/common    
     (util/md->html "/md/docs.md")))
 
 (defn about-page []
-  (layout/common
-   "this is the story of {{name}}... work in progress"))
+  (layout/common    
+    "this is the story of {{name}}... work in progress"))
 
 (defroutes home-routes
   (GET "/" [] (home-page))
