@@ -171,7 +171,7 @@
 (defn inject-dependencies []
   (let [project-file (str *name* File/separator "project.clj")
         hiccup? (some #{"+hiccup" "+site-hiccup"} @features)
-        dailycred? (or (some #{"+dailycred"} @features) (some #{"+site-clabango-dailycred"} @features))]
+        dailycred? (some #{"+dailycred" "+site-clabango-dailycred"} @features)]
 
     (doseq [feature @features]
       (post-process feature project-file))
