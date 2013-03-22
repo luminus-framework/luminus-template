@@ -1,0 +1,35 @@
+{% extends "{{name}}/views/templates/base.html" %}
+
+{% block content %}
+		<form action="/register" method="POST">
+			<label for="id">email</label>
+			{% if email-error %}
+			<div class="error">#%email-error%#</div>
+			{% endif %}
+			<p>
+        <input id="email" name="email" tabindex="1" type="text" value="#%email%#"/></input>
+			</p>
+      <label for="username">username</label>
+			{% if username-error %}
+			<div class="error">#%username-error%#</div>
+			{% endif %}
+			<p>
+				<input id="username" name="username" tabindex="1" type="text" value="#%username%#"></input>
+			</p>
+			<label for="pass">password</label>
+			{% if pass-error %}
+			<div class="error">#%pass-error%#</div>
+			{% endif %}
+			<p>
+				<input id="pass" name="pass" tabindex="2" type="password"></input>
+			</p>
+			<label for="pass1">retype password</label>
+			{% if pass1-error %}
+			<div class="error">#%pass1-error%#</div>
+			{% endif %}
+			<p>
+				<input id="pass1" name="pass1" tabindex="3" type="password"></input>
+			</p>
+			<input class="btn" tabindex="4" type="submit" value="create account">
+		</form>
+{% endblock %}
