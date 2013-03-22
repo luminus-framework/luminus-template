@@ -145,6 +145,29 @@
   ;;update clabango layout with bootstrap css/js
   (post-process :+clabango project-file))
 
+(defmethod add-feature :+dailycred [_]
+  [["src/{{sanitized}}/dailycred.clj"                        (*render* "dailycred/dailycred.clj")]])
+
+(defmethod add-feature :+site-hiccup-dailycred [_]
+  (into []
+        (concat (add-feature :+site-hiccup)
+                (add-feature :+dailycred)
+                [["src/{{sanitized}}/routes/auth.clj"                    (*render* "dailycred/hiccup/auth.clj")]])))
+
+(defmethod post-process :+site-hiccup-dailycred [_ project-file]
+  (post-process :+site-hiccup project-file))
+
+(defmethod add-feature :+site-clabango-dailycred [_]
+  (into []
+        (concat (add-feature :+site-clabango)
+                (add-feature :+dailycred)
+                [["src/{{sanitized}}/routes/auth.clj"                    (*render* "dailycred/clabango/auth.clj")]
+                 ["src/{{sanitized}}/views/templates/base.html"          (*render* "dailycred/clabango/templates/base.html")]              
+                 ["src/{{sanitized}}/views/templates/registration.html"  (*render* "dailycred/clabango/templates/registration.html")]])))
+
+(defmethod post-process :+site-clabango-dailycred [_ project-file]
+  (post-process :+site-clabango project-file))
+
 (defmethod add-feature :default [feature]
  (throw (new Exception 
              (str "unrecognized feature: " (name feature)))))
@@ -156,7 +179,8 @@
 
 (defn inject-dependencies []
   (let [project-file (str *name* File/separator "project.clj")
-        hiccup? (some #{"+hiccup" "+site-hiccup"} @features)]
+        hiccup? (some #{"+hiccup" "+site-hiccup"} @features)
+        dailycred? (some #{"+dailycred" "+site-clabango-dailycred" "+site-hiccup-dailycred"} @features)]
 
     (doseq [feature @features]
       (post-process feature project-file))
@@ -167,6 +191,9 @@
         (add-dependencies project-file ['clabango "0.5"])
         (rewrite-template-tags (sanitized-path "/views/templates/"))))
     
+    (if dailycred?
+      (add-dependencies project-file ['org.clojure/data.json "0.2.1"]))
+    
     (set-lein-version project-file "2.0.0")))
 
 (defn generate-project [name feature-params data]
@@ -174,11 +201,17 @@
             *render*   #((renderer "luminus") % data)]
     (reset! features 
             (cond
+              (and (some #{"+dailycred"} feature-params) (some #{"+site"} feature-params) (some #{"+hiccup"} feature-params))
+              (->> feature-params (remove #{"+dailycred" "+site" "+hiccup"}) (cons "+site-hiccup-dailycred"))             
+             
               (and (some #{"+hiccup"} feature-params) (some #{"+site"} feature-params))
               (->> feature-params (remove #{"+hiccup" "+site"}) (cons "+site-hiccup"))
               
               (some #{"+hiccup"} feature-params) feature-params
 
+              (and (some #{"+dailycred"} feature-params) (some #{"+site"} feature-params))
+              (->> feature-params (remove #{"+dailycred" "+site" "+clabango"}) (cons "+site-clabango-dailycred"))             
+             
               (some #{"+site"} feature-params)
               (->> feature-params (remove #{"+site"}) (cons "+site-clabango"))
 
@@ -213,7 +246,7 @@
   "Create a new Luminus project"
   [name & feature-params]
   (check-lein-version)
-  (let [supported-features #{"+bootstrap" "+cljs" "+hiccup" "+site" "+h2" "+postgres"}
+  (let [supported-features #{"+bootstrap" "+cljs" "+hiccup" "+site" "+h2" "+postgres" "+dailycred"}
         data {:name name
               :sanitized (sanitize name)
               :year (year)}
