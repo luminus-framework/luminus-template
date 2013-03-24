@@ -6,7 +6,7 @@
                  [compojure "1.1.5"]
                  [ring-server "0.2.7"]
                  [com.taoensso/timbre "1.5.2"]
-                 [com.taoensso/tower "1.2.0"]
+                 [com.taoensso/tower "1.4.0"]
                  [markdown-clj "0.9.19"]]
   :plugins [[lein-ring "0.8.3"]]
   :ring {:handler {{name}}.handler/war-handler

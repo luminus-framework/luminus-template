@@ -23,7 +23,7 @@
   (add-dependencies project-file
                     ['org.clojure/java.jdbc "0.2.3"]
                     dependency
-                    ['korma "0.3.0-RC2"]
+                    ['korma "0.3.0-RC5"]
                     ['log4j "1.2.15"
                      :exclusions ['javax.mail/mail
                                   'javax.jms/jms
@@ -186,7 +186,7 @@
       (post-process feature project-file))
     
     (if hiccup?
-      (add-dependencies project-file ['hiccup "1.0.2"])
+      (add-dependencies project-file ['hiccup "1.0.3"])
       (do
         (add-dependencies project-file ['clabango "0.5"])
         (rewrite-template-tags (sanitized-path "/views/templates/"))))
