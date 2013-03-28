@@ -47,8 +47,8 @@
    ["resources/public/tetris.html" (*render* "cljs/tetris.html")]])
 
 (defmethod post-process :+cljs [_ project-file]
-  (add-dependencies project-file ['jayq "2.0.0"] ['prismatic/dommy "0.0.2"])
-  (add-plugins project-file ['lein-cljsbuild "0.2.10"])
+  (add-dependencies project-file ['jayq "2.3.0"] ['prismatic/dommy "0.0.2"])
+  (add-plugins project-file ['lein-cljsbuild "0.3.0"])
   (add-to-project
     project-file
     :cljsbuild
