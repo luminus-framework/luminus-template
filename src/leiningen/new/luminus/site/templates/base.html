@@ -11,68 +11,70 @@
 
 	</head>
 	<body>
-	
-		{% block navbar %}
-		<div class="navbar navbar-fixed-top">
-			<div class="navbar-inner">
-				<div class="container-fluid">
-					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> 
-						<span class="icon-bar"></span> 
-						<span class="icon-bar"></span> 
-						<span class="icon-bar"></span>
-					</a> 
-					<a class="brand" href="/">{{name}}</a> 
-					{% if user-id %}
-					<div class="btn-group pull-right">
-						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-							<i class="icon-user"></i>#%user-id%#<span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu">
-							<li><a href="#%context%#/profile">Profile</a></li>
-	           				<li class="divider"></li>
-							<li><a href="#%context%#/logout">Sign Out</a></li>
+	 <div id="wrap">	
+			{% block navbar %}
+			<div class="navbar navbar-fixed-top">
+				<div class="navbar-inner">
+					<div class="container-fluid">
+						<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> 
+							<span class="icon-bar"></span> 
+							<span class="icon-bar"></span> 
+							<span class="icon-bar"></span>
+						</a> 
+						<a class="brand" href="/">{{name}}</a> 
+						{% if user-id %}
+						<div class="btn-group pull-right">
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								<i class="icon-user"></i>#%user-id%#<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="#%context%#/profile">Profile</a></li>
+		           				<li class="divider"></li>
+								<li><a href="#%context%#/logout">Sign Out</a></li>
+							</ul>
+						</div>
+						{% else %}
+						<ul class="nav pull-right">	
+						<li>				
+								<form action="#%context%#/login" class="navbar-form" method="POST">
+									<input class="span2" 
+									       id="id" 
+									       name="id" 
+									       placeholder="user id"
+										   style="margin-right: 5px" 
+										   type="text"/>
+									 <input class="span2" 
+									        id="pass" 
+									        name="pass" 
+									        placeholder="password"
+										    style="margin-right: 5px" 
+										    type="password"/> 
+									<input class="btn" type="submit" value="Login"></input>
+								</form>
+								</li>
+								<li>
+									<a href="#%context%#/register">Register</a>
+								</li>
 						</ul>
+						{% endif %}
+						<div class="nav-collapse"></div> <!--/.nav-collapse -->
 					</div>
-					{% else %}
-					<ul class="nav pull-right">	
-					<li>				
-							<form action="#%context%#/login" class="navbar-form" method="POST">
-								<input class="span2" 
-								       id="id" 
-								       name="id" 
-								       placeholder="user id"
-									   style="margin-right: 5px" 
-									   type="text"/>
-								 <input class="span2" 
-								        id="pass" 
-								        name="pass" 
-								        placeholder="password"
-									    style="margin-right: 5px" 
-									    type="password"/> 
-								<input class="btn" type="submit" value="Login"></input>
-							</form>
-							</li>
-							<li>
-								<a href="#%context%#/register">Register</a>
-							</li>
-					</ul>
-					{% endif %}
-					<div class="nav-collapse"></div> <!--/.nav-collapse -->
 				</div>
 			</div>
-		</div>
-		{% endblock %}
-		
-		<div class="container-fluid">
-			{% block content %} 
 			{% endblock %}
-		</div>
 		
-		<div class="navbar navbar-fixed-bottom">
-	        <div class="navbar-inner">
-	        	<footer>Footer</footer>
-	        </div>
-	    </div>
+			<div class="container-fluid">
+				{% block content %} 
+				{% endblock %}
+			</div>
+			 <div id="push"></div>
+		</div>
+	
+		<div id="footer">
+        	 <div class="container">                
+            	 <p class="muted footer-text">Footer content.</p>
+         	</div>
+    	</div>
 	    
 	</body>
 </html>

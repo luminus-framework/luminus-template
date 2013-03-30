@@ -5,17 +5,24 @@
 <link href="#%context%#/css/screen.css" rel="stylesheet" type="text/css"></link>
 </head>
 <body>
-	<div class="navbar navbar-fixed-top navbar-inverse">
-		<div class="navbar-inner">
-			<ul class="nav">
-				<li><a href="#%context%#/">Home</a></li>
-				<li><a href="#%context%#/about">About</a></li>
-			</ul>
+    <div id="wrap">
+		<div class="navbar navbar-fixed-top navbar-inverse">
+			<div class="navbar-inner">
+				<ul class="nav">
+					<li><a href="#%context%#/">Home</a></li>
+					<li><a href="#%context%#/about">About</a></li>
+				</ul>
+			</div>
 		</div>
+		<div class="container">		
+			{% block content %}{% endblock %}
+		</div>		
+	    <div id="push"></div>
 	</div>
-	<div class="container">		
-		{% block content %}{% endblock %}
-	</div>
-	<footer>Copyright ...</footer>
+	<div id="footer">
+         <div class="container">                
+             <p class="muted footer-text">Footer content.</p>
+         </div>
+    </div>
 </body>
 </html>
