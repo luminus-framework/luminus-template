@@ -41,9 +41,10 @@
    ["resources/public/img/glyphicons-halflings-white.png" (*render* "bootstrap/img/glyphicons-halflings-white.png")]
    ["resources/public/img/glyphicons-halflings.png"       (*render* "bootstrap/img/glyphicons-halflings.png")]])
 
-(defmethod post-process :+bootstrap [_ project-file]    
+(defmethod post-process :+bootstrap [_ project-file]
+  ;;site base.html template already has bootstrap included
   (if-not (some #{"+site"} @features) 
-    (add-to-layout (sanitized-path "/views/templates/base.html")      
+    (add-to-layout (sanitized-path "/views/templates/base.html")
                    ["{{context}}/css/bootstrap.min.css"
                     "{{context}}/css/bootstrap-responsive.min.css"]
                    ["//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"
@@ -102,7 +103,7 @@
      ["src/{{sanitized}}/views/layout.clj"                   (*render* "site/layout.clj")]     
      ["src/{{sanitized}}/views/templates/home.html"          (*render* "templates/home.html")]
      ["src/{{sanitized}}/views/templates/about.html"         (*render* "templates/about.html")]
-     ["src/{{sanitized}}/views/templates/base.html"          (*render* "site/templates/base.html")]              
+     ["src/{{sanitized}}/views/templates/base.html"          (*render* "site/templates/base.html")]
      ["src/{{sanitized}}/views/templates/profile.html"       (*render* "site/templates/profile.html")]
      ["src/{{sanitized}}/views/templates/registration.html"  (*render* "site/templates/registration.html")]]
     (site-required-features)))
@@ -114,7 +115,7 @@
 (defmethod add-feature :+site-dailycred [_]
   (into (add-feature :+site)                
         [["src/{{sanitized}}/dailycred.clj"                      (*render* "dailycred/dailycred.clj")]
-         ["src/{{sanitized}}/routes/auth.clj"                    (*render* "dailycred/auth.clj")]                              
+         ["src/{{sanitized}}/routes/auth.clj"                    (*render* "dailycred/auth.clj")]
          ["src/{{sanitized}}/views/templates/registration.html"  (*render* "dailycred/templates/registration.html")]]))
 
 (defmethod post-process :+site-dailycred [_ project-file]
@@ -143,7 +144,7 @@
             *render*   #((renderer "luminus") % data)]
     (reset! features             
             (if (some #{"+dailycred"} feature-params)
-              (->> feature-params (remove #{"+dailycred" "+site"}) (cons "+site-dailycred"))                             
+              (->> feature-params (remove #{"+dailycred" "+site"}) (cons "+site-dailycred"))
               feature-params))
 
     (println "Generating a lovely new Luminus project named" (str name "..."))
@@ -169,8 +170,8 @@
               "resources/public/js"
               "resources/public/img"
               ;; tests
-              ["test/{{sanitized}}/test/handler.clj" (*render* "handler_test.clj")]]               
-             (include-features)))      
+              ["test/{{sanitized}}/test/handler.clj" (*render* "handler_test.clj")]]
+             (include-features)))
     (inject-dependencies) ))
 
 (defn format-features [features]
