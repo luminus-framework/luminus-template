@@ -32,6 +32,10 @@
 (defn js-tag [item]
   {:tag :script :attrs {:src item :type "text/javascript"} :content nil})
 
+(defn add-css [content tags]  
+  (let [[a b](split-with #(not= :link (:tag %)) content)] 
+    (concat a (map css-tag tags) b)))
+
 (defn add-to-layout [filename css js]
   (let [template (parse-template filename)]
     (write-template
@@ -40,9 +44,9 @@
         (xml/emit
           (clojure.walk/prewalk
             (fn [item]
-              (if (= :head (:tag item))
+              (if (= :head (:tag item))                
                 (update-in item [:content]
-                           concat (map css-tag css) (map js-tag js))
+                           #(-> % (add-css css) (concat (map js-tag js))))
                 item))
             template))))))
 
