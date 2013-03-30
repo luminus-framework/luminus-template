@@ -21,7 +21,7 @@
     (StreamSource. (StringReader. (.replaceAll xml "\n" "")))
     (StreamResult. (io/writer filename))))
 
-(defn parse-template [filename]
+(defn parse-template [filename]  
   (-> filename
       (io/input-stream)
       (xml/parse)))

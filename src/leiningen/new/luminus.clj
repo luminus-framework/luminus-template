@@ -41,6 +41,14 @@
    ["resources/public/img/glyphicons-halflings-white.png" (*render* "bootstrap/img/glyphicons-halflings-white.png")]
    ["resources/public/img/glyphicons-halflings.png"       (*render* "bootstrap/img/glyphicons-halflings.png")]])
 
+(defmethod post-process :+bootstrap [_ project-file]    
+  (if-not (some #{"+site"} @features) 
+    (add-to-layout (sanitized-path "/views/templates/base.html")      
+                   ["{{context}}/css/bootstrap.min.css"
+                    "{{context}}/css/bootstrap-responsive.min.css"]
+                   ["//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"
+                    "{{context}}/js/bootstrap.min.js"])))
+
 (defmethod add-feature :+cljs [_]
   [["src-cljs/{{sanitized}}/tetris.cljs" (*render* "cljs/tetris.cljs")]
    ["src-cljs/{{sanitized}}/game.cljs" (*render* "cljs/game.cljs")]
@@ -76,34 +84,6 @@
   (add-sql-dependencies project-file
                         ['postgresql/postgresql "9.1-901.jdbc4"]))
 
-(defmethod add-feature :+hiccup [_]
-  [["src/{{sanitized}}/routes/home.clj"  (*render* "hiccup/home.clj")]  
-   ["src/{{sanitized}}/views/layout.clj" (*render* "hiccup/layout.clj")]])
-
-(defmethod post-process :+hiccup [_ project-file]    
-  (if (some #{"+bootstrap"} @features)
-    (add-to-layout-hiccup (sanitized-path "/views/layout.clj")      
-                          ["/css/bootstrap.min.css"
-                           "/css/bootstrap-responsive.min.css"]
-                          ["//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"
-                           "/js/bootstrap.min.js"])))
-
-
-(defmethod add-feature :+clabango [_]
-  [["src/{{sanitized}}/routes/home.clj"            (*render* "clabango/home.clj")]
-   ["src/{{sanitized}}/views/layout.clj"           (*render* "clabango/layout.clj")]
-   ["src/{{sanitized}}/views/templates/base.html"  (*render* "clabango/templates/base.html")]
-   ["src/{{sanitized}}/views/templates/home.html"  (*render* "clabango/templates/home.html")]
-   ["src/{{sanitized}}/views/templates/about.html" (*render* "clabango/templates/about.html")]])
-
-(defmethod post-process :+clabango [_ project-file]    
-  (if (some #{"+bootstrap"} @features)
-    (add-to-layout (sanitized-path "/views/templates/base.html")      
-                   ["{{context}}/css/bootstrap.min.css"
-                    "{{context}}/css/bootstrap-responsive.min.css"]
-                   ["//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"
-                    "{{context}}/js/bootstrap.min.js"])))
-
 (defn site-required-features []
   (remove empty? 
           (concat 
@@ -115,58 +95,30 @@
             (if-not (some #{"+h2" "+postgres"} @features)
               (add-feature :+h2)))))
 
-(defmethod add-feature :+site-hiccup [_]
-  (into     
-    [["src/{{sanitized}}/routes/home.clj"  (*render* "hiccup/home.clj")]
-     ["src/{{sanitized}}/views/layout.clj" (*render* "site/hiccup/layout.clj")]
-     ["src/{{sanitized}}/routes/auth.clj"  (*render* "site/hiccup/auth.clj")]]              
-    (site-required-features)))
-
-(defmethod post-process :+site-hiccup [_ project-file]
-  (if-not (some #{"+h2" "+postgres"} @features)
-    (post-process :+h2 project-file))
-  ;;update hiccup layout with bootstrap css/js
-  (post-process :+hiccup project-file))
-
-(defmethod add-feature :+site-clabango [_]
+(defmethod add-feature :+site [_]
   (into  
-    [["src/{{sanitized}}/routes/home.clj"                    (*render* "clabango/home.clj")]
-     ["src/{{sanitized}}/routes/auth.clj"                    (*render* "site/clabango/auth.clj")]
-     ["src/{{sanitized}}/views/layout.clj"                   (*render* "site/clabango/layout.clj")]     
-     ["src/{{sanitized}}/views/templates/home.html"          (*render* "clabango/templates/home.html")]
-     ["src/{{sanitized}}/views/templates/about.html"         (*render* "clabango/templates/about.html")]
-     ["src/{{sanitized}}/views/templates/base.html"          (*render* "site/clabango/templates/base.html")]              
-     ["src/{{sanitized}}/views/templates/registration.html"  (*render* "site/clabango/templates/registration.html")]]
+    [["src/{{sanitized}}/routes/home.clj"                    (*render* "home.clj")]
+     ["src/{{sanitized}}/routes/auth.clj"                    (*render* "site/auth.clj")]
+     ["src/{{sanitized}}/views/layout.clj"                   (*render* "site/layout.clj")]     
+     ["src/{{sanitized}}/views/templates/home.html"          (*render* "templates/home.html")]
+     ["src/{{sanitized}}/views/templates/about.html"         (*render* "templates/about.html")]
+     ["src/{{sanitized}}/views/templates/base.html"          (*render* "site/templates/base.html")]              
+     ["src/{{sanitized}}/views/templates/profile.html"       (*render* "site/templates/profile.html")]
+     ["src/{{sanitized}}/views/templates/registration.html"  (*render* "site/templates/registration.html")]]
     (site-required-features)))
 
-(defmethod post-process :+site-clabango [_ project-file]
+(defmethod post-process :+site [_ project-file]
   (if-not (some #{"+h2" "+postgres"} @features)
-    (post-process :+h2 project-file))
-  ;;update clabango layout with bootstrap css/js
-  (post-process :+clabango project-file))
+    (post-process :+h2 project-file)))
 
-(defmethod add-feature :+dailycred [_]
-  [["src/{{sanitized}}/dailycred.clj"                        (*render* "dailycred/dailycred.clj")]])
+(defmethod add-feature :+site-dailycred [_]
+  (into (add-feature :+site)                
+        [["src/{{sanitized}}/dailycred.clj"                      (*render* "dailycred/dailycred.clj")]
+         ["src/{{sanitized}}/routes/auth.clj"                    (*render* "dailycred/auth.clj")]                              
+         ["src/{{sanitized}}/views/templates/registration.html"  (*render* "dailycred/templates/registration.html")]]))
 
-(defmethod add-feature :+site-hiccup-dailycred [_]
-  (into []
-        (concat (add-feature :+site-hiccup)
-                (add-feature :+dailycred)
-                [["src/{{sanitized}}/routes/auth.clj"                    (*render* "dailycred/hiccup/auth.clj")]])))
-
-(defmethod post-process :+site-hiccup-dailycred [_ project-file]
-  (post-process :+site-hiccup project-file))
-
-(defmethod add-feature :+site-clabango-dailycred [_]
-  (into []
-        (concat (add-feature :+site-clabango)
-                (add-feature :+dailycred)
-                [["src/{{sanitized}}/routes/auth.clj"                    (*render* "dailycred/clabango/auth.clj")]
-                 ["src/{{sanitized}}/views/templates/base.html"          (*render* "dailycred/clabango/templates/base.html")]              
-                 ["src/{{sanitized}}/views/templates/registration.html"  (*render* "dailycred/clabango/templates/registration.html")]])))
-
-(defmethod post-process :+site-clabango-dailycred [_ project-file]
-  (post-process :+site-clabango project-file))
+(defmethod post-process :+site-dailycred [_ project-file]
+  (post-process :+site project-file))
 
 (defmethod add-feature :default [feature]
  (throw (new Exception 
@@ -178,44 +130,21 @@
   (mapcat add-feature @features))
 
 (defn inject-dependencies []
-  (let [project-file (str *name* File/separator "project.clj")
-        hiccup? (some #{"+hiccup" "+site-hiccup"} @features)
-        dailycred? (some #{"+dailycred" "+site-clabango-dailycred" "+site-hiccup-dailycred"} @features)]
+  (let [project-file (str *name* File/separator "project.clj")]
 
     (doseq [feature @features]
       (post-process feature project-file))
-    
-    (if hiccup?
-      (add-dependencies project-file ['hiccup "1.0.3"])
-      (do
-        (add-dependencies project-file ['clabango "0.5"])
-        (rewrite-template-tags (sanitized-path "/views/templates/"))))
-    
-    (if dailycred?
-      (add-dependencies project-file ['org.clojure/data.json "0.2.1"]))
-    
+        
+    (rewrite-template-tags (sanitized-path "/views/templates/"))
     (set-lein-version project-file "2.0.0")))
 
 (defn generate-project [name feature-params data]
   (binding [*name*     name
             *render*   #((renderer "luminus") % data)]
-    (reset! features 
-            (cond
-              (and (some #{"+dailycred"} feature-params) (some #{"+site"} feature-params) (some #{"+hiccup"} feature-params))
-              (->> feature-params (remove #{"+dailycred" "+site" "+hiccup"}) (cons "+site-hiccup-dailycred"))             
-             
-              (and (some #{"+hiccup"} feature-params) (some #{"+site"} feature-params))
-              (->> feature-params (remove #{"+hiccup" "+site"}) (cons "+site-hiccup"))
-              
-              (some #{"+hiccup"} feature-params) feature-params
-
-              (and (some #{"+dailycred"} feature-params) (some #{"+site"} feature-params))
-              (->> feature-params (remove #{"+dailycred" "+site" "+clabango"}) (cons "+site-clabango-dailycred"))             
-             
-              (some #{"+site"} feature-params)
-              (->> feature-params (remove #{"+site"}) (cons "+site-clabango"))
-
-              :else (cons "+clabango" feature-params)))
+    (reset! features             
+            (if (some #{"+dailycred"} feature-params)
+              (->> feature-params (remove #{"+dailycred" "+site"}) (cons "+site-dailycred"))                             
+              feature-params))
 
     (println "Generating a lovely new Luminus project named" (str name "..."))
 
@@ -228,8 +157,13 @@
               ;; core namespaces
               ["src/{{sanitized}}/handler.clj" (*render* "handler.clj")]
               ["src/{{sanitized}}/repl.clj"  (*render* "repl.clj")]
-              ["src/{{sanitized}}/util.clj"    (*render* "util.clj")]                               
+              ["src/{{sanitized}}/util.clj"    (*render* "util.clj")]
+              ["src/{{sanitized}}/routes/home.clj"            (*render* "home.clj")]
+              ["src/{{sanitized}}/views/layout.clj"           (*render* "layout.clj")]
               ;; public resources, example URL: /css/screen.css
+              ["src/{{sanitized}}/views/templates/base.html"  (*render* "templates/base.html")]
+              ["src/{{sanitized}}/views/templates/home.html"  (*render* "templates/home.html")]
+              ["src/{{sanitized}}/views/templates/about.html" (*render* "templates/about.html")]
               ["resources/public/css/screen.css" (*render* "screen.css")]
               ["resources/public/md/docs.md" (*render* "docs.md")]
               "resources/public/js"
@@ -246,7 +180,7 @@
   "Create a new Luminus project"
   [name & feature-params]
   (check-lein-version)
-  (let [supported-features #{"+bootstrap" "+cljs" "+hiccup" "+site" "+h2" "+postgres" "+dailycred"}
+  (let [supported-features #{"+bootstrap" "+cljs" "+site" "+h2" "+postgres" "+dailycred"}
         data {:name name
               :sanitized (sanitize name)
               :year (year)}

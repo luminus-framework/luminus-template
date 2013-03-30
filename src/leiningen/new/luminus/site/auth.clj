@@ -1,5 +1,5 @@
 (ns {{name}}.routes.auth
-  (:use hiccup.form compojure.core)
+  (:use compojure.core)
   (:require [{{name}}.views.layout :as layout]
             [noir.session :as session]
             [noir.response :as resp]
@@ -16,38 +16,39 @@
              [:pass1 "entered passwords do not match"])
   (not (vali/errors? :id :pass :pass1)))
 
-(defn field [f fname flabel & [value]]
-  (let [sname (name fname)
-        error-item (fn [[error]] [:div.error error])]
-    (list (label {:for sname} sname flabel)
-          (vali/on-error fname error-item)
-          [:p (f {:tabindex 1} sname value)])))
-
 (defn register [& [id]]
-  (layout/base
-    (form-to [:post "/register"]
-             (field text-field :id "user id" id)
-             (field password-field :pass "password")
-             (field password-field :pass1 "retype password")
-             (submit-button {:class "btn" :tabindex 4} "create account"))))
+  (layout/render
+    "registration.html"
+    {:id id
+     :id-error (vali/on-error :id first)
+     :pass-error (vali/on-error :pass first)
+     :pass1-error (vali/on-error :pass1 first)}))
 
 (defn handle-registration [id pass pass1]
   (if (valid? id pass pass1)
     (try
       (do
         (db/create-user {:id id :pass (crypt/encrypt pass)})
-        (session/put! :user id)
+        (session/put! :user-id id)
         (resp/redirect "/"))
       (catch Exception ex
         (vali/rule false [:id (.getMessage ex)])
         (register)))
     (register id)))
 
+(defn profile []
+  (layout/render
+    "profile.html"
+    {:user (db/get-user (session/get :user-id))}))
+
+(defn update-profile [{:keys [first-name last-name email]}]
+  (db/update-user (session/get :user-id) first-name last-name email)
+  (profile))
+
 (defn handle-login [id pass]
   (let [user (db/get-user id)]
     (if (and user (crypt/compare pass (:pass user)))
-      (session/put! :user id)
-      )
+      (session/put! ::user-id id))
     (resp/redirect "/")))
 
 (defn logout []
@@ -61,8 +62,12 @@
   (POST "/register" [id pass pass1]
         (handle-registration id pass pass1))
 
+  (GET "/profile" [] (profile))
+  
+  (POST "/update-profile" {params :params} (update-profile params))
+  
   (POST "/login" [id pass]
         (handle-login id pass))
 
-  (POST "/logout" []
+  (GET "/logout" []
         (logout)))

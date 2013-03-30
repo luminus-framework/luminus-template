@@ -1,4 +1,4 @@
-## Some links to get started
+### Here are some links to get started
 
 1. [HTML templating](http://www.luminusweb.net/docs/html_templating.md)
 2. [Accessing the database](http://www.luminusweb.net/docs/database.md)

@@ -5,6 +5,7 @@
                  [lib-noir "0.4.9"]
                  [compojure "1.1.5"]
                  [ring-server "0.2.7"]
+                 [clabango "0.5"]
                  [com.taoensso/timbre "1.5.2"]
                  [com.taoensso/tower "1.4.0"]
                  [markdown-clj "0.9.19"]]
