@@ -10,10 +10,6 @@
 (declare ^{:dynamic true} *render*)
 (def features (atom nil))
 
-(defn check-lein-version [& [prefix]]
-  (if (< (lein-generation) 2)
-    (throw (new Exception "Leiningen version 2.x is required"))))
-
 (defn sanitized-path [& path]
   (.replaceAll
    (str *name* "/src/" (sanitize *name*) (apply str path))
@@ -188,7 +184,6 @@
 (defn luminus
   "Create a new Luminus project"
   [name & feature-params]
-  (check-lein-version)
   (let [supported-features #{"+bootstrap" "+cljs" "+site" "+h2" "+postgres" "+dailycred" "+mysql"}
         data {:name name
               :sanitized (sanitize name)
@@ -198,9 +193,16 @@
                         (not-empty))]
 
     (cond
+     (< (lein-generation) 2)
+     (println "Leiningen version 2.x is required.")
+
+     (re-matches #"\A\+.+" name)
+     (println "Project name is missing.\nTry: lein new luminus PROJECT_NAME"
+              name (clojure.string/join " " feature-params))
+
      unsupported
-     (println "unrecognized options:" (format-features unsupported)
-              "\nsupported options are:" (format-features supported-features))
+     (println "Unrecognized options:" (format-features unsupported)
+              "\nSupported options are:" (format-features supported-features))
 
      (.exists (new File name))
      (println "Could not create project because a directory named" name "already exists!")
