@@ -67,7 +67,7 @@
    project-file
    :cljsbuild
    {:builds
-    [{:source-path "src-cljs",
+    [{:source-paths ["src-cljs"]
       :compiler {:output-to "resources/public/js/tetris.js"
                  :optimizations :advanced
                  :pretty-print false}}]}))
