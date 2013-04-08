@@ -2,11 +2,17 @@
 
 {% block content %}
 
+<br/>
 <div id="messages"></div>
+<textarea id="message"></textarea>
+<br/>
+<input type="text" id="user"></input>
+<br/>
+<button id="send">add message</button>
 
 <!--  scripts -->
 <script type="text/javascript" src="js/site.js"></script>
 <script type="text/javascript">
-	main.init();
+	{{sanitized}}.main.init();
 </script>
 {% endblock %}
