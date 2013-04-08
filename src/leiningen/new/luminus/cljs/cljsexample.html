@@ -1,0 +1,12 @@
+{% extends "{{sanitized}}/views/templates/base.html" %}
+
+{% block content %}
+
+<div id="messages"></div>
+
+<!--  scripts -->
+<script type="text/javascript" src="js/site.js"></script>
+<script type="text/javascript">
+	main.init();
+</script>
+{% endblock %}
