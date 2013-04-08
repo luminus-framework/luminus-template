@@ -51,20 +51,24 @@
                    ["//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"
                     "{{context}}/js/bootstrap.min.js"])))
 
-(defmethod add-feature :+cljs [_]
-  [["src-cljs/{{sanitized}}/tetris.cljs" (*render* "cljs/tetris.cljs")]
-   ["src-cljs/{{sanitized}}/game.cljs" (*render* "cljs/game.cljs")]
-   ["resources/public/tetris.html" (*render* "cljs/tetris.html")]])
+(defmethod add-feature :+cljs [_]  
+  [["src/{{sanitized}}/routes/cljsexample.clj"  (*render* "cljs/cljsexample.clj")]
+   ["src-cljs/ajax.cljs"  (*render* "cljs/ajax.cljs")]   
+   ["src-cljs/main.cljs"  (*render* "cljs/main.cljs")]
+   ["src/{{sanitized}}/views/templates/cljsexample.html" (*render* "cljs/cljsexample.html")]])
 
-(defmethod post-process :+cljs [_ project-file]
-  (add-dependencies project-file ['jayq "2.3.0"] ['prismatic/dommy "0.0.2"])
+(defmethod post-process :+cljs [_ project-file]  
+  (add-required (sanitized-path "/handler.clj") 
+                [(symbol (str *name* ".routes.cljsexample")) :refer ['cljs-routes]])
+  (add-routes (sanitized-path "/handler.clj") 'cljs-routes)
+  (add-dependencies project-file ['domina "1.0.0"] ['prismatic/dommy "0.1.0"])
   (add-plugins project-file ['lein-cljsbuild "0.3.0"])
   (add-to-project
    project-file
    :cljsbuild
    {:builds
     [{:source-paths ["src-cljs"]
-      :compiler {:output-to "resources/public/js/tetris.js"
+      :compiler {:output-to "resources/public/js/site.js"
                  :optimizations :advanced
                  :pretty-print false}}]}))
 

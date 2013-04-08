@@ -75,7 +75,7 @@
         (clojure.walk/prewalk
           (fn [x]
             (if (and (coll? x) (= (first x) :require))
-              (into x requires) x))
+              (concat x requires) x))
           expr)
         expr))))
 
