@@ -47,10 +47,7 @@
 (defn ajax-request [rel-url method {:keys [format handler error-handler params]}]
   (let [req              (new goog.net.XhrIo)
         response-handler (base-handler format handler error-handler)]
-    (events/listen req goog.net.EventType/COMPLETE response-handler)    
-    (events/listen req goog.net.EventType/COMPLETE response-handler)
-    (events/listen req goog.net.EventType/COMPLETE response-handler)
-    (events/listen req goog.net.EventType/COMPLETE response-handler)
+    (events/listen req goog.net.EventType/COMPLETE response-handler)        
     (.send req (str js/context rel-url) method (params-to-str params))))
 
 (defn GET
