@@ -60,7 +60,12 @@
   (add-required (sanitized-path "/handler.clj") 
                 [(symbol (str *name* ".routes.cljsexample")) :refer ['cljs-routes]])
   (add-routes (sanitized-path "/handler.clj") 'cljs-routes)
-  (add-dependencies project-file ['domina "1.0.0"] ['prismatic/dommy "0.1.0"] ['cljs-ajax "0.1.0"])
+  (add-dependencies project-file
+                    ;;needed to get the latest version of ClojureScript until cljsbuild gets up to date
+                    ['org.clojure/clojurescript "0.0-1586"]
+                    ['domina "1.0.0"]
+                    ['prismatic/dommy "0.1.0"]
+                    ['cljs-ajax "0.1.0"])
   (add-plugins project-file ['lein-cljsbuild "0.3.0"])
   (add-to-project
    project-file
