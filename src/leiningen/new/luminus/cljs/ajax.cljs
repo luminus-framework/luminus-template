@@ -25,13 +25,12 @@
 (defn base-handler [& [format handler error-handler]] 
   (fn [response]        
     (let [target        (.-target response)
-          status        (.getStatus target)
-          response-text (.getResponseText target)]
+          status        (.getStatus target)]
       (if (success? status) 
         (if handler
           (handler (condp = (or format :edn)
-                     :json (js->clj response-text)
-                     :edn (reader/read-string response-text)
+                     :json (js->clj (.getResponseJson target))
+                     :edn (reader/read-string (.getResponseText target))
                      (throw (js/Error. (str "unrecognized format: " format))))))
         (if error-handler 
           (error-handler {:status status
@@ -49,6 +48,9 @@
   (let [req              (new goog.net.XhrIo)
         response-handler (base-handler format handler error-handler)]
     (events/listen req goog.net.EventType/COMPLETE response-handler)    
+    (events/listen req goog.net.EventType/COMPLETE response-handler)
+    (events/listen req goog.net.EventType/COMPLETE response-handler)
+    (events/listen req goog.net.EventType/COMPLETE response-handler)
     (.send req (str js/context rel-url) method (params-to-str params))))
 
 (defn GET
