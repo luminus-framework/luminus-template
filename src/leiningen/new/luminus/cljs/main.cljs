@@ -24,5 +24,4 @@
 
 (defn ^:export init []
   (GET "/messages" {:handler render-messages})
-  (listen! (by-id "send") 
-           :click add-message))
+  (listen! (by-id "send") :click add-message))
