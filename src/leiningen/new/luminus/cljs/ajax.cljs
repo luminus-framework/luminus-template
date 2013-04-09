@@ -24,8 +24,8 @@
 
 (defn base-handler [& [format handler error-handler]] 
   (fn [response]        
-    (let [target        (.-target response)
-          status        (.getStatus target)]
+    (let [target (.-target response)
+          status (.getStatus target)]
       (if (success? status) 
         (if handler
           (handler (condp = (or format :edn)
