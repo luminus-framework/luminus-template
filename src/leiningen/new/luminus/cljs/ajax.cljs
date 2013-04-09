@@ -23,8 +23,7 @@
   (some #{status} [200 201 202 204 205 206]))
 
 (defn base-handler [& [format handler error-handler]] 
-  (fn [response]
-        
+  (fn [response]        
     (let [target        (.-target response)
           status        (.getStatus target)
           response-text (.getResponseText target)]
