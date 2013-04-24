@@ -65,7 +65,7 @@
                     ['org.clojure/clojurescript "0.0-1586"]
                     ['domina "1.0.0"]
                     ['prismatic/dommy "0.1.0"]
-                    ['cljs-ajax "0.1.0"])
+                    ['cljs-ajax "0.1.1"])
   (add-plugins project-file ['lein-cljsbuild "0.3.0"])
   (add-to-project
    project-file
