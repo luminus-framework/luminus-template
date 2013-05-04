@@ -21,7 +21,7 @@
   []
   (timbre/set-config!
     [:appenders :rotor]
-    {:min-level :error
+    {:min-level :info
      :enabled? true
      :async? false ; should be always false for rotor
      :max-message-per-msecs nil
@@ -29,7 +29,7 @@
   
   (timbre/set-config!
     [:shared-appender-config :rotor]
-    {:path "error.log" :max-size 10000 :backlog 10})
+    {:path "{{sanitized}}.log" :max-size 10000 :backlog 10})
   
   (timbre/info "{{name}} started successfully"))
 
