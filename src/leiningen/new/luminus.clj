@@ -97,6 +97,19 @@
   (add-sql-dependencies project-file
                         ['mysql/mysql-connector-java "5.1.6"]))
 
+(defmethod add-feature :+http-kit [_])
+
+(defmethod post-process :+http-kit [_ project-file]  
+  (add-dependencies project-file ['http-kit "2.1.1"])
+  (add-to-project project-file :main (symbol (str *name* ".handler")))
+  (add-required (sanitized-path "/handler.clj") 
+                ['org.httpkit.server :as 'httpkit])
+  (append-exps (sanitized-path "/handler.clj")
+               '(defn -main [& [port]]
+                  (let [port (or port 8080)]
+                    (httpkit/run-server war-handler {:port 8080})
+                    (timbre/info "server started on port")))))
+
 (defn site-required-features []
   (remove empty?
           (concat
@@ -192,7 +205,7 @@
 (defn luminus
   "Create a new Luminus project"
   [name & feature-params]
-  (let [supported-features #{"+bootstrap" "+cljs" "+site" "+h2" "+postgres" "+dailycred" "+mysql"}
+  (let [supported-features #{"+bootstrap" "+cljs" "+site" "+h2" "+postgres" "+dailycred" "+mysql" "+http-kit"}
         data {:name name
               :sanitized (sanitize name)
               :year (year)}

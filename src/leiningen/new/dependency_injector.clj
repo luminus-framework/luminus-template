@@ -87,6 +87,15 @@
         (list 'def 'all-routes (into (vec routes) (last expr)))
         expr))))
 
+(defn append-exps [filename & exps]
+  (let [file (slurp filename)]
+    (with-open [wrt (io/writer filename)]
+      (.write wrt file)
+      (doseq [exp exps]
+        (.write wrt "\n")
+        (.write wrt (pprint-code exp)))
+      (.write wrt "\n"))))
+
 (defn set-lein-version [filename version]
   (spit filename
         (let [project-str (.trim (slurp filename))
