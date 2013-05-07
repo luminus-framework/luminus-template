@@ -19,7 +19,7 @@
     (seq)))
 
 (defn- pprint-code [code]
-  (with-out-str (with-pprint-dispatch code-dispatch (pprint code))))
+  (.replaceAll (with-out-str (with-pprint-dispatch code-dispatch (pprint code))) "\\\\n" "\n"))
 
 (defn- write-project [filename f name version m]
   (spit filename (pprint-code (to-project f name version m))))

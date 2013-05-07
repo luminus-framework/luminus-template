@@ -102,13 +102,23 @@
 (defmethod post-process :+http-kit [_ project-file]  
   (add-dependencies project-file ['http-kit "2.1.1"])
   (add-to-project project-file :main (symbol (str *name* ".handler")))
-  (add-required (sanitized-path "/handler.clj") 
-                ['org.httpkit.server :as 'httpkit])
+  (add-required (sanitized-path "/handler.clj")
+                ['ring.middleware.reload :as 'reload]
+                ['org.httpkit.server :as 'http-kit])
   (append-exps (sanitized-path "/handler.clj")
-               '(defn -main [& [port]]
-                  (let [port (or port 8080)]
-                    (httpkit/run-server war-handler {:port 8080})
-                    (timbre/info "server started on port")))))
+               '(defn dev? [args]
+                  (some #{"-dev"} args))
+               '(defn port [args]
+                  (if-let [port (first (remove #{"-dev"} args))]
+                    (Integer/parseInt port)
+                    8080))
+               '(defn -main [& args]
+                  (http-kit/run-server 
+                    (if (dev? args)
+                      (reload/wrap-reload war-handler)
+                      war-handler) 
+                    {:port (port args)})
+                  (timbre/info "server started on port"))))
 
 (defn site-required-features []
   (remove empty?
