@@ -97,28 +97,12 @@
   (add-sql-dependencies project-file
                         ['mysql/mysql-connector-java "5.1.6"]))
 
-(defmethod add-feature :+http-kit [_])
+(defmethod add-feature :+http-kit [_]
+  [["src//{{sanitized}}/core.clj"  (*render* "core.clj")]])
 
 (defmethod post-process :+http-kit [_ project-file]  
   (add-dependencies project-file ['http-kit "2.1.1"])
-  (add-to-project project-file :main (symbol (str *name* ".handler")))
-  (add-required (sanitized-path "/handler.clj")
-                ['ring.middleware.reload :as 'reload]
-                ['org.httpkit.server :as 'http-kit])
-  (append-exps (sanitized-path "/handler.clj")
-               '(defn dev? [args]
-                  (some #{"-dev"} args))
-               '(defn port [args]
-                  (if-let [port (first (remove #{"-dev"} args))]
-                    (Integer/parseInt port)
-                    8080))
-               '(defn -main [& args]
-                  (http-kit/run-server 
-                    (if (dev? args)
-                      (reload/wrap-reload war-handler)
-                      war-handler) 
-                    {:port (port args)})
-                  (timbre/info "server started on port"))))
+  (add-to-project project-file :main (symbol (str *name* ".core"))))
 
 (defn site-required-features []
   (remove empty?
