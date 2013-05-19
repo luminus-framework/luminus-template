@@ -4,7 +4,8 @@
   (:require [noir.util.middleware :as middleware]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
-            [com.postspectacular.rotor :as rotor]))
+            [com.postspectacular.rotor :as rotor])
+  (:gen-class))
 
 (defroutes app-routes
   (route/resources "/")

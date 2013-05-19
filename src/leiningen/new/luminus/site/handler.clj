@@ -7,7 +7,8 @@
             [compojure.route :as route]
             [{{name}}.models.schema :as schema]
             [taoensso.timbre :as timbre]
-            [com.postspectacular.rotor :as rotor]))
+            [com.postspectacular.rotor :as rotor])
+  (:gen-class))
 
 (defroutes app-routes
   (route/resources "/")
