@@ -45,6 +45,8 @@
 (def app (middleware/app-handler all-routes 
                                  ;;put any custom middleware
                                  ;;in the middleware vector
-                                 :middleware []))
+                                 :middleware []
+                                 ;;add access rules here
+                                 :access-rules []))
 
 (def war-handler (middleware/war-handler app))
