@@ -39,14 +39,13 @@
   []
   (timbre/info "{{name}} is shutting down..."))
 
-;;append your application routes to the all-routes vector
-(def all-routes [home-routes app-routes])
-
-(def app (middleware/app-handler all-routes 
-                                 ;;put any custom middleware
-                                 ;;in the middleware vector
-                                 :middleware []
-                                 ;;add access rules here
-                                 :access-rules []))
+(def app (middleware/app-handler
+           ;;add your application routes here
+           [home-routes app-routes]
+           ;;add custom middleware here           
+           :middleware []
+           ;;add access rules here
+           ;;each rule should be a vector
+           :access-rules []))
 
 (def war-handler (middleware/war-handler app))
