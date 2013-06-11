@@ -42,7 +42,7 @@
 
 (def app (middleware/app-handler
            ;;add your application routes here
-           [home-routes app-routes]
+           [auth-routes home-routes app-routes]
            ;;add custom middleware here           
            :middleware []
            ;;add access rules here

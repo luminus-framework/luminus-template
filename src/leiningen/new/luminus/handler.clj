@@ -29,7 +29,7 @@
   
   (timbre/set-config!
     [:shared-appender-config :rotor]
-    {:path "{{sanitized}}.log" :max-size 10000 :backlog 10})
+    {:path "{{sanitized}}.log" :max-size (* 512 1024) :backlog 10})
   
   (timbre/info "{{name}} started successfully"))
 
