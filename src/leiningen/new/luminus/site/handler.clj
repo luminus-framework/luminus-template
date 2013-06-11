@@ -1,8 +1,8 @@
 (ns {{name}}.handler
-  (:use {{name}}.routes.auth
-        {{name}}.routes.home
-        compojure.core)
-  (:require [noir.util.middleware :as middleware]
+  (:require [compojure.core :refer [defroutes]]
+            [{{name}}.routes.auth :refer [auth-routes]]
+            [{{name}}.routes.home :refer [home-routes]]
+            [noir.util.middleware :as middleware]
             [noir.session :as session]
             [compojure.route :as route]
             [{{name}}.models.schema :as schema]

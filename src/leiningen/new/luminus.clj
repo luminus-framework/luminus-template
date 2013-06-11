@@ -117,6 +117,7 @@
 (defmethod add-feature :+site [_]
   (into
    [["src/{{sanitized}}/routes/home.clj"                    (*render* "home.clj")]
+    ["src/{{sanitized}}/handler.clj"                        (*render* "site/handler.clj")]
     ["src/{{sanitized}}/routes/auth.clj"                    (*render* "site/auth.clj")]
     ["src/{{sanitized}}/views/layout.clj"                   (*render* "site/layout.clj")]
     ["src/{{sanitized}}/views/templates/home.html"          (*render* "templates/home.html")]

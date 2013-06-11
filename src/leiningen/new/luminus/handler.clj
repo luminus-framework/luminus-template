@@ -1,7 +1,7 @@
-(ns {{name}}.handler
-  (:use {{name}}.routes.home
-        compojure.core)
-  (:require [noir.util.middleware :as middleware]
+(ns {{name}}.handler  
+  (:require [compojure.core :refer [defroutes]]            
+            [{{name}}.routes.home :refer [home-routes]]
+            [noir.util.middleware :as middleware]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
             [com.postspectacular.rotor :as rotor]))
