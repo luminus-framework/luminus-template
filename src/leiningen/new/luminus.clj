@@ -47,7 +47,7 @@
     (add-to-layout (sanitized-path "/views/templates/base.html")
                    ["{{context}}/css/bootstrap.min.css"
                     "{{context}}/css/bootstrap-responsive.min.css"]
-                   ["//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"
+                   ["//code.jquery.com/jquery-1.10.1.min.js"
                     "{{context}}/js/bootstrap.min.js"])))
 
 (defmethod add-feature :+cljs [_]  
