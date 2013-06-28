@@ -51,7 +51,7 @@ You'll be able to run the
 To run the resulting standalone executable `.jar` file, do as you would with any other:
 
 ```bash
-java -jar target/myapp-0.1.0-SNAPSHOT-standalone.jar
+user$ java -jar target/myapp-0.1.0-SNAPSHOT-standalone.jar
 
 2012-12-15 19:17:23.471:INFO:oejs.Server:jetty-7.x.y-SNAPSHOT
 2012-12-15 19:17:23.512:INFO:oejs.AbstractConnector:Started
