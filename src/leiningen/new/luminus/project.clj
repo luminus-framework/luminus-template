@@ -9,7 +9,7 @@
                  [com.taoensso/timbre "2.1.2"]
                  [com.postspectacular/rotor "0.1.0"]
                  [com.taoensso/tower "1.7.1"]
-                 [markdown-clj "0.9.27"]]
+                 [markdown-clj "0.9.28"]]
   :plugins [[lein-ring "0.8.5"]]
   :ring {:handler {{name}}.handler/war-handler
          :init    {{name}}.handler/init
