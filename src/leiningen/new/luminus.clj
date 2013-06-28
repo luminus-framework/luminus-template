@@ -21,10 +21,10 @@
    schema-file])
 
 (defn add-sql-dependencies [project-file dependency]
-  (add-dependencies project-file                    
+  (add-dependencies project-file
                     dependency
                     ['korma "0.3.0-RC5"]
-                    ['log4j "1.2.15"
+                    ['log4j "1.2.17"
                      :exclusions ['javax.mail/mail
                                   'javax.jms/jms
                                   'com.sun.jdmk/jmxtools
@@ -50,19 +50,19 @@
                    ["//code.jquery.com/jquery-1.10.1.min.js"
                     "{{context}}/js/bootstrap.min.js"])))
 
-(defmethod add-feature :+cljs [_]  
-  [["src/{{sanitized}}/routes/cljsexample.clj"  (*render* "cljs/cljsexample.clj")]     
+(defmethod add-feature :+cljs [_]
+  [["src/{{sanitized}}/routes/cljsexample.clj"  (*render* "cljs/cljsexample.clj")]
    ["src-cljs/main.cljs"  (*render* "cljs/main.cljs")]
    ["src/{{sanitized}}/views/templates/cljsexample.html" (*render* "cljs/cljsexample.html")]])
 
-(defmethod post-process :+cljs [_ project-file]  
-  (add-required (sanitized-path "/handler.clj") 
+(defmethod post-process :+cljs [_ project-file]
+  (add-required (sanitized-path "/handler.clj")
                 [(symbol (str *name* ".routes.cljsexample")) :refer ['cljs-routes]])
   (add-routes (sanitized-path "/handler.clj") 'cljs-routes)
   (add-dependencies project-file
                     ;;needed to get the latest version of ClojureScript until cljsbuild gets up to date
                     ['org.clojure/clojurescript "0.0-1806"]
-                    ['domina "1.0.0"]
+                    ['domina "1.0.1"]
                     ['prismatic/dommy "0.1.1"]
                     ['cljs-ajax "0.1.3"])
   (add-plugins project-file ['lein-cljsbuild "0.3.2"])
@@ -80,7 +80,7 @@
 
 (defmethod post-process :+h2 [_ project-file]
   (add-sql-dependencies project-file
-                        ['com.h2database/h2 "1.3.170"]))
+                        ['com.h2database/h2 "1.3.172"]))
 
 (defmethod add-feature :+postgres [_]
   (add-sql-files ["src/{{sanitized}}/models/schema.clj" (*render* "dbs/postgres_schema.clj")]))
@@ -99,8 +99,8 @@
 (defmethod add-feature :+http-kit [_]
   [["src//{{sanitized}}/core.clj"  (*render* "core.clj")]])
 
-(defmethod post-process :+http-kit [_ project-file]  
-  (add-dependencies project-file ['http-kit "2.1.3"])
+(defmethod post-process :+http-kit [_ project-file]
+  (add-dependencies project-file ['http-kit "2.1.4"])
   (add-to-project project-file :main (symbol (str *name* ".core"))))
 
 (defn site-required-features []
