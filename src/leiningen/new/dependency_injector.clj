@@ -82,9 +82,13 @@
 (defn add-routes [filename & routes]
   (add-to-ns
     filename
-    (fn [expr]
-      (if (= 'all-routes (second expr))
-        (list 'def 'all-routes (into (vec routes) (last expr)))
+    (fn [expr]      
+      (if (and (= 'def (first expr)) (= 'app (second expr)))
+        (clojure.walk/prewalk
+          (fn [x]            
+            (if (and (vector? x) (some #(= % 'app-routes) x))
+              (into (vec routes) x) x))
+          expr)
         expr))))
 
 (defn append-exps [filename & exps]
