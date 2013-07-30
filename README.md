@@ -46,8 +46,6 @@ To build as a executable [Java ARchive (JAR)][jar] standalone, run the following
 lein ring uberjar
 ```
 
-You'll be able to run the 
-
 To run the resulting standalone executable `.jar` file, do as you would with any other:
 
 ```bash
