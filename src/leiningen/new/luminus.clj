@@ -196,6 +196,8 @@
 (defn format-features [features]
   (apply str (interpose ", " features)))
 
+(conj (set ["foo" ])  "+bootstrap")
+
 (defn luminus
   "Create a new Luminus project"
   [name & feature-params]
@@ -205,7 +207,8 @@
               :year (year)}
         unsupported (-> (set feature-params)
                         (clojure.set/difference supported-features)
-                        (not-empty))]
+                        (not-empty))
+        feature-params (conj (set feature-params) "+bootstrap")]
 
     (cond
      (< (lein-generation) 2)
