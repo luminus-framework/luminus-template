@@ -196,8 +196,6 @@
 (defn format-features [features]
   (apply str (interpose ", " features)))
 
-(conj (set ["foo" ])  "+bootstrap")
-
 (defn luminus
   "Create a new Luminus project"
   [name & feature-params]
