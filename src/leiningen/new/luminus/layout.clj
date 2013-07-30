@@ -1,6 +1,6 @@
 (ns {{name}}.views.layout
   (:use noir.request)
-  (:require [clabango.parser :as parser]))
+  (:require [selmer.parser :as parser]))
 
 (def template-path "{{sanitized}}/views/templates/")
 
