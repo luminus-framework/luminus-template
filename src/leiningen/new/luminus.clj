@@ -105,8 +105,7 @@
 
 (defn site-required-features []
   (remove empty?
-          (concat
-           [["src/{{sanitized}}/handler.clj" (*render* "site/handler.clj")]]
+          (concat           
            (if-not (some #{"+bootstrap"} @features)
              (do
                (swap! features conj "+bootstrap")
@@ -116,8 +115,7 @@
 
 (defmethod add-feature :+site [_]
   (into
-   [["src/{{sanitized}}/routes/home.clj"                    (*render* "home.clj")]
-    ["src/{{sanitized}}/handler.clj"                        (*render* "site/handler.clj")]
+   [["src/{{sanitized}}/routes/home.clj"                    (*render* "home.clj")]    
     ["src/{{sanitized}}/routes/auth.clj"                    (*render* "site/auth.clj")]
     ["src/{{sanitized}}/views/layout.clj"                   (*render* "site/layout.clj")]
     ["src/{{sanitized}}/views/templates/home.html"          (*render* "templates/home.html")]
@@ -129,7 +127,12 @@
 
 (defmethod post-process :+site [_ project-file]
   (if-not (some #{"+h2" "+postgres"} @features)
-    (post-process :+h2 project-file)))
+    (post-process :+h2 project-file))  
+  (add-required (sanitized-path "/handler.clj") 
+                [(symbol (str *name* ".routes.auth")) :refer ['auth-routes]]
+                [(symbol (str *name* ".models.schema")) :as 'schema])
+  (add-to-init (sanitized-path "/handler.clj") '(if-not (schema/initialized?) (schema/create-tables)))
+  (add-routes (sanitized-path "/handler.clj") 'auth-routes))
 
 (defmethod add-feature :+site-dailycred [_]
   (into (add-feature :+site)

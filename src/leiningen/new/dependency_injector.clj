@@ -79,6 +79,14 @@
           expr)
         expr))))
 
+(defn add-to-init [filename & exprs]
+  (add-to-ns
+    filename
+    (fn [item]
+      (if (= 'init (second item))
+        (concat (butlast item) exprs [(last item)])
+        item))))
+
 (defn add-routes [filename & routes]
   (add-to-ns
     filename
