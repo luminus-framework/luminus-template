@@ -10,9 +10,6 @@
   (route/resources "/")
   (route/not-found "Not Found"))
 
-(defn destroy []
-  (timbre/info "picture-gallery is shutting down"))
-
 (defn init
   "init will be called once when
    app is deployed as a servlet on
