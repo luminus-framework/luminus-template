@@ -3,7 +3,7 @@
 {% block content %}
 
 <h2>User details for #%user.id%#</h2>
-		<form action="#%context%#/update-profile" method="POST">
+		<form action="#%servlet-context%#/update-profile" method="POST">
 			<label for="id">first name</label>			
 			<p>
 				<input id="first-name" name="first-name" tabindex="1" type="text" value=#%user.first_name%#></input>

@@ -2,15 +2,15 @@
 <html>
 	<head>
 		<title>Welcome to {{name}}</title>		
-		<link href="#%context%#/css/bootstrap.min.css" rel="stylesheet" type="text/css"></link>
-		<link href="#%context%#/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"></link>
-		<link href="#%context%#/css/screen.css" rel="stylesheet" type="text/css"></link>
+		<link href="#%servlet-context%#/css/bootstrap.min.css" rel="stylesheet" type="text/css"></link>
+		<link href="#%servlet-context%#/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"></link>
+		<link href="#%servlet-context%#/css/screen.css" rel="stylesheet" type="text/css"></link>
 		
 		<script type="text/javascript">
-		var context = "#%context%#";
+		var context = "#%servlet-context%#";
 		</script>
 		<script type="text/javascript" src="//code.jquery.com/jquery-1.10.0.min.js"></script>
-		<script type="text/javascript" src="#%context%#/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="#%servlet-context%#/js/bootstrap.min.js"></script>
 
 	</head>
 	<body>
@@ -31,15 +31,15 @@
 								<i class="icon-user"></i>#%user-id%#<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a href="#%context%#/profile">Profile</a></li>
+								<li><a href="#%servlet-context%#/profile">Profile</a></li>
 		           				<li class="divider"></li>
-								<li><a href="#%context%#/logout">Sign Out</a></li>
+								<li><a href="#%servlet-context%#/logout">Sign Out</a></li>
 							</ul>
 						</div>
 						{% else %}
 						<ul class="nav pull-right">	
 						<li>				
-								<form action="#%context%#/login" class="navbar-form" method="POST">
+								<form action="#%servlet-context%#/login" class="navbar-form" method="POST">
 									<input class="span2" 
 									       id="id" 
 									       name="id" 
@@ -56,7 +56,7 @@
 								</form>
 								</li>
 								<li>
-									<a href="#%context%#/register">Register</a>
+									<a href="#%servlet-context%#/register">Register</a>
 								</li>
 						</ul>
 						{% endif %}

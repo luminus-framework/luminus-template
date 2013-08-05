@@ -45,10 +45,10 @@
   ;;site base.html template already has bootstrap included
   (if-not (some #{"+site"} @features)
     (add-to-layout (sanitized-path "/views/templates/base.html")
-                   ["{{context}}/css/bootstrap.min.css"
-                    "{{context}}/css/bootstrap-responsive.min.css"]
+                   ["{{servlet-context}}/css/bootstrap.min.css"
+                    "{{servlet-context}}/css/bootstrap-responsive.min.css"]
                    ["//code.jquery.com/jquery-1.10.1.min.js"
-                    "{{context}}/js/bootstrap.min.js"])))
+                    "{{servlet-context}}/js/bootstrap.min.js"])))
 
 (defmethod add-feature :+cljs [_]
   [["src/{{sanitized}}/routes/cljsexample.clj"  (*render* "cljs/cljsexample.clj")]

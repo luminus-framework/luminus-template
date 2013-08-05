@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block content %}
-		<form action="#%context%#/register" method="POST">
+		<form action="#%servlet-context%#/register" method="POST">
 			<label for="id">user id</label>
 			{% if id-error %}
 			<div class="error">#%id-error%#</div>

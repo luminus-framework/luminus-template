@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Welcome to {{name}}</title>
-	<link href="#%context%#/css/screen.css" rel="stylesheet" type="text/css"></link>
+	<title>Welcome to {{name}}</title>	
+	<link href="#%servlet-context%#/css/screen.css" rel="stylesheet" type="text/css"></link>
 	<script type="text/javascript">
-	var context = "#%context%#";
+	var context = "#%servlet-context%#";
 	</script>
 </head>
 <body>
@@ -12,8 +12,8 @@
 		<div class="navbar navbar-fixed-top navbar-inverse">
 			<div class="navbar-inner">
 				<ul class="nav">
-					<li><a href="#%context%#/">Home</a></li>
-					<li><a href="#%context%#/about">About</a></li>
+					<li><a href="#%servlet-context%#/">Home</a></li>
+					<li><a href="#%servlet-context%#/about">About</a></li>
 				</ul>
 			</div>
 		</div>

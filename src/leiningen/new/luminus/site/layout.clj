@@ -8,5 +8,5 @@
 (defn render [template & [params]]
   (parser/render-file (str template-path template)
                       (assoc (or params {})
-                        :context (:context *request*)
+                        :servlet-context (:context *request*)
                         :user-id (session/get :user-id))))

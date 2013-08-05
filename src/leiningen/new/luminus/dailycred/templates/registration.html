@@ -1,7 +1,7 @@
 {% extends "{{sanitized}}/views/templates/base.html" %}
 
 {% block content %}
-		<form action="/register" method="POST">
+		<form action="#%servlet-context%#/register" method="POST">
 			<label for="id">email</label>
 			{% if email-error %}
 			<div class="error">#%email-error%#</div>
