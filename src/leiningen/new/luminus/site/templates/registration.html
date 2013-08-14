@@ -5,6 +5,7 @@
 
 {% block content %}
 		<form action="#%servlet-context%#/register" method="POST">
+			#%antiforgery|safe%#
 			<label for="id">user id</label>
 			{% if id-error %}
 			<div class="error">#%id-error%#</div>

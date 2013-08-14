@@ -3,6 +3,7 @@
   :url "http://example.com/FIXME"
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [lib-noir "0.6.8"]
+                 [ring-anti-forgery "0.2.1"]
                  [compojure "1.1.5"]
                  [ring-server "0.2.8"]
                  [selmer "0.3.9"]
