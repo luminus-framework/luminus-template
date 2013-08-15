@@ -6,7 +6,7 @@
                  [ring-anti-forgery "0.2.1"]
                  [compojure "1.1.5"]
                  [ring-server "0.2.8"]
-                 [selmer "0.3.9"]
+                 [selmer "0.4.0"]
                  [com.taoensso/timbre "2.5.0"]
                  [com.postspectacular/rotor "0.1.0"]
                  [com.taoensso/tower "1.7.1"]
