@@ -3,14 +3,13 @@
   :url "http://example.com/FIXME"
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [lib-noir "0.6.8"]
-                 [ring-anti-forgery "0.2.1"]
                  [compojure "1.1.5"]
                  [ring-server "0.2.8"]
                  [selmer "0.4.0"]
                  [com.taoensso/timbre "2.5.0"]
                  [com.postspectacular/rotor "0.1.0"]
                  [com.taoensso/tower "1.7.1"]
-                 [markdown-clj "0.9.28"]]
+                 [markdown-clj "0.9.29"]]
   :plugins [[lein-ring "0.8.6"]]
   :ring {:handler {{name}}.handler/war-handler
          :init    {{name}}.handler/init

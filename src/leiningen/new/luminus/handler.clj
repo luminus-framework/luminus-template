@@ -4,8 +4,7 @@
             [noir.util.middleware :as middleware]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
-            [com.postspectacular.rotor :as rotor]
-            [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]))
+            [com.postspectacular.rotor :as rotor]))
 
 (defroutes app-routes
   (route/resources "/")
@@ -40,8 +39,8 @@
 (def app (middleware/app-handler
            ;;add your application routes here
            [home-routes app-routes]
-           ;;add custom middleware here           
-           :middleware [wrap-anti-forgery]
+           ;;add custom middleware here
+           :middleware []
            ;;add access rules here
            ;;each rule should be a vector
            :access-rules []))
