@@ -19,7 +19,6 @@ lein new luminus <your project name>
 
 However, if you would like to attach further functionality to your template you can append [profile hints][ph] for these extended features:
 
-* `+bootstrap` adds [Twitter Bootstrap][tbs] CSS/JS static resources
 * `+cljs` adds [ClojureScript][cljs] support to the project along with an example
 * `+h2` adds models.db namespace and [H2 database][h2] dependencies
 * `+postgres` adds models.db namespace and add [PostreSQL database][pg] dependencies
@@ -31,7 +30,7 @@ However, if you would like to attach further functionality to your template you 
 To add a profile simply pass it as an argument after your application name, e.g.:
 
 ```bash
-lein new luminus myapp +bootstrap
+lein new luminus myapp +cljs
 ```
 
 You can also mix multiple profiles when creating the application, e.g.:
