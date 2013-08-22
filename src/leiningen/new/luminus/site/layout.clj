@@ -1,8 +1,7 @@
 (ns {{name}}.views.layout
   (:require [selmer.parser :as parser]
             [noir.session :as session]
-            [ring.util.response :refer [response]]
-            compojure.response)
+            [ring.util.response :refer [response]])
   (:import compojure.response.Renderable))
 
 (def template-path "{{sanitized}}/views/templates/")
