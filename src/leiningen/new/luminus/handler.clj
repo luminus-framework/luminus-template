@@ -42,7 +42,6 @@
            ;;add custom middleware here
            :middleware []
            ;;add access rules here
-           ;;each rule should be a vector
            :access-rules []))
 
 (def war-handler (middleware/war-handler app))
