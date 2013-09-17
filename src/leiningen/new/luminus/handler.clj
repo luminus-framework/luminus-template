@@ -42,6 +42,8 @@
            ;;add custom middleware here
            :middleware []
            ;;add access rules here
-           :access-rules []))
+           :access-rules []
+           ;;serialize/deserialize the following data formats
+           :formats [:json-kw :edn]))
 
 (def war-handler (middleware/war-handler app))
