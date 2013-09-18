@@ -37,13 +37,15 @@
   (timbre/info "{{name}} is shutting down..."))
 
 (def app (middleware/app-handler
-           ;;add your application routes here
+           ;; add your application routes here
            [home-routes app-routes]
-           ;;add custom middleware here
+           ;; add custom middleware here
            :middleware []
-           ;;add access rules here
+           ;; add access rules here
            :access-rules []
-           ;;serialize/deserialize the following data formats
+           ;; serialize/deserialize the following data formats
+           ;; available formats:
+           ;; :json :json-kw :yaml :yaml-kw :edn :yaml-in-html
            :formats [:json-kw :edn]))
 
 (def war-handler (middleware/war-handler app))
