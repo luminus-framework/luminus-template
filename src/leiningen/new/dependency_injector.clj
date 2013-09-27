@@ -59,7 +59,7 @@
   (update-item-list filename :plugins 
                     #(if % (into % plugins) (vec plugins))))
 
-(defn add-to-ns [filename handler-fn & libs]
+(defn add-to-ns [filename handler-fn]
   (let [file (read-file filename)]
     (with-open [wrt (io/writer filename)]
       (doseq [expr file]
@@ -79,6 +79,15 @@
           expr)
         expr))))
 
+(defn replace-expr [filename old-expr new-expr]
+  (add-to-ns
+    filename
+    (fn [expr]
+      (clojure.walk/prewalk
+        (fn [expr]
+          (if (= expr old-expr) new-expr expr))
+        expr))))
+
 (defn add-to-init [filename & exprs]
   (add-to-ns
     filename
@@ -90,10 +99,10 @@
 (defn add-routes [filename & routes]
   (add-to-ns
     filename
-    (fn [expr]      
+    (fn [expr]
       (if (and (= 'def (first expr)) (= 'app (second expr)))
         (clojure.walk/prewalk
-          (fn [x]            
+          (fn [x]
             (if (and (vector? x) (some #(= % 'app-routes) x))
               (into (vec routes) x) x))
           expr)

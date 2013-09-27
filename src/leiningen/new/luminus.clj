@@ -105,7 +105,7 @@
 
 (defn site-required-features []
   (remove empty?
-          (concat           
+          (concat
            (if-not (some #{"+bootstrap"} @features)
              (do
                (swap! features conj "+bootstrap")
@@ -125,9 +125,13 @@
     ["src/{{sanitized}}/views/templates/registration.html"  (*render* "site/templates/registration.html")]]
    (site-required-features)))
 
+
 (defmethod post-process :+site [_ project-file]
   (if-not (some #{"+h2" "+postgres"} @features)
-    (post-process :+h2 project-file))  
+    (post-process :+h2 project-file))
+  (replace-expr (sanitized-path "/views/layout.clj")
+                '(assoc params :servlet-context (:context request))
+                '(assoc params :servlet-context (:context request) :user-id (session/get :user-id)))
   (add-required (sanitized-path "/handler.clj") 
                 [(symbol (str *name* ".routes.auth")) :refer ['auth-routes]]
                 [(symbol (str *name* ".models.schema")) :as 'schema])
