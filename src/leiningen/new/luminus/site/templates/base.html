@@ -4,7 +4,6 @@
 		<title>Welcome to {{name}}</title>
 	</head>
 	<body>
-			{% block navbar %}
 			<div class="navbar navbar-default navbar-fixed-top">
 				<div class="container">
 					<div class="navbar-header">
@@ -15,52 +14,11 @@
 						</button> 
 						<a class="navbar-brand" href="#%servlet-context%#/">{{name}}</a>
 					</div>
-					<div class="navbar-collapse collapse">
-					{% if user-id %}
-					<div class="btn-group pull-right">
-						<ul class="nav navbar-nav">
-							 <li class="dropdown">
-							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							 	<i class="icon-user"></i>#%user-id%# <b class="caret"></b>
-							 </a>
-							 <ul class="dropdown-menu">
-							 	<li><a href="#%servlet-context%#/profile">Profile</a></li>
-		           				<li class="divider"></li>
-								<li><a href="#%servlet-context%#/logout">Sign Out</a></li>
-							 </ul>
-							 </li>
-						</ul>
-					</div>
-					{% else %}
-					<div class="btn-group pull-right">
-						<ul class="nav navbar-nav">
-							 <li class="dropdown">		
-							<form action="#%servlet-context%#/login" class="navbar-form" method="POST">
-								<input class="span2"
-									       id="id"
-									       name="id"
-									       placeholder="user id"
-										   style="margin-right: 5px"
-										   type="text"/>
-									 <input class="span2"
-									        id="pass"
-									        name="pass"
-									        placeholder="password"
-										    style="margin-right: 5px"
-										    type="password"/>
-									<input class="btn" type="submit" value="Login"></input>
-							</form>
-							</li>
-							<li>
-								<a href="#%servlet-context%#/register">Register</a>
-							</li>
-						</ul>
-					</div>
-					{% endif %}
-					</div>
+					{% block menu %}
+					{% include "{{sanitized}}/views/templates/menu.html" %}
+					{% endblock %}
 				</div>
 			</div>
-			{% endblock %}
 			<div class="container">
 				{% block content %}
 				{% endblock %}

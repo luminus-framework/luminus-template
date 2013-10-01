@@ -44,7 +44,7 @@
   (add-routes (sanitized-path "/handler.clj") 'cljs-routes)
   (add-dependencies project-file
                     ;;needed to get the latest version of ClojureScript until cljsbuild gets up to date
-                    ['org.clojure/clojurescript "0.0-1806"]
+                    ['org.clojure/clojurescript "0.0-1896"]
                     ['domina "1.0.1"]
                     ['prismatic/dommy "0.1.1"]
                     ['cljs-ajax "0.2.0"])
@@ -88,6 +88,7 @@
 
 (defmethod add-feature :+site [_]
   [["src/{{sanitized}}/routes/auth.clj"                    (*render* "site/auth.clj")]
+   ["src/{{sanitized}}/views/templates/menu.html"          (*render* "site/templates/menu.html")]
    ["src/{{sanitized}}/views/templates/base.html"          (*render* "site/templates/base.html")]
    ["src/{{sanitized}}/views/templates/profile.html"       (*render* "site/templates/profile.html")]
    ["src/{{sanitized}}/views/templates/registration.html"  (*render* "site/templates/registration.html")]])

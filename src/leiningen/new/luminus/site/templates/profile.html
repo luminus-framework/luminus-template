@@ -1,4 +1,6 @@
 {% extends "{{sanitized}}/views/templates/base.html" %}
+{% block menu %}
+{% endblock %}
 {% block content %}
 <h2>User details for #%user.id%#</h2>
 		<form action="#%servlet-context%#/update-profile" method="POST">
