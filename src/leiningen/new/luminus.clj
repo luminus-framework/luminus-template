@@ -48,7 +48,7 @@
                     ['domina "1.0.1"]
                     ['prismatic/dommy "0.1.1"]
                     ['cljs-ajax "0.2.0"])
-  (add-plugins project-file ['lein-cljsbuild "0.3.2"])
+  (add-plugins project-file ['lein-cljsbuild "0.3.3"])
   (add-to-project
    project-file
    :cljsbuild
