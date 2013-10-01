@@ -13,8 +13,8 @@
             </div>
             <div class="navbar-collapse collapse ">
               <ul class="nav navbar-nav">
-                  <li id="home"><a href="#%servlet-context%#/">Home</a></li>
-                  <li id="about"><a href="#%servlet-context%#/about">About</a></li>
+                  <li class="#%home-selected%#"><a href="#%servlet-context%#/">Home</a></li>
+                  <li class="#%about-selected%#"><a href="#%servlet-context%#/about">About</a></li>
               </ul>
             </div>
           </div>
@@ -28,13 +28,10 @@
         {% style "/css/bootstrap-theme.min.css" %}
         {% style "/css/bootstrap.min.css" %}
         {% style "/css/screen.css" %}
-        <script src="//code.jquery.com/jquery-1.10.1.min.js" type="text/javascript"></script>
+        <script src="//code.jquery.com/jquery-2.0.3.min.js" type="text/javascript"></script>
         {% script "/js/bootstrap.min.js" %}
         <script type="text/javascript">
             var context = "#%servlet-context%#";
-            $(function() {
-              $("##%selected-page%#").addClass("active");
-            });
         </script>
     </body>
 </html>

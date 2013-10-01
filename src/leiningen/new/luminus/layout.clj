@@ -11,7 +11,7 @@
   (render [this request]
     (content-type
       (->> (assoc params
-                  :selected-page   (s/replace template #".html" "")
+                  (keyword (s/replace template #".html" "-selected")) "active"
                   :servlet-context (:context request))
         (parser/render-file (str template-path template))
         response)

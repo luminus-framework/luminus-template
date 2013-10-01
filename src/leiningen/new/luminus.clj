@@ -99,10 +99,10 @@
     (post-process :+h2 project-file))
   (replace-expr (sanitized-path "/views/layout.clj")
                 '(assoc params
-                  :selected-page   (s/replace template #".html" "")
+                  (keyword (s/replace template #".html" "-selected")) "active"
                   :servlet-context (:context request))
                 '(assoc params
-                  :selected-page   (s/replace template #".html" "")
+                  (keyword (s/replace template #".html" "-selected")) "active"
                   :servlet-context (:context request)
                   :user-id (session/get :user-id)))
   (add-required (sanitized-path "/views/layout.clj")
