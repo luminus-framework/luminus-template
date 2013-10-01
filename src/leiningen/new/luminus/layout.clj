@@ -1,5 +1,6 @@
 (ns {{name}}.views.layout
   (:require [selmer.parser :as parser]
+            [clojure.string :as s]
             [ring.util.response :refer [content-type response]])
   (:import compojure.response.Renderable))
 
@@ -9,7 +10,9 @@
   Renderable
   (render [this request]
     (content-type
-      (->> (assoc params :servlet-context (:context request))
+      (->> (assoc params
+                  :selected-page   (s/replace template #".html" "")
+                  :servlet-context (:context request))
         (parser/render-file (str template-path template))
         response)
       "text/html; charset=utf-8")))

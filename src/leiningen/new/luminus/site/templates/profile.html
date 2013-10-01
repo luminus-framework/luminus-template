@@ -1,7 +1,5 @@
 {% extends "{{sanitized}}/views/templates/base.html" %}
-
 {% block content %}
-
 <h2>User details for #%user.id%#</h2>
 		<form action="#%servlet-context%#/update-profile" method="POST">
 			<label for="id">first name</label>			
@@ -18,6 +16,4 @@
 			</p>			
 			<input class="btn" tabindex="4" type="submit" value="update profile">
 		</form>
-
-
 {% endblock %}

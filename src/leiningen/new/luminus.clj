@@ -33,23 +33,6 @@
 (defmulti add-feature keyword)
 (defmulti post-process (fn [feature _] (keyword feature)))
 
-(defmethod add-feature :+bootstrap [_]
-  [["resources/public/css/bootstrap-responsive.min.css"   (*render* "bootstrap/css/bootstrap-responsive.min.css")]
-   ["resources/public/css/bootstrap.min.css"              (*render* "bootstrap/css/bootstrap.min.css")]
-   ["resources/public/css/screen.css"                     (*render* "bootstrap/css/screen.css")]
-   ["resources/public/js/bootstrap.min.js"                (*render* "bootstrap/js/bootstrap.min.js")]
-   ["resources/public/img/glyphicons-halflings-white.png" (*render* "bootstrap/img/glyphicons-halflings-white.png")]
-   ["resources/public/img/glyphicons-halflings.png"       (*render* "bootstrap/img/glyphicons-halflings.png")]])
-
-(defmethod post-process :+bootstrap [_ project-file]
-  ;;site base.html template already has bootstrap included
-  (if-not (some #{"+site"} @features)
-    (add-to-layout (sanitized-path "/views/templates/base.html")
-                   ["{{servlet-context}}/css/bootstrap.min.css"
-                    "{{servlet-context}}/css/bootstrap-responsive.min.css"]
-                   ["//code.jquery.com/jquery-1.10.1.min.js"
-                    "{{servlet-context}}/js/bootstrap.min.js"])))
-
 (defmethod add-feature :+cljs [_]
   [["src/{{sanitized}}/routes/cljsexample.clj"  (*render* "cljs/cljsexample.clj")]
    ["src-cljs/main.cljs"  (*render* "cljs/main.cljs")]
@@ -103,36 +86,27 @@
   (add-dependencies project-file ['http-kit "2.1.4"])
   (add-to-project project-file :main (symbol (str *name* ".core"))))
 
-(defn site-required-features []
-  (remove empty?
-          (concat
-           (if-not (some #{"+bootstrap"} @features)
-             (do
-               (swap! features conj "+bootstrap")
-               (add-feature :+bootstrap)))
-           (if-not (some #{"+h2" "+postgres" "+mysql"} @features)
-             (add-feature :+h2)))))
-
 (defmethod add-feature :+site [_]
-  (into
-   [["src/{{sanitized}}/routes/home.clj"                    (*render* "home.clj")]    
-    ["src/{{sanitized}}/routes/auth.clj"                    (*render* "site/auth.clj")]
-    ["src/{{sanitized}}/views/layout.clj"                   (*render* "site/layout.clj")]
-    ["src/{{sanitized}}/views/templates/home.html"          (*render* "templates/home.html")]
-    ["src/{{sanitized}}/views/templates/about.html"         (*render* "templates/about.html")]
-    ["src/{{sanitized}}/views/templates/base.html"          (*render* "site/templates/base.html")]
-    ["src/{{sanitized}}/views/templates/profile.html"       (*render* "site/templates/profile.html")]
-    ["src/{{sanitized}}/views/templates/registration.html"  (*render* "site/templates/registration.html")]]
-   (site-required-features)))
+  [["src/{{sanitized}}/routes/auth.clj"                    (*render* "site/auth.clj")]
+   ["src/{{sanitized}}/views/templates/base.html"          (*render* "site/templates/base.html")]
+   ["src/{{sanitized}}/views/templates/profile.html"       (*render* "site/templates/profile.html")]
+   ["src/{{sanitized}}/views/templates/registration.html"  (*render* "site/templates/registration.html")]])
 
 
 (defmethod post-process :+site [_ project-file]
-  (if-not (some #{"+h2" "+postgres"} @features)
+  (if-not (some #{"+h2" "+postgres" "+mysql"} @features)
     (post-process :+h2 project-file))
   (replace-expr (sanitized-path "/views/layout.clj")
-                '(assoc params :servlet-context (:context request))
-                '(assoc params :servlet-context (:context request) :user-id (session/get :user-id)))
-  (add-required (sanitized-path "/handler.clj") 
+                '(assoc params
+                  :selected-page   (s/replace template #".html" "")
+                  :servlet-context (:context request))
+                '(assoc params
+                  :selected-page   (s/replace template #".html" "")
+                  :servlet-context (:context request)
+                  :user-id (session/get :user-id)))
+  (add-required (sanitized-path "/views/layout.clj")
+                ['noir.session :as 'session])
+  (add-required (sanitized-path "/handler.clj")
                 [(symbol (str *name* ".routes.auth")) :refer ['auth-routes]]
                 [(symbol (str *name* ".models.schema")) :as 'schema])
   (add-to-init (sanitized-path "/handler.clj") '(if-not (schema/initialized?) (schema/create-tables)))
@@ -148,8 +122,7 @@
   (post-process :+site project-file))
 
 (defmethod add-feature :default [feature]
-  (throw (new Exception
-              (str "unrecognized feature: " (name feature)))))
+  (throw (Exception. (str "unrecognized feature: " (name feature)))))
 
 (defmethod post-process :default [_ _])
 
@@ -165,12 +138,20 @@
     (rewrite-template-tags (sanitized-path "/views/templates/"))
     (set-lein-version project-file "2.0.0")))
 
+(defn site-required-features [features]
+  (if-not (some #{"+h2" "+postgres" "+mysql"} features)
+    (conj features :+h2) features))
+
 (defn generate-project [name feature-params data]
   (binding [*name*     name
             *render*   #((renderer "luminus") % data)]
     (reset! features
-            (if (some #{"+dailycred"} feature-params)
+            (cond
+              (some #{"+site"} feature-params)
+              (site-required-features feature-params)
+              (some #{"+dailycred"} feature-params)
               (->> feature-params (remove #{"+dailycred" "+site"}) (cons "+site-dailycred"))
+              :else
               feature-params))
 
     (println "Generating a lovely new Luminus project named" (str name "..."))
@@ -182,17 +163,24 @@
              ["Procfile"    (*render* "Procfile")]
              ["README.md"   (*render* "README.md")]
              ;; core namespaces
-             ["src/{{sanitized}}/handler.clj" (*render* "handler.clj")]
-             ["src/{{sanitized}}/repl.clj"  (*render* "repl.clj")]
-             ["src/{{sanitized}}/util.clj"    (*render* "util.clj")]
-             ["src/{{sanitized}}/routes/home.clj"            (*render* "home.clj")]
-             ["src/{{sanitized}}/views/layout.clj"           (*render* "layout.clj")]
+             ["src/{{sanitized}}/handler.clj"                            (*render* "handler.clj")]
+             ["src/{{sanitized}}/repl.clj"                               (*render* "repl.clj")]
+             ["src/{{sanitized}}/util.clj"                               (*render* "util.clj")]
+             ["src/{{sanitized}}/routes/home.clj"                        (*render* "home.clj")]
+             ["src/{{sanitized}}/views/layout.clj"                       (*render* "layout.clj")]
              ;; public resources, example URL: /css/screen.css
-             ["src/{{sanitized}}/views/templates/base.html"  (*render* "templates/base.html")]
-             ["src/{{sanitized}}/views/templates/home.html"  (*render* "templates/home.html")]
-             ["src/{{sanitized}}/views/templates/about.html" (*render* "templates/about.html")]
-             ["resources/public/css/screen.css" (*render* "screen.css")]
-             ["resources/public/md/docs.md" (*render* "docs.md")]
+             ["src/{{sanitized}}/views/templates/base.html"              (*render* "templates/base.html")]
+             ["src/{{sanitized}}/views/templates/home.html"              (*render* "templates/home.html")]
+             ["src/{{sanitized}}/views/templates/about.html"             (*render* "templates/about.html")]
+             ["resources/public/css/screen.css"                          (*render* "screen.css")]
+             ["resources/public/css/bootstrap-theme.min.css"             (*render* "bootstrap/css/bootstrap-theme.min.css")]
+             ["resources/public/css/bootstrap.min.css"                   (*render* "bootstrap/css/bootstrap.min.css")]
+             ["resources/public/js/bootstrap.min.js"                     (*render* "bootstrap/js/bootstrap.min.js")]
+             ["resources/public/fonts/glyphicons-halflings-regular.eot"  (*render* "bootstrap/fonts/glyphicons-halflings-regular.eot")]
+             ["resources/public/fonts/glyphicons-halflings-regular.svg"  (*render* "bootstrap/fonts/glyphicons-halflings-regular.svg")]
+             ["resources/public/fonts/glyphicons-halflings-regular.ttf"  (*render* "bootstrap/fonts/glyphicons-halflings-regular.ttf")]
+             ["resources/public/fonts/glyphicons-halflings-regular.woff" (*render* "bootstrap/fonts/glyphicons-halflings-regular.woff")]
+             ["resources/public/md/docs.md"                              (*render* "docs.md")]
              "resources/public/js"
              "resources/public/img"
              ;; tests
@@ -206,14 +194,14 @@
 (defn luminus
   "Create a new Luminus project"
   [name & feature-params]
-  (let [supported-features #{"+bootstrap" "+cljs" "+site" "+h2" "+postgres" "+dailycred" "+mysql" "+http-kit"}
+  (let [supported-features #{"+cljs" "+site" "+h2" "+postgres" "+dailycred" "+mysql" "+http-kit"}
         data {:name name
               :sanitized (sanitize name)
               :year (year)}
         unsupported (-> (set feature-params)
                         (clojure.set/difference supported-features)
                         (not-empty))
-        feature-params (conj (set feature-params) "+bootstrap")]
+        feature-params (set feature-params)]
 
     (cond
      (< (lein-generation) 2)

@@ -85,7 +85,7 @@
     (fn [expr]
       (clojure.walk/prewalk
         (fn [expr]
-          (if (= expr old-expr) new-expr expr))
+          (if (= (str expr) (str old-expr)) new-expr expr))
         expr))))
 
 (defn add-to-init [filename & exprs]

@@ -44,7 +44,7 @@
         (xml/emit
           (clojure.walk/prewalk
             (fn [item]
-              (if (= :head (:tag item))                
+              (if (= :head (:tag item))
                 (update-in item [:content]
                            #(-> % (add-css css) (concat (map js-tag js))))
                 item))
