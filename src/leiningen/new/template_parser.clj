@@ -21,7 +21,7 @@
     (StreamSource. (StringReader. (.replaceAll xml "\n" "")))
     (StreamResult. (io/writer filename))))
 
-(defn parse-template [filename]  
+(defn parse-template [filename]
   (-> filename
       (io/input-stream)
       (xml/parse)))
@@ -32,8 +32,8 @@
 (defn js-tag [item]
   {:tag :script :attrs {:src item :type "text/javascript"} :content nil})
 
-(defn add-css [content tags]  
-  (let [[a b](split-with #(not= :link (:tag %)) content)] 
+(defn add-css [content tags]
+  (let [[a b](split-with #(not= :link (:tag %)) content)]
     (concat a (map css-tag tags) b)))
 
 (defn add-to-layout [filename css js]
@@ -54,8 +54,8 @@
   (spit filename
         (-> filename
           (slurp)
-          (.replaceAll "\\{%" "\n{%")
-          (.replaceAll "%\\}" "%}\n")
+          ;(.replaceAll "\\{%" "\n{%")
+          ;(.replaceAll "%\\}" "%}\n")
           (.replaceAll "#%" "{{")
           (.replaceAll "%#" "}}"))))
 
