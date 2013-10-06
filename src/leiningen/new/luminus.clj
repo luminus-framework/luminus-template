@@ -83,7 +83,7 @@
   [["src//{{sanitized}}/core.clj"  (*render* "core.clj")]])
 
 (defmethod post-process :+http-kit [_ project-file]
-  (add-dependencies project-file ['http-kit "2.1.4"])
+  (add-dependencies project-file ['http-kit "2.1.11"])
   (add-to-project project-file :main (symbol (str *name* ".core"))))
 
 (defmethod add-feature :+site [_]
