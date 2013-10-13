@@ -23,7 +23,7 @@
 (defn add-sql-dependencies [project-file dependency]
   (add-dependencies project-file
                     dependency
-                    ['korma "0.3.0-RC5"]
+                    ['korma "0.3.0-RC6"]
                     ['log4j "1.2.17"
                      :exclusions ['javax.mail/mail
                                   'javax.jms/jms
