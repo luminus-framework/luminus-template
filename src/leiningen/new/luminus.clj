@@ -44,9 +44,9 @@
   (add-routes (sanitized-path "/handler.clj") 'cljs-routes)
   (add-dependencies project-file
                     ;;needed to get the latest version of ClojureScript until cljsbuild gets up to date
-                    ['org.clojure/clojurescript "0.0-1896"]
-                    ['domina "1.0.1"]
-                    ['prismatic/dommy "0.1.1"]
+                    ['org.clojure/clojurescript "0.0-1934"]
+                    ['domina "1.0.2"]
+                    ['prismatic/dommy "0.1.2"]
                     ['cljs-ajax "0.2.0"])
   (add-plugins project-file ['lein-cljsbuild "0.3.3"])
   (add-to-project
@@ -63,7 +63,7 @@
 
 (defmethod post-process :+h2 [_ project-file]
   (add-sql-dependencies project-file
-                        ['com.h2database/h2 "1.3.172"]))
+                        ['com.h2database/h2 "1.3.173"]))
 
 (defmethod add-feature :+postgres [_]
   (add-sql-files ["src/{{sanitized}}/models/schema.clj" (*render* "dbs/postgres_schema.clj")]))
