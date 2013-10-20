@@ -5,13 +5,13 @@
                  [lib-noir "0.7.1"]
                  [compojure "1.1.5"]
                  [ring-server "0.3.0"]
-                 [selmer "0.4.7"]
+                 [selmer "0.4.8"]
                  [com.taoensso/timbre "2.6.3"]
                  [com.postspectacular/rotor "0.1.0"]
                  [com.taoensso/tower "1.7.1"]
                  [markdown-clj "0.9.33"]]
   :plugins [[lein-ring "0.8.7"]]
-  :ring {:handler {{name}}.handler/war-handler
+  :ring {:handler {{name}}.handler/app
          :init    {{name}}.handler/init
          :destroy {{name}}.handler/destroy}
   :profiles
