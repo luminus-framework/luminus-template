@@ -143,17 +143,20 @@
   (if-not (some #{"+h2" "+postgres" "+mysql"} features)
     (conj features :+h2) features))
 
+(defn site-params [feature-params]
+  (if (some #{"+site"} feature-params)
+    (site-required-features feature-params)
+    feature-params))
+
+(defn dailycred-params [feature-params]
+  (if (some #{"+dailycred"} feature-params)
+    (->> feature-params (remove #{"+dailycred" "+site"}) (cons "+site-dailycred") site-required-features)
+    feature-params))
+
 (defn generate-project [name feature-params data]
-  (binding [*name*     name
-            *render*   #((renderer "luminus") % data)]
-    (reset! features
-            (cond
-              (some #{"+site"} feature-params)
-              (site-required-features feature-params)
-              (some #{"+dailycred"} feature-params)
-              (->> feature-params (remove #{"+dailycred" "+site"}) (cons "+site-dailycred"))
-              :else
-              feature-params))
+  (binding [*name*   name
+            *render* #((renderer "luminus") % data)]
+    (reset! features (-> feature-params dailycred-params site-params))
 
     (println "Generating a lovely new Luminus project named" (str name "..."))
 
