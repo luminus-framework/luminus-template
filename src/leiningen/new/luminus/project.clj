@@ -10,6 +10,7 @@
                  [com.postspectacular/rotor "0.1.0"]
                  [com.taoensso/tower "1.7.1"]
                  [markdown-clj "0.9.33"]]
+  :aot :all
   :plugins [[lein-ring "0.8.7"]]
   :ring {:handler {{name}}.handler/app
          :init    {{name}}.handler/init
