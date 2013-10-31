@@ -52,9 +52,9 @@ user$ java -jar target/myapp-0.1.0-SNAPSHOT-standalone.jar
 
 2012-12-15 19:17:23.471:INFO:oejs.Server:jetty-7.x.y-SNAPSHOT
 2012-12-15 19:17:23.512:INFO:oejs.AbstractConnector:Started
-SelectChannelConnector@0.0.0.0:8080
-Server started on port [ 8080 ].
-You can view the site at http://localhost:8080
+SelectChannelConnector@0.0.0.0:3000
+Server started on port [ 3000 ].
+You can view the site at http://localhost:3000
 ```
 
 To build a [WAR][war] (or Web application ARchive) file run:
