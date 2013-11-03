@@ -53,7 +53,7 @@
 
 (defn add-dependencies [filename & dependencies]
   (update-item-list filename :dependencies 
-                    #(if % (into % dependencies) (vec dependencies))))
+                    #(if % (vec (set (into % dependencies))) (vec dependencies))))
 
 (defn add-plugins [filename & plugins]
   (update-item-list filename :plugins 
