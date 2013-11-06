@@ -52,6 +52,13 @@
   (add-to-project
    project-file
    :cljsbuild
+   #_{:builds {:dev {:source-paths ["src-cljs"]
+                   :compiler {:output-to "resources/public/js/site.js"
+                              :optimizations :whitespace
+                              :pretty-print true}}
+             :prod {:source-paths ["src-cljs"]
+                    :compiler {:output-to "resources/public/js/site.js"
+                               :optimizations :advanced}}}}
    {:builds
     [{:source-paths ["src-cljs"]
       :compiler {:output-to "resources/public/js/site.js"
