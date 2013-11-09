@@ -44,10 +44,11 @@
   (add-routes (sanitized-path "/handler.clj") 'cljs-routes)
   (add-dependencies project-file
                     ;;needed to get the latest version of ClojureScript until cljsbuild gets up to date
+                    ['org.clojure/tools.reader "0.7.10"]
                     ['org.clojure/clojurescript "0.0-1978"]
                     ['domina "1.0.2"]
                     ['prismatic/dommy "0.1.2"]
-                    ['cljs-ajax "0.2.0"])
+                    ['cljs-ajax "0.2.2"])
   (add-plugins project-file ['lein-cljsbuild "0.3.3"])
   (add-to-project
    project-file
