@@ -1,4 +1,4 @@
-(defproject luminus/lein-template "1.10.4"
+(defproject luminus/lein-template "1.10.6"
   :description "a template for creating Luminus applications"
   :url "https://github.com/yogthos/luminus-template"
   :license {:name "Eclipse Public License"
