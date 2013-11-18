@@ -7,3 +7,4 @@ pom.xml
 *.class
 /.lein-*
 /.env
+*.log
