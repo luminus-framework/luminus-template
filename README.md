@@ -70,7 +70,7 @@ server.
 
 Copyright © 2012 Yogthos
 
-Distributed under the Eclipse Public License, the same as Clojure.
+Distributed under the [MIT License](http://opensource.org/licenses/MIT).
 
 [ph]: <http://www.luminusweb.net/docs/profiles.md>
 [tbs]: <http://twitter.github.io/bootstrap/>
