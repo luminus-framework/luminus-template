@@ -12,6 +12,7 @@
                  [markdown-clj "0.9.35"]
                  [environ "0.4.0"]]
   :aot :all
+  :repl-options {:init-ns {{name}}.repl}
   :plugins [[lein-ring "0.8.7"]
             [lein-environ "0.4.0"]]
   :ring {:handler {{name}}.handler/app
