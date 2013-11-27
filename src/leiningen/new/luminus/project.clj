@@ -5,10 +5,10 @@
                  [lib-noir "0.7.6"]
                  [compojure "1.1.6"]
                  [ring-server "0.3.1"]
-                 [selmer "0.5.3"]
+                 [selmer "0.5.4"]
                  [com.taoensso/timbre "2.7.1"]
                  [com.postspectacular/rotor "0.1.0"]
-                 [com.taoensso/tower "2.0.0"]
+                 [com.taoensso/tower "2.0.1"]
                  [markdown-clj "0.9.35"]
                  [environ "0.4.0"]]
   :aot :all
