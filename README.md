@@ -23,7 +23,7 @@ However, if you would like to attach further functionality to your template you 
 * `+h2` adds models.db namespace and [H2 database][h2] dependencies
 * `+postgres` adds models.db namespace and add [PostreSQL database][pg] dependencies
 * `+mysql` adds models.db namespace and add [MySQL/MariaDB database][my] dependencies
-* `+site` registration/authentication, uses `+bootstrap` and `+h2` by default
+* `+site` registration/authentication, uses `+h2` by default
 * `+dailycred` combined with `+site` it uses [DailyCred][dc] to authenticate
 * `+http-kit` - adds the fast [HTTP Kit][kit] web server to the project
 
