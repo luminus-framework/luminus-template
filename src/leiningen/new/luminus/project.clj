@@ -2,14 +2,14 @@
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :dependencies [[org.clojure/clojure "1.5.1"]
-                 [lib-noir "0.7.8"]
+                 [lib-noir "0.7.9"]
                  [compojure "1.1.6"]
                  [ring-server "0.3.1"]
-                 [selmer "0.5.4"]
+                 [selmer "0.5.5"]
                  [com.taoensso/timbre "2.7.1"]
                  [com.postspectacular/rotor "0.1.0"]
                  [com.taoensso/tower "2.0.1"]
-                 [markdown-clj "0.9.36"]
+                 [markdown-clj "0.9.38"]
                  [environ "0.4.0"]]
   :aot :all
   :repl-options {:init-ns {{name}}.repl}
