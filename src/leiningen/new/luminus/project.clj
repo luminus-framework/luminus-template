@@ -11,7 +11,7 @@
                  [com.taoensso/tower "2.0.1"]
                  [markdown-clj "0.9.40"]
                  [environ "0.4.0"]]
-  :aot :all
+
   :repl-options {:init-ns {{name}}.repl}
   :plugins [[lein-ring "0.8.10"]
             [lein-environ "0.4.0"]]
@@ -19,7 +19,8 @@
          :init    {{name}}.handler/init
          :destroy {{name}}.handler/destroy}
   :profiles
-  {:production {:ring {:open-browser? false
+  {:uberjar {:aot :all}
+   :production {:ring {:open-browser? false
                        :stacktraces?  false
                        :auto-reload?  false}}
    :dev {:dependencies [[ring-mock "0.1.5"]
