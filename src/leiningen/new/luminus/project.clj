@@ -13,7 +13,7 @@
                  [environ "0.4.0"]]
   :aot :all
   :repl-options {:init-ns {{name}}.repl}
-  :plugins [[lein-ring "0.8.8"]
+  :plugins [[lein-ring "0.8.10"]
             [lein-environ "0.4.0"]]
   :ring {:handler {{name}}.handler/app
          :init    {{name}}.handler/init
