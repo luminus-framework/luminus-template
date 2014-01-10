@@ -5,11 +5,11 @@
                  [lib-noir "0.7.9"]
                  [compojure "1.1.6"]
                  [ring-server "0.3.1"]
-                 [selmer "0.5.6"]
+                 [selmer "0.5.7"]
                  [com.taoensso/timbre "2.7.1"]
                  [com.postspectacular/rotor "0.1.0"]
                  [com.taoensso/tower "2.0.1"]
-                 [markdown-clj "0.9.39"]
+                 [markdown-clj "0.9.40"]
                  [environ "0.4.0"]]
   :aot :all
   :repl-options {:init-ns {{name}}.repl}
