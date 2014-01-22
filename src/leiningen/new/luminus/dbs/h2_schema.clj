@@ -9,6 +9,7 @@
               :subname (str (io/resource-path) db-store)
               :user "sa"
               :password ""
+              :make-pool? true
               :naming {:keys clojure.string/lower-case
                        :fields clojure.string/upper-case}})
 (defn initialized?
