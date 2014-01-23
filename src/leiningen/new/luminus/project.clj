@@ -9,7 +9,7 @@
                  [com.taoensso/timbre "2.7.1"]
                  [com.postspectacular/rotor "0.1.0"]
                  [com.taoensso/tower "2.0.1"]
-                 [markdown-clj "0.9.40"]
+                 [markdown-clj "0.9.41"]
                  [environ "0.4.0"]]
 
   :repl-options {:init-ns {{name}}.repl}
