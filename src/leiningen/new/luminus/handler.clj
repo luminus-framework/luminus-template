@@ -40,7 +40,7 @@
   (timbre/info "{{name}} is shutting down..."))
 
 (defn template-error-page [handler]
-  (if (env :selmer-dev)
+  (if (env :dev)
     (fn [request]
       (try
         (handler request)

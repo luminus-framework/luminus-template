@@ -1,6 +1,5 @@
 (ns {{name}}.routes.cljsexample
   (:require [compojure.core :refer :all]
-            [noir.response :as response]
             [{{name}}.views.layout :as layout]))
 
 (def messages
@@ -11,8 +10,7 @@
       :user    "Bar"}]))
 
 (defroutes cljs-routes
-  (GET "/cljsexample" [] (layout/render "cljsexample.html")) 
-  (GET "/messages" [] (response/edn @messages))
-  (POST "/add-message" [message user] 
-        (response/edn 
-          (swap! messages conj {:message message :user user}))))
+  (GET "/cljsexample" [] (layout/render "cljsexample.html"))
+  (GET "/messages" [] {:body @messages})
+  (POST "/add-message" [message user]
+        {:body (swap! messages conj {:message message :user user})}))
