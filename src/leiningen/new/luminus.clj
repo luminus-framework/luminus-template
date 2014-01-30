@@ -175,6 +175,7 @@
              ["README.md"   (*render* "README.md")]
              ;; core namespaces
              ["src/{{sanitized}}/handler.clj"                            (*render* "handler.clj")]
+             ["src/{{sanitized}}/middleware.clj"                         (*render* "middleware.clj")]
              ["src/{{sanitized}}/repl.clj"                               (*render* "repl.clj")]
              ["src/{{sanitized}}/util.clj"                               (*render* "util.clj")]
              ["src/{{sanitized}}/routes/home.clj"                        (*render* "home.clj")]
