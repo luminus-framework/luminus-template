@@ -5,7 +5,7 @@
             [noir.util.middleware :refer [app-handler]]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
-            [com.postspectacular.rotor :as rotor]
+            [taoensso.timbre.appenders.rotor :as rotor]
             [selmer.parser :as parser]
             [environ.core :refer [env]]))
 
@@ -25,7 +25,7 @@
      :enabled? true
      :async? false ; should be always false for rotor
      :max-message-per-msecs nil
-     :fn rotor/append})
+     :fn rotor/appender-fn})
 
   (timbre/set-config!
     [:shared-appender-config :rotor]
