@@ -103,7 +103,8 @@
              :database
              (let [postgres? (some #{"+postgres"} @features)]
                (str "jdbc:" (if postgres? "postgresql" "mysql")
-                  "://localhost" (if postgres? "/" ":3306/") (sanitize *name*)))}))
+                  "://localhost" (if postgres? "/" ":3306/") (sanitize *name*)
+                  "?user=db_user_name_here&password=db_user_password_here"))}))
 
 (defmethod add-feature :+http-kit [_]
   [["src//{{sanitized}}/core.clj"  (*render* "core.clj")]])
@@ -144,7 +145,7 @@
                                      "\n\t* specify the DB URL in " *name* ".models.schema"
                                      "\n\t* specify the DB URL in project.clj under :ragtime"
                                      "\n\t* run the migrations using 'lein ragtime migrate'"
-                                     "\n\t* update the init function in the " *name* ".handler\n")))))
+                                     "\n\t* remove this exception from the init function in " *name* ".handler\n")))))
   (add-routes (sanitized-path "/handler.clj") 'auth-routes))
 
 (defmethod add-feature :+site-dailycred [_]
