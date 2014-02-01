@@ -137,15 +137,11 @@
   (add-required (sanitized-path "/handler.clj")
                 [(symbol (str *name* ".routes.auth")) :refer ['auth-routes]]
                 [(symbol (str *name* ".models.schema")) :as 'schema])
-  (add-to-init (sanitized-path "/handler.clj")
-               (if-not (some #{"+postgres" "+mysql"} @features)
-                 '(if-not (schema/initialized?) (schema/create-tables))
-                 `(throw
-                    (Exception. ~(str "\n\n\tTODO:\n"
-                                     "\n\t* specify the DB URL in " *name* ".models.schema"
-                                     "\n\t* specify the DB URL in project.clj under :ragtime"
-                                     "\n\t* run the migrations using 'lein ragtime migrate'"
-                                     "\n\t* remove this exception from the init function in " *name* ".handler\n")))))
+  (if-not (some #{"+postgres" "+mysql"} @features)
+    (add-to-init (sanitized-path "/handler.clj")
+               '(if-not (schema/initialized?) (schema/create-tables)))
+    (let [docs-filename (str *name* "/resources/public/md/docs.md")]
+    (spit docs-filename (str (*render* "dbs/db_instructions.html") (slurp docs-filename)))))
   (add-routes (sanitized-path "/handler.clj") 'auth-routes))
 
 (defmethod add-feature :+site-dailycred [_]
