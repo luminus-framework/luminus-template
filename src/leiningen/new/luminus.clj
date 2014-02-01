@@ -86,6 +86,25 @@
   (add-sql-dependencies project-file
                         ['mysql/mysql-connector-java "5.1.6"]))
 
+(defmethod add-feature :+migrations [_]
+  (let [timestamp (.format
+                    (java.text.SimpleDateFormat. "ssmmHHMMyyyy")
+                    (java.util.Date.))]
+    [[(str "migrations/" timestamp "-add-users-table.up.sql") (*render* "migrations/add-users-table.up.sql")]
+     [(str "migrations/" timestamp "-add-users-table.down.sql") (*render* "migrations/add-users-table.down.sql")]]))
+
+(defmethod post-process :+migrations [_ project-file]
+  (add-sql-dependencies project-file
+                        ['ragtime "0.3.4"])
+  (add-plugins project-file ['ragtime/ragtime.lein "0.3.4"])
+  (add-to-project
+   project-file
+   :ragtime {:migrations 'ragtime.sql.files/migrations
+             :database
+             (let [postgres? (some #{"+postgres"} @features)]
+               (str "jdbc:" (if postgres? "postgresql" "mysql")
+                  "://localhost" (if postgres? "/" ":3306/") (sanitize *name*)))}))
+
 (defmethod add-feature :+http-kit [_]
   [["src//{{sanitized}}/core.clj"  (*render* "core.clj")]])
 
@@ -117,7 +136,15 @@
   (add-required (sanitized-path "/handler.clj")
                 [(symbol (str *name* ".routes.auth")) :refer ['auth-routes]]
                 [(symbol (str *name* ".models.schema")) :as 'schema])
-  (add-to-init (sanitized-path "/handler.clj") '(if-not (schema/initialized?) (schema/create-tables)))
+  (add-to-init (sanitized-path "/handler.clj")
+               (if-not (some #{"+postgres" "+mysql"} @features)
+                 '(if-not (schema/initialized?) (schema/create-tables))
+                 `(throw
+                    (Exception. ~(str "\n\n\tTODO:\n"
+                                     "\n\t* specify the DB URL in " *name* ".models.schema"
+                                     "\n\t* specify the DB URL in project.clj under :ragtime"
+                                     "\n\t* run the migrations using 'lein ragtime migrate'"
+                                     "\n\t* update the init function in the " *name* ".handler\n")))))
   (add-routes (sanitized-path "/handler.clj") 'auth-routes))
 
 (defmethod add-feature :+site-dailycred [_]
@@ -150,6 +177,10 @@
   (if-not (some #{"+h2" "+postgres" "+mysql"} features)
     (conj features :+h2) features))
 
+(defn db-required-features [features]
+  (if (some #{"+postgres" "+mysql"} features)
+    (conj features :+migrations) features))
+
 (defn site-params [feature-params]
   (if (some #{"+site"} feature-params)
     (site-required-features feature-params)
@@ -163,7 +194,7 @@
 (defn generate-project [name feature-params data]
   (binding [*name*   name
             *render* #((renderer "luminus") % data)]
-    (reset! features (-> feature-params dailycred-params site-params))
+    (reset! features (-> feature-params dailycred-params site-params db-required-features))
 
     (println "Generating a lovely new Luminus project named" (str name "..."))
 
