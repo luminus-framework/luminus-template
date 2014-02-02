@@ -104,7 +104,9 @@
              (let [postgres? (some #{"+postgres"} @features)]
                (str "jdbc:" (if postgres? "postgresql" "mysql")
                   "://localhost" (if postgres? "/" ":3306/") (sanitize *name*)
-                  "?user=db_user_name_here&password=db_user_password_here"))}))
+                  "?user=db_user_name_here&password=db_user_password_here"))})
+  (let [docs-filename (str *name* "/resources/public/md/docs.md")]
+    (spit docs-filename (str (*render* "dbs/db_instructions.html") (slurp docs-filename)))))
 
 (defmethod add-feature :+http-kit [_]
   [["src//{{sanitized}}/core.clj"  (*render* "core.clj")]])
@@ -139,9 +141,7 @@
                 [(symbol (str *name* ".models.schema")) :as 'schema])
   (if-not (some #{"+postgres" "+mysql"} @features)
     (add-to-init (sanitized-path "/handler.clj")
-               '(if-not (schema/initialized?) (schema/create-tables)))
-    (let [docs-filename (str *name* "/resources/public/md/docs.md")]
-    (spit docs-filename (str (*render* "dbs/db_instructions.html") (slurp docs-filename)))))
+                 '(if-not (schema/initialized?) (schema/create-tables))))
   (add-routes (sanitized-path "/handler.clj") 'auth-routes))
 
 (defmethod add-feature :+site-dailycred [_]

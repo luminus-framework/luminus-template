@@ -2,29 +2,31 @@
 {% block menu %}
 {% endblock %}
 {% block content %}
-  <form action="#%servlet-context%#/register" method="POST">
+<form action="#%servlet-context%#/register" method="POST">
+  <div class="form-group col-lg-3">
     <label for="id">user id</label>
     {% if id-error %}
-      <div class="error">#%id-error%#</div>
+      <div class="alert alert-danger">#%id-error%#</div>
     {% endif %}
     <p>
-      <input id="id" name="id" tabindex="1" type="text" value=#%id%#></input>
+      <input class="form-control" id="id" name="id" tabindex="1" type="text" value=#%id%#></input>
     </p>
     <label for="pass">password</label>
     {% if pass-error %}
-      <div class="error">#%pass-error%#</div>
+      <div class="alert alert-danger">#%pass-error%#</div>
     {% endif %}
     <p>
-      <input id="pass" name="pass" tabindex="2" type="password"></input>
+      <input class="form-control" id="pass" name="pass" tabindex="2" type="password"></input>
     </p>
     <label for="pass1">retype password</label>
     {% if pass1-error %}
-      <div class="error">#%pass1-error%#</div>
+      <div class="alert alert-danger">#%pass1-error%#</div>
     {% endif %}
     <p>
-      <input id="pass1" name="pass1" tabindex="3" type="password"></input>
+      <input class="form-control" id="pass1" name="pass1" tabindex="3" type="password"></input>
     </p>
     <input class="btn" tabindex="4" type="submit" value="create account">
-  </form>
+  </div>
+</form>
 {% endblock %}
 

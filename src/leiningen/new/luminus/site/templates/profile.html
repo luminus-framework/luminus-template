@@ -4,18 +4,20 @@
 {% block content %}
   <h2>User details for #%user.id%#</h2>
   <form action="#%servlet-context%#/update-profile" method="POST">
-    <label for="id">first name</label>			
-    <p>
-      <input id="first-name" name="first-name" tabindex="1" type="text" value=#%user.first_name%#></input>
-    </p>
-    <label for="id">last name</label>
-    <p>
-      <input id="last-name" name="last-name" tabindex="1" type="text" value=#%user.last_name%#></input>
-    </p>
-    <label for="id">email</label>
-    <p>
-      <input id="email" name="email" tabindex="1" type="text" value=#%user.email%#></input>
-    </p>			
-    <input class="btn" tabindex="4" type="submit" value="update profile">
+    <div class="form-group col-lg-3">
+      <label for="id">first name</label>
+      <p>
+        <input class="form-control" id="first-name" name="first-name" tabindex="1" type="text" value=#%user.first_name%#></input>
+      </p>
+      <label for="id">last name</label>
+      <p>
+        <input class="form-control" id="last-name" name="last-name" tabindex="1" type="text" value=#%user.last_name%#></input>
+      </p>
+      <label for="id">email</label>
+      <p>
+        <input class="form-control" id="email" name="email" tabindex="1" type="text" value=#%user.email%#></input>
+      </p>
+      <input class="btn" tabindex="4" type="submit" value="update profile">
+    </div>
   </form>
 {% endblock %}

@@ -2,9 +2,5 @@ html,
 body {
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     height: 100%;
-    padding-top: 70px;
-}
-
-.error {
-    color: red;
+    padding-top: 40px;
 }
