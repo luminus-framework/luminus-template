@@ -88,7 +88,7 @@
 
 (defmethod add-feature :+migrations [_]
   (let [timestamp (.format
-                    (java.text.SimpleDateFormat. "ssmmHHMMyyyy")
+                    (java.text.SimpleDateFormat. "yyyyMMHHmmss")
                     (java.util.Date.))]
     [[(str "migrations/" timestamp "-add-users-table.up.sql") (*render* "migrations/add-users-table.up.sql")]
      [(str "migrations/" timestamp "-add-users-table.down.sql") (*render* "migrations/add-users-table.down.sql")]]))
