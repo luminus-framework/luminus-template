@@ -26,14 +26,14 @@
 
 (defn- update-item-list
   "filename is path to project.clj
-   type is the key to update
+   path is the key to update
    items are the items which will be appended to the value at the key
    the value being updated is expected to be a collection"
-  [filename type update-fn]
+  [filename path update-fn]
   (let [[projectdef name version & more] (first (read-file filename))
         project-map (apply hash-map more)]
     (write-project filename projectdef name version
-                   (update-in project-map [type] update-fn))))
+                   (update-in project-map path update-fn))))
 
 (defn add-to-project [filename k v]
   (let [[f name version & more] (first (read-file filename))
@@ -42,8 +42,8 @@
                    (assoc project-map k v))))
 
 (defn remove-dependencies [filename & dependencies]
-  (update-item-list filename :dependencies 
-                    #(if % 
+  (update-item-list filename [:dependencies]
+                    #(if %
                        (reduce
                          (fn [deps dep]
                            (if (some #{dep} dependencies)
@@ -52,11 +52,15 @@
                          %))))
 
 (defn add-dependencies [filename & dependencies]
-  (update-item-list filename :dependencies 
+  (update-item-list filename [:dependencies]
+                    #(if % (vec (set (into % dependencies))) (vec dependencies))))
+
+(defn add-profile-dependencies [filename profile & dependencies]
+  (update-item-list filename [:profiles profile :dependencies]
                     #(if % (vec (set (into % dependencies))) (vec dependencies))))
 
 (defn add-plugins [filename & plugins]
-  (update-item-list filename :plugins 
+  (update-item-list filename [:plugins]
                     #(if % (into % plugins) (vec plugins))))
 
 (defn add-to-ns [filename handler-fn]
