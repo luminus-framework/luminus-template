@@ -1,6 +1,6 @@
 # Luminus-Template
 
-A Leiningen template for projects using [Luminus](http://www.luminusweb.net/). 
+A Leiningen template for projects using [Luminus](http://www.luminusweb.net/).
 
 The template initializes a base Luminus application.
 
@@ -26,6 +26,7 @@ However, if you would like to attach further functionality to your template you 
 * `+site` registration/authentication, uses `+h2` by default
 * `+dailycred` combined with `+site` it uses [DailyCred][dc] to authenticate
 * `+http-kit` - adds the fast [HTTP Kit][kit] web server to the project
+* `+cucumber` - adds support for browser based UI testing with [Cucumber][cucumber] and [clj-webdriver][clj-webdriver]
 
 To add a profile simply pass it as an argument after your application name, e.g.:
 
@@ -82,3 +83,5 @@ Distributed under the [MIT License](http://opensource.org/licenses/MIT).
 [kit]: <http://http-kit.org/>
 [war]: <http://en.wikipedia.org/wiki/WAR_file_format_(Sun)>
 [jar]: <http://en.wikipedia.org/wiki/Jar_file>
+[cucumber]: <http://cukes.info>
+[clj-webdriver]: <https://github.com/semperos/clj-webdriver>

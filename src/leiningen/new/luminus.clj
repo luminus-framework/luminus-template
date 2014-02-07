@@ -115,6 +115,17 @@
   (add-dependencies project-file ['http-kit "2.1.13"])
   (add-to-project project-file :main (symbol (str *name* ".core"))))
 
+(defmethod add-feature :+cucumber [_]
+  [["test/{{sanitized}}/browser.clj"                       (*render* "site/templates/browser.clj")]
+   ["test/features/step_definitions/home_page_steps.clj"   (*render* "site/templates/home_page_steps.clj")]
+   ["test/features/index_page.feature"                     (*render* "site/templates/index_page.feature")]])
+
+(defmethod post-process :+cucumber [_ project-file]
+  (add-profile-dependencies project-file :dev ['org.clojure/core.cache "0.6.3"]
+                                              ['clj-webdriver/clj-webdriver "0.6.1"])
+  (add-plugins project-file ['lein-cucumber "1.0.2"])
+  (add-to-project project-file :cucumber-feature-paths ["test/features/"]))
+
 (defmethod add-feature :+site [_]
   [["src/{{sanitized}}/routes/auth.clj"                    (*render* "site/auth.clj")]
    ["src/{{sanitized}}/views/templates/menu.html"          (*render* "site/templates/menu.html")]
@@ -234,7 +245,7 @@
 (defn luminus
   "Create a new Luminus project"
   [name & feature-params]
-  (let [supported-features #{"+cljs" "+site" "+h2" "+postgres" "+dailycred" "+mysql" "+http-kit"}
+  (let [supported-features #{"+cljs" "+site" "+h2" "+postgres" "+dailycred" "+mysql" "+http-kit" "+cucumber"}
         data {:name name
               :sanitized (sanitize name)
               :year (year)}
