@@ -1,3 +1,13 @@
+
+### Managing Your Middleware
+
+Two middleware functions by default which are are located in the `{{name}}.middleware` namespace.
+
+* `log-request` - logs all requests using the debug level
+* `template-error-page` - provides friendly formatting for Selmer errors in dev mode
+
+See the `:middleware` key of the `app` definition located in the `{{name}}.handler` namespace to manage the enabled middleware.
+
 ### Here are some links to get started
 
 1. [HTML templating](http://www.luminusweb.net/docs/html_templating.md)
