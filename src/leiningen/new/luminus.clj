@@ -104,7 +104,9 @@
 
 (defmethod post-process :+mongodb [_ project-file]
   (add-mongo-dependencies project-file
-                          ['com.novemberain/monger "1.7.0"]))
+                          ['com.novemberain/monger "1.7.0"])
+  (let [docs-filename (str *name* "/resources/public/md/docs.md")]
+    (spit docs-filename (str (*render* "dbs/mongo_instructions.html") (slurp docs-filename)))))
 
 (defmethod add-feature :+migrations [_]
   (let [timestamp (.format
