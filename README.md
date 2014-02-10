@@ -27,6 +27,7 @@ However, if you would like to attach further functionality to your template you 
 * `+dailycred` combined with `+site` it uses [DailyCred][dc] to authenticate
 * `+http-kit` - adds the fast [HTTP Kit][kit] web server to the project
 * `+cucumber` - adds support for browser based UI testing with [Cucumber][cucumber] and [clj-webdriver][clj-webdriver]
+* `+mongodb` = adds support for [MongoDB][mongo] using the [Monger][monger] library
 
 To add a profile simply pass it as an argument after your application name, e.g.:
 
@@ -85,3 +86,5 @@ Distributed under the [MIT License](http://opensource.org/licenses/MIT).
 [jar]: <http://en.wikipedia.org/wiki/Jar_file>
 [cucumber]: <http://cukes.info>
 [clj-webdriver]: <https://github.com/semperos/clj-webdriver>
+[mongo]: <http://www.mongodb.com>
+[monger]: <http://clojuremongodb.info>

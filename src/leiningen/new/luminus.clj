@@ -20,10 +20,23 @@
    ["src/{{sanitized}}/models/db.clj" (*render* "dbs/db.clj")]
    schema-file])
 
+(defn add-mongo-files []
+  [["src/log4j.xml" (*render* "dbs/log4j.xml")]
+   ["src/{{sanitized}}/models/db.clj" (*render* "dbs/mongodb.clj")]])
+
 (defn add-sql-dependencies [project-file dependency]
   (add-dependencies project-file
                     dependency
                     ['korma "0.3.0-RC6"]
+                    ['log4j "1.2.17"
+                     :exclusions ['javax.mail/mail
+                                  'javax.jms/jms
+                                  'com.sun.jdmk/jmxtools
+                                  'com.sun.jmx/jmxri]]))
+
+(defn add-mongo-dependencies [project-file dependency]
+  (add-dependencies project-file
+                    dependency
                     ['log4j "1.2.17"
                      :exclusions ['javax.mail/mail
                                   'javax.jms/jms
@@ -86,6 +99,13 @@
   (add-sql-dependencies project-file
                         ['mysql/mysql-connector-java "5.1.6"]))
 
+(defmethod add-feature :+mongodb [_]
+  (add-mongo-files))
+
+(defmethod post-process :+mongodb [_ project-file]
+  (add-mongo-dependencies project-file
+                          ['com.novemberain/monger "1.7.0"]))
+
 (defmethod add-feature :+migrations [_]
   (let [timestamp (.format
                     (java.text.SimpleDateFormat. "yyyyMMHHmmss")
@@ -135,7 +155,7 @@
 
 
 (defmethod post-process :+site [_ project-file]
-  (if-not (some #{"+h2" "+postgres" "+mysql"} @features)
+  (if-not (some #{"+h2" "+postgres" "+mysql" "+mongodb"} @features)
     (post-process :+h2 project-file))
   (replace-expr (sanitized-path "/views/layout.clj")
                 '(assoc params
@@ -148,9 +168,11 @@
   (add-required (sanitized-path "/views/layout.clj")
                 ['noir.session :as 'session])
   (add-required (sanitized-path "/handler.clj")
-                [(symbol (str *name* ".routes.auth")) :refer ['auth-routes]]
-                [(symbol (str *name* ".models.schema")) :as 'schema])
-  (if-not (some #{"+postgres" "+mysql"} @features)
+                [(symbol (str *name* ".routes.auth")) :refer ['auth-routes]])
+  (if-not (some #{"+mongodb"} @features)
+    (add-required (sanitized-path "/handler.clj")
+                  [(symbol (str *name* ".models.schema")) :as 'schema]))
+  (if-not (some #{"+postgres" "+mysql" "+mongodb"} @features)
     (add-to-init (sanitized-path "/handler.clj")
                  '(if-not (schema/initialized?) (schema/create-tables))))
   (add-routes (sanitized-path "/handler.clj") 'auth-routes))
@@ -182,7 +204,7 @@
     (set-lein-version project-file "2.0.0")))
 
 (defn site-required-features [features]
-  (if-not (some #{"+h2" "+postgres" "+mysql"} features)
+  (if-not (some #{"+h2" "+postgres" "+mysql" "+mongodb"} features)
     (conj features :+h2) features))
 
 (defn db-required-features [features]
@@ -245,7 +267,7 @@
 (defn luminus
   "Create a new Luminus project"
   [name & feature-params]
-  (let [supported-features #{"+cljs" "+site" "+h2" "+postgres" "+dailycred" "+mysql" "+http-kit" "+cucumber"}
+  (let [supported-features #{"+cljs" "+site" "+h2" "+postgres" "+dailycred" "+mysql" "+http-kit" "+cucumber" "+mongodb"}
         data {:name name
               :sanitized (sanitize name)
               :year (year)}
