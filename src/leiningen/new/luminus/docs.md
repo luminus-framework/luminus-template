@@ -1,7 +1,7 @@
 
 ### Managing Your Middleware
 
-Two middleware functions by default which are are located in the `{{name}}.middleware` namespace.
+Two middleware functions are provided by default in the `{{name}}.middleware` namespace.
 
 * `log-request` - logs all requests using the debug level
 * `template-error-page` - provides friendly formatting for Selmer errors in dev mode
