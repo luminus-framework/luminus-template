@@ -6,8 +6,8 @@
                  [compojure "1.1.6"]
                  [ring-server "0.3.1"]
                  [selmer "0.6.4"]
-                 [com.taoensso/timbre "3.0.0"]
-                 [com.taoensso/tower "2.0.1"]
+                 [com.taoensso/timbre "3.1.6"]
+                 [com.taoensso/tower "2.0.2"]
                  [markdown-clj "0.9.41"]
                  [environ "0.4.0"]]
 
@@ -23,5 +23,5 @@
                        :stacktraces?  false
                        :auto-reload?  false}}
    :dev {:dependencies [[ring-mock "0.1.5"]
-                        [ring/ring-devel "1.2.1"]]
+                        [ring/ring-devel "1.2.2"]]
          :env {:dev true}}})
