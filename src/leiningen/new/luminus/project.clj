@@ -5,7 +5,7 @@
                  [lib-noir "0.8.1"]
                  [compojure "1.1.6"]
                  [ring-server "0.3.1"]
-                 [selmer "0.6.4"]
+                 [selmer "0.6.5"]
                  [com.taoensso/timbre "3.1.6"]
                  [com.taoensso/tower "2.0.2"]
                  [markdown-clj "0.9.41"]
