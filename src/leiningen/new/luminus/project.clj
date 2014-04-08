@@ -2,7 +2,7 @@
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [lib-noir "0.8.1"]
+                 [lib-noir "0.8.2"]
                  [compojure "1.1.6"]
                  [ring-server "0.3.1"]
                  [selmer "0.6.5"]
