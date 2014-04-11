@@ -8,7 +8,7 @@
                  [selmer "0.6.5"]
                  [com.taoensso/timbre "3.1.6"]
                  [com.taoensso/tower "2.0.2"]
-                 [markdown-clj "0.9.41"]
+                 [markdown-clj "0.9.43"]
                  [environ "0.4.0"]]
 
   :repl-options {:init-ns {{name}}.repl}
