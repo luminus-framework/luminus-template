@@ -15,6 +15,11 @@
    (str *name* "/src/" (sanitize *name*) (apply str path))
    "/" (Matcher/quoteReplacement File/separator)))
 
+(defn sanitized-resource-path [& path]
+  (.replaceAll
+   (str *name* "/resources/" (apply str path))
+   "/" (Matcher/quoteReplacement File/separator)))
+
 (defn add-sql-files [schema-file]
   [["src/log4j.xml" (*render* "dbs/log4j.xml")]
    ["src/{{sanitized}}/models/db.clj" (*render* "dbs/db.clj")]
@@ -49,7 +54,7 @@
 (defmethod add-feature :+cljs [_]
   [["src/{{sanitized}}/routes/cljsexample.clj"  (*render* "cljs/cljsexample.clj")]
    ["src-cljs/main.cljs"  (*render* "cljs/main.cljs")]
-   ["src/{{sanitized}}/views/templates/cljsexample.html" (*render* "cljs/cljsexample.html")]])
+   ["resources/templates/cljsexample.html" (*render* "cljs/cljsexample.html")]])
 
 (defmethod post-process :+cljs [_ project-file]
   (add-required (sanitized-path "/handler.clj")
@@ -138,9 +143,9 @@
   (add-to-project project-file :main (symbol (str *name* ".core"))))
 
 (defmethod add-feature :+cucumber [_]
-  [["test/{{sanitized}}/browser.clj"                       (*render* "site/templates/browser.clj")]
-   ["test/features/step_definitions/home_page_steps.clj"   (*render* "site/templates/home_page_steps.clj")]
-   ["test/features/index_page.feature"                     (*render* "site/templates/index_page.feature")]])
+  [["test/{{sanitized}}/browser.clj"                     (*render* "site/templates/browser.clj")]
+   ["test/features/step_definitions/home_page_steps.clj" (*render* "site/templates/home_page_steps.clj")]
+   ["test/features/index_page.feature"                   (*render* "site/templates/index_page.feature")]])
 
 (defmethod post-process :+cucumber [_ project-file]
   (add-profile-dependencies project-file :dev ['org.clojure/core.cache "0.6.3"]
@@ -149,11 +154,11 @@
   (add-to-project project-file :cucumber-feature-paths ["test/features/"]))
 
 (defmethod add-feature :+site [_]
-  [["src/{{sanitized}}/routes/auth.clj"                    (*render* "site/auth.clj")]
-   ["src/{{sanitized}}/views/templates/menu.html"          (*render* "site/templates/menu.html")]
-   ["src/{{sanitized}}/views/templates/base.html"          (*render* "site/templates/base.html")]
-   ["src/{{sanitized}}/views/templates/profile.html"       (*render* "site/templates/profile.html")]
-   ["src/{{sanitized}}/views/templates/registration.html"  (*render* "site/templates/registration.html")]])
+  [["src/{{sanitized}}/routes/auth.clj"     (*render* "site/auth.clj")]
+   ["resources/templates/menu.html"         (*render* "site/templates/menu.html")]
+   ["resources/templates/base.html"         (*render* "site/templates/base.html")]
+   ["resources/templates/profile.html"      (*render* "site/templates/profile.html")]
+   ["resources/templates/registration.html" (*render* "site/templates/registration.html")]])
 
 
 (defmethod post-process :+site [_ project-file]
@@ -181,9 +186,9 @@
 
 (defmethod add-feature :+site-dailycred [_]
   (into (add-feature :+site)
-        [["src/{{sanitized}}/dailycred.clj"                      (*render* "dailycred/dailycred.clj")]
-         ["src/{{sanitized}}/routes/auth.clj"                    (*render* "dailycred/auth.clj")]
-         ["src/{{sanitized}}/views/templates/registration.html"  (*render* "dailycred/templates/registration.html")]]))
+        [["src/{{sanitized}}/dailycred.clj"       (*render* "dailycred/dailycred.clj")]
+         ["src/{{sanitized}}/routes/auth.clj"     (*render* "dailycred/auth.clj")]
+         ["resources/templates/registration.html" (*render* "dailycred/templates/registration.html")]]))
 
 (defmethod post-process :+site-dailycred [_ project-file]
   (post-process :+site project-file))
@@ -202,7 +207,7 @@
     (doseq [feature @features]
       (post-process feature project-file))
 
-    (rewrite-template-tags (sanitized-path "/views/templates/"))
+    (rewrite-template-tags (sanitized-resource-path "/templates/"))
     (set-lein-version project-file "2.0.0")))
 
 (defn site-required-features [features]
@@ -244,9 +249,9 @@
              ["src/{{sanitized}}/routes/home.clj"                        (*render* "home.clj")]
              ["src/{{sanitized}}/views/layout.clj"                       (*render* "layout.clj")]
              ;; public resources, example URL: /css/screen.css
-             ["src/{{sanitized}}/views/templates/base.html"              (*render* "templates/base.html")]
-             ["src/{{sanitized}}/views/templates/home.html"              (*render* "templates/home.html")]
-             ["src/{{sanitized}}/views/templates/about.html"             (*render* "templates/about.html")]
+             ["resources/templates/base.html"                            (*render* "templates/base.html")]
+             ["resources/templates/home.html"                            (*render* "templates/home.html")]
+             ["resources/templates/about.html"                           (*render* "templates/about.html")]
              ["resources/public/css/screen.css"                          (*render* "screen.css")]
              ["resources/public/css/bootstrap-theme.min.css"             (*render* "bootstrap/css/bootstrap-theme.min.css")]
              ["resources/public/css/bootstrap.min.css"                   (*render* "bootstrap/css/bootstrap.min.css")]
