@@ -9,11 +9,11 @@
                  [com.taoensso/timbre "3.1.6"]
                  [com.taoensso/tower "2.0.2"]
                  [markdown-clj "0.9.43"]
-                 [environ "0.4.0"]]
+                 [environ "0.5.0"]]
 
   :repl-options {:init-ns {{name}}.repl}
   :plugins [[lein-ring "0.8.10"]
-            [lein-environ "0.4.0"]]
+            [lein-environ "0.5.0"]]
   :ring {:handler {{name}}.handler/app
          :init    {{name}}.handler/init
          :destroy {{name}}.handler/destroy}
