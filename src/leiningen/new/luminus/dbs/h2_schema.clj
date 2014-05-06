@@ -19,8 +19,9 @@
 
 (defn create-users-table
   []
-  (sql/with-connection db-spec
-    (sql/create-table
+  (sql/db-do-commands
+    db-spec
+    (sql/create-table-ddl
       :users
       [:id "varchar(20) PRIMARY KEY"]
       [:first_name "varchar(30)"]
