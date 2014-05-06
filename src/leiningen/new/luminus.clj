@@ -122,8 +122,8 @@
 
 (defmethod post-process :+migrations [_ project-file]
   (add-sql-dependencies project-file
-                        ['ragtime "0.3.4"])
-  (add-plugins project-file ['ragtime/ragtime.lein "0.3.4"])
+                        ['ragtime "0.3.7"])
+  (add-plugins project-file ['ragtime/ragtime.lein "0.3.7"])
   (add-to-project
    project-file
    :ragtime {:migrations 'ragtime.sql.files/migrations
