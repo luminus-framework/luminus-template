@@ -33,7 +33,7 @@
       (let [response (dailycred/sign-up email username pass)]
         (if (= (:worked response) true)
           (do 
-            (session/put! :user (-> response :user :id))
+            (session/put! :user-id (-> response :user :id))
             (resp/redirect "/"))
           (do 
             (vali/rule false [:email (-> response :errors first :message)])
@@ -46,7 +46,7 @@
 (defn handle-login [login pass]
   (let [response (dailycred/sign-in login pass)]
     (when (= (:worked response) true)      
-      (session/put! :user (-> response :user :id)))
+      (session/put! :user-id (-> response :user :id)))
     (resp/redirect "/")))
 
 (defn logout []
