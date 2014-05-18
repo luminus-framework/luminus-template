@@ -60,8 +60,8 @@
   (POST "/register" [email username pass pass1]
         (handle-registration email username pass pass1))
 
-  (POST "/login" [login pass]
-        (handle-login login pass))
+  (POST "/login" [id pass]
+        (handle-login id pass))
 
   (POST "/logout" []
         (logout)))
