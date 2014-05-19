@@ -4,15 +4,12 @@
             [domina.events :refer [listen!]]
             [dommy.template :as template]))
 
-(def base-request-params
-  {:format :json
-   :response-format :json
-   :keywords? true})
+(defn render-message [message]
+  (let [user (get message "user")
+        text (get message "message")]
+    [:li [:p {:id user} text " - " user]]))
 
-(defn render-message [{:keys [message user]}]
-  [:li [:p {:id user} message " - " user]])
-
-(defn render-messages [messages]
+(defn render-messages [messages]  
   (let [messages-div (by-id "messages")]
     (destroy-children! messages-div)
     (->> messages
@@ -25,10 +22,11 @@
   (POST "/add-message"
         (merge base-request-params
                {:params {:message (value (by-id "message"))
-                         :user    (value (by-id "user"))}
+                         :user    (value (by-id "user"))}                                
                 :handler render-messages})))
 
 (defn ^:export init []
   (GET "/messages"
-       (merge base-request-params {:handler render-messages}))
+       {:handler render-messages})
   (listen! (by-id "send") :click add-message))
+
