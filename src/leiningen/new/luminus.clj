@@ -62,10 +62,10 @@
   (add-routes (sanitized-path "/handler.clj") 'cljs-routes)
   (add-dependencies project-file
                     ;;needed to get the latest version of ClojureScript until cljsbuild gets up to date
-                    ['org.clojure/clojurescript "0.0-2138"]
+                    ['org.clojure/clojurescript "0.0-2202"]
                     ['domina "1.0.2"]
                     ['prismatic/dommy "0.1.2"]
-                    ['cljs-ajax "0.2.3"])
+                    ['cljs-ajax "0.2.4"])
   (add-plugins project-file ['lein-cljsbuild "0.3.3"])
   (add-to-project
    project-file
@@ -139,7 +139,7 @@
   [["src//{{sanitized}}/core.clj"  (*render* "core.clj")]])
 
 (defmethod post-process :+http-kit [_ project-file]
-  (add-dependencies project-file ['http-kit "2.1.13"])
+  (add-dependencies project-file ['http-kit "2.1.18"])
   (add-to-project project-file :main (symbol (str *name* ".core"))))
 
 (defmethod add-feature :+cucumber [_]
