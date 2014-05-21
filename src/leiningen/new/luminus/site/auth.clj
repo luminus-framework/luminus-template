@@ -1,11 +1,11 @@
 (ns {{name}}.routes.auth
   (:use compojure.core)
-  (:require [{{name}}.views.layout :as layout]
+  (:require [{{name}}.layout :as layout]
             [noir.session :as session]
             [noir.response :as resp]
             [noir.validation :as vali]
             [noir.util.crypt :as crypt]
-            [{{name}}.models.db :as db]))
+            [{{name}}.db.core :as db]))
 
 (defn valid? [id pass pass1]
   (vali/rule (vali/has-value? id)

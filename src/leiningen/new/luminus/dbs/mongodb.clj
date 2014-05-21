@@ -1,4 +1,4 @@
-(ns {{name}}.models.db
+(ns {{name}}.db.core
     (:require [monger.core :as mg]
               [monger.collection :as mc]
               [monger.operators :refer :all]))

@@ -22,12 +22,12 @@
 
 (defn add-sql-files [schema-file]
   [["src/log4j.xml" (*render* "dbs/log4j.xml")]
-   ["src/{{sanitized}}/models/db.clj" (*render* "dbs/db.clj")]
+   ["src/{{sanitized}}/db/core.clj" (*render* "dbs/db.clj")]
    schema-file])
 
 (defn add-mongo-files []
   [["src/log4j.xml" (*render* "dbs/log4j.xml")]
-   ["src/{{sanitized}}/models/db.clj" (*render* "dbs/mongodb.clj")]])
+   ["src/{{sanitized}}/db/core.clj" (*render* "dbs/mongodb.clj")]])
 
 (defn add-sql-dependencies [project-file dependency]
   (add-dependencies project-file
@@ -84,21 +84,21 @@
                  :pretty-print false}}]}))
 
 (defmethod add-feature :+h2 [_]
-  (add-sql-files ["src/{{sanitized}}/models/schema.clj" (*render* "dbs/h2_schema.clj")]))
+  (add-sql-files ["src/{{sanitized}}/db/schema.clj" (*render* "dbs/h2_schema.clj")]))
 
 (defmethod post-process :+h2 [_ project-file]
   (add-sql-dependencies project-file
                         ['com.h2database/h2 "1.3.175"]))
 
 (defmethod add-feature :+postgres [_]
-  (add-sql-files ["src/{{sanitized}}/models/schema.clj" (*render* "dbs/postgres_schema.clj")]))
+  (add-sql-files ["src/{{sanitized}}/db/schema.clj" (*render* "dbs/postgres_schema.clj")]))
 
 (defmethod post-process :+postgres [_ project-file]
   (add-sql-dependencies project-file
                         ['postgresql/postgresql "9.1-901-1.jdbc4"]))
 
 (defmethod add-feature :+mysql [_]
-  (add-sql-files ["src/{{sanitized}}/models/schema.clj" (*render* "dbs/mysql_schema.clj")]))
+  (add-sql-files ["src/{{sanitized}}/db/schema.clj" (*render* "dbs/mysql_schema.clj")]))
 
 (defmethod post-process :+mysql [_ project-file]
   (add-sql-dependencies project-file
@@ -164,7 +164,7 @@
 (defmethod post-process :+site [_ project-file]
   (if-not (some #{"+h2" "+postgres" "+mysql" "+mongodb"} @features)
     (post-process :+h2 project-file))
-  (replace-expr (sanitized-path "/views/layout.clj")
+  (replace-expr (sanitized-path "/layout.clj")
                 '(assoc params
                   (keyword (s/replace template #".html" "-selected")) "active"
                   :servlet-context (:context request))
@@ -172,13 +172,13 @@
                   (keyword (s/replace template #".html" "-selected")) "active"
                   :servlet-context (:context request)
                   :user-id (session/get :user-id)))
-  (add-required (sanitized-path "/views/layout.clj")
+  (add-required (sanitized-path "/layout.clj")
                 ['noir.session :as 'session])
   (add-required (sanitized-path "/handler.clj")
                 [(symbol (str *name* ".routes.auth")) :refer ['auth-routes]])
   (if-not (some #{"+mongodb"} @features)
     (add-required (sanitized-path "/handler.clj")
-                  [(symbol (str *name* ".models.schema")) :as 'schema]))
+                  [(symbol (str *name* ".db.schema")) :as 'schema]))
   (if-not (some #{"+postgres" "+mysql" "+mongodb"} @features)
     (add-to-init (sanitized-path "/handler.clj")
                  '(if-not (schema/initialized?) (schema/create-tables))))
@@ -247,7 +247,7 @@
              ["src/{{sanitized}}/repl.clj"                               (*render* "repl.clj")]
              ["src/{{sanitized}}/util.clj"                               (*render* "util.clj")]
              ["src/{{sanitized}}/routes/home.clj"                        (*render* "home.clj")]
-             ["src/{{sanitized}}/views/layout.clj"                       (*render* "layout.clj")]
+             ["src/{{sanitized}}/layout.clj"                             (*render* "layout.clj")]
              ;; public resources, example URL: /css/screen.css
              ["resources/templates/base.html"                            (*render* "templates/base.html")]
              ["resources/templates/home.html"                            (*render* "templates/home.html")]

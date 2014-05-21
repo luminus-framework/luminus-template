@@ -1,6 +1,6 @@
 (ns {{name}}.routes.cljsexample
   (:require [compojure.core :refer :all]
-            [{{name}}.views.layout :as layout]))
+            [{{name}}.layout :as layout]))
 
 (def messages
   (atom 

@@ -1,4 +1,4 @@
-(ns {{name}}.models.schema
+(ns {{name}}.db.schema
   (:require [clojure.java.jdbc :as sql]
             [noir.io :as io]))
 

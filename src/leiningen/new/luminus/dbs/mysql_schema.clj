@@ -1,4 +1,4 @@
-(ns {{name}}.models.schema)
+(ns {{name}}.db.schema)
 
 (def db-spec
   {:subprotocol "mysql"

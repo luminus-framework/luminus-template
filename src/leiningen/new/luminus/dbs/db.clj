@@ -1,7 +1,7 @@
-(ns {{name}}.models.db
+(ns {{name}}.db.core
   (:use korma.core
         [korma.db :only (defdb)])
-  (:require [{{name}}.models.schema :as schema]))
+  (:require [{{name}}.db.schema :as schema]))
 
 (defdb db schema/db-spec)
 

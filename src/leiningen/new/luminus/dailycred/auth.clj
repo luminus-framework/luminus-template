@@ -1,6 +1,6 @@
 (ns {{name}}.routes.auth
   (:use compojure.core)
-  (:require [{{name}}.views.layout :as layout]
+  (:require [{{name}}.layout :as layout]
             [noir.session :as session]
             [noir.response :as resp]
             [noir.validation :as vali]

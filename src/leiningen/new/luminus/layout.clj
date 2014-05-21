@@ -1,4 +1,4 @@
-(ns {{name}}.views.layout
+(ns {{name}}.layout
   (:require [selmer.parser :as parser]
             [clojure.string :as s]
             [ring.util.response :refer [content-type response]]
