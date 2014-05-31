@@ -1,9 +1,8 @@
 (ns leiningen.new.luminus
   (:use leiningen.new.dependency-injector
         leiningen.new.template-parser
-        [leiningen.new.templates :only [renderer sanitize year ->files *dir*]]
-        [leinjacker.utils :only [lein-generation]]
-        [clojure.java.io :only [file]])
+        [leiningen.new.templates :only [renderer sanitize year ->files]]
+        [leinjacker.utils :only [lein-generation]])
   (:import java.io.File
            java.util.regex.Matcher))
 
@@ -13,16 +12,16 @@
 
 (defn sanitized-path [& path]
   (.replaceAll
-   (str *dir* "/src/" (sanitize *name*) (apply str path))
+   (str *name* "/src/" (sanitize *name*) (apply str path))
    "/" (Matcher/quoteReplacement File/separator)))
 
 (defn sanitized-resource-path [& path]
   (.replaceAll
-   (str *dir* "/resources/" (apply str path))
+   (str *name* "/resources/" (apply str path))
    "/" (Matcher/quoteReplacement File/separator)))
 
 (defn add-sql-files [schema-file]
-  [["src/log4j.xml" (*render* "dbs/log4j.xml")]
+  [["resources/log4j.xml" (*render* "dbs/log4j.xml")]
    ["src/{{sanitized}}/db/core.clj" (*render* "dbs/db.clj")]
    schema-file])
 
@@ -111,7 +110,7 @@
 (defmethod post-process :+mongodb [_ project-file]
   (add-mongo-dependencies project-file
                           ['com.novemberain/monger "1.7.0"])
-  (let [docs-filename (str *dir* "/resources/public/md/docs.md")]
+  (let [docs-filename (str *name* "/resources/public/md/docs.md")]
     (spit docs-filename (str (*render* "dbs/mongo_instructions.html") (slurp docs-filename)))))
 
 (defmethod add-feature :+migrations [_]
@@ -133,7 +132,7 @@
                (str "jdbc:" (if postgres? "postgresql" "mysql")
                   "://localhost" (if postgres? "/" ":3306/") (sanitize *name*)
                   "?user=db_user_name_here&password=db_user_password_here"))})
-  (let [docs-filename (str *dir* "/resources/public/md/docs.md")]
+  (let [docs-filename (str *name* "/resources/public/md/docs.md")]
     (spit docs-filename (str (*render* "dbs/db_instructions.html") (slurp docs-filename)))))
 
 (defmethod add-feature :+http-kit [_]
@@ -203,7 +202,7 @@
   (mapcat add-feature @features))
 
 (defn inject-dependencies []
-  (let [project-file (file *dir* "project.clj")]
+  (let [project-file (str *name* File/separator "project.clj")]
 
     (doseq [feature @features]
       (post-process feature project-file))
