@@ -2,9 +2,9 @@
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [lib-noir "0.8.3"]
+                 [lib-noir "0.8.4"]
                  [ring-server "0.3.1"]
-                 [selmer "0.6.6"]
+                 [selmer "0.6.7"]
                  [com.taoensso/timbre "3.2.1"]
                  [com.taoensso/tower "2.0.2"]
                  [markdown-clj "0.9.44"]
@@ -22,5 +22,5 @@
                        :stacktraces?  false
                        :auto-reload?  false}}
    :dev {:dependencies [[ring-mock "0.1.5"]
-                        [ring/ring-devel "1.2.2"]]
+                        [ring/ring-devel "1.3.0"]]
          :env {:dev true}}})
