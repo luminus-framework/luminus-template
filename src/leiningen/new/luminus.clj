@@ -32,7 +32,7 @@
 (defn add-sql-dependencies [project-file dependency]
   (add-dependencies project-file
                     dependency
-                    ['korma "0.3.1"]
+                    ['korma "0.3.2"]
                     ['log4j "1.2.17"
                      :exclusions ['javax.mail/mail
                                   'javax.jms/jms
@@ -88,7 +88,7 @@
 
 (defmethod post-process :+h2 [_ project-file]
   (add-sql-dependencies project-file
-                        ['com.h2database/h2 "1.3.175"]))
+                        ['com.h2database/h2 "1.4.178"]))
 
 (defmethod add-feature :+postgres [_]
   (add-sql-files ["src/{{sanitized}}/db/schema.clj" (*render* "dbs/postgres_schema.clj")]))
