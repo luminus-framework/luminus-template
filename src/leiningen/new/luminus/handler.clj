@@ -7,6 +7,7 @@
             [taoensso.timbre :as timbre]
             [taoensso.timbre.appenders.rotor :as rotor]
             [selmer.parser :as parser]
+            [selmer.middleware :refer [wrap-error-page]]
             [environ.core :refer [env]]))
 
 (defroutes app-routes
@@ -46,7 +47,7 @@
            ;; add your application routes here
            [home-routes app-routes]
            ;; add custom middleware here
-           :middleware [middleware/template-error-page
+           :middleware [#(wrap-error-page % (env :dev))
                         middleware/log-request]
            ;; add access rules here
            :access-rules []

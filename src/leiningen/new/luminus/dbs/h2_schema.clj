@@ -15,7 +15,7 @@
 (defn initialized?
   "checks to see if the database schema is present"
   []
-  (.exists (new java.io.File (str (io/resource-path) db-store ".h2.db"))))
+  (.exists (new java.io.File (str (io/resource-path) db-store ".mv.db"))))
 
 (defn create-users-table
   []
