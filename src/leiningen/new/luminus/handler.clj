@@ -2,6 +2,7 @@
   (:require [compojure.core :refer [defroutes]]
             [{{name}}.routes.home :refer [home-routes]]
             [{{name}}.middleware :as middleware]
+            [noir.response :refer [redirect]]
             [noir.util.middleware :refer [app-handler]]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
@@ -49,6 +50,9 @@
            ;; add custom middleware here
            :middleware [#(wrap-error-page % (env :dev))
                         middleware/log-request]
+           ;; timeout sessions after 30 minutes
+           :session-options {:timeout (* 60 30)
+                             :timeout-response (redirect "/")}
            ;; add access rules here
            :access-rules []
            ;; serialize/deserialize the following data formats
