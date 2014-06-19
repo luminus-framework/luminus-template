@@ -12,7 +12,9 @@
     (content-type
       (->> (assoc params
                   (keyword (s/replace template #".html" "-selected")) "active"
-                  :servlet-context (:context request))
+                  :servlet-context
+                  (if-let [context (:servlet-context request)]
+                    (.getContextPath context)))
         (parser/render-file (str template-path template))
         response)
       "text/html; charset=utf-8")))
