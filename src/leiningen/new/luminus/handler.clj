@@ -1,14 +1,13 @@
 (ns {{name}}.handler
   (:require [compojure.core :refer [defroutes]]
             [{{name}}.routes.home :refer [home-routes]]
-            [{{name}}.middleware :as middleware]
+            [{{name}}.middleware :refer [load-middleware]]
             [noir.response :refer [redirect]]
             [noir.util.middleware :refer [app-handler]]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
             [taoensso.timbre.appenders.rotor :as rotor]
             [selmer.parser :as parser]
-            [selmer.middleware :refer [wrap-error-page]]
             [environ.core :refer [env]]))
 
 (defroutes app-routes
@@ -48,8 +47,7 @@
            ;; add your application routes here
            [home-routes app-routes]
            ;; add custom middleware here
-           :middleware [#(wrap-error-page % (env :dev))
-                        middleware/log-request]
+           :middleware (load-middleware)
            ;; timeout sessions after 30 minutes
            :session-options {:timeout (* 60 30)
                              :timeout-response (redirect "/")}

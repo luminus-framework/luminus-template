@@ -8,7 +8,8 @@
                  [com.taoensso/timbre "3.2.1"]
                  [com.taoensso/tower "2.0.2"]
                  [markdown-clj "0.9.44"]
-                 [environ "0.5.0"]]
+                 [environ "0.5.0"]
+                 [noir-exception "0.2.0"]]
 
   :repl-options {:init-ns {{name}}.repl}
   :plugins [[lein-ring "0.8.10"]
