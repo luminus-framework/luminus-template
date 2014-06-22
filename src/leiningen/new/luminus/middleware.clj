@@ -11,10 +11,14 @@
     (timbre/debug req)
     (handler req)))
 
+(def development-middleware
+  [log-request
+   wrap-error-page
+   wrap-exceptions])
+
+(def production-middleware
+  [#(wrap-internal-error % :log (fn [e] (timbre/error e)))])
+
 (defn load-middleware []
-  (into
-    (if-let [dev (env :dev)]
-      [log-request
-       #(wrap-error-page % dev)
-       wrap-exceptions])
-    [#(wrap-internal-error % :log (fn [e] (timbre/error e)))]))
+  (concat (when (env :dev) development-middleware)
+          production-middleware))
