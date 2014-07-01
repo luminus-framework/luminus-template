@@ -81,7 +81,8 @@
     [{:source-paths ["src-cljs"]
       :compiler {:output-to "resources/public/js/site.js"
                  :optimizations :advanced
-                 :pretty-print false}}]}))
+                 :pretty-print false
+                 :source-map true}}]}))
 
 (defmethod add-feature :+h2 [_]
   (add-sql-files ["src/{{sanitized}}/db/schema.clj" (*render* "dbs/h2_schema.clj")]))
