@@ -1,0 +1,33 @@
+{% extends "templates/base.html" %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1>Welcome to {{name}}</h1>
+    <p>Time to start building your site!</p>
+    <p><a class="btn btn-primary btn-lg" href="http://luminusweb.net">Learn more &raquo;</a></p>
+</div>
+
+<div class="row-fluid">
+    <div class="span8">
+        #%content|safe%#
+    </div>
+    <div class="span8">
+        <div id="app">
+            <p>Please run <code>lein cljsbuild auto dev</code> to start the ClojureScript compiler.</p>
+            <p>See <a href="http://www.luminusweb.net/docs/clojurescript.md">ClojureScript</a> documentation for further details.</p>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block page-scripts %}
+    <script src="http://fb.me/react-0.11.0.min.js"></script>
+    {% if dev %}
+        <script src="{{servlet-context}}/js/goog/base.js" type="text/javascript"></script>
+        <script src="{{servlet-context}}/js/app.js" type="text/javascript"></script>
+        <script type="text/javascript">goog.require("{{sanitized}}.core");</script>
+    {% else %}
+        <script src="{{servlet-context}}/js/app.js" type="text/javascript"></script>
+    {% endif %}
+{% endblock %}

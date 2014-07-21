@@ -54,7 +54,7 @@
 (defmethod add-feature :+cljs [_]
   [["src/{{sanitized}}/routes/home.clj"  (*render* "cljs/home.clj")]
    ["src-cljs/{{sanitized}}/core.cljs"  (*render* "cljs/core.cljs")]
-   ["resources/templates/app.html" (*render* "cljs/app.html")]])
+   ["resources/templates/home.html" (*render* "cljs/home.html")]])
 
 (defmethod post-process :+cljs [_ project-file]
   (add-dependencies project-file
