@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Welcome to {{name}}</title>
+</head>
+<body>
+<div class="container">
+    <div id="app"/>
+</div>
+<!-- scripts and styles -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+{% style "/css/screen.css" %}
+
+<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://fb.me/react-0.11.0.min.js"></script>
+
+<script type="text/javascript">
+    var context = "{{servlet-context}}";
+</script>
+
+{% if dev %}
+<script src="{{servlet-context}}/js/goog/base.js" type="text/javascript"></script>
+<script src="{{servlet-context}}/js/app.js" type="text/javascript"></script>
+<script type="text/javascript">goog.require("{{sanitized}}.core");</script>
+{% else %}
+<script src="{{servlet-context}}/js/app.js" type="text/javascript"></script>
+{% endif %}
+</body>
+</html>

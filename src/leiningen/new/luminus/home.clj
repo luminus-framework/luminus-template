@@ -1,6 +1,6 @@
 (ns {{name}}.routes.home
-  (:use compojure.core)
-  (:require [{{name}}.layout :as layout]
+  (:require [compojure.core :refer :all]
+            [{{name}}.layout :as layout]
             [{{name}}.util :as util]))
 
 (defn home-page []

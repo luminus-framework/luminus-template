@@ -2,7 +2,8 @@
   (:require [selmer.parser :as parser]
             [clojure.string :as s]
             [ring.util.response :refer [content-type response]]
-            [compojure.response :refer [Renderable]]))
+            [compojure.response :refer [Renderable]]
+            [environ.core :refer [env]]))
 
 (def template-path "templates/")
 
@@ -12,6 +13,7 @@
     (content-type
       (->> (assoc params
                   (keyword (s/replace template #".html" "-selected")) "active"
+                  :dev (env :dev)
                   :servlet-context
                   (if-let [context (:servlet-context request)]
                     (.getContextPath context)))

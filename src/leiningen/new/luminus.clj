@@ -52,37 +52,37 @@
 (defmulti post-process (fn [feature _] (keyword feature)))
 
 (defmethod add-feature :+cljs [_]
-  [["src/{{sanitized}}/routes/cljsexample.clj"  (*render* "cljs/cljsexample.clj")]
-   ["src-cljs/main.cljs"  (*render* "cljs/main.cljs")]
-   ["resources/templates/cljsexample.html" (*render* "cljs/cljsexample.html")]])
+  [["src/{{sanitized}}/routes/home.clj"  (*render* "cljs/home.clj")]
+   ["src-cljs/{{sanitized}}/core.cljs"  (*render* "cljs/core.cljs")]
+   ["resources/templates/app.html" (*render* "cljs/app.html")]])
 
 (defmethod post-process :+cljs [_ project-file]
-  (add-required (sanitized-path "/handler.clj")
-                [(symbol (str *name* ".routes.cljsexample")) :refer ['cljs-routes]])
-  (add-routes (sanitized-path "/handler.clj") 'cljs-routes)
   (add-dependencies project-file
                     ;;needed to get the latest version of ClojureScript until cljsbuild gets up to date
-                    ['org.clojure/clojurescript "0.0-2234"]
-                    ['domina "1.0.2"]
-                    ['prismatic/dommy "0.1.2"]
+                    ['org.clojure/clojurescript "0.0-2268"]
+                    ['reagent "0.4.2"]
                     ['cljs-ajax "0.2.6"])
   (add-plugins project-file ['lein-cljsbuild "1.0.3"])
   (add-to-project
    project-file
    :cljsbuild
-   #_{:builds {:dev {:source-paths ["src-cljs"]
-                   :compiler {:output-to "resources/public/js/site.js"
-                              :optimizations :whitespace
-                              :pretty-print true}}
-             :prod {:source-paths ["src-cljs"]
-                    :compiler {:output-to "resources/public/js/site.js"
-                               :optimizations :advanced}}}}
    {:builds
-    [{:source-paths ["src-cljs"]
-      :compiler {:output-to "resources/public/js/site.js"
-                 :optimizations :advanced
-                 :pretty-print false
-                 :source-map true}}]}))
+     [{:id "dev"
+       :source-paths ["src-cljs"]
+       :compiler
+        {:optimizations :none
+         :output-to "resources/public/js/app.js"
+         :output-dir "resources/public/js/"
+         :pretty-print true
+         :source-map true}}
+      {:id "release"
+       :source-paths ["src-cljs"]
+       :compiler
+        {:output-to "resources/public/js/app.js"
+         :optimizations :advanced
+         :pretty-print false
+         :output-wrapper false
+         :closure-warnings {:non-standard-jsdoc :off}}}]}))
 
 (defmethod add-feature :+h2 [_]
   (add-sql-files ["src/{{sanitized}}/db/schema.clj" (*render* "dbs/h2_schema.clj")]))

@@ -4,14 +4,15 @@
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [lib-noir "0.8.4"]
                  [ring-server "0.3.1"]
-                 [selmer "0.6.8"]
+                 [selmer "0.6.9"]
                  [com.taoensso/timbre "3.2.1"]
                  [com.taoensso/tower "2.0.2"]
-                 [markdown-clj "0.9.44"]
+                 [markdown-clj "0.9.47"]
                  [environ "0.5.0"]
                  [noir-exception "0.2.2"]]
 
   :repl-options {:init-ns {{name}}.repl}
+  :jvm-opts ["-server"]
   :plugins [[lein-ring "0.8.10"]
             [lein-environ "0.5.0"]]
   :ring {:handler {{name}}.handler/app
