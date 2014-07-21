@@ -61,6 +61,7 @@
                     ;;needed to get the latest version of ClojureScript until cljsbuild gets up to date
                     ['org.clojure/clojurescript "0.0-2268"]
                     ['reagent "0.4.2"]
+                    ['secretary "1.2.0"]  
                     ['cljs-ajax "0.2.6"])
   (add-plugins project-file ['lein-cljsbuild "1.0.3"])
   (add-to-project
