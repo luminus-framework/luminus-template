@@ -162,7 +162,6 @@
    ["resources/templates/profile.html"      (*render* "site/templates/profile.html")]
    ["resources/templates/registration.html" (*render* "site/templates/registration.html")]])
 
-
 (defmethod post-process :+site [_ project-file]
   (if-not (some #{"+h2" "+postgres" "+mysql" "+mongodb"} @features)
     (post-process :+h2 project-file))
@@ -200,6 +199,37 @@
 
 (defmethod post-process :+site-dailycred [_ project-file]
   (post-process :+site project-file))
+
+(defmethod add-feature :+static [_]
+  [
+   ;; Add documentation page about static generator
+   ["STATIC_SITE_GENERATOR.md"
+    (*render* "STATIC_SITE_GENERATOR.md")]
+
+   ;; Add bootstrap and jquery as local resources
+   ["resources/public/css/bootstrap/3.2.0/bootstrap.min.css"
+    (*render* "bootstrap/3.2.0/css/bootstrap.min.css")]
+   ["resources/public/css/bootstrap/3.2.0/bootstrap-theme.min.css"
+    (*render* "bootstrap/3.2.0/css/bootstrap-theme.min.css")]
+   ["resources/public/js/jquery/2.0.3/jquery-2.0.3.min.js"
+    (*render* "jquery/jquery-2.0.3.min.js")]
+   ["resources/public/js/bootstrap/3.2.0/bootstrap.min.js"
+    (*render* "bootstrap/3.2.0/js/bootstrap.min.js")]
+
+   ;; static.clj contains logic for generating static site
+   ["src/{{sanitized}}/static.clj" (*render* "static/static.clj")]
+
+   ;; home.clj updated with new routes
+   ["src/{{sanitized}}/routes/home.clj" (*render* "static/home.clj")]
+
+   ;; change base.html to serve local files
+   ["resources/templates/base.html" (*render* "static/templates/base.html")]])
+
+(defmethod post-process :+static [_ project-file]
+  (add-dependencies project-file
+                    ['commons-io/commons-io "2.4"]
+                    ['org.clojure/tools.cli "0.3.1"])
+  (add-to-project project-file :main (symbol (str *name* ".static"))))
 
 (defmethod add-feature :default [feature]
   (throw (Exception. (str "unrecognized feature: " (name feature)))))
@@ -279,7 +309,7 @@
 (defn luminus
   "Create a new Luminus project"
   [name & feature-params]
-  (let [supported-features #{"+cljs" "+site" "+h2" "+postgres" "+dailycred" "+mysql" "+http-kit" "+cucumber" "+mongodb"}
+  (let [supported-features #{"+cljs" "+site" "+h2" "+postgres" "+dailycred" "+mysql" "+http-kit" "+cucumber" "+mongodb" "+static"}
         data {:name name
               :sanitized (sanitize name)
               :year (year)}
