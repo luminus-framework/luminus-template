@@ -4,11 +4,11 @@ The Luminus framework can be used as a powerful static site generator
 by simulating browser requests to the compojure routes you've defined
 in your luminous webapp and then saving the results as html files.
 
-The static generator reads the `static-site` datastructure defined
-inside `static.clj` in order to know which html files to create.
+The static generator reads the `site-definition` datastructure defined
+inside `static_site.clj` in order to know which html files to create.
 
 ```clojure
-(def static-site
+(def site-definition
   {:routes
     [["index.html" :get "/index.html"]
      ["about.html" :get "/about.html"]]
