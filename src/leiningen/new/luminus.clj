@@ -204,7 +204,7 @@
   [
    ;; Add documentation page about static generator
    ["STATIC_SITE_GENERATOR.md"
-    (*render* "STATIC_SITE_GENERATOR.md")]
+    (*render* "static/STATIC_SITE_GENERATOR.md")]
 
    ;; Add bootstrap and jquery as local resources
    ["resources/public/css/bootstrap/3.2.0/bootstrap.min.css"
@@ -218,7 +218,8 @@
 
    ;; static.clj contains logic for generating static site
    ["src/{{sanitized}}/static.clj" (*render* "static/static.clj")]
-
+   ;;contains the routes for the static site
+   ["src/{{sanitized}}/static_site.clj" (*render* "static/static_site.clj")]
    ;; home.clj updated with new routes
    ["src/{{sanitized}}/routes/home.clj" (*render* "static/home.clj")]
 

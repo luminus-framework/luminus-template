@@ -1,16 +1,11 @@
 (ns {{name}}.static
-  (:import (org.apache.commons.io FileUtils)
-           (java.io File BufferedReader FileReader FileWriter))
-  (:use {{name}}.routes.home
-        ring.mock.request)
-  (:require [clojure.tools.cli :refer [parse-opts]])
+  (:import org.apache.commons.io.FileUtils
+           [java.io File BufferedReader FileReader FileWriter])
+  (:require [{{name}}.routes.home :refer :all]
+            [ring.mock.request :refer :all]
+            [{{name}}.static-site :refer [site-definition]]
+            [clojure.tools.cli :refer [parse-opts]])
   (:gen-class))
-
-(def static-site
-  {:routes
-   [["index.html" :get "/index.html"]
-    ["about.html" :get "/about.html"]]
-   :css {:exclude #"bootstrap"}})
 
 (defn- with-context
   "Specify what the ctx should be for relative urls"
@@ -66,17 +61,19 @@
     tmp-dest))
 
 (defn- fix-css!
-  "Traverse all css files inside css-files-path and fix relative urls"
-  [servlet-context css-files-path]
-  (let [css-files
-        (filter #(and
-                  (re-find #"^.*\.css$" (.getName %))
-                  (not (re-find (get-in static-site [:css :exclude]) (.getName %))))
-                (file-seq (File. css-files-path)))]
-    (doseq [css-file css-files]
-      (let [updated (fix-css-file! servlet-context css-file)]
-        (FileUtils/copyFile updated css-file)
-        (println "Fixed urls inside " (.getName css-file))))))
+       "Traverse all css files inside css-files-path and fix relative urls"
+       [servlet-context css-files-path]
+       (let [css-files
+             (->> (File. css-files-path)
+                  (file-seq)
+                  (filter #(and
+                            (re-find #"^.*\.css$" (.getName %))
+                            (get-in site-definition [:css :exclude])
+                            (not (re-find (get-in site-definition [:css :exclude]) (.getName %))))))]
+            (doseq [css-file css-files]
+                   (let [updated (fix-css-file! servlet-context css-file)]
+                        (FileUtils/copyFile updated css-file)
+                        (println "Fixed urls inside " (.getName css-file))))))
 
 (defn- copy-resources [dest-path]
   (copy-resource-dir dest-path "css")
@@ -100,12 +97,12 @@
 (def default-servlet-context "")
 
 (defn generate-static-site
-  "Generate static html files for each item defined in static-site"
+  "Generate static html files for each item defined in {{name}}.static-site/site-definition"
   [& {:keys [servlet-context dest-path]
       :or {servlet-context "" dest-path "site"}}]
   (copy-resources dest-path)
   (fix-css! servlet-context (str dest-path "/css"))
-  (doseq [request (:routes static-site)]
+  (doseq [request (:routes site-definition)]
     (apply save-request-to-file (into [servlet-context dest-path] request))))
 
 (def cli-options
