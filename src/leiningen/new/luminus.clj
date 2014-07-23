@@ -168,11 +168,17 @@
     (post-process :+h2 project-file))
   (replace-expr (sanitized-path "/layout.clj")
                 '(assoc params
-                  (keyword (s/replace template #".html" "-selected")) "active"
-                  :servlet-context (:context request))
+                   (keyword (s/replace template #".html" "-selected")) "active"
+                   :dev (env :dev)
+                   :servlet-context
+                   (if-let [context (:servlet-context request)]
+                     (.getContextPath context)))
                 '(assoc params
                   (keyword (s/replace template #".html" "-selected")) "active"
-                  :servlet-context (:context request)
+                  :dev (env :dev)
+                  :servlet-context
+                  (if-let [context (:servlet-context request)]
+                    (.getContextPath context))
                   :user-id (session/get :user-id)))
   (add-required (sanitized-path "/layout.clj")
                 ['noir.session :as 'session])
