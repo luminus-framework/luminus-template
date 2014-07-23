@@ -1,4 +1,4 @@
-## Luminous as a static site generator
+## Luminus as a static site generator
 
 The Luminus framework can be used as a powerful static site generator
 by simulating browser requests to the compojure routes you've defined
