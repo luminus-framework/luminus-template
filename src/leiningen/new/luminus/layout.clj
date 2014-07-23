@@ -16,7 +16,12 @@
                   :dev (env :dev)
                   :servlet-context
                   (if-let [context (:servlet-context request)]
-                    (.getContextPath context)))
+                    ;; If we're not inside a serlvet environment (for
+                    ;; example when using mock requests), then
+                    ;; .getContextPath might not exist
+                    (try (.getContextPath context)
+                         (catch IllegalArgumentException e
+                           context))))
         (parser/render-file (str template-path template))
         response)
       "text/html; charset=utf-8")))

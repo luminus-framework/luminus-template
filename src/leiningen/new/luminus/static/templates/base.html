@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Welcome to {{name}}</title>
+  </head>
+  <body>
+    <!-- navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#%servlet-context%#/index.html">{{name}}</a>
+        </div>
+        <div class="navbar-collapse collapse ">
+          <ul class="nav navbar-nav">
+            <li class="#%home-selected%#"><a href="#%servlet-context%#/index.html">Home</a></li>
+            <li class="#%about-selected%#"><a href="#%servlet-context%#/about.html">About</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+    </div>
+    <!-- scripts and styles -->
+    <!-- scripts and styles -->
+    <link rel="stylesheet" href="#%servlet-context%#/css/bootstrap/3.2.0/bootstrap.min.css">
+    <link rel="stylesheet" href="#%servlet-context%#/css/bootstrap/3.2.0/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="#%servlet-context%#/css/screen.css" type="text/css"> 
+
+    <script src="#%servlet-context%#/js/jquery/2.0.3/jquery-2.0.3.min.js" type="text/javascript"></script>
+    <script src="#%servlet-context%#/js/bootstrap/3.2.0/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+      var context = "#%servlet-context%#";
+    </script>
+  </body>
+</html>
+
