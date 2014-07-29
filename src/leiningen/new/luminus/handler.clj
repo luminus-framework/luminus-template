@@ -2,13 +2,15 @@
   (:require [compojure.core :refer [defroutes]]
             [{{name}}.routes.home :refer [home-routes]]
             [{{name}}.middleware :refer [load-middleware]]
+            [{{name}}.session-manager :as session-manager]
             [noir.response :refer [redirect]]
             [noir.util.middleware :refer [app-handler]]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
             [taoensso.timbre.appenders.rotor :as rotor]
             [selmer.parser :as parser]
-            [environ.core :refer [env]]))
+            [environ.core :refer [env]]
+            [cronj.core :as cronj]))
 
 (defroutes app-routes
   (route/resources "/")
@@ -33,15 +35,17 @@
     {:path "{{sanitized}}.log" :max-size (* 512 1024) :backlog 10})
 
   (if (env :dev) (parser/cache-off!))
+  ;;start the expired session cleanup job
+  (cronj/start! session-manager/cleanup-job)
   (timbre/info "{{name}} started successfully"))
 
 (defn destroy
   "destroy will be called when your application
    shuts down, put any clean up code here"
   []
-  (timbre/info "{{name}} is shutting down..."))
-
-
+  (timbre/info "{{name}} is shutting down...")
+  (cronj/shutdown! session-manager/cleanup-job)
+  (timbre/info "shutdown complete!"))
 
 (def app (app-handler
            ;; add your application routes here
