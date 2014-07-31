@@ -20,8 +20,7 @@
                     ;; example when using mock requests), then
                     ;; .getContextPath might not exist
                     (try (.getContextPath context)
-                         (catch IllegalArgumentException e
-                           context))))
+                         (catch IllegalArgumentException _ context))))
         (parser/render-file (str template-path template))
         response)
       "text/html; charset=utf-8")))

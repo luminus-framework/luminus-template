@@ -21,13 +21,12 @@
    "/" (Matcher/quoteReplacement File/separator)))
 
 (defn add-sql-files [schema-file]
-  [["resources/log4j.xml" (*render* "dbs/log4j.xml")]
+  [["resources/log4j.properties" (*render* "log4j.properties")]
    ["src/{{sanitized}}/db/core.clj" (*render* "dbs/db.clj")]
    schema-file])
 
 (defn add-mongo-files []
-  [["src/log4j.xml" (*render* "dbs/log4j.xml")]
-   ["src/{{sanitized}}/db/core.clj" (*render* "dbs/mongodb.clj")]])
+  [["src/{{sanitized}}/db/core.clj" (*render* "dbs/mongodb.clj")]])
 
 (defn add-sql-dependencies [project-file dependency]
   (add-dependencies project-file
@@ -146,6 +145,7 @@
 
 (defmethod add-feature :+cucumber [_]
   [["test/{{sanitized}}/browser.clj"                     (*render* "site/templates/browser.clj")]
+   ["resources/log4j.properties"                         (*render* "log4j.properties")]
    ["test/features/step_definitions/home_page_steps.clj" (*render* "site/templates/home_page_steps.clj")]
    ["test/features/index_page.feature"                   (*render* "site/templates/index_page.feature")]])
 
@@ -167,17 +167,21 @@
     (post-process :+h2 project-file))
   (replace-expr (sanitized-path "/layout.clj")
                 '(assoc params
-                   (keyword (s/replace template #".html" "-selected")) "active"
-                   :dev (env :dev)
-                   :servlet-context
-                   (if-let [context (:servlet-context request)]
-                     (.getContextPath context)))
+                  (keyword (s/replace template #".html" "-selected")) "active"
+                  :dev (env :dev)
+                  :servlet-context
+                  (if-let [context (:servlet-context request)]
+                    (try
+                      (.getContextPath context)
+                      (catch IllegalArgumentException _ context))))
                 '(assoc params
                   (keyword (s/replace template #".html" "-selected")) "active"
                   :dev (env :dev)
                   :servlet-context
                   (if-let [context (:servlet-context request)]
-                    (.getContextPath context))
+                    (try
+                      (.getContextPath context)
+                      (catch IllegalArgumentException _ context)))
                   :user-id (session/get :user-id)))
   (add-required (sanitized-path "/layout.clj")
                 ['noir.session :as 'session])
@@ -281,6 +285,7 @@
              ["Procfile"    (*render* "Procfile")]
              ["README.md"   (*render* "README.md")]
              ;; core namespaces
+             ["src/{{sanitized}}/session_manager.clj"                    (*render* "session_manager.clj")]
              ["src/{{sanitized}}/handler.clj"                            (*render* "handler.clj")]
              ["src/{{sanitized}}/middleware.clj"                         (*render* "middleware.clj")]
              ["src/{{sanitized}}/repl.clj"                               (*render* "repl.clj")]
