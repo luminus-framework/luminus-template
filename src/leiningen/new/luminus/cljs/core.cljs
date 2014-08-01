@@ -46,20 +46,13 @@
         {:params (:doc @state)
          :handler (fn [_] (swap! state assoc :saved? true))}))
 
-(defn status []
-  (when-not (:saved? @state)
-    [:p "document has unsaved changes"]))
-
 (defn home []
   [:div
    [:div.page-header [:h1 "Reagent Form"]]
-
-   [status]
    [text-input :first-name "First name"]
    [text-input :last-name "Last name"]
    [selection-list :favorite-drinks "Favorite drinks"
     [:coffee "Coffee"] [:beer "Beer"] [:crab-juice "Crab juice"]]
-
    (if (:saved? @state)
      [:p "Saved"]
      [:button {:type "submit"
