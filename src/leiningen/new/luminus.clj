@@ -58,7 +58,7 @@
 (defmethod post-process :+cljs [_ project-file]
   (add-dependencies project-file
                     ;;needed to get the latest version of ClojureScript until cljsbuild gets up to date
-                    ['org.clojure/clojurescript "0.0-2268"]
+                    ['org.clojure/clojurescript "0.0-2277"]
                     ['reagent "0.4.2"]
                     ['secretary "1.2.0"]  
                     ['cljs-ajax "0.2.6"])
