@@ -18,7 +18,7 @@
     <div class="btn-group pull-right">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-          <form action="#%servlet-context%#/login" class="navbar-form" method="POST">
+          <form id="login-form" class="navbar-form">
             <input class="span2"
                    id="id"
                    name="id"
@@ -31,7 +31,7 @@
                    placeholder="password"
                    style="margin-right: 5px"
                    type="password"/>
-            <input class="btn" type="submit" value="Login"/>
+            <input class="btn" type="submit" onClick="login" value="Login"/>
           </form>
         </li>
         <li>
@@ -39,5 +39,24 @@
         </li>
       </ul>
     </div>
+    <script type="application/javascript">
+        $( "#login-form" ).submit(function(event) {
+            $.ajax
+            ({
+                type: "GET",
+                url: "#%servlet-context%#/login",
+                headers: {
+                    "Authorization": "Basic " + btoa($("input#id").val() + ":" + $("input#pass").val())
+                },
+                success: function () {
+                    document.location.href = "#%servlet-context%#/";
+                }
+            });
+            event.preventDefault();
+        });
+    </script>
   {% endif %}
 </div>
+
+
+

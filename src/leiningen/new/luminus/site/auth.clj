@@ -5,7 +5,8 @@
             [noir.response :as resp]
             [noir.validation :as vali]
             [noir.util.crypt :as crypt]
-            [{{name}}.db.core :as db]))
+            [{{name}}.db.core :as db])
+  (:import javax.xml.bind.DatatypeConverter))
 
 (defn valid? [id pass pass1]
   (vali/rule (vali/has-value? id)
@@ -47,11 +48,21 @@
   (db/update-user (session/get :user-id) first-name last-name email)
   (profile))
 
-(defn handle-login [id pass]
-  (let [user (db/get-user id)]
-    (if (and user (crypt/compare pass (:pass user)))
-      (session/put! :user-id id))
-    (resp/redirect "/")))
+(defn parse-creds [auth]
+  (when-let [basic-creds (second (re-matches #"\QBasic\E\s+(.*)" auth))]
+    (->> (String. (DatatypeConverter/parseBase64Binary basic-creds) "UTF-8")
+         (re-matches #"(.*):(.*)")
+         rest)))
+
+(defn handle-login [auth]
+  (let [[user pass] (parse-creds auth)
+         account (db/get-user user)]
+    (if (and account (crypt/compare pass (:pass account)))
+      (do (session/put! :user-id user)
+          (resp/empty))
+      (resp/status 401 (resp/empty)))))
+
+
 
 (defn logout []
   (session/clear!)
@@ -68,8 +79,8 @@
   
   (POST "/update-profile" {params :params} (update-profile params))
   
-  (POST "/login" [id pass]
-        (handle-login id pass))
+  (GET "/login" req
+        (handle-login (get-in req [:headers "authorization"])))
 
   (GET "/logout" []
         (logout)))
