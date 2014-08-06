@@ -12,7 +12,7 @@
             [environ.core :refer [env]]
             [cronj.core :as cronj]))
 
-(defroutes app-routes
+(defroutes base-routes
   (route/resources "/")
   (route/not-found "Not Found"))
 
@@ -49,7 +49,7 @@
 
 (def app (app-handler
            ;; add your application routes here
-           [home-routes app-routes]
+           [home-routes base-routes]
            ;; add custom middleware here
            :middleware (load-middleware)
            ;; timeout sessions after 30 minutes
