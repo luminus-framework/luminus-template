@@ -28,5 +28,5 @@
 
 (defn -main [& args]
   (let [port-number (port args)]
-    (start-server port-number args))
-  (timbre/info (str "server started on port: " port-number)))
+    (start-server port-number args)
+    (timbre/info "server started on port: " port-number)))
