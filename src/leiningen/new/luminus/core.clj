@@ -13,8 +13,8 @@
 (defn dev? [args] (some #{"-dev"} args))
 
 (defn port [args]
-  (if-let [port (first (remove #{"-dev"} args))]
-    (Integer/parseInt port)
+  (if-let [[port-number] (remove #{"-dev"} args)]
+    (Integer/parseInt port-number)
     3000))
 
 (defn- start-server [port args]
@@ -27,6 +27,6 @@
   (@server))
 
 (defn -main [& args]
-  (let [port (port args)]
-    (start-server port args))
-  (timbre/info "server started on port" port))
+  (let [port-number (port args)]
+    (start-server port-number args))
+  (timbre/info (str "server started on port: " port-number)))
