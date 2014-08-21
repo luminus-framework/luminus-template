@@ -23,12 +23,14 @@
 {% endblock %}
 
 {% block page-scripts %}
-    <script src="http://fb.me/react-0.11.0.min.js"></script>
+    
     {% if dev %}
+        <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.11.0/react.js"></script>
         <script src="{{servlet-context}}/js/goog/base.js" type="text/javascript"></script>
         <script src="{{servlet-context}}/js/app.js" type="text/javascript"></script>
         <script type="text/javascript">goog.require("{{sanitized}}.core");</script>
     {% else %}
+        <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.11.0/react.min.js"></script>
         <script src="{{servlet-context}}/js/app.js" type="text/javascript"></script>
     {% endif %}
 {% endblock %}
