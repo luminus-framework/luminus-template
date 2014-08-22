@@ -29,4 +29,4 @@
 (defn -main [& args]
   (let [port (parse-port args)]
     (start-server port args)
-    (timbre/info "server started on port: " port)))
+    (timbre/info "server started on port:" port)))
