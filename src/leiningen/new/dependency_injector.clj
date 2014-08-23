@@ -104,12 +104,9 @@
   (add-to-ns
     filename
     (fn [expr]
-      (if (and (= 'def (first expr)) (= 'app (second expr)))
-        (clojure.walk/prewalk
-          (fn [x]
-            (if (and (vector? x) (some #(= % 'app-routes) x))
-              (into (vec routes) x) x))
-          expr)
+      (if (and (coll? expr) (= 'app (second expr)))
+        (let [[name app-routes & more] (first (drop 2 expr))]
+          (list 'def 'app (concat [name] [(into (vec routes) app-routes)] more)))
         expr))))
 
 (defn append-exps [filename & exps]
