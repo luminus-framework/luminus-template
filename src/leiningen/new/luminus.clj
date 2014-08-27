@@ -53,9 +53,25 @@
 (defmethod add-feature :+cljs [_]
   [["src/{{sanitized}}/routes/home.clj"  (*render* "cljs/home.clj")]
    ["src-cljs/{{sanitized}}/core.cljs"  (*render* "cljs/core.cljs")]
-   ["resources/templates/home.html" (*render* "cljs/home.html")]])
+   ["resources/templates/app.html" (*render* "cljs/app.html")]])
 
 (defmethod post-process :+cljs [_ project-file]
+  (replace-expr (sanitized-path "/layout.clj")
+                '(assoc params
+                   (keyword (s/replace template #".html" "-selected")) "active"
+                   :dev (env :dev)
+                   :servlet-context
+                   (if-let [context (:servlet-context request)]
+                     (try
+                       (.getContextPath context)
+                       (catch IllegalArgumentException _ context))))
+                '(assoc params
+                   :dev (env :dev)
+                   :servlet-context
+                   (if-let [context (:servlet-context request)]
+                     (try
+                       (.getContextPath context)
+                       (catch IllegalArgumentException _ context)))))
   (add-dependencies project-file
                     ;;needed to get the latest version of ClojureScript until cljsbuild gets up to date
                     ['org.clojure/clojurescript "0.0-2280"]
@@ -279,34 +295,36 @@
     (println "Generating a lovely new Luminus project named" (str name "..."))
 
     (apply (partial ->files data)
-           (into
-            [[".gitignore"  (*render* "gitignore")]
-             ["project.clj" (*render* "project.clj")]
-             ["Procfile"    (*render* "Procfile")]
-             ["README.md"   (*render* "README.md")]
-             ;; core namespaces
-             ["src/{{sanitized}}/session_manager.clj"                    (*render* "session_manager.clj")]
-             ["src/{{sanitized}}/handler.clj"                            (*render* "handler.clj")]
-             ["src/{{sanitized}}/middleware.clj"                         (*render* "middleware.clj")]
-             ["src/{{sanitized}}/repl.clj"                               (*render* "repl.clj")]
-             ["src/{{sanitized}}/util.clj"                               (*render* "util.clj")]
-             ["src/{{sanitized}}/routes/home.clj"                        (*render* "home.clj")]
-             ["src/{{sanitized}}/layout.clj"                             (*render* "layout.clj")]
-             ;; public resources, example URL: /css/screen.css
-             ["resources/templates/base.html"                            (*render* "templates/base.html")]
-             ["resources/templates/home.html"                            (*render* "templates/home.html")]
-             ["resources/templates/about.html"                           (*render* "templates/about.html")]
-             ["resources/public/css/screen.css"                          (*render* "screen.css")]
-             ["resources/public/fonts/glyphicons-halflings-regular.eot"  (*render* "bootstrap/fonts/glyphicons-halflings-regular.eot")]
-             ["resources/public/fonts/glyphicons-halflings-regular.svg"  (*render* "bootstrap/fonts/glyphicons-halflings-regular.svg")]
-             ["resources/public/fonts/glyphicons-halflings-regular.ttf"  (*render* "bootstrap/fonts/glyphicons-halflings-regular.ttf")]
-             ["resources/public/fonts/glyphicons-halflings-regular.woff" (*render* "bootstrap/fonts/glyphicons-halflings-regular.woff")]
-             ["resources/public/md/docs.md"                              (*render* "docs.md")]
-             "resources/public/js"
-             "resources/public/img"
-             ;; tests
-             ["test/{{sanitized}}/test/handler.clj" (*render* "handler_test.clj")]]
-            (include-features)))
+           (concat
+             [[".gitignore"                                               (*render* "gitignore")]
+              ["project.clj"                                              (*render* "project.clj")]
+              ["Procfile"                                                 (*render* "Procfile")]
+              ["README.md"                                                (*render* "README.md")]
+              ;; core namespaces
+              ["src/{{sanitized}}/session_manager.clj"                    (*render* "session_manager.clj")]
+              ["src/{{sanitized}}/handler.clj"                            (*render* "handler.clj")]
+              ["src/{{sanitized}}/middleware.clj"                         (*render* "middleware.clj")]
+              ["src/{{sanitized}}/repl.clj"                               (*render* "repl.clj")]
+              ["src/{{sanitized}}/util.clj"                               (*render* "util.clj")]
+              ["src/{{sanitized}}/routes/home.clj"                        (*render* "home.clj")]
+              ["src/{{sanitized}}/layout.clj"                             (*render* "layout.clj")]
+              ;; public resources, example URL: /css/screen.css
+
+              ["resources/public/css/screen.css"                          (*render* "screen.css")]
+              ["resources/public/fonts/glyphicons-halflings-regular.eot"  (*render* "bootstrap/fonts/glyphicons-halflings-regular.eot")]
+              ["resources/public/fonts/glyphicons-halflings-regular.svg"  (*render* "bootstrap/fonts/glyphicons-halflings-regular.svg")]
+              ["resources/public/fonts/glyphicons-halflings-regular.ttf"  (*render* "bootstrap/fonts/glyphicons-halflings-regular.ttf")]
+              ["resources/public/fonts/glyphicons-halflings-regular.woff" (*render* "bootstrap/fonts/glyphicons-halflings-regular.woff")]
+              ["resources/public/md/docs.md"                              (*render* "docs.md")]
+              "resources/public/js"
+              "resources/public/img"
+              ;; tests
+              ["test/{{sanitized}}/test/handler.clj" (*render* "handler_test.clj")]]
+              (when-not (some #{"+cljs"} @features)
+                [["resources/templates/base.html"                            (*render* "templates/base.html")]
+                 ["resources/templates/home.html"                            (*render* "templates/home.html")]
+                 ["resources/templates/about.html"                           (*render* "templates/about.html")]])
+              (include-features)))
     (inject-dependencies) ))
 
 (defn format-features [features]

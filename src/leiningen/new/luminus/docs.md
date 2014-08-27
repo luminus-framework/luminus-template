@@ -3,7 +3,7 @@
 
 Two middleware functions are provided by default in the `{{name}}.middleware` namespace.
 
-* `log-request` - logs all requests using the debug level
+* `log-request` - logs all requests using the debug level, to enable request loggin simple add it to the `development-middleware` vector
 * `template-error-page` - provides friendly formatting for Selmer errors in dev mode
 
 See the `:middleware` key of the `app` definition located in the `{{name}}.handler` namespace to manage the enabled middleware.

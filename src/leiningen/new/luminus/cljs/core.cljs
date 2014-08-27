@@ -1,6 +1,8 @@
 (ns {{name}}.core
-  (:require [reagent.core :as reagent :refer [atom]]
-            [ajax.core :refer [POST]]))
+            (:require [reagent.core :as reagent :refer [atom]]
+                      [secretary.core :as secretary
+                       :include-macros true :refer [defroute]]
+                      [ajax.core :refer [POST]]))
 
 (def state (atom {:doc {} :saved? false}))
 
@@ -21,30 +23,33 @@
    [:input {:type "text"
             :class "form-control"
             :value (get-value id)
-            :onChange #(set-value! id (-> % .-target .-value))}]])
+            :on-change #(set-value! id (-> % .-target .-value))}]])
 
-(defn list-item [id k v states]
+(defn list-item [id k v selections]
   (letfn [(handle-click! []
-                         (swap! (get states k) not)
-                         (set-value! id (->> states (filter (fn [[_ v]] @v)) keys)))]
-    [:li {:class (str "list-group-item" (if @(get states k) " active"))
-          :onClick handle-click!}
+                         (swap! selections update-in [k] not)
+                         (set-value! id (->> @selections (filter second) (map first))))]
+    [:li {:class (str "list-group-item" (if (k @selections) " active"))
+          :on-click handle-click!}
      v]))
 
 (defn selection-list [id label & items]
-  (let [states (->> items
-                    (map (fn [[k]] [k (atom false)]))
-                    (into {}))]
+  (let [selections (->> items (map (fn [[k]] [k false])) (into {}) atom)]
     (fn []
-      [row label
-       [:ul.list-group
-        (for [[k v] items]
-          [list-item id k v states])]])))
+      [:div.row
+       [:div.col-md-2 [:span label]]
+       [:div.col-md-5
+        [:div.row
+         (for [[k v] items]
+           [list-item id k v selections])]]])))
 
 (defn save-doc []
   (POST (str js/context "/save")
         {:params (:doc @state)
          :handler (fn [_] (swap! state assoc :saved? true))}))
+
+(defn about []
+  [:div "this is the story of {{name}}... work in progress"])
 
 (defn home []
   [:div
@@ -60,5 +65,33 @@
                :onClick save-doc}
       "Submit"])])
 
+(defn navbar []
+  [:div.navbar.navbar-inverse.navbar-fixed-top
+   [:div.container
+    [:div.navbar-header
+     [:a.navbar-brand {:href "#/"} "{{name}}"]]
+    [:div.navbar-collapse.collapse
+     [:ul.nav.navbar-nav
+      [:li {:class (when (= home (:page @state)) "active")}
+       [:a {:on-click #(secretary/dispatch! "#/")} "Home"]]
+      [:li {:class (when (= about (:page @state)) "active")}
+       [:a {:on-click #(secretary/dispatch! "#/about")} "About"]]]]]])
+
+(defn page []
+  [(:page @state)])
+
+(secretary/set-config! :prefix "#")
+
+(defroute "/" []
+          (.log js/console "hi!")
+          (swap! state assoc :page home))
+(defroute "/about" [] (swap! state assoc :page about))
+
+(defn init! []
+  (swap! state assoc :page home)
+  (reagent/render-component [navbar] (.getElementById js/document "navbar"))
+  (reagent/render-component [page] (.getElementById js/document "app")))
+
 ;;start the app
-(reagent/render-component [home] (.getElementById js/document "app"))
+(init!)
+
