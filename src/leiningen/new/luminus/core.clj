@@ -6,8 +6,8 @@
     [taoensso.timbre :as timbre])
   (:gen-class))
 
+;contains function that can be used to stop http-kit server
 (defonce server
-  "contains function that can be used to stop http-kit server"
   (atom nil))
 
 (defn dev? [args] (some #{"-dev"} args))
