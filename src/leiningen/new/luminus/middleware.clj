@@ -3,8 +3,8 @@
             [selmer.parser :as parser]
             [environ.core :refer [env]]
             [selmer.middleware :refer [wrap-error-page]]
-            [noir-exception.core
-              :refer [wrap-internal-error wrap-exceptions]]))
+            [prone.middleware :refer [wrap-exceptions]]
+            [noir-exception.core :refer [wrap-internal-error]]))
 
 (defn log-request [handler]
   (fn [req]
