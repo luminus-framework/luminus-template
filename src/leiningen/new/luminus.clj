@@ -31,7 +31,7 @@
 (defn add-sql-dependencies [project-file dependency]
   (add-dependencies project-file
                     dependency
-                    ['korma "0.3.3"]
+                    ['korma "0.4.0"]
                     ['log4j "1.2.17"
                      :exclusions ['javax.mail/mail
                                   'javax.jms/jms
@@ -74,7 +74,7 @@
                        (catch IllegalArgumentException _ context)))))
   (add-dependencies project-file
                     ;;needed to get the latest version of ClojureScript until cljsbuild gets up to date
-                    ['org.clojure/clojurescript "0.0-2280"]
+                    ['org.clojure/clojurescript "0.0-2322"]
                     ['reagent "0.4.2"]
                     ['secretary "1.2.0"]  
                     ['cljs-ajax "0.2.6"])
@@ -105,7 +105,7 @@
 
 (defmethod post-process :+h2 [_ project-file]
   (add-sql-dependencies project-file
-                        ['com.h2database/h2 "1.4.180"]))
+                        ['com.h2database/h2 "1.4.181"]))
 
 (defmethod add-feature :+postgres [_]
   (add-sql-files ["src/{{sanitized}}/db/schema.clj" (*render* "dbs/postgres_schema.clj")]))
