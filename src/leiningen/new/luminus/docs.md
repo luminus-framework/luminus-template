@@ -1,13 +1,12 @@
 
 ### Managing Your Middleware
 
-Two middleware functions are provided by default in the `{{name}}.middleware` namespace.
+Request middleware function are located under the `{{name}}.middleware` namespace.
+A request logging helper called `log-request` has already been defined there for you.
 
-* `log-request` - logs all requests using the debug level, to enable request loggin simple add it to the `development-middleware` vector
-* `template-error-page` - provides friendly formatting for Selmer errors in dev mode
-
-See the `:middleware` key of the `app` definition located in the `{{name}}.handler` namespace to manage the enabled middleware.
-
+This namespace also defines two vectors for managing the middleware called `development-middleware` and `production-middleware`.
+Any middleware that you only wish to run in development mode, such as `log-request`, should be added to the first vector.
+ 
 ### Here are some links to get started
 
 1. [HTML templating](http://www.luminusweb.net/docs/html_templating.md)
