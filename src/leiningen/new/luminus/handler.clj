@@ -37,7 +37,8 @@
   (if (env :dev) (parser/cache-off!))
   ;;start the expired session cleanup job
   (cronj/start! session-manager/cleanup-job)
-  (timbre/info "{{name}} started successfully"))
+  (timbre/info "\n-=[ {{name}} started successfully"
+               (when (env :dev) "using the development profile") "]=-"))
 
 (defn destroy
   "destroy will be called when your application
