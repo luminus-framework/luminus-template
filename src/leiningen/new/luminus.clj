@@ -51,8 +51,8 @@
 (defmulti post-process (fn [feature _] (keyword feature)))
 
 (defmethod add-feature :+cljs [_]
-  [["src/{{sanitized}}/routes/home.clj"  (*render* "cljs/home.clj")]
-   ["src-cljs/{{sanitized}}/core.cljs"  (*render* "cljs/core.cljs")]
+  [["src/{{sanitized}}/routes/home.clj" (*render* "cljs/home.clj")]
+   ["src-cljs/{{sanitized}}/core.cljs" (*render* "cljs/core.cljs")]
    ["resources/templates/app.html" (*render* "cljs/app.html")]])
 
 (defmethod post-process :+cljs [_ project-file]
@@ -74,7 +74,7 @@
                        (catch IllegalArgumentException _ context)))))
   (add-dependencies project-file
                     ;;needed to get the latest version of ClojureScript until cljsbuild gets up to date
-                    ['org.clojure/clojurescript "0.0-2341"]
+                    ['org.clojure/clojurescript "0.0-2342"]
                     ['reagent "0.4.2"]
                     ['secretary "1.2.0"]  
                     ['cljs-ajax "0.3.0"])

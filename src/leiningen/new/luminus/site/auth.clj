@@ -55,12 +55,13 @@
          rest)))
 
 (defn handle-login [auth]
-  (let [[user pass] (parse-creds auth)
-         account (db/get-user user)]
-    (if (and account (crypt/compare pass (:pass account)))
-      (do (session/put! :user-id user)
-          (resp/empty))
-      (resp/status 401 (resp/empty)))))
+  (when auth
+    (let [[user pass] (parse-creds auth)
+          account (db/get-user user)]
+      (if (and account (crypt/compare pass (:pass account)))
+        (do (session/put! :user-id user)
+            (resp/empty))
+        (resp/status 401 (resp/empty))))))
 
 
 
