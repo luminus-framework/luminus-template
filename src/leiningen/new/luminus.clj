@@ -112,7 +112,7 @@
 
 (defmethod post-process :+postgres [_ project-file]
   (add-sql-dependencies project-file
-                        ['postgresql/postgresql "9.1-901-1.jdbc4"]))
+                        ['postgresql/postgresql "9.3-1102-jdbc41"]))
 
 (defmethod add-feature :+mysql [_]
   (add-sql-files ["src/{{sanitized}}/db/schema.clj" (*render* "dbs/mysql_schema.clj")]))
