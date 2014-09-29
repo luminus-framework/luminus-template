@@ -5,6 +5,7 @@
             [{{name}}.session-manager :as session-manager]
             [noir.response :refer [redirect]]
             [noir.util.middleware :refer [app-handler]]
+            [ring.middleware.defaults :refer [site-defaults]]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
             [taoensso.timbre.appenders.rotor :as rotor]
@@ -48,11 +49,19 @@
   (cronj/shutdown! session-manager/cleanup-job)
   (timbre/info "shutdown complete!"))
 
+(defn- mk-defaults
+       "set to true to enable XSS protection"
+       [xss-protection?]
+       (-> site-defaults
+           (assoc-in [:security :xss-protection :enable?] xss-protection?)
+           (assoc-in [:security :anti-forgery] xss-protection?)))
+
 (def app (app-handler
            ;; add your application routes here
            [home-routes base-routes]
            ;; add custom middleware here
            :middleware (load-middleware)
+           :ring-defaults (mk-defaults false)
            ;; timeout sessions after 30 minutes
            :session-options {:timeout (* 60 30)
                              :timeout-response (redirect "/")}
