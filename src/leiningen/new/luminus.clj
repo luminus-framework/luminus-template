@@ -74,8 +74,8 @@
                        (catch IllegalArgumentException _ context)))))
   (add-dependencies project-file
                     ;;needed to get the latest version of ClojureScript until cljsbuild gets up to date
-                    ['org.clojure/clojurescript "0.0-2342"]
-                    ['reagent "0.4.2"]
+                    ['org.clojure/clojurescript "0.0-2356"]
+                    ['reagent-forms "0.2.3"]
                     ['secretary "1.2.0"]  
                     ['cljs-ajax "0.3.2"])
   (add-plugins project-file ['lein-cljsbuild "1.0.3"])

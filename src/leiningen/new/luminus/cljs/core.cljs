@@ -2,16 +2,10 @@
             (:require [reagent.core :as reagent :refer [atom]]
                       [secretary.core :as secretary
                        :include-macros true :refer [defroute]]
+                      [reagent-forms.core :refer [bind-fields]]
                       [ajax.core :refer [POST]]))
 
-(def state (atom {:doc {} :saved? false}))
-
-(defn set-value! [id value]
-  (swap! state assoc :saved? false)
-  (swap! state assoc-in [:doc id] value))
-
-(defn get-value [id]
-  (get-in @state [:doc id]))
+(def state (atom {:saved? false}))
 
 (defn row [label & body]
   [:div.row
@@ -19,51 +13,46 @@
    [:div.col-md-3 body]])
 
 (defn text-input [id label]
-  [row label
-   [:input {:type "text"
-            :class "form-control"
-            :value (get-value id)
-            :on-change #(set-value! id (-> % .-target .-value))}]])
+  (row label [:input.form-control {:field :text :id id}]))
 
-(defn list-item [id k v selections]
-  (letfn [(handle-click! []
-                         (swap! selections update-in [k] not)
-                         (set-value! id (->> @selections (filter second) (map first))))]
-    [:li {:class (str "list-group-item" (if (k @selections) " active"))
-          :on-click handle-click!}
-     v]))
+(defn selection-list [label id & items]
+  (row label
+    [:div.btn-group {:field :multi-select :id id}
+      (for [[k label] items]
+        [:button.btn.btn-default {:key k} label])]))
 
-(defn selection-list [id label & items]
-  (let [selections (->> items (map (fn [[k]] [k false])) (into {}) atom)]
-    (fn []
-      [:div.row
-       [:div.col-md-2 [:span label]]
-       [:div.col-md-5
-        [:div.row
-         (for [[k v] items]
-           [list-item id k v selections])]]])))
+(def form
+  [:div
+   [:div.page-header [:h1 "Reagent Form"]]
+   (text-input :first-name "First name")
+   (text-input :last-name "Last name")
+   (selection-list "Favorite drinks" :favorite-drinks
+                   [:coffee "Coffee"]
+                   [:beer "Beer"]
+                   [:crab-juice "Crab juice"])])
 
-(defn save-doc []
-  (POST (str js/context "/save")
-        {:params (:doc @state)
-         :handler (fn [_] (swap! state assoc :saved? true))}))
+(defn save-doc [doc]
+  (fn []
+    (POST (str js/context "/save")
+          {:params {:doc @doc}
+           :format :edn
+           :handler (fn [_] (swap! state assoc :saved? true))})))
 
 (defn about []
   [:div "this is the story of {{name}}... work in progress"])
 
 (defn home []
-  [:div
-   [:div.page-header [:h1 "Reagent Form"]]
-   [text-input :first-name "First name"]
-   [text-input :last-name "Last name"]
-   [selection-list :favorite-drinks "Favorite drinks"
-    [:coffee "Coffee"] [:beer "Beer"] [:crab-juice "Crab juice"]]
-   (if (:saved? @state)
-     [:p "Saved"]
-     [:button {:type "submit"
-               :class "btn btn-default"
-               :onClick save-doc}
-      "Submit"])])
+  (let [doc (atom {})]
+    (fn []
+      [:div
+       [bind-fields form doc
+        (fn [_ _ _] (swap! state assoc :saved? false) nil)]
+       (if (:saved? @state)
+         [:p "Saved"]
+         [:button {:type "submit"
+                   :class "btn btn-default"
+                   :onClick (save-doc doc)}
+          "Submit"])])))
 
 (defn navbar []
   [:div.navbar.navbar-inverse.navbar-fixed-top
