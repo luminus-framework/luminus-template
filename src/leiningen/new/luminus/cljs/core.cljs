@@ -35,7 +35,6 @@
   (fn []
     (POST (str js/context "/save")
           {:params {:doc @doc}
-           :format :edn
            :handler (fn [_] (swap! state assoc :saved? true))})))
 
 (defn about []

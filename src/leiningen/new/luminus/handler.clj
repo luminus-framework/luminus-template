@@ -49,10 +49,16 @@
   (cronj/shutdown! session-manager/cleanup-job)
   (timbre/info "shutdown complete!"))
 
+;; timeout sessions after 30 minutes
+(def session-defaults
+  {:timeout (* 60 30)
+   :timeout-response (redirect "/")})
+
 (defn- mk-defaults
        "set to true to enable XSS protection"
        [xss-protection?]
        (-> site-defaults
+           (update-in [:session] merge session-defaults)
            (assoc-in [:security :xss-protection :enable?] xss-protection?)
            (assoc-in [:security :anti-forgery] xss-protection?)))
 
@@ -62,12 +68,9 @@
            ;; add custom middleware here
            :middleware (load-middleware)
            :ring-defaults (mk-defaults false)
-           ;; timeout sessions after 30 minutes
-           :session-options {:timeout (* 60 30)
-                             :timeout-response (redirect "/")}
            ;; add access rules here
            :access-rules []
            ;; serialize/deserialize the following data formats
            ;; available formats:
            ;; :json :json-kw :yaml :yaml-kw :edn :yaml-in-html
-           :formats [:json-kw :edn]))
+           :formats [:json-kw :edn :transit-json]))

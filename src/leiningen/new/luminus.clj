@@ -75,9 +75,9 @@
   (add-dependencies project-file
                     ;;needed to get the latest version of ClojureScript until cljsbuild gets up to date
                     ['org.clojure/clojurescript "0.0-2356"]
-                    ['reagent-forms "0.2.3"]
-                    ['secretary "1.2.0"]  
-                    ['cljs-ajax "0.3.2"])
+                    ['reagent-forms "0.2.4"]
+                    ['secretary "1.2.1"]
+                    ['cljs-ajax "0.3.3"])
   (add-plugins project-file ['lein-cljsbuild "1.0.3"])
   (add-to-project
    project-file
