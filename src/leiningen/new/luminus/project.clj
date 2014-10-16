@@ -16,7 +16,7 @@
   :repl-options {:init-ns {{name}}.repl}
   :jvm-opts ["-server"]
   :plugins [[lein-ring "0.8.12"]
-            [lein-environ "0.5.0"]
+            [lein-environ "1.0.0"]
             [lein-ancient "0.5.5"]]
   :ring {:handler {{name}}.handler/app
          :init    {{name}}.handler/init
