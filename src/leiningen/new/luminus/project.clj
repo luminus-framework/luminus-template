@@ -7,7 +7,7 @@
                  [selmer "0.7.2"]
                  [com.taoensso/timbre "3.3.1"]
                  [com.taoensso/tower "3.0.2"]
-                 [markdown-clj "0.9.54"]
+                 [markdown-clj "0.9.55"]
                  [environ "1.0.0"]
                  [im.chit/cronj "1.4.2"]
                  [noir-exception "0.2.2"]
