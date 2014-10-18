@@ -1,9 +1,9 @@
 (ns {{name}}.core
-            (:require [reagent.core :as reagent :refer [atom]]
-                      [secretary.core :as secretary
-                       :include-macros true :refer [defroute]]
-                      [reagent-forms.core :refer [bind-fields]]
-                      [ajax.core :refer [POST]]))
+  (:require [reagent.core :as reagent :refer [atom]]
+            [secretary.core :as secretary]
+            [reagent-forms.core :refer [bind-fields]]
+            [ajax.core :refer [POST]])
+  (:require-macros [secretary.core :refer [defroute]]))
 
 (def state (atom {:saved? false}))
 
