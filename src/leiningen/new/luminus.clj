@@ -89,8 +89,6 @@
     project-file
     :uberjar
     {:hooks ['leiningen.cljsbuild]
-     :env {:production true}
-     :omit-source true
      :cljsbuild {:jar true
                  :builds {:app
                           {:source-paths ["env/prod/cljs"]

@@ -23,7 +23,9 @@
          :init    {{name}}.handler/init
          :destroy {{name}}.handler/destroy}
   :profiles
-  {:uberjar {:aot :all}
+  {:uberjar {:omit-source true
+             :env {:production true}
+             :aot :all}
    :production {:ring {:open-browser? false
                        :stacktraces?  false
                        :auto-reload?  false}}
