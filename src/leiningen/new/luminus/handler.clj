@@ -59,7 +59,6 @@
        [xss-protection?]
        (-> site-defaults
            (update-in [:session] merge session-defaults)
-           (assoc-in [:security :xss-protection :enable?] xss-protection?)
            (assoc-in [:security :anti-forgery] xss-protection?)))
 
 (def app (app-handler
