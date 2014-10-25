@@ -80,6 +80,4 @@
   (reagent/render-component [navbar] (.getElementById js/document "navbar"))
   (reagent/render-component [page] (.getElementById js/document "app")))
 
-;;start the app
-(init!)
 

@@ -53,6 +53,8 @@
 (defmethod add-feature :+cljs [_]
   [["src/{{sanitized}}/routes/home.clj" (*render* "cljs/home.clj")]
    ["src-cljs/{{sanitized}}/core.cljs" (*render* "cljs/core.cljs")]
+   ["env/dev/cljs/{{sanitized}}/dev.cljs" (*render* "cljs/env/dev/cljs/app.cljs")]
+   ["env/prod/cljs/{{sanitized}}/prod.cljs" (*render* "cljs/env/prod/cljs/app.cljs")]
    ["resources/templates/app.html" (*render* "cljs/app.html")]])
 
 (defmethod post-process :+cljs [_ project-file]
@@ -79,26 +81,31 @@
                     ['secretary "1.2.1"]
                     ['cljs-ajax "0.3.3"])
   (add-plugins project-file ['lein-cljsbuild "1.0.3"])
+  (add-to-profile
+    project-file
+    :dev
+    {:cljsbuild {:builds {:app {:source-paths ["env/dev/cljs"]}}}})
+  (add-to-profile
+    project-file
+    :uberjar
+    {:hooks ['leiningen.cljsbuild]
+     :env {:production true}
+     :omit-source true
+     :cljsbuild {:jar true
+                 :builds {:app
+                          {:source-paths ["env/prod/cljs"]
+                           :compiler
+                           {:optimizations :advanced
+                            :pretty-print false}}}}})
   (add-to-project
    project-file
-   :cljsbuild
-   {:builds
-     [{:id "dev"
-       :source-paths ["src-cljs"]
-       :compiler
-        {:optimizations :none
-         :output-to "resources/public/js/app.js"
-         :output-dir "resources/public/js/"
-         :pretty-print true
-         :source-map true}}
-      {:id "release"
-       :source-paths ["src-cljs"]
-       :compiler
-        {:output-to "resources/public/js/app.js"
-         :optimizations :advanced
-         :pretty-print false
-         :output-wrapper false
-         :closure-warnings {:non-standard-jsdoc :off}}}]}))
+   :cljsbuild {:builds {:app {:source-paths ["src-cljs"]
+                              :compiler {:output-to     "resources/public/js/app.js"
+                                         :output-dir    "resources/public/js/out"
+                                         :source-map    "resources/public/js/out.js.map"
+                                         :externs       ["react/externs/react.js"]
+                                         :optimizations :none
+                                         :pretty-print  true}}}}))
 
 (defmethod add-feature :+h2 [_]
   (add-sql-files ["src/{{sanitized}}/db/schema.clj" (*render* "dbs/h2_schema.clj")]))

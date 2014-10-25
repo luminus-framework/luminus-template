@@ -55,6 +55,9 @@
   (update-item-list filename [:dependencies]
                     #(if % (vec (set (into % dependencies))) (vec dependencies))))
 
+(defn add-to-profile [filename profile opts]
+  (update-item-list filename [:profiles profile] (fn [profile] (merge profile opts))))
+
 (defn add-profile-dependencies [filename profile & dependencies]
   (update-item-list filename [:profiles profile :dependencies]
                     #(if % (vec (set (into % dependencies))) (vec dependencies))))
