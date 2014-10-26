@@ -12,11 +12,21 @@
           exprs)))))
 
 (defn- to-project [f name version m]
-  (->> m
-    (reduce
-      (fn [params param] (into params param))
-      [f name version])
-    (seq)))
+  (let [standard-keys [:description
+                       :url
+                       :dependencies
+                       :repl-options
+                       :jvm-opts
+                       :plugins
+                       :ring
+                       :profiles]]
+    (concat
+      [f name version]
+      (reduce (fn [xs k] (into xs [k (k m)])) [] standard-keys)
+      (->> (apply (partial dissoc m) standard-keys)
+         (reduce
+           (fn [params param] (into params param))
+           [])))))
 
 (defn- pprint-code [code]
   (.replaceAll (with-out-str (with-pprint-dispatch code-dispatch (pprint code))) "\\\\n" "\n"))
@@ -44,12 +54,12 @@
 (defn remove-dependencies [filename & dependencies]
   (update-item-list filename [:dependencies]
                     #(if %
-                       (reduce
-                         (fn [deps dep]
-                           (if (some #{dep} dependencies)
-                             deps (conj deps dep)))
-                         []
-                         %))))
+                      (reduce
+                        (fn [deps dep]
+                          (if (some #{dep} dependencies)
+                            deps (conj deps dep)))
+                        []
+                        %))))
 
 (defn add-dependencies [filename & dependencies]
   (update-item-list filename [:dependencies]
@@ -71,7 +81,7 @@
     (with-open [wrt (io/writer filename)]
       (doseq [expr file]
         (.write wrt
-          (pprint-code (handler-fn expr)))
+                (pprint-code (handler-fn expr)))
         (.write wrt "\n")))))
 
 (defn add-required [filename & requires]
@@ -124,6 +134,6 @@
 (defn set-lein-version [filename version]
   (spit filename
         (let [project-str (.trim (slurp filename))
-              length      (dec (count project-str))]
+              length (dec (count project-str))]
           (str (.substring project-str 0 length)
                "\n  :min-lein-version \"" version "\")"))))
