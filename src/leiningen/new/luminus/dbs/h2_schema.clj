@@ -2,11 +2,11 @@
   (:require [clojure.java.jdbc :as sql]
             [noir.io :as io]))
 
-(def db-store "site.db")
+(str (.getName (java.io.File. ".")) "/site.db")
 
 (def db-spec {:classname "org.h2.Driver"
               :subprotocol "h2"
-              :subname (str (io/resource-path) db-store)
+              :subname db-store
               :user "sa"
               :password ""
               :make-pool? true
@@ -15,7 +15,7 @@
 (defn initialized?
   "checks to see if the database schema is present"
   []
-  (.exists (new java.io.File (str (io/resource-path) db-store ".mv.db"))))
+  (.exists (new java.io.File (str db-store ".mv.db"))))
 
 (defn create-users-table
   []
