@@ -4,14 +4,14 @@
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [lib-noir "0.9.4"]
                  [ring-server "0.3.1"]
-                 [selmer "0.7.2"]
+                 [selmer "0.7.5"]
                  [com.taoensso/timbre "3.3.1"]
                  [com.taoensso/tower "3.0.2"]
-                 [markdown-clj "0.9.55"
+                 [markdown-clj "0.9.58"
                   :exclusions [com.keminglabs/cljx]]
                  [environ "1.0.0"]
-                 [im.chit/cronj "1.4.2"]
-                 [noir-exception "0.2.2"]
+                 [im.chit/cronj "1.4.3"]
+                 [noir-exception "0.2.3"]
                  [prone "0.6.0"]]
 
   :repl-options {:init-ns {{name}}.repl}

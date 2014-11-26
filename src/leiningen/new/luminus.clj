@@ -77,7 +77,7 @@
   (add-dependencies project-file
                     ;;needed to get the latest version of ClojureScript until cljsbuild gets up to date
                     ['org.clojure/clojurescript "0.0-2371"]
-                    ['reagent-forms "0.2.4"]
+                    ['reagent-forms "0.2.6"]
                     ['secretary "1.2.1"]
                     ['cljs-ajax "0.3.3"])
   (add-plugins project-file ['lein-cljsbuild "1.0.3"])
@@ -145,7 +145,7 @@
 (defmethod post-process :+migrations [_ project-file]
   (add-sql-dependencies project-file
                         ['ragtime "0.3.6"])
-  (add-plugins project-file ['ragtime/ragtime.lein "0.3.6"])
+  (add-plugins project-file ['ragtime/ragtime.lein "0.3.7"])
   (add-to-project
    project-file
    :ragtime {:migrations 'ragtime.sql.files/migrations
@@ -161,7 +161,7 @@
   [["src//{{sanitized}}/core.clj"  (*render* "core.clj")]])
 
 (defmethod post-process :+http-kit [_ project-file]
-  (add-dependencies project-file ['http-kit "2.1.18"])
+  (add-dependencies project-file ['http-kit "2.1.19"])
   (add-to-project project-file :main (symbol (str *name* ".core"))))
 
 (defmethod add-feature :+cucumber [_]
