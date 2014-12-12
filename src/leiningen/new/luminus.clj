@@ -110,7 +110,7 @@
 
 (defmethod post-process :+h2 [_ project-file]
   (add-sql-dependencies project-file
-                        ['com.h2database/h2 "1.4.181"]))
+                        ['com.h2database/h2 "1.4.182"]))
 
 (defmethod add-feature :+postgres [_]
   (add-sql-files ["src/{{sanitized}}/db/schema.clj" (*render* "dbs/postgres_schema.clj")]))
@@ -225,38 +225,6 @@
 (defmethod post-process :+site-dailycred [_ project-file]
   (post-process :+site project-file))
 
-(defmethod add-feature :+static [_]
-  [
-   ;; Add documentation page about static generator
-   ["STATIC_SITE_GENERATOR.md"
-    (*render* "static/STATIC_SITE_GENERATOR.md")]
-
-   ;; Add bootstrap and jquery as local resources
-   ["resources/public/css/bootstrap/3.2.0/bootstrap.min.css"
-    (*render* "bootstrap/3.2.0/css/bootstrap.min.css")]
-   ["resources/public/css/bootstrap/3.2.0/bootstrap-theme.min.css"
-    (*render* "bootstrap/3.2.0/css/bootstrap-theme.min.css")]
-   ["resources/public/js/jquery/2.0.3/jquery-2.0.3.min.js"
-    (*render* "jquery/jquery-2.0.3.min.js")]
-   ["resources/public/js/bootstrap/3.2.0/bootstrap.min.js"
-    (*render* "bootstrap/3.2.0/js/bootstrap.min.js")]
-
-   ;; static.clj contains logic for generating static site
-   ["src/{{sanitized}}/static.clj" (*render* "static/static.clj")]
-   ;;contains the routes for the static site
-   ["src/{{sanitized}}/static_site.clj" (*render* "static/static_site.clj")]
-   ;; home.clj updated with new routes
-   ["src/{{sanitized}}/routes/home.clj" (*render* "static/home.clj")]
-
-   ;; change base.html to serve local files
-   ["resources/templates/base.html" (*render* "static/templates/base.html")]])
-
-(defmethod post-process :+static [_ project-file]
-  (add-dependencies project-file
-                    ['commons-io/commons-io "2.4"]
-                    ['org.clojure/tools.cli "0.3.1"])
-  (add-to-project project-file :main (symbol (str *name* ".static"))))
-
 (defmethod add-feature :default [feature]
   (throw (Exception. (str "unrecognized feature: " (name feature)))))
 
@@ -338,7 +306,7 @@
 (defn luminus
   "Create a new Luminus project"
   [name & feature-params]
-  (let [supported-features #{"+cljs" "+site" "+h2" "+postgres" "+dailycred" "+mysql" "+http-kit" "+cucumber" "+mongodb" "+static"}
+  (let [supported-features #{"+cljs" "+site" "+h2" "+postgres" "+dailycred" "+mysql" "+http-kit" "+cucumber" "+mongodb"}
         data {:name name
               :sanitized (sanitize name)
               :year (year)}
