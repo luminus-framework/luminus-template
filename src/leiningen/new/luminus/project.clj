@@ -12,7 +12,7 @@
                  [environ "1.0.0"]
                  [im.chit/cronj "1.4.3"]
                  [noir-exception "0.2.3"]
-                 [prone "0.6.1"]]
+                 [prone "0.8.0"]]
   :uberjar-name "{{name}}.jar"
   :repl-options {:init-ns {{name}}.repl}
   :jvm-opts ["-server"]
