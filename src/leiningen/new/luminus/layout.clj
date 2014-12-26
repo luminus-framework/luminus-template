@@ -5,7 +5,7 @@
             [compojure.response :refer [Renderable]]
             [environ.core :refer [env]]))
 
-(def template-path "templates/")
+(parser/set-resource-path!  (clojure.java.io/resource "templates"))
 
 (deftype RenderableTemplate [template params]
   Renderable
@@ -21,7 +21,7 @@
                     ;; .getContextPath might not exist
                     (try (.getContextPath context)
                          (catch IllegalArgumentException _ context))))
-        (parser/render-file (str template-path template))
+        (parser/render-file (str template))
         response)
       "text/html; charset=utf-8")))
 
