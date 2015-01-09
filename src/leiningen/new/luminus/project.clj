@@ -16,7 +16,7 @@
   :uberjar-name "{{name}}.jar"
   :repl-options {:init-ns {{name}}.repl}
   :jvm-opts ["-server"]
-  :plugins [[lein-ring "0.8.13"]
+  :plugins [[lein-ring "0.9.0"]
             [lein-environ "1.0.0"]
             [lein-ancient "0.5.5"]]
   :ring {:handler {{name}}.handler/app
