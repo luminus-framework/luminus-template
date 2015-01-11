@@ -20,10 +20,9 @@
    (str *name* "/resources/" (apply str path))
    "/" (Matcher/quoteReplacement File/separator)))
 
-(defn add-sql-files [schema-file]
-  [["resources/log4j.properties" (*render* "log4j.properties")]
-   ["src/{{sanitized}}/db/core.clj" (*render* "dbs/db.clj")]
-   schema-file])
+(defn add-sql-files [db]
+  [["resources/sql/functions.sql" (*render* "dbs/functions.sql")]
+   [(str "src/{{sanitized}}/db/core.clj") (*render* (str "dbs/" db))]])
 
 (defn add-mongo-files []
   [["src/{{sanitized}}/db/core.clj" (*render* "dbs/mongodb.clj")]])
@@ -31,12 +30,7 @@
 (defn add-sql-dependencies [project-file dependency]
   (add-dependencies project-file
                     dependency
-                    ['korma "0.4.0"]
-                    ['log4j "1.2.17"
-                     :exclusions ['javax.mail/mail
-                                  'javax.jms/jms
-                                  'com.sun.jdmk/jmxtools
-                                  'com.sun.jmx/jmxri]]))
+                    ['yesql "0.4.0"]))
 
 (defn add-mongo-dependencies [project-file dependency]
   (add-dependencies project-file
@@ -106,21 +100,21 @@
                                          :pretty-print  true}}}}))
 
 (defmethod add-feature :+h2 [_]
-  (add-sql-files ["src/{{sanitized}}/db/schema.clj" (*render* "dbs/h2_schema.clj")]))
+  (add-sql-files "h2.db.clj"))
 
 (defmethod post-process :+h2 [_ project-file]
   (add-sql-dependencies project-file
                         ['com.h2database/h2 "1.4.182"]))
 
 (defmethod add-feature :+postgres [_]
-  (add-sql-files ["src/{{sanitized}}/db/schema.clj" (*render* "dbs/postgres_schema.clj")]))
+  (add-sql-files "postgres.db.clj"))
 
 (defmethod post-process :+postgres [_ project-file]
   (add-sql-dependencies project-file
                         ['org.postgresql/postgresql "9.3-1102-jdbc41"]))
 
 (defmethod add-feature :+mysql [_]
-  (add-sql-files ["src/{{sanitized}}/db/schema.clj" (*render* "dbs/mysql_schema.clj")]))
+  (add-sql-files "mysql.db.clj"))
 
 (defmethod post-process :+mysql [_ project-file]
   (add-sql-dependencies project-file
@@ -144,16 +138,22 @@
 
 (defmethod post-process :+migrations [_ project-file]
   (add-sql-dependencies project-file
-                        ['ragtime "0.3.6"])
-  (add-plugins project-file ['ragtime/ragtime.lein "0.3.6"])
+                        ['ragtime "0.3.8"])
+  (add-plugins project-file ['ragtime/ragtime.lein "0.3.8"])
   (add-to-project
    project-file
    :ragtime {:migrations 'ragtime.sql.files/migrations
              :database
-             (let [postgres? (some #{"+postgres"} @features)]
-               (str "jdbc:" (if postgres? "postgresql" "mysql")
-                  "://localhost" (if postgres? "/" ":3306/") (sanitize *name*)
-                  "?user=db_user_name_here&password=db_user_password_here"))})
+             (cond
+               (some #{"+postgres"} @features)
+               (str "jdbc:postgresql://localhost/" (sanitize *name*)
+                    "?user=db_user_name_here&password=db_user_password_here")
+               (some #{"+mysql"} @features)
+               (str "jdbc:mysql://localhost:3306/" (sanitize *name*)
+                    "?user=db_user_name_here&password=db_user_password_here")
+               (some #{"+h2"} @features)
+               (str "jdbc:h2:./site.db"))
+             })
   (let [docs-filename (str *name* "/resources/public/md/docs.md")]
     (spit docs-filename (str (*render* "dbs/db_instructions.html") (slurp docs-filename)))))
 
@@ -184,7 +184,7 @@
    ["resources/templates/registration.html" (*render* "site/templates/registration.html")]])
 
 (defmethod post-process :+site [_ project-file]
-  (if-not (some #{"+h2" "+postgres" "+mysql" "+mongodb"} @features)
+  (when-not (some #{"+h2" "+postgres" "+mysql" "+mongodb"} @features)
     (post-process :+h2 project-file))
   (replace-expr (sanitized-path "/layout.clj")
                 '(assoc params
@@ -247,7 +247,7 @@
     (conj features :+h2) features))
 
 (defn db-required-features [features]
-  (if (some #{"+postgres" "+mysql"} features)
+  (if (some #{"+h2" "+postgres" "+mysql"} features)
     (conj features :+migrations) features))
 
 (defn site-params [feature-params]
