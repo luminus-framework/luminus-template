@@ -30,7 +30,7 @@
 (defn add-sql-dependencies [project-file dependency]
   (add-dependencies project-file
                     dependency
-                    ['yesql "0.4.0"]))
+                    ['yesql "0.5.0-rc1"]))
 
 (defn add-mongo-dependencies [project-file dependency]
   (add-dependencies project-file
