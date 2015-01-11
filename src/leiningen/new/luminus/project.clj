@@ -21,7 +21,8 @@
             [lein-ancient "0.5.5"]]
   :ring {:handler {{name}}.handler/app
          :init    {{name}}.handler/init
-         :destroy {{name}}.handler/destroy}
+         :destroy {{name}}.handler/destroy
+         :uberwar-name "{{name}}.war"}
   :profiles
   {:uberjar {:omit-source true
              :env {:production true}
