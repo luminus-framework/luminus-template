@@ -284,10 +284,6 @@
               ;; public resources, example URL: /css/screen.css
 
               ["resources/public/css/screen.css"                          (*render* "screen.css")]
-              ["resources/public/fonts/glyphicons-halflings-regular.eot"  (*render* "bootstrap/fonts/glyphicons-halflings-regular.eot")]
-              ["resources/public/fonts/glyphicons-halflings-regular.svg"  (*render* "bootstrap/fonts/glyphicons-halflings-regular.svg")]
-              ["resources/public/fonts/glyphicons-halflings-regular.ttf"  (*render* "bootstrap/fonts/glyphicons-halflings-regular.ttf")]
-              ["resources/public/fonts/glyphicons-halflings-regular.woff" (*render* "bootstrap/fonts/glyphicons-halflings-regular.woff")]
               ["resources/public/md/docs.md"                              (*render* "docs.md")]
               "resources/public/js"
               "resources/public/img"
