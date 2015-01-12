@@ -274,7 +274,7 @@
               ["Procfile"                                                 (*render* "Procfile")]
               ["README.md"                                                (*render* "README.md")]
               ;; core namespaces
-              ["src/{{sanitized}}/session_manager.clj"                    (*render* "session_manager.clj")]
+              ["src/{{sanitized}}/session.clj"                            (*render* "session.clj")]
               ["src/{{sanitized}}/handler.clj"                            (*render* "handler.clj")]
               ["src/{{sanitized}}/middleware.clj"                         (*render* "middleware.clj")]
               ["src/{{sanitized}}/repl.clj"                               (*render* "repl.clj")]

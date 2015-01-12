@@ -2,7 +2,7 @@
   (:require [compojure.core :refer [defroutes]]
             [{{name}}.routes.home :refer [home-routes]]
             [{{name}}.middleware :refer [load-middleware]]
-            [{{name}}.session-manager :as session-manager]
+            [{{name}}.session :as session]
             [noir.response :refer [redirect]]
             [noir.util.middleware :refer [app-handler]]
             [ring.middleware.defaults :refer [site-defaults]]
@@ -37,7 +37,7 @@
 
   (if (env :dev) (parser/cache-off!))
   ;;start the expired session cleanup job
-  (cronj/start! session-manager/cleanup-job)
+  (cronj/start! session/cleanup-job)
   (timbre/info "\n-=[ {{name}} started successfully"
                (when (env :dev) "using the development profile") "]=-"))
 
@@ -46,7 +46,7 @@
    shuts down, put any clean up code here"
   []
   (timbre/info "{{name}} is shutting down...")
-  (cronj/shutdown! session-manager/cleanup-job)
+  (cronj/shutdown! session/cleanup-job)
   (timbre/info "shutdown complete!"))
 
 ;; timeout sessions after 30 minutes

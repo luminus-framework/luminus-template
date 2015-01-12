@@ -1,4 +1,4 @@
-(ns {{name}}.session-manager
+(ns {{name}}.session
   (:require [noir.session :refer [clear-expired-sessions]]
             [cronj.core :refer [cronj]]))
 
