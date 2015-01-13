@@ -52,28 +52,11 @@
    ["resources/templates/app.html" (*render* "cljs/app.html")]])
 
 (defmethod post-process :+cljs [_ project-file]
-  (replace-expr (sanitized-path "/layout.clj")
-                '(assoc params
-                   (keyword (s/replace template #".html" "-selected")) "active"
-                   :dev (env :dev)
-                   :servlet-context
-                   (if-let [context (:servlet-context request)]
-                     (try
-                       (.getContextPath context)
-                       (catch IllegalArgumentException _ context))))
-                '(assoc params
-                   :dev (env :dev)
-                   :servlet-context
-                   (if-let [context (:servlet-context request)]
-                     (try
-                       (.getContextPath context)
-                       (catch IllegalArgumentException _ context)))))
   (add-dependencies project-file
-                    ;;needed to get the latest version of ClojureScript until cljsbuild gets up to date
-                    ['org.clojure/clojurescript "0.0-2644"]
+                    ['org.clojure/clojurescript "0.0-2665" :scope "provided"]
                     ['reagent-forms "0.2.9"]
                     ['secretary "1.2.1"]
-                    ['cljs-ajax "0.3.4"])
+                    ['cljs-ajax "0.3.9"])
   (add-plugins project-file ['lein-cljsbuild "1.0.4"])
   (add-to-profile
     project-file

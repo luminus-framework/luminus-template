@@ -13,8 +13,12 @@
         </div>
         <div class="navbar-collapse collapse ">
           <ul class="nav navbar-nav">
-            <li class="#%home-selected%#"><a href="#%servlet-context%#/">Home</a></li>
-            <li class="#%about-selected%#"><a href="#%servlet-context%#/about">About</a></li>
+            <li {% ifequal page "home.html" %} class="active" {%endifequal%}>
+              <a href="#%servlet-context%#/">Home</a>
+            </li>
+            <li {% ifequal page "about.html" %} class="active" {%endifequal%}>
+              <a href="#%servlet-context%#/about">About</a>
+            </li>
           </ul>
         </div>
       </div>

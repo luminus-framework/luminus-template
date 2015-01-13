@@ -17,7 +17,7 @@
   (render [this request]
     (content-type
       (->> (assoc params
-                  (keyword (s/replace template #".html" "-selected")) "active"
+                  :page template
                   :dev (env :dev)
                   :servlet-context
                   (if-let [context (:servlet-context request)]

@@ -1,7 +1,7 @@
 (ns {{name}}.routes.home
   (:require [{{name}}.layout :as layout]
+            [compojure.core :refer [defroutes GET POST]]
             [clojure.java.io :as io]
-            [compojure.core :refer :all]
             [clojure.pprint :refer [pprint]]))
 
 (defn home-page []

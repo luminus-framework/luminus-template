@@ -1,52 +1,55 @@
 (ns {{name}}.routes.auth
   (:use compojure.core)
   (:require [{{name}}.layout :as layout]
-            [noir.session :as session]
-            [noir.response :as resp]
-            [noir.validation :as vali]
-            [noir.util.crypt :as crypt]
+            [crypto.password.bcrypt :as password]
+            [ring.util.response :refer [redirect status]]
+            [bouncer
+             [core :as b]
+             [validators :as v]]
             [{{name}}.db.core :as db])
   (:import javax.xml.bind.DatatypeConverter))
 
-(defn valid? [id pass pass1]
-  (vali/rule (vali/has-value? id)
-             [:id "user ID is required"])
-  (vali/rule (not (db/get-user id))
-             [:id "duplicated user ID"])
-  (vali/rule (vali/min-length? pass 5)
-             [:pass "password must be at least 5 characters"])
-  (vali/rule (= pass pass1)
-             [:pass1 "entered passwords do not match"])
-  (not (vali/errors? :id :pass :pass1)))
+(defn validate? [params]
+  (first
+    (b/validate
+      params
+      :id [[v/required]
+           [db/get-user :message "duplicate user id"]]
+      :pass [[v/required]
+             [#(> (count %) 4) :message "password must be at least 5 characters"]]
+      :pass1 [[v/required]
+              [v/member #{(:pass params)} :message "entered passwords do not match"]])))
 
-(defn register [& [id]]
+(defn register [& [id errors]]
   (layout/render
     "registration.html"
     {:id id
-     :id-error (vali/on-error :id first)
-     :pass-error (vali/on-error :pass first)
-     :pass1-error (vali/on-error :pass1 first)}))
+     :id-error (:id errors)
+     :pass-error (:pass errors)
+     :pass1-error (:pass1 errors)}))
 
-(defn handle-registration [id pass pass1]
-  (if (valid? id pass pass1)
+(defn handle-registration [id pass pass1 {:keys [session]}]
+  (if-let [errors (validate id pass pass1)]
+    (register id errors)
     (try
       (do
-        (db/create-user {:id id :pass (crypt/encrypt pass)})
+        (db/create-user {:id id :pass (password/encrypt pass)})
         (session/put! :user-id id)
-        (resp/redirect "/"))
+        (-> (redirect "/")
+            (assoc :session (assoc session :user-id id))))
       (catch Exception ex
-        (vali/rule false [:id (.getMessage ex)])
-        (register)))
-    (register id)))
+        (timbre/info "registration error" ex)
+        (register id)))))
 
-(defn profile []
+(defn profile [user-id]
   (layout/render
     "profile.html"
-    {:user (db/get-user (session/get :user-id))}))
+    {:user (db/get-user user-id)}))
 
-(defn update-profile [{:keys [first-name last-name email]}]
-  (db/update-user (session/get :user-id) first-name last-name email)
-  (profile))
+(defn update-profile [{{:keys [first-name last-name email]} :status
+                       {:keys [user-id]} :session}]
+  (db/update-user user-id first-name last-name email)
+  (profile user-id))
 
 (defn parse-creds [auth]
   (when-let [basic-creds (second (re-matches #"\QBasic\E\s+(.*)" auth))]
@@ -54,14 +57,14 @@
          (re-matches #"(.*):(.*)")
          rest)))
 
-(defn handle-login [auth]
-  (when auth
+(defn handle-login [{:keys [headers session]}]
+  (when-let [auth (get headers "authorization")]
     (let [[user pass] (parse-creds auth)
           account (db/get-user user)]
-      (if (and account (crypt/compare pass (:pass account)))
-        (do (session/put! :user-id user)
-            (resp/empty))
-        (resp/status 401 (resp/empty))))))
+      (if (and account (password/check pass (:pass account)))
+        (-> (response user)
+            (assoc :session (assoc session :user-id user)))
+        (status (response nil) 401)))))
 
 
 
@@ -73,15 +76,15 @@
   (GET "/register" []
        (register))
 
-  (POST "/register" [id pass pass1]
-        (handle-registration id pass pass1))
+  (POST "/register" [id pass pass1 :as req]
+        (handle-registration id pass pass1 req))
 
   (GET "/profile" [] (profile))
-  
-  (POST "/update-profile" {params :params} (update-profile params))
-  
+
+  (POST "/update-profile" req (update-profile req))
+
   (GET "/login" req
-        (handle-login (get-in req [:headers "authorization"])))
+        (handle-login req))
 
   (GET "/logout" []
         (logout)))

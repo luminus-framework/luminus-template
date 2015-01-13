@@ -9,9 +9,11 @@
                  [markdown-clj "0.9.62"]
                  [environ "1.0.0"]
                  [im.chit/cronj "1.4.3"]
-                 [ring/ring-defaults "0.1.2"]
+                 [ring/ring-defaults "0.1.3"]
                  [ring/ring-session-timeout "0.1.0"]
                  [noir-exception "0.2.3"]
+                 [crypto-password "0.1.3"]
+                 [bouncer "0.3.1"]
                  [prone "0.8.0"]]
   :uberjar-name "{{name}}.jar"
   :repl-options {:init-ns {{name}}.repl}
