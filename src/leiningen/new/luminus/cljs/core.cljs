@@ -71,7 +71,6 @@
 (secretary/set-config! :prefix "#")
 
 (defroute "/" []
-          (.log js/console "hi!")
           (swap! state assoc :page home))
 (defroute "/about" [] (swap! state assoc :page about))
 
