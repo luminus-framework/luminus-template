@@ -1,11 +1,11 @@
 (ns {{name}}.routes.home
   (:require [compojure.core :refer :all]
-            [{{name}}.layout :as layout]
-            [{{name}}.util :as util]))
+            [clojure.java.io :as io]
+            [{{name}}.layout :as layout]))
 
 (defn home-page []
   (layout/render
-    "home.html" {:content (util/md->html "/md/docs.md")}))
+    "home.html" {:content (slurp "/md/docs.md")}))
 
 (defn about-page []
   (layout/render "about.html"))

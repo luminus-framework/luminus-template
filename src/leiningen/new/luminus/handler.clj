@@ -1,10 +1,9 @@
 (ns {{name}}.handler
-  (:require [compojure.core :refer [defroutes]]
+  (:require [compojure.core :refer [defroutes routes]]
             [{{name}}.routes.home :refer [home-routes]]
-            [{{name}}.middleware :refer [load-middleware]]
+            [{{name}}.middleware :refer [development-middleware
+                                         production-middleware]]
             [{{name}}.session :as session]
-            [noir.response :refer [redirect]]
-            [noir.util.middleware :refer [app-handler]]
             [ring.middleware.defaults :refer [site-defaults]]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
@@ -49,27 +48,9 @@
   (cronj/shutdown! session/cleanup-job)
   (timbre/info "shutdown complete!"))
 
-;; timeout sessions after 30 minutes
-(def session-defaults
-  {:timeout (* 60 30)
-   :timeout-response (redirect "/")})
-
-(defn- mk-defaults
-       "set to true to enable XSS protection"
-       [xss-protection?]
-       (-> site-defaults
-           (update-in [:session] merge session-defaults)
-           (assoc-in [:security :anti-forgery] xss-protection?)))
-
-(def app (app-handler
-           ;; add your application routes here
-           [home-routes base-routes]
-           ;; add custom middleware here
-           :middleware (load-middleware)
-           :ring-defaults (mk-defaults false)
-           ;; add access rules here
-           :access-rules []
-           ;; serialize/deserialize the following data formats
-           ;; available formats:
-           ;; :json :json-kw :yaml :yaml-kw :edn :yaml-in-html
-           :formats [:json-kw :edn :transit-json]))
+(def app
+  (-> (routes
+        home-routes
+        base-routes)
+      development-middleware
+      production-middleware))

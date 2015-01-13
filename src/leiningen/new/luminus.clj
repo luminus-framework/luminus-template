@@ -204,8 +204,6 @@
                       (.getContextPath context)
                       (catch IllegalArgumentException _ context)))
                   :user-id (session/get :user-id)))
-  (add-required (sanitized-path "/layout.clj")
-                ['noir.session :as 'session])
   (add-required (sanitized-path "/handler.clj")
                 [(symbol (str *name* ".routes.auth")) :refer ['auth-routes]])
   (if-not (some #{"+mongodb"} @features)
@@ -278,13 +276,12 @@
               ["src/{{sanitized}}/handler.clj"                            (*render* "handler.clj")]
               ["src/{{sanitized}}/middleware.clj"                         (*render* "middleware.clj")]
               ["src/{{sanitized}}/repl.clj"                               (*render* "repl.clj")]
-              ["src/{{sanitized}}/util.clj"                               (*render* "util.clj")]
               ["src/{{sanitized}}/routes/home.clj"                        (*render* "home.clj")]
               ["src/{{sanitized}}/layout.clj"                             (*render* "layout.clj")]
               ;; public resources, example URL: /css/screen.css
 
               ["resources/public/css/screen.css"                          (*render* "screen.css")]
-              ["resources/public/md/docs.md"                              (*render* "docs.md")]
+              ["resources/md/docs.md"                                     (*render* "docs.md")]
               "resources/public/js"
               "resources/public/img"
               ;; tests

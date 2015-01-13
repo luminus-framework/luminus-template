@@ -2,7 +2,6 @@
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [lib-noir "0.9.5"]
                  [ring-server "0.3.1"]
                  [selmer "0.7.9"]
                  [com.taoensso/timbre "3.3.1"]
@@ -10,6 +9,8 @@
                  [markdown-clj "0.9.62"]
                  [environ "1.0.0"]
                  [im.chit/cronj "1.4.3"]
+                 [ring/ring-defaults "0.1.2"]
+                 [ring/ring-session-timeout "0.1.0"]
                  [noir-exception "0.2.3"]
                  [prone "0.8.0"]]
   :uberjar-name "{{name}}.jar"

@@ -1,13 +1,12 @@
 (ns {{name}}.routes.home
-            (:require [{{name}}.layout :as layout]
-                      [{{name}}.util :as util]
-                      [compojure.core :refer :all]
-                      [noir.response :refer [edn]]
-                      [clojure.pprint :refer [pprint]]))
+  (:require [{{name}}.layout :as layout]
+            [clojure.java.io :as io]
+            [compojure.core :refer :all]
+            [clojure.pprint :refer [pprint]]))
 
 (defn home-page []
       (layout/render
-        "app.html" {:docs (util/md->html "/md/docs.md")}))
+        "app.html" {:docs (-> "md/docs.md" io/resource slurp)}))
 
 (defn save-document [doc]
       (pprint doc)
@@ -16,4 +15,4 @@
 (defroutes home-routes
   (GET "/" [] (home-page))
   (POST "/save" {:keys [body-params]}
-    (edn (save-document body-params))))
+        (save-document body-params)))

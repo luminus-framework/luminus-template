@@ -1,11 +1,16 @@
 (ns {{name}}.layout
   (:require [selmer.parser :as parser]
             [clojure.string :as s]
+            [selmer.filters :refer [add-filter!]]
+            [markdown.core :refer [md-to-html-string]]
             [ring.util.response :refer [content-type response]]
             [compojure.response :refer [Renderable]]
+
             [environ.core :refer [env]]))
 
 (parser/set-resource-path!  (clojure.java.io/resource "templates"))
+
+(add-filter! :markdown (fn [content] [:safe (md-to-html-string content)]))
 
 (deftype RenderableTemplate [template params]
   Renderable
