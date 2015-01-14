@@ -6,6 +6,8 @@
 (def dependency-indent 17)
 (def plugin-indent 12)
 (def root-indent 2)
+(def dev-indent 9)
+(def uberjar-indent 13)
 
 (def render (renderer "luminus"))
 
@@ -45,3 +47,9 @@
     (->> form
          (map str)
          (clojure.string/join "\n"))))
+
+(defn unwrap-map [text]
+  (let [sb (StringBuilder. text)]
+    (.setCharAt sb (.indexOf text "{") \space)
+    (.setCharAt sb (.lastIndexOf text "}") \space)
+    (.toString sb)))

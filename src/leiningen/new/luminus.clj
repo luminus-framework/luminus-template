@@ -8,7 +8,8 @@
             [clojure.string :as s]
             [clojure.java.io :as io]
             [leiningen.new.common :refer [render render-assets]]
-            [leiningen.new.db :refer [db-features]])
+            [leiningen.new.db :refer [db-features]]
+            [leiningen.new.cljs :refer [cljs-features]])
   (:import java.io.File))
 
 (def core-assets
@@ -52,7 +53,8 @@
   (with-redefs [leiningen.new.templates/render-text render-template]
     (let [[assets options]
           (-> [core-assets options]
-              db-features)]
+              db-features
+              cljs-features)]
       (render-assets assets options))))
 
 (defn format-features [features]
