@@ -4,5 +4,5 @@
             :license {:name "MIT License"
                       :url "http://opensource.org/licenses/MIT"}
             :eval-in-leiningen true
-            :dependencies [[leinjacker "0.2.0"]])
-
+            :dependencies [[leinjacker "0.2.0"]
+                           [selmer "0.7.9"]])
