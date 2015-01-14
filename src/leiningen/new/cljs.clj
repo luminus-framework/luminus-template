@@ -8,8 +8,11 @@
    ["env/prod/cljs/<<sanitized>>/prod.cljs" "cljs/env/prod/cljs/app.cljs"]
    ["resources/templates/app.html" "cljs/templates/app.html"]])
 
-(defn remove-html-assets [assets]
-  (remove #(and (coll? %) (.endsWith (second %) ".html")) assets))
+(defn remove-conflicting-assets [assets]
+  (remove #(and (coll? %)
+                (or
+                  (.endsWith (second %) ".html")
+                  (.endsWith (second %) "home.clj"))) assets))
 
 (def cljs-dependencies
   [['org.clojure/clojurescript "0.0-2665" :scope "provided"]
@@ -40,7 +43,7 @@
 
 (defn cljs-features [[assets options :as state]]
   (if (some #{"+cljs"} (:features options))
-    [(into (remove-html-assets assets) cljs-assets)
+    [(into (remove-conflicting-assets assets) cljs-assets)
      (assoc options
        :cljs-build (indent root-indent cljs-build)
        :cljs-dev (unwrap-map (indent dev-indent cljs-dev))

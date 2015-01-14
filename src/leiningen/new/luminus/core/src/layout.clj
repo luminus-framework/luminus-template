@@ -5,7 +5,6 @@
             [markdown.core :refer [md-to-html-string]]
             [ring.util.response :refer [content-type response]]
             [compojure.response :refer [Renderable]]
-
             [environ.core :refer [env]]))
 
 (parser/set-resource-path!  (clojure.java.io/resource "templates"))

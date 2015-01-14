@@ -42,11 +42,12 @@
     (.replaceAll (str text) "\n" (str "\n" indents))))
 
 (defn indent [n form]
-  (if (map? form)
-    (indented-code n form)
-    (->> form
-         (map str)
-         (clojure.string/join "\n"))))
+  (let [indents (apply str (repeat n " "))]
+    (if (map? form)
+      (indented-code n form)
+      (->> form
+           (map str)
+           (clojure.string/join (str "\n" indents))))))
 
 (defn unwrap-map [text]
   (let [sb (StringBuilder. text)]

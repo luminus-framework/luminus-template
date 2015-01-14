@@ -6,7 +6,7 @@
 
 (defn home-page []
       (layout/render
-        "app.html" {:docs (-> "md/docs.md" io/resource slurp)}))
+        "app.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
 
 (defn save-document [doc]
       (pprint doc)
