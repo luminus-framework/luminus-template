@@ -2,21 +2,19 @@
   (:require [leiningen.new.common :refer :all]))
 
 (def cljs-assets
-  [["src/<<sanitized>>/routes/home.clj" "cljs/src/clj/home.clj"]
-   ["src-cljs/<<sanitized>>/core.cljs" "cljs/src/cljs/core.cljs"]
+  [["src-cljs/<<sanitized>>/core.cljs" "cljs/src/cljs/core.cljs"]
    ["env/dev/cljs/<<sanitized>>/dev.cljs" "cljs/env/dev/cljs/app.cljs"]
    ["env/prod/cljs/<<sanitized>>/prod.cljs" "cljs/env/prod/cljs/app.cljs"]
-   ["resources/templates/app.html" "cljs/templates/app.html"]])
+   ["resources/templates/home.html" "cljs/templates/home.html"]])
 
 (defn remove-conflicting-assets [assets]
   (remove #(and (coll? %)
-                (or
-                  (.endsWith (second %) ".html")
-                  (.endsWith (second %) "home.clj"))) assets))
+                (.endsWith (second %) ".html")) assets))
 
 (def cljs-dependencies
   [['org.clojure/clojurescript "0.0-2665" :scope "provided"]
-   ['reagent-forms "0.2.9"]
+   ['reagent-forms "0.3.9"]
+   ['reagent-utils "0.1.2"]
    ['secretary "1.2.1"]
    ['cljs-ajax "0.3.9"]])
 
