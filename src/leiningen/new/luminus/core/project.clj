@@ -13,6 +13,7 @@
                  [im.chit/cronj "1.4.3"]
                  [ring/ring-defaults "0.1.3"]
                  [ring/ring-session-timeout "0.1.0"]
+                 [ring-middleware-format "0.4.0"]
                  [noir-exception "0.2.3"]
                  [crypto-password "0.1.3"]
                  [bouncer "0.3.1"]
