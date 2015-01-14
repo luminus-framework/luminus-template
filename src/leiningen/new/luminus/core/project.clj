@@ -18,13 +18,19 @@
                  [crypto-password "0.1.3"]
                  [bouncer "0.3.1"]
                  [prone "0.8.0"]
+                 <<http-kit-dependencies>>
                  <<cljs-dependencies>>
                  <<db-dependencies>>
                  ]
+
   :min-lein-version "<<min-lein-version>>"
   :uberjar-name "<<name>>.jar"
-  :repl-options {:init-ns <<name>>.repl}
+  :repl-options {:init-ns <<name>>.handler}
   :jvm-opts ["-server"]
+
+  <% if main %>
+  :main <<main>>
+  <% endif %>
 
   :plugins [[lein-ring "0.9.0"]
             [lein-environ "1.0.0"]
