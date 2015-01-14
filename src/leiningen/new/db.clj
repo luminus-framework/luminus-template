@@ -46,17 +46,12 @@
   [["src/{{sanitized}}/db/core.clj" "db/src/mongodb.clj"]])
 
 (defn add-mongo [[assets options]]
-  #_(let [docs-filename (str *name* "/resources/public/md/docs.md")]
-    (spit docs-filename (str (*render* "dbs/mongo_instructions.html") (slurp docs-filename))))
-
   [(into assets mongo-files)
    (assoc options
+     :db-docs (slurp-resource "db/docs/mongo_instructions.html")
      :db-dependencies (indent dependency-indent [['com.novemberain/monger "2.0.1"]]))])
 
 (defn add-relational-db [[assets options]]
-  #_(let [docs-filename (str *name* "/resources/public/md/docs.md")]
-  (spit docs-filename (str (*render* "dbs/db_instructions.html") (slurp docs-filename))))
-  #_(println (slurp "db/docs/db_instructions.html"))
   [(into assets (relational-db-files options))
    (assoc options
      :db-docs (slurp-resource "db/docs/db_instructions.html")
