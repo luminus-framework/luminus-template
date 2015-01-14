@@ -9,6 +9,11 @@
 
 (def render (renderer "luminus"))
 
+(defn slurp-resource [path]
+  (-> (str "leiningen/new/luminus/" path)
+      clojure.java.io/resource
+      slurp))
+
 (defn render-asset [options asset]
   (if (string? asset)
     asset

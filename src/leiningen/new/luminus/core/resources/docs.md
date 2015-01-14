@@ -1,3 +1,4 @@
+<<db-docs>>
 
 ### Managing Your Middleware
 
@@ -6,7 +7,7 @@ A request logging helper called `log-request` has already been defined for you t
 
 This namespace also defines two vectors for organizing the middleware called `development-middleware` and `production-middleware`.
 Any middleware that you only wish to run in development mode, such as `log-request`, should be added to the first vector.
- 
+
 ### Here are some links to get started
 
 1. [HTML templating](http://www.luminusweb.net/docs/html_templating.md)
