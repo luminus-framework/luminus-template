@@ -52,5 +52,5 @@
   (-> (routes
         home-routes
         base-routes)
-      production-middleware
-      development-middleware))
+      development-middleware
+      production-middleware))
