@@ -11,7 +11,8 @@
             [leiningen.new.db :refer [db-features]]
             [leiningen.new.cljs :refer [cljs-features]]
             [leiningen.new.cucumber :refer [cucumber-features]]
-            [leiningen.new.http-kit :refer [http-kit-features]])
+            [leiningen.new.http-kit :refer [http-kit-features]]
+            [leiningen.new.site :refer [site-features]])
   (:import java.io.File))
 
 (def core-assets
@@ -62,8 +63,10 @@
     (let [[assets options]
           (-> [core-assets options]
               db-features
-              cljs-features
+
               cucumber-features
+              site-features
+              cljs-features
               http-kit-features)]
       (render-assets assets (format-options options)))))
 

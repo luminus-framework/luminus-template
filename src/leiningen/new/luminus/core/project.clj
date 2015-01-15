@@ -32,8 +32,7 @@
   :plugins [[lein-ring "0.9.0"]
             [lein-environ "1.0.0"]
             [lein-ancient "0.5.5"]
-            <<plugins>>
-            ]
+            <<plugins>>]
   <% if cucumber-feature-paths %>
   :cucumber-feature-paths <<cucumber-feature-paths>>
   <% endif %>
@@ -62,8 +61,7 @@
    :dev {:dependencies [[ring-mock "0.1.5"]
                         [ring/ring-devel "1.3.2"]
                         [pjstadig/humane-test-output "0.6.0"]
-                        <<dev-dependencies>>
-                        ]
+                        <<dev-dependencies>>]
         <<cljs-dev>>
          :injections [(require 'pjstadig.humane-test-output)
                       (pjstadig.humane-test-output/activate!)]
