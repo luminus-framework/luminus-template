@@ -4,7 +4,7 @@
 (defn http-kit-features [[assets options :as state]]
   (if (some #{"+http-kit"} (:features options))
     [(into assets [["src/<<sanitized>>/core.clj" "httpkit/core.clj"]])
-     (assoc options
-       :http-kit-dependencies (indent dependency-indent [['http-kit "2.1.19"]])
-       :main (symbol (str (:project-ns options) ".core")))]
+     (-> options
+         (append-options :dependencies [['http-kit "2.1.19"]])
+         (assoc :main (symbol (str (:project-ns options) ".core"))))]
     state))

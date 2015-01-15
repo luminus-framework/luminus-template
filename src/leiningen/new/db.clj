@@ -47,17 +47,18 @@
 
 (defn add-mongo [[assets options]]
   [(into assets mongo-files)
-   (assoc options
-     :db-docs (slurp-resource "db/docs/mongo_instructions.html")
-     :db-dependencies (indent dependency-indent [['com.novemberain/monger "2.0.1"]]))])
+   (-> options
+       (append-options :dependencies [['com.novemberain/monger "2.0.1"]])
+       (assoc :db-docs (slurp-resource "db/docs/mongo_instructions.html")))])
 
 (defn add-relational-db [[assets options]]
   [(into assets (relational-db-files options))
-   (assoc options
-     :db-docs (slurp-resource "db/docs/db_instructions.html")
-     :db-dependencies (indent dependency-indent (db-dependencies options))
-     :db-plugins (indent plugin-indent [['ragtime/ragtime.lein "0.3.8"]])
-     :migrations (indent root-indent (migrations options)))])
+   (-> options
+       (append-options :dependencies (db-dependencies options))
+       (append-options :plugins [['ragtime/ragtime.lein "0.3.8"]])
+       (assoc
+         :db-docs (slurp-resource "db/docs/db_instructions.html")
+         :migrations (indent root-indent (migrations options))))])
 
 (defn db-features [state]
   (if-let [db (select-db (second state))]

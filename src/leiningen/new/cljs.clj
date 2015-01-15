@@ -42,10 +42,11 @@
 (defn cljs-features [[assets options :as state]]
   (if (some #{"+cljs"} (:features options))
     [(into (remove-conflicting-assets assets) cljs-assets)
-     (assoc options
-       :cljs-build (indent root-indent cljs-build)
-       :cljs-dev (unwrap-map (indent dev-indent cljs-dev))
-       :cljs-uberjar (unwrap-map (indent uberjar-indent cljs-uberjar))
-       :cljs-plugins (indent plugin-indent [['lein-cljsbuild "1.0.4"]])
-       :cljs-dependencies (indent dependency-indent cljs-dependencies))]
+     (-> options
+         (append-options :dependencies cljs-dependencies)
+         (append-options :plugins [['lein-cljsbuild "1.0.4"]])
+         (assoc
+           :cljs-build (indent root-indent cljs-build)
+           :cljs-dev (unwrap-map (indent dev-indent cljs-dev))
+           :cljs-uberjar (unwrap-map (indent uberjar-indent cljs-uberjar))))]
     state))

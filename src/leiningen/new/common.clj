@@ -4,6 +4,7 @@
     [clojure.pprint :refer [code-dispatch pprint with-pprint-dispatch]]))
 
 (def dependency-indent 17)
+(def dev-dependency-indent 24)
 (def plugin-indent 12)
 (def root-indent 2)
 (def dev-indent 9)
@@ -54,3 +55,6 @@
     (.setCharAt sb (.indexOf text "{") \space)
     (.setCharAt sb (.lastIndexOf text "}") \space)
     (.toString sb)))
+
+(defn append-options [options k v]
+  (update-in options [k] (fnil into []) v))

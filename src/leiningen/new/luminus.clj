@@ -7,9 +7,10 @@
             [leiningen.core.main :as main]
             [clojure.string :as s]
             [clojure.java.io :as io]
-            [leiningen.new.common :refer [render render-assets]]
+            [leiningen.new.common :refer :all]
             [leiningen.new.db :refer [db-features]]
             [leiningen.new.cljs :refer [cljs-features]]
+            [leiningen.new.cucumber :refer [cucumber-features]]
             [leiningen.new.http-kit :refer [http-kit-features]])
   (:import java.io.File))
 
@@ -47,6 +48,12 @@
     options
     {:tag-open \< :tag-close \> :filter-open \< :filter-close \>}))
 
+(defn format-options [options]
+  (-> options
+      (update-in [:dependencies] (partial indent dependency-indent))
+      (update-in [:dev-dependencies] (partial indent dev-dependency-indent))
+      (update-in [:plugins] (partial indent plugin-indent))))
+
 (defn generate-project
   "Create a new Luminus project"
   [options]
@@ -56,8 +63,9 @@
           (-> [core-assets options]
               db-features
               cljs-features
+              cucumber-features
               http-kit-features)]
-      (render-assets assets options))))
+      (render-assets assets (format-options options)))))
 
 (defn format-features [features]
   (apply str (interpose ", " features)))
