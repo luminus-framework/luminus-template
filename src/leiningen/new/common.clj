@@ -29,9 +29,7 @@
 (defn pprint-code [code]
   (-> (pprint code)
       with-out-str
-      (.replaceAll "," "")
-      ;(.replaceAll "\\\\n" "\n")
-      ))
+      (.replaceAll "," "")))
 
 (defn form->str [form]
   (let [text (pprint-code form)]
