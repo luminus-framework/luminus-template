@@ -1,4 +1,4 @@
-(ns {{name}}.browser
+(ns <<name>>.browser
   (:require [clj-webdriver.taxi :refer :all]))
 
 (def ^:private browser-count (atom 0))

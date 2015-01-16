@@ -11,8 +11,8 @@
   (if (some #{"+cucumber"} (:features options))
     [(into assets cucumber-assets)
      (-> options
-         (append-options :plugins [['lein-cucumber "1.0.2"]])
+         (append-options :plugins [['org.clojars.punkisdead/lein-cucumber "1.0.4"]])
          (append-options :dev-dependencies [['org.clojure/core.cache "0.6.3"]
                                             ['clj-webdriver/clj-webdriver "0.6.1"]])
-         (assoc :cucumber-feature-paths (indent root-indent ["test/features/"])))]
+         (assoc :cucumber-feature-paths ["test/features"]))]
     state))

@@ -34,7 +34,7 @@
             [lein-ancient "0.5.5"]
             <<plugins>>]
   <% if cucumber-feature-paths %>
-  :cucumber-feature-paths <<cucumber-feature-paths>>
+  :cucumber-feature-paths ["test/features"]
   <% endif %>
 
   :ring {:handler <<name>>.handler/app

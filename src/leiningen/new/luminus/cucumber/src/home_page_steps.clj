@@ -1,5 +1,5 @@
 (require '[clj-webdriver.taxi :as taxi]
-         '[{{name}}.browser :refer [browser-up browser-down]]
+         '[<<name>>.browser :refer [browser-up browser-down]]
          '[clojure.test :refer :all])
 
 (Given #"^I am at the \"homepage\"$" []
