@@ -1,4 +1,4 @@
-(ns <<name>>.db.core
+(ns <<project-ns>>.db.core
   (:require
     [yesql.core :refer [defqueries]]
     [clojure.java.io :as io]))

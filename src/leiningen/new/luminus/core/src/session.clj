@@ -1,4 +1,4 @@
-(ns <<name>>.session
+(ns <<project-ns>>.session
   (:require [cronj.core :refer [cronj]]))
 
 (defonce mem (atom {}))

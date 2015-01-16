@@ -1,5 +1,5 @@
-(ns <<name>>.routes.home
-  (:require [<<name>>.layout :as layout]
+(ns <<project-ns>>.routes.home
+  (:require [<<project-ns>>.layout :as layout]
             [compojure.core :refer [defroutes GET]]
             [clojure.java.io :as io]))
 

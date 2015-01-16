@@ -1,9 +1,9 @@
-(ns <<name>>.handler
+(ns <<project-ns>>.handler
   (:require [compojure.core :refer [defroutes routes]]
-            [<<name>>.routes.home :refer [home-routes]]
-            [<<name>>.middleware :refer [development-middleware
+            [<<project-ns>>.routes.home :refer [home-routes]]
+            [<<project-ns>>.middleware :refer [development-middleware
                                          production-middleware]]
-            [<<name>>.session :as session]
+            [<<project-ns>>.session :as session]
             [ring.middleware.defaults :refer [site-defaults]]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]

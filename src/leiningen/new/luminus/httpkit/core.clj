@@ -1,4 +1,4 @@
-(ns <<name>>.core
+(ns <<project-ns>>.core
   (:require
     [<<name>>.handler :refer [app]]
     [ring.middleware.reload :as reload]

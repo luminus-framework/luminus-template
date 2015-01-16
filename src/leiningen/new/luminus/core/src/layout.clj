@@ -1,4 +1,4 @@
-(ns <<name>>.layout
+(ns <<project-ns>>.layout
   (:require [selmer.parser :as parser]
             [clojure.string :as s]
             [selmer.filters :refer [add-filter!]]

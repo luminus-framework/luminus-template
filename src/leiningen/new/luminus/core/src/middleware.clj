@@ -1,5 +1,5 @@
-(ns <<name>>.middleware
-  (:require [<<name>>.session :as session]
+(ns <<project-ns>>.middleware
+  (:require [<<project-ns>>.session :as session]
             [taoensso.timbre :as timbre]
             [environ.core :refer [env]]
             [selmer.middleware :refer [wrap-error-page]]

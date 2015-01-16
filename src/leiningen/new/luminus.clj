@@ -88,7 +88,6 @@
         unsupported (-> (set feature-params)
                         (clojure.set/difference supported-features)
                         (not-empty))]
-
     (cond
       (< (lein-generation) 2)
       (main/info "Leiningen version 2.x is required.")
