@@ -2,7 +2,7 @@
 
 ### Managing Your Middleware
 
-Request middleware functions are located under the `{{name}}.middleware` namespace.
+Request middleware functions are located under the `<<name>>.middleware` namespace.
 A request logging helper called `log-request` has already been defined for you there.
 
 This namespace also defines two vectors for organizing the middleware called `development-middleware` and `production-middleware`.

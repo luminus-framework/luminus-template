@@ -80,6 +80,7 @@
                              "+dailycred" "+mysql" "+http-kit"
                              "+cucumber" "+mongodb"}
         options {:name       (project-name name)
+                 :selmer-renderer render-template
                  :min-lein-version "2.0.0"
                  :project-ns (sanitize-ns name)
                  :sanitized  (name-to-path name)

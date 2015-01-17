@@ -49,7 +49,7 @@
   [(into assets mongo-files)
    (-> options
        (append-options :dependencies [['com.novemberain/monger "2.0.1"]])
-       (assoc :db-docs (slurp-resource "db/docs/mongo_instructions.md")))])
+       (assoc :db-docs ((:selmer-renderer options) (slurp-resource "db/docs/mongo_instructions.md") options)))])
 
 (defn add-relational-db [db [assets options]]
   [(into assets (relational-db-files options))
@@ -57,9 +57,11 @@
        (append-options :dependencies (db-dependencies options))
        (append-options :plugins [['ragtime/ragtime.lein "0.3.8"]])
        (assoc
-         :db-docs (slurp-resource (if (= :h2 db)
+         :db-docs ((:selmer-renderer options)
+                    (slurp-resource (if (= :h2 db)
                                     "db/docs/h2_instructions.md"
                                     "db/docs/db_instructions.md"))
+                    options)
          :migrations (indent root-indent (migrations options))))])
 
 (defn db-features [state]
