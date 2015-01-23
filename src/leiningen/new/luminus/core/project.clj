@@ -5,7 +5,7 @@
 
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [ring-server "0.3.1"]
-                 [selmer "0.7.9"]
+                 [selmer "0.8.0"]
                  [com.taoensso/timbre "3.3.1"]
                  [com.taoensso/tower "3.0.2"]
                  [markdown-clj "0.9.62"]
@@ -31,7 +31,7 @@
 
   :plugins [[lein-ring "0.9.0"]
             [lein-environ "1.0.0"]
-            [lein-ancient "0.5.5"]
+            [lein-ancient "0.6.0"]
             <<plugins>>]
   <% if cucumber-feature-paths %>
   :cucumber-feature-paths <<cucumber-feature-paths>>
