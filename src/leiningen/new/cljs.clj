@@ -12,8 +12,8 @@
                 (.endsWith (second %) ".html")) assets))
 
 (def cljs-dependencies
-  [['org.clojure/clojurescript "0.0-2665" :scope "provided"]
-   ['reagent-forms "0.3.9"]
+  [['org.clojure/clojurescript "0.0-2719" :scope "provided"]
+   ['reagent-forms "0.4.3"]
    ['reagent-utils "0.1.2"]
    ['secretary "1.2.1"]
    ['cljs-ajax "0.3.9"]])
