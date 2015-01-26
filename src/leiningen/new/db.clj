@@ -38,7 +38,7 @@
                        :mysql    "mysql.db.clj"
                        :h2       "h2.db.clj"}
                        (select-db options)))]
-     ["resources/sql/functions.sql" "db/sql/functions.sql"]
+     ["resources/sql/queries.sql" "db/sql/queries.sql"]
      [(str "migrations/" timestamp "-add-users-table.up.sql") "db/migrations/add-users-table.up.sql"]
      [(str "migrations/" timestamp "-add-users-table.down.sql") "db/migrations/add-users-table.down.sql"]]))
 

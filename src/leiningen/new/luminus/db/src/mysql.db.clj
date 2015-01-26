@@ -8,4 +8,4 @@
    :user "db_user_name_here"
    :password "db_user_password_here"})
 
-(defqueries "sql/functions.sql" {:connection db-spec})
+(defqueries "sql/queries.sql" {:connection db-spec})
