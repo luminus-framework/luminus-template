@@ -1,6 +1,5 @@
 (ns <<project-ns>>.layout
   (:require [selmer.parser :as parser]
-            [clojure.string :as s]
             [selmer.filters :refer [add-filter!]]
             [markdown.core :refer [md-to-html-string]]
             [ring.util.response :refer [content-type response]]
