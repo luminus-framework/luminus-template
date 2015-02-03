@@ -16,13 +16,6 @@
     (timbre/debug req)
     (handler req)))
 
-(defn- mk-defaults
-  "set to true to enable XSS protection"
-  [xss-protection?]
-  (-> site-defaults
-      (assoc-in [:session :store] (memory-store session/mem))
-      (assoc-in [:security :anti-forgery] xss-protection?)))
-
 (defn development-middleware [handler]
   (if (env :dev)
     (-> handler
@@ -36,5 +29,7 @@
       (wrap-idle-session-timeout
         {:timeout (* 60 30)
          :timeout-response (redirect "/")})
-      (wrap-defaults (mk-defaults false))
+      (wrap-defaults
+        (-> site-defaults
+            (assoc-in [:session :store] (memory-store session/mem))))
       (wrap-internal-error :log (fn [e] (timbre/error e)))))
