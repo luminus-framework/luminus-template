@@ -1,6 +1,6 @@
 (ns <<project-ns>>.layout
   (:require [selmer.parser :as parser]
-            [selmer.filters :refer [add-filter!]]
+            [selmer.filters :as filters]
             [markdown.core :refer [md-to-html-string]]
             [ring.util.response :refer [content-type response]]
             [compojure.response :refer [Renderable]]
@@ -11,7 +11,7 @@
 (parser/set-resource-path!  (clojure.java.io/resource "templates"))
 
 (parser/add-tag! :csrf-field (fn [_ _] (anti-forgery-field)))
-(add-filter! :markdown (fn [content] [:safe (md-to-html-string content)]))
+(filters/add-filter! :markdown (fn [content] [:safe (md-to-html-string content)]))
 
 (deftype RenderableTemplate [template params]
   Renderable
