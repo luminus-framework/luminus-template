@@ -16,7 +16,7 @@
                  [ring-middleware-format "0.4.0"]
                  [noir-exception "0.2.3"]
                  [crypto-password "0.1.3"]
-                 [bouncer "0.3.1"]
+                 [bouncer "0.3.2"]
                  [prone "0.8.0"]
                  <<dependencies>>]
 
