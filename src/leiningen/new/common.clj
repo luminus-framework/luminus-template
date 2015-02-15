@@ -56,3 +56,6 @@
 
 (defn append-options [options k v]
   (update-in options [k] (fnil into []) v))
+
+(defn append-formatted [options k v indent-width]
+  (assoc options k (indent indent-width v)))
