@@ -34,4 +34,4 @@
          :timeout-response (redirect "/")})
       (wrap-defaults
         (assoc-in site-defaults [:session :store] (memory-store session/mem)))
-      (wrap-internal-error :log (fn [e] timbre/error))))
+      (wrap-internal-error :log (fn [e] (timbre/error e)))))
