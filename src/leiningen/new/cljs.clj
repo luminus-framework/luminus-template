@@ -12,11 +12,11 @@
                 (.endsWith (second %) ".html")) assets))
 
 (def cljs-dependencies
-  [['org.clojure/clojurescript "0.0-2814" :scope "provided"]
+  [['org.clojure/clojurescript "0.0-2850" :scope "provided"]
    ['reagent-forms "0.4.3"]
    ['reagent-utils "0.1.2"]
    ['secretary "1.2.1"]
-   ['cljs-ajax "0.3.9"]])
+   ['cljs-ajax "0.3.10"]])
 
 (def cljs-build
   {:builds {:app {:source-paths ["src-cljs"]
