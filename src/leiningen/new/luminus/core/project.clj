@@ -11,6 +11,7 @@
                  [markdown-clj "0.9.62"]
                  [environ "1.0.0"]
                  [im.chit/cronj "1.4.3"]
+                 [compojure "1.3.2"]
                  [ring/ring-defaults "0.1.3"]
                  [ring/ring-session-timeout "0.1.0"]
                  [ring-middleware-format "0.4.0"]
