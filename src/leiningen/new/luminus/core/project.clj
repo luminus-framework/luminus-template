@@ -8,7 +8,7 @@
                  [selmer "0.8.0"]
                  [com.taoensso/timbre "3.3.1"]
                  [com.taoensso/tower "3.0.2"]
-                 [markdown-clj "0.9.62"]
+                 [markdown-clj "0.9.63"]
                  [environ "1.0.0"]
                  [im.chit/cronj "1.4.3"]
                  [compojure "1.3.2"]
@@ -63,7 +63,17 @@
                         [ring/ring-devel "1.3.2"]
                         [pjstadig/humane-test-output "0.6.0"]
                         <<dev-dependencies>>]
+         <% if dev-source-paths %>
+         :source-paths <<dev-source-paths>>
+         <% endif %>
+         <% if dev-plugins %>
+         :plugins <<dev-plugins>>
+         <% endif %>
         <<cljs-dev>>
+         <% if figwheel %>
+         :figwheel
+         <<figwheel>>
+         <% endif %>
          :injections [(require 'pjstadig.humane-test-output)
                       (pjstadig.humane-test-output/activate!)]
          :env {:dev true}}})

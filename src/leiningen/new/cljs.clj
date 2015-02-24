@@ -3,6 +3,7 @@
 
 (def cljs-assets
   [["src-cljs/<<sanitized>>/core.cljs" "cljs/src/cljs/core.cljs"]
+   ["env/dev/clj/<<sanitized>>/dev.clj" "cljs/env/dev/clj/dev.clj"]
    ["env/dev/cljs/<<sanitized>>/dev.cljs" "cljs/env/dev/cljs/app.cljs"]
    ["env/prod/cljs/<<sanitized>>/prod.cljs" "cljs/env/prod/cljs/app.cljs"]
    ["resources/templates/home.html" "cljs/templates/home.html"]])
@@ -17,6 +18,12 @@
    ['reagent-utils "0.1.2"]
    ['secretary "1.2.1"]
    ['cljs-ajax "0.3.10"]])
+
+(def cljs-dev-dependencies
+  [['leiningen "2.5.1"]
+   ['figwheel "0.2.5-SNAPSHOT"]
+   ['weasel "0.6.0-SNAPSHOT"]
+   ['com.cemerick/piggieback "0.1.6-SNAPSHOT"]])
 
 (def cljs-build
   {:builds {:app {:source-paths ["src-cljs"]
@@ -39,14 +46,24 @@
 (def cljs-dev
   {:cljsbuild {:builds {:app {:source-paths ["env/dev/cljs"]}}}})
 
+(defn figwheel [{:keys [project-ns]}]
+  {:http-server-root "public"
+   :server-port 3449
+   :css-dirs ["resources/public/css"]
+   :ring-handler (symbol (str project-ns ".handler/app"))})
+
 (defn cljs-features [[assets options :as state]]
   (if (some #{"+cljs"} (:features options))
     [(into (remove-conflicting-assets assets) cljs-assets)
      (-> options
          (append-options :dependencies cljs-dependencies)
+         (append-options :dev-dependencies cljs-dev-dependencies)
          (append-options :plugins [['lein-cljsbuild "1.0.4"]])
+         (append-options :dev-plugins [['lein-figwheel "0.2.3-SNAPSHOT"]])
+         (append-options :dev-source-paths ["env/dev/clj"])
          (assoc
            :cljs-build (indent root-indent cljs-build)
+           :figwheel (indent dev-indent (figwheel options))
            :cljs-dev (unwrap-map (indent dev-indent cljs-dev))
            :cljs-uberjar (unwrap-map (indent uberjar-indent cljs-uberjar))))]
     state))
