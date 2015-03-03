@@ -16,7 +16,6 @@
                  [ring/ring-session-timeout "0.1.0"]
                  [ring-middleware-format "0.4.0"]
                  [noir-exception "0.2.3"]
-                 [buddy "0.3.0"]
                  [bouncer "0.3.2"]
                  [prone "0.8.0"]
                  <<dependencies>>]
