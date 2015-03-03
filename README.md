@@ -37,7 +37,7 @@ lein new luminus myapp +cljs
 You can also mix multiple profiles when creating the application, e.g.:
 
 ```bash
-lein new luminus myapp +site +postgres
+lein new luminus myapp +auth +postgres
 ```
 
 To build as a executable [Java ARchive (JAR)][jar] standalone, run the following command:
