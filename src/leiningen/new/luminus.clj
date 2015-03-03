@@ -13,6 +13,7 @@
             [leiningen.new.cljs :refer [cljs-features]]
             [leiningen.new.cucumber :refer [cucumber-features]]
             [leiningen.new.http-kit :refer [http-kit-features]]
+            [leiningen.new.immutant :refer [immutant-features]]
             [leiningen.new.site :refer [site-features]])
   (:import java.io.File))
 
@@ -68,7 +69,8 @@
               cucumber-features
               site-features
               cljs-features
-              http-kit-features)]
+              http-kit-features
+              immutant-features)]
       (render-assets assets (format-options options)))))
 
 (defn format-features [features]
@@ -79,7 +81,7 @@
   [name & feature-params]
   (let [supported-features #{"+cljs" "+site" "+h2" "+postgres"
                              "+dailycred" "+mysql" "+http-kit"
-                             "+cucumber" "+mongodb" "+auth"}
+                             "+cucumber" "+mongodb" "+auth" "+immutant"}
         options {:name       (project-name name)
                  :selmer-renderer render-template
                  :min-lein-version "2.0.0"
