@@ -1,1 +1,1 @@
-web: lein with-profile production trampoline ring server
+web: java $JVM_OPTS -cp target/<<name>>.jar clojure.main -m <<project-ns>>.core

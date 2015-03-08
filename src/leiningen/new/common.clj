@@ -59,3 +59,8 @@
 
 (defn append-formatted [options k v indent-width]
   (assoc options k (indent indent-width v)))
+
+(defn remove-conflicting-assets [assets filter-str]
+  (remove #(and (coll? %)
+                (.endsWith (second %) filter-str))
+          assets))

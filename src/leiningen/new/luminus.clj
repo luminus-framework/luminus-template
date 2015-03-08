@@ -24,6 +24,7 @@
    ["README.md" "core/README.md"]
 
    ;; core namespaces
+   ["src/<<sanitized>>/core.clj" "core/src/core.clj"]
    ["src/<<sanitized>>/handler.clj" "core/src/handler.clj"]
    ["src/<<sanitized>>/routes/home.clj" "core/src/home.clj"]
    ["src/<<sanitized>>/layout.clj" "core/src/layout.clj"]

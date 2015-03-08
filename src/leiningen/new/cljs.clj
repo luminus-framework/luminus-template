@@ -8,10 +8,6 @@
    ["env/prod/cljs/<<sanitized>>/prod.cljs" "cljs/env/prod/cljs/app.cljs"]
    ["resources/templates/home.html" "cljs/templates/home.html"]])
 
-(defn remove-conflicting-assets [assets]
-  (remove #(and (coll? %)
-                (.endsWith (second %) ".html")) assets))
-
 (def cljs-dependencies
   [['org.clojure/clojurescript "0.0-2913" :scope "provided"]
    ['reagent-forms "0.4.3"]
@@ -54,7 +50,7 @@
 
 (defn cljs-features [[assets options :as state]]
   (if (some #{"+cljs"} (:features options))
-    [(into (remove-conflicting-assets assets) cljs-assets)
+    [(into (remove-conflicting-assets assets ".html") cljs-assets)
      (-> options
          (append-options :dependencies cljs-dependencies)
          (append-options :dev-dependencies cljs-dev-dependencies)

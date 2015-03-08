@@ -4,10 +4,6 @@
 (def site-assets
   [])
 
-(defn remove-conflicting-assets [assets]
-  (remove #(and (coll? %)
-                (.endsWith (second %) ".html")) assets))
-
 (defn required-feature [features feature default]
   (if (some feature features)
     features
@@ -21,7 +17,7 @@
 
 (defn site-features [[assets options :as state]]
   (if (some #{"+site"} (:features options))
-    [(into (remove-conflicting-assets assets) site-assets)
+    [(into (remove-conflicting-assets assets ".html") site-assets)
      (-> options
          required-features)]
     state))

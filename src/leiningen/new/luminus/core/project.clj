@@ -8,7 +8,7 @@
                  [selmer "0.8.0"]
                  [com.taoensso/timbre "3.3.1"]
                  [com.taoensso/tower "3.0.2"]
-                 [markdown-clj "0.9.63"]
+                 [markdown-clj "0.9.64"]
                  [environ "1.0.0"]
                  [im.chit/cronj "1.4.3"]
                  [compojure "1.3.2"]
@@ -25,9 +25,7 @@
   :repl-options {:init-ns <<name>>.handler}
   :jvm-opts ["-server"]
 
-  <% if main %>
-  :main <<main>>
-  <% endif %>
+  :main <<project-ns>>.core
 
   :plugins [[lein-ring "0.9.1"]
             [lein-environ "1.0.0"]

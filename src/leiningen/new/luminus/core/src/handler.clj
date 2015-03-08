@@ -1,8 +1,8 @@
 (ns <<project-ns>>.handler
   (:require [compojure.core :refer [defroutes routes]]
             [<<project-ns>>.routes.home :refer [home-routes]]
-            [<<project-ns>>.middleware :refer [development-middleware
-                                         production-middleware]]
+            [<<project-ns>>.middleware
+             :refer [development-middleware production-middleware]]
             [<<project-ns>>.session :as session]
             [ring.middleware.defaults :refer [site-defaults]]
             [compojure.route :as route]
