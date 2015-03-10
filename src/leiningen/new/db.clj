@@ -43,7 +43,7 @@
      [(str "migrations/" timestamp "-add-users-table.down.sql") "db/migrations/add-users-table.down.sql"]]))
 
 (def mongo-files
-  [["src/{{sanitized}}/db/core.clj" "db/src/mongodb.clj"]])
+  [["src/<<sanitized>>/db/core.clj" "db/src/mongodb.clj"]])
 
 (defn add-mongo [[assets options]]
   [(into assets mongo-files)
