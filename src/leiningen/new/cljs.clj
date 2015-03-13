@@ -16,6 +16,8 @@
    ['org.clojure/core.async "0.1.346.0-17112a-alpha"]
    ['cljs-ajax "0.3.10"]])
 
+(def clean-targets ["resources/public/js"])
+
 (def cljs-dev-dependencies
   [['leiningen "2.5.1"]
    ['figwheel "0.2.5-SNAPSHOT"]
@@ -58,6 +60,7 @@
          (append-options :plugins [['lein-cljsbuild "1.0.4"]])
          (append-options :dev-plugins [['lein-figwheel "0.2.3-SNAPSHOT"]])
          (append-options :dev-source-paths ["env/dev/clj"])
+         (update-in [:clean-targets] (fnil into []) clean-targets)
          (assoc
            :cljs-build (indent root-indent cljs-build)
            :figwheel (indent dev-indent (figwheel options))
