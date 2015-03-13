@@ -10,9 +10,10 @@
 
 (def cljs-dependencies
   [['org.clojure/clojurescript "0.0-3058" :scope "provided"]
-   ['reagent-forms "0.4.3"]
-   ['reagent-utils "0.1.2"]
+   ['reagent-forms "0.4.4"]
+   ['reagent-utils "0.1.3"]
    ['secretary "1.2.1"]
+   ['org.clojure/core.async "0.1.346.0-17112a-alpha"]
    ['cljs-ajax "0.3.10"]])
 
 (def cljs-dev-dependencies
