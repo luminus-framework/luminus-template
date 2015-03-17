@@ -59,7 +59,6 @@
          (append-options :dev-dependencies cljs-dev-dependencies)
          (append-options :plugins [['lein-cljsbuild "1.0.4"]])
          (append-options :dev-plugins [['lein-figwheel "0.2.3-SNAPSHOT"]])
-         (append-options :dev-source-paths ["env/dev/clj"])
          (update-in [:clean-targets] (fnil into []) clean-targets)
          (assoc
            :cljs-build (indent root-indent cljs-build)

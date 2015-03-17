@@ -30,6 +30,7 @@
    ["src/<<sanitized>>/layout.clj" "core/src/layout.clj"]
    ["src/<<sanitized>>/middleware.clj" "core/src/middleware.clj"]
    ["src/<<sanitized>>/session.clj" "core/src/session.clj"]
+   ["env/dev/clj/<<sanitized>>/repl.clj" "core/env/repl.clj"]
 
 
    ;;HTML templates
@@ -89,6 +90,7 @@
                  :project-ns (sanitize-ns name)
                  :sanitized  (name-to-path name)
                  :year       (year)
+                 :dev-source-paths ["env/dev/clj"]
                  :features   (set feature-params)}
         unsupported (-> (set feature-params)
                         (clojure.set/difference supported-features)

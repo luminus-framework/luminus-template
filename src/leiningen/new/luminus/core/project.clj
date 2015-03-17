@@ -55,16 +55,11 @@
              :env {:production true}
             <<cljs-uberjar>>
              :aot :all}
-   :production {:ring {:open-browser? false
-                       :stacktraces?  false
-                       :auto-reload?  false}}
    :dev {:dependencies [[ring-mock "0.1.5"]
                         [ring/ring-devel "1.3.2"]
                         [pjstadig/humane-test-output "0.6.0"]
                         <<dev-dependencies>>]
-         <% if dev-source-paths %>
          :source-paths <<dev-source-paths>>
-         <% endif %>
          <% if dev-plugins %>
          :plugins <<dev-plugins>>
          <% endif %>
@@ -73,6 +68,7 @@
          :figwheel
          <<figwheel>>
          <% endif %>
+         :repl-options {:init-ns <<project-ns>>.repl}
          :injections [(require 'pjstadig.humane-test-output)
                       (pjstadig.humane-test-output/activate!)]
          :env {:dev true}}})
