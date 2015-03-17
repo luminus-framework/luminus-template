@@ -62,7 +62,7 @@
 (defn generate-project
   "Create a new Luminus project"
   [options]
-  (main/info "Generating a Leiningen project.")
+  (main/info "Generating a Luminus project.")
   (with-redefs [leiningen.new.templates/render-text render-template]
     (let [[assets options]
           (-> [core-assets options]
