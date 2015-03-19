@@ -1,4 +1,4 @@
-# {{name}}
+# <<name>>
 
 FIXME
 
@@ -16,4 +16,4 @@ To start a web server for the application, run:
 
 ## License
 
-Copyright © {{year}} FIXME
+Copyright © <<year>> FIXME
