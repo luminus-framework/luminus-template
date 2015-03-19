@@ -7,7 +7,7 @@
                  [ring-server "0.4.0"]
                  [selmer "0.8.2"]
                  [com.taoensso/timbre "3.4.0"]
-                 [com.taoensso/tower "3.4.0"]
+                 [com.taoensso/tower "3.0.2"]
                  [markdown-clj "0.9.65"]
                  [environ "1.0.0"]
                  [im.chit/cronj "1.4.3"]
@@ -29,7 +29,7 @@
 
   :plugins [[lein-ring "0.9.1"]
             [lein-environ "1.0.0"]
-            [lein-ancient "0.6.0"]
+            [lein-ancient "0.6.5"]
             <<plugins>>]
   <% if cucumber-feature-paths %>
   :cucumber-feature-paths <<cucumber-feature-paths>>
