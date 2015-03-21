@@ -35,10 +35,13 @@
 (defroute "/" [] (session/put! :page :home))
 (defroute "/about" [] (session/put! :page :about))
 
+(defn mount-components []
+  (reagent/render-component [navbar] (.getElementById js/document "navbar"))
+  (reagent/render-component [page] (.getElementById js/document "app")))
+
 (defn init! []
   (secretary/set-config! :prefix "#")
   (session/put! :page :home)
-  (reagent/render-component [navbar] (.getElementById js/document "navbar"))
-  (reagent/render-component [page] (.getElementById js/document "app")))
+  (mount-components))
 
 
