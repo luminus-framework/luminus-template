@@ -5,7 +5,7 @@
   (if (some #{"+auth"} (:features options))
     [assets
      (-> options
-         (append-options :dependencies [['buddy "0.3.0"]])
+         (append-options :dependencies [['buddy "0.4.2"]])
          (append-formatted :auth-required
                            [['buddy.auth.middleware :refer ['wrap-authentication]]
                             ['buddy.auth.backends.session :refer ['session-backend]]]
