@@ -4,7 +4,6 @@
             [<<project-ns>>.middleware
              :refer [development-middleware production-middleware]]
             [<<project-ns>>.session :as session]
-            [ring.middleware.defaults :refer [site-defaults]]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
             [taoensso.timbre.appenders.rotor :as rotor]
