@@ -9,9 +9,9 @@
    ["resources/templates/home.html" "cljs/templates/home.html"]])
 
 (def cljs-dependencies
-  [['org.clojure/clojurescript "0.0-3165" :scope "provided"]
+  [['org.clojure/clojurescript "0.0-3169" :scope "provided"]
    ['reagent "0.5.0"]
-   ['reagent-forms "0.4.6"]
+   ['reagent-forms "0.4.8"]
    ['reagent-utils "0.1.4"]
    ['secretary "1.2.2"]
    ['org.clojure/core.async "0.1.346.0-17112a-alpha"]
@@ -23,7 +23,8 @@
   [['leiningen "2.5.1"]
    ['figwheel "0.2.5"]
    ['weasel "0.6.0"]
-   ['com.cemerick/piggieback "0.1.6-SNAPSHOT"]])
+   ['com.cemerick/piggieback "0.2.0"]
+   ['org.clojure/tools.nrepl "0.2.10"]])
 
 (def cljs-build
   {:builds {:app {:source-paths ["src-cljs"]
