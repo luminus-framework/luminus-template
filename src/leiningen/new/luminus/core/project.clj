@@ -35,6 +35,11 @@
   :cucumber-feature-paths <<cucumber-feature-paths>>
   <% endif %>
 
+  <% if sassc-config-params %>
+  :sassc <<sassc-config-params>>
+  :hooks [leiningen.sassc]
+  <% endif %>
+
   :ring {:handler <<name>>.handler/app
          :init    <<name>>.handler/init
          :destroy <<name>>.handler/destroy
@@ -53,7 +58,7 @@
   :profiles
   {:uberjar {:omit-source true
              :env {:production true}
-            <<cljs-uberjar>>
+             <<cljs-uberjar>>
              :aot :all}
    :dev {:dependencies [[ring-mock "0.1.5"]
                         [ring/ring-devel "1.3.2"]
@@ -63,7 +68,7 @@
          <% if dev-plugins %>
          :plugins <<dev-plugins>>
          <% endif %>
-        <<cljs-dev>>
+         <<cljs-dev>>
          <% if figwheel %>
          :figwheel
          <<figwheel>>
