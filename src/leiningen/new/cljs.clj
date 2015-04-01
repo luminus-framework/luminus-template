@@ -11,7 +11,7 @@
 (def cljs-dependencies
   [['org.clojure/clojurescript "0.0-3169" :scope "provided"]
    ['reagent "0.5.0"]
-   ['reagent-forms "0.4.8"]
+   ['reagent-forms "0.4.9"]
    ['reagent-utils "0.1.4"]
    ['secretary "1.2.2"]
    ['org.clojure/core.async "0.1.346.0-17112a-alpha"]
