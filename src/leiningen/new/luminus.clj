@@ -14,6 +14,7 @@
             [leiningen.new.cucumber :refer [cucumber-features]]
             [leiningen.new.http-kit :refer [http-kit-features]]
             [leiningen.new.immutant :refer [immutant-features]]
+            [leiningen.new.sassc :refer [sassc-features]]
             [leiningen.new.site :refer [site-features]])
   (:import java.io.File))
 
@@ -72,7 +73,8 @@
               site-features
               cljs-features
               http-kit-features
-              immutant-features)]
+              immutant-features
+              sassc-features)]
       (render-assets assets (format-options options)))))
 
 (defn format-features [features]
@@ -81,9 +83,9 @@
 (defn luminus
   "Create a new Luminus project"
   [name & feature-params]
-  (let [supported-features #{"+cljs" "+site" "+h2" "+postgres"
-                             "+dailycred" "+mysql" "+http-kit"
-                             "+cucumber" "+mongodb" "+auth" "+immutant"}
+  (let [supported-features #{"+cljs" "+site" "+h2" "+postgres" "+dailycred"
+                             "+mysql" "+http-kit" "+cucumber" "+mongodb"
+                             "+auth" "+immutant" "+sassc"}
         options {:name       (project-name name)
                  :selmer-renderer render-template
                  :min-lein-version "2.0.0"
@@ -101,11 +103,11 @@
 
       (re-matches #"\A\+.+" name)
       (main/info "Project name is missing.\nTry: lein new luminus PROJECT_NAME"
-               name (clojure.string/join " " (:features options)))
+                 name (clojure.string/join " " (:features options)))
 
       unsupported
       (main/info "Unrecognized options:" (format-features unsupported)
-               "\nSupported options are:" (format-features supported-features))
+                 "\nSupported options are:" (format-features supported-features))
 
       (.exists (File. name))
       (main/info "Could not create project because a directory named" name "already exists!")
