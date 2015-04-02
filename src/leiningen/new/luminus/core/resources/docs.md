@@ -1,5 +1,5 @@
 <<db-docs>>
-
+<<sassc-docs>>
 ### Managing Your Middleware
 
 Request middleware functions are located under the `<<name>>.middleware` namespace.

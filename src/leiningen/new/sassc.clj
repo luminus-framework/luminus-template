@@ -15,5 +15,8 @@
     [(into assets sassc-assets)
      (-> options
          (append-options :plugins [['lein-sassc "0.10.4"]])
+         (assoc :sassc-docs ((:selmer-renderer options)
+                              (slurp-resource "sassc/docs/sassc_instructions.md")
+                              options))
          (assoc :sassc-config-params (pprint-code sassc-config)))]
     state))
