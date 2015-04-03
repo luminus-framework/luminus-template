@@ -13,7 +13,7 @@
    ['reagent "0.5.0"]
    ['reagent-forms "0.4.9"]
    ['reagent-utils "0.1.4"]
-   ['secretary "1.2.2"]
+   ['secretary "1.2.3"]
    ['org.clojure/core.async "0.1.346.0-17112a-alpha"]
    ['cljs-ajax "0.3.10"]])
 
@@ -61,7 +61,7 @@
          (append-options :dependencies cljs-dependencies)
          (append-options :dev-dependencies cljs-dev-dependencies)
          (append-options :plugins [['lein-cljsbuild "1.0.4"]])
-         (append-options :dev-plugins [['lein-figwheel "0.2.3-SNAPSHOT"]])
+         (append-options :dev-plugins [['lein-figwheel "0.2.5"]])
          (update-in [:clean-targets] (fnil into []) clean-targets)
          (assoc
            :cljs-build (indent root-indent cljs-build)
