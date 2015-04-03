@@ -71,7 +71,7 @@ server.
 
 ## License
 
-Copyright © 2012 Yogthos
+Copyright © 2015 Dmitri Sotnikov
 
 Distributed under the [MIT License](http://opensource.org/licenses/MIT).
 
