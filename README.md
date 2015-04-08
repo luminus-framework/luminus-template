@@ -28,6 +28,7 @@ However, if you would like to attach further functionality to your template you 
 * `+immutant` adds the [Immutant](http://immutant.org/) web server to the project
 * `+cucumber` adds support for browser based UI testing with [Cucumber][cucumber] and [clj-webdriver][clj-webdriver]
 * `+mongodb` adds support for [MongoDB][mongo] using the [Monger][monger] library
+* `+swagger` adds support for [Swagger-UI](https://github.com/swagger-api/swagger-ui) using the [compojure-api](https://github.com/metosin/compojure-api) library
 * `+sassc` adds support for [SASS/SCSS](http://sass-lang.com/) files using [SassC](http://github.com/sass/sassc) command line compiler
 
 To add a profile simply pass it as an argument after your application name, e.g.:
