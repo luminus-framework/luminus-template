@@ -14,6 +14,7 @@
             [leiningen.new.cucumber :refer [cucumber-features]]
             [leiningen.new.http-kit :refer [http-kit-features]]
             [leiningen.new.immutant :refer [immutant-features]]
+            [leiningen.new.swagger :refer [swagger-features]]
             [leiningen.new.sassc :refer [sassc-features]]
             [leiningen.new.site :refer [site-features]])
   (:import java.io.File))
@@ -72,6 +73,7 @@
               cucumber-features
               site-features
               cljs-features
+              swagger-features
               http-kit-features
               immutant-features
               sassc-features)]
@@ -85,7 +87,7 @@
   [name & feature-params]
   (let [supported-features #{"+cljs" "+site" "+h2" "+postgres" "+dailycred"
                              "+mysql" "+http-kit" "+cucumber" "+mongodb"
-                             "+auth" "+immutant" "+sassc"}
+                             "+auth" "+immutant" "+sassc" "+swagger"}
         options {:name       (project-name name)
                  :selmer-renderer render-template
                  :min-lein-version "2.0.0"

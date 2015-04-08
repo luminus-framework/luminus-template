@@ -9,6 +9,7 @@
 (def root-indent 2)
 (def dev-indent 9)
 (def uberjar-indent 13)
+(def require-indent 13)
 
 (def render (renderer "luminus"))
 

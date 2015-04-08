@@ -3,7 +3,7 @@
             [secretary.core :as secretary]
             [reagent.session :as session]
             [reagent-forms.core :refer [bind-fields]]
-            [ajax.core :refer [POST]])
+            [ajax.core :refer [GET POST]])
   (:require-macros [secretary.core :refer [defroute]]))
 
 (defn navbar []
