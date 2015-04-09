@@ -11,8 +11,7 @@
 
 (defapi service-routes
   (ring.swagger.ui/swagger-ui
-   "/swagger-ui"
-   :api-url "/swagger-docs")
+   "/swagger-ui")
   (swagger-docs
    :title "Sample api")
   (swaggered "thingie"
