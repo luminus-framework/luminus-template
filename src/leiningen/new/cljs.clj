@@ -10,6 +10,7 @@
 
 (def cljs-dependencies
   [['org.clojure/clojurescript "0.0-3196" :scope "provided"]
+   ['org.clojure/tools.reader "0.9.1"]
    ['reagent "0.5.0"]
    ['reagent-forms "0.5.0"]
    ['reagent-utils "0.1.4"]

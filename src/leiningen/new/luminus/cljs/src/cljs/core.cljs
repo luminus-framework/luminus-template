@@ -26,8 +26,8 @@
    [:h2 "Welcome to ClojureScript"]])
 
 (def pages
-  {:home home-page
-   :about about-page})
+  {:home #'home-page
+   :about #'about-page})
 
 (defn page []
   [(pages (session/get :page))])
