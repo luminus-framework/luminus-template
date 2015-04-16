@@ -65,6 +65,7 @@
          (append-options :dev-plugins [['lein-figwheel "0.2.5"]])
          (update-in [:clean-targets] (fnil into []) clean-targets)
          (assoc
+           :cljs true
            :cljs-build (indent root-indent cljs-build)
            :figwheel (indent dev-indent (figwheel options))
            :cljs-dev (unwrap-map (indent dev-indent cljs-dev))

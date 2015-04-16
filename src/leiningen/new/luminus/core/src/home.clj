@@ -6,10 +6,10 @@
 (defn home-page []
   (layout/render
     "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
-
+<% if not cljs  %>
 (defn about-page []
   (layout/render "about.html"))
-
+<% endif %>
 (defroutes home-routes
   (GET "/" [] (home-page))
-  (GET "/about" [] (about-page)))
+  <% if not cljs  %>(GET "/about" [] (about-page))<% endif %>)
