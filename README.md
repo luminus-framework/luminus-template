@@ -19,15 +19,24 @@ lein new luminus <your project name>
 
 However, if you would like to attach further functionality to your template you can append [profile hints][ph] for these extended features:
 
-* `+auth` adds [Buddy](https://funcool.github.io/buddy/latest/) dependency and authentication middleware
-* `+cljs` adds [ClojureScript][cljs] support to the project along with an example
+### alternative servers
+
+* `+alpeh` adds the [Aleph](https://github.com/ztellman/aleph) server
+* `+http-kit` adds the fast [HTTP Kit](http://www.http-kit.org/) web server to the project
+* `+immutant` adds the [Immutant](http://immutant.org/) web server to the project
+
+### databases
+
 * `+h2` adds db.core namespace and [H2 database][h2] dependencies
 * `+postgres` adds db.core namespace and add [PostreSQL database][pg] dependencies
 * `+mysql` adds db.core namespace and add [MySQL/MariaDB database][my] dependencies
-* `+http-kit` adds the fast [HTTP Kit](http://www.http-kit.org/) web server to the project
-* `+immutant` adds the [Immutant](http://immutant.org/) web server to the project
-* `+cucumber` adds support for browser based UI testing with [Cucumber][cucumber] and [clj-webdriver][clj-webdriver]
 * `+mongodb` adds support for [MongoDB][mongo] using the [Monger][monger] library
+
+### misc
+
+* `+auth` adds [Buddy](https://funcool.github.io/buddy/latest/) dependency and authentication middleware
+* `+cljs` adds [ClojureScript][cljs] support to the project along with an example
+* `+cucumber` adds support for browser based UI testing with [Cucumber][cucumber] and [clj-webdriver][clj-webdriver]
 * `+swagger` adds support for [Swagger-UI](https://github.com/swagger-api/swagger-ui) using the [compojure-api](https://github.com/metosin/compojure-api) library
 * `+sassc` adds support for [SASS/SCSS](http://sass-lang.com/) files using [SassC](http://github.com/sass/sassc) command line compiler
 

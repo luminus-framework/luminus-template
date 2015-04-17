@@ -5,13 +5,12 @@
             [leinjacker.utils :refer [lein-generation]]
             [selmer.parser :as selmer]
             [leiningen.core.main :as main]
-            [clojure.string :as s]
-            [clojure.java.io :as io]
             [leiningen.new.common :refer :all]
             [leiningen.new.auth :refer [auth-features]]
             [leiningen.new.db :refer [db-features]]
             [leiningen.new.cljs :refer [cljs-features]]
             [leiningen.new.cucumber :refer [cucumber-features]]
+            [leiningen.new.aleph :refer [aleph-features]]
             [leiningen.new.http-kit :refer [http-kit-features]]
             [leiningen.new.immutant :refer [immutant-features]]
             [leiningen.new.swagger :refer [swagger-features]]
@@ -74,6 +73,7 @@
               site-features
               cljs-features
               swagger-features
+              aleph-features
               http-kit-features
               immutant-features
               sassc-features)]
@@ -87,7 +87,8 @@
   [name & feature-params]
   (let [supported-features #{"+cljs" "+site" "+h2" "+postgres" "+dailycred"
                              "+mysql" "+http-kit" "+cucumber" "+mongodb"
-                             "+auth" "+immutant" "+sassc" "+swagger"}
+                             "+auth" "+immutant" "+sassc" "+swagger"
+                             "+aleph"}
         options {:name       (project-name name)
                  :selmer-renderer render-template
                  :min-lein-version "2.0.0"
