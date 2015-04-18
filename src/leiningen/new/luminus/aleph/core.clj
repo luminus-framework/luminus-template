@@ -2,6 +2,8 @@
   (:require
     [<<name>>.handler :refer [app]]
     [aleph.http :as http]
+    [ring.middleware.reload :as reload]
+    [environ.core :refer [env]]
     [taoensso.timbre :as timbre])
   (:gen-class))
 
@@ -12,7 +14,9 @@
   "e.g. lein run 3000"
   (let [port (parse-port args)]
     (try
-      (http/start-server app {:port port})
+      (http/start-server
+        (if (env :dev) (reload/wrap-reload app) app)
+        {:port port})
       (timbre/info "server started on port:" port)
       (catch Throwable t
         (timbre/error (str "server failed to start on port: " port) t)))))

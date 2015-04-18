@@ -3,30 +3,28 @@
     [<<name>>.handler :refer [app]]
     [ring.middleware.reload :as reload]
     [org.httpkit.server :as http-kit]
+    [environ.core :refer [env]]
     [taoensso.timbre :as timbre])
   (:gen-class))
 
 ;contains function that can be used to stop http-kit server
-(defonce server
-         (atom nil))
+(defonce server (atom nil))
 
-(defn dev? [args] (some #{"-dev"} args))
+(defn parse-port [[port]]
+  (if port (Integer/parseInt port) 3000))
 
-(defn parse-port [args]
-  (if-let [port (->> args (remove #{"-dev"}) first)]
-    (Integer/parseInt port)
-    3000))
-
-(defn- start-server [port args]
+(defn start-server [port]
   (reset! server
           (http-kit/run-server
-            (if (dev? args) (reload/wrap-reload app) app)
+            (if (env :dev) (reload/wrap-reload app) app)
             {:port port})))
 
-(defn- stop-server []
-  (@server))
+(defn stop-server []
+  (when @server
+    (@server :timeout 100)
+    (reset! server nil)))
 
 (defn -main [& args]
   (let [port (parse-port args)]
-    (start-server port args)
+    (start-server port)
     (timbre/info "server started on port:" port)))
