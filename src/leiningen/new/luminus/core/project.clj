@@ -18,12 +18,16 @@
                  [noir-exception "0.2.3"]
                  [bouncer "0.3.2"]
                  [prone "0.8.1"]
+                 [org.clojure/tools.nrepl "0.2.8"]
                  <<dependencies>>]
 
   :min-lein-version "<<min-lein-version>>"
   :uberjar-name "<<name>>.jar"
   :repl-options {:init-ns <<name>>.handler}
   :jvm-opts ["-server"]
+
+;;enable to start the nREPL server when the application launches
+;:env {:repl-port 7001}
 
   :main <<project-ns>>.core
 
