@@ -24,7 +24,7 @@
   [['leiningen "2.5.1"]
    ['figwheel "0.2.6"]
    ['weasel "0.6.0"]
-   ['com.cemerick/piggieback "0.2.0"]
+   ['com.cemerick/piggieback "0.2.1"]
    ['org.clojure/tools.nrepl "0.2.10"]])
 
 (def cljs-build
