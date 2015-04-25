@@ -23,7 +23,6 @@
 
   :min-lein-version "<<min-lein-version>>"
   :uberjar-name "<<name>>.jar"
-  :repl-options {:init-ns <<name>>.handler}
   :jvm-opts ["-server"]
 
 ;;enable to start the nREPL server when the application launches
