@@ -7,16 +7,23 @@
             [ring.util.response :refer [redirect]]
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
             [ring.middleware.session-timeout :refer [wrap-idle-session-timeout]]
-            [noir-exception.core :refer [wrap-internal-error]]
             [ring.middleware.session.memory :refer [memory-store]]
             [ring.middleware.format :refer [wrap-restful-format]]
             <<auth-required>>
             ))
 
-(defn log-request [handler]
+(defn wrap-internal-error [handler]
   (fn [req]
-    (timbre/debug req)
-    (handler req)))
+    (try
+      (handler req)
+      (catch Throwable t
+        (timbre/error t)
+        {:status 500
+         :headers {"Content-Type" "text/html"}
+         :body "<body>
+                  <h1>Something very bad has happened!</h1>
+                  <p>We've dispatched a team of highly trained gnomes to take care of the problem.</p>
+                </body>"}))))
 
 (defn development-middleware [handler]
   (if (env :dev)
@@ -34,4 +41,4 @@
          :timeout-response (redirect "/")})
       (wrap-defaults
         (assoc-in site-defaults [:session :store] (memory-store session/mem)))
-      (wrap-internal-error :log #(timbre/error %))))
+      wrap-internal-error))
