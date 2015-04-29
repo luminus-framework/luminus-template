@@ -1,6 +1,6 @@
 (ns <<project-ns>>.core
   (:require
-    [<<name>>.handler :refer [app]]
+    [<<name>>.handler :refer [app init]]
     [ring.middleware.reload :as reload]
     [org.httpkit.server :as http-kit]
     [environ.core :refer [env]]
@@ -14,6 +14,7 @@
   (if port (Integer/parseInt port) 3000))
 
 (defn start-server [port]
+  (init)
   (reset! server
           (http-kit/run-server
             (if (env :dev) (reload/wrap-reload app) app)
