@@ -4,7 +4,6 @@
   :url "http://example.com/FIXME"
 
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [ring-server "0.4.0"]
                  [selmer "0.8.2"]
                  [com.taoensso/timbre "3.4.0"]
                  [com.taoensso/tower "3.0.2"]
@@ -18,6 +17,7 @@
                  [bouncer "0.3.2"]
                  [prone "0.8.1"]
                  [org.clojure/tools.nrepl "0.2.10"]
+                 <% ifequal server "jetty" %>[ring-server "0.4.0"]<% endifequal %>
                  <<dependencies>>]
 
   :min-lein-version "<<min-lein-version>>"
