@@ -1,7 +1,7 @@
 (ns <<project-ns>>.handler
   (:require [compojure.core :refer [defroutes routes]]
             [<<project-ns>>.routes.home :refer [home-routes]]
-            <<service-require>>
+            <<service-required>>
             [<<project-ns>>.middleware
              :refer [development-middleware production-middleware]]
             [<<project-ns>>.session :as session]

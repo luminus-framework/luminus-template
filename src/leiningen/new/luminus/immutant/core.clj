@@ -1,6 +1,6 @@
 (ns <<project-ns>>.core
   (:require
-    [<<name>>.handler :refer [app]]
+    [<<name>>.handler :refer [app init destroy]]
     [immutant.web :as immutant]
     [environ.core :refer [env]]
     [taoensso.timbre :as timbre])
@@ -13,12 +13,14 @@
   options accepted by `immutant.web/run`. Keys may be keywords or
   strings, but the latter should not include the colon prefix. If the
   :dev key is present in the environment, `immutant.web/run-dmc` will be used"
+  (init)
   (reset! server
           (if (env :dev)
             (immutant/run-dmc app args)
             (immutant/run app args))))
 
 (defn stop-server []
+  (destroy)
   (immutant/stop @server))
 
 (defn -main [& args]

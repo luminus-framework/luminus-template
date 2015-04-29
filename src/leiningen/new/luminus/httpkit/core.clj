@@ -1,6 +1,6 @@
 (ns <<project-ns>>.core
   (:require
-    [<<name>>.handler :refer [app init]]
+    [<<name>>.handler :refer [app init destroy]]
     [ring.middleware.reload :as reload]
     [org.httpkit.server :as http-kit]
     [environ.core :refer [env]]
@@ -22,6 +22,7 @@
 
 (defn stop-server []
   (when @server
+    (destroy)
     (@server :timeout 100)
     (reset! server nil)))
 

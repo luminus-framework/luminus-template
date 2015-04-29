@@ -9,6 +9,7 @@
             [ring.middleware.session-timeout :refer [wrap-idle-session-timeout]]
             [ring.middleware.session.memory :refer [memory-store]]
             [ring.middleware.format :refer [wrap-restful-format]]
+            <<service-middleware-required>>
             <<auth-required>>
             ))
 
@@ -32,6 +33,29 @@
         wrap-exceptions)
     handler))
 
+<% if swagger %>
+(defn wrap-csrf
+  "disables CSRF for URIs that match the specified pattern"
+  [handler pattern]
+  (let [anti-forgery-handler (wrap-anti-forgery handler)]
+    (fn [req]
+      (if (re-matches pattern (:uri req))
+        (handler req)
+        (anti-forgery-handler req)))))
+
+(defn production-middleware [handler]
+  (-> handler
+      (wrap-restful-format :formats [:json-kw :edn :transit-json :transit-msgpack])
+      (wrap-idle-session-timeout
+        {:timeout (* 60 30)
+         :timeout-response (redirect "/")})
+      (wrap-csrf #"^/api/.*")
+      (wrap-defaults
+        (-> site-defaults
+            (assoc-in [:security :anti-forgery] false)
+            (assoc-in  [:session :store] (memory-store session/mem))))
+      wrap-internal-error))
+<% else %>
 (defn production-middleware [handler]
   (-> handler
       <<auth-middleware>>
@@ -42,3 +66,4 @@
       (wrap-defaults
         (assoc-in site-defaults [:session :store] (memory-store session/mem)))
       wrap-internal-error))
+<% endif %>
