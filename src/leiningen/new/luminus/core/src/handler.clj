@@ -30,7 +30,8 @@
         (timbre/error "failed to start nREPL" t)))))
 
 (defn stop-nrepl []
-  (nrepl/stop-server @nrepl-server))
+  (when-let [server @nrepl-server]
+    (nrepl/stop-server server)))
 
 (defn init
   "init will be called once when

@@ -28,5 +28,6 @@
 
 (defn -main [& args]
   (let [port (parse-port args)]
+    (.addShutdownHook (Runtime/getRuntime) (Thread. stop-server))
     (start-server port)
     (timbre/info "server started on port:" port)))

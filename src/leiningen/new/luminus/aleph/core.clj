@@ -1,6 +1,6 @@
 (ns <<project-ns>>.core
   (:require
-    [<<name>>.handler :refer [app init]]
+    [<<name>>.handler :refer [app init destroy]]
     [aleph.http :as http]
     [ring.middleware.reload :as reload]
     [environ.core :refer [env]]
@@ -15,6 +15,7 @@
   (let [port (parse-port args)]
     (try
       (init)
+      (.addShutdownHook (Runtime/getRuntime) (Thread. destroy))
       (http/start-server
         (if (env :dev) (reload/wrap-reload app) app)
         {:port port})
