@@ -9,8 +9,8 @@
    ["resources/templates/home.html" "cljs/templates/home.html"]])
 
 (def cljs-dependencies
-  [['org.clojure/clojurescript "0.0-3196" :scope "provided"]
-   ['org.clojure/tools.reader "0.9.1"]
+  [['org.clojure/clojurescript "0.0-3211" :scope "provided"]
+   ['org.clojure/tools.reader "0.9.2"]
    ['reagent "0.5.0"]
    ['reagent-forms "0.5.0"]
    ['reagent-utils "0.1.4"]
@@ -22,7 +22,7 @@
 
 (def cljs-dev-dependencies
   [['leiningen "2.5.1"]
-   ['figwheel "0.2.6"]
+   ['figwheel "0.2.7"]
    ['weasel "0.6.0"]
    ['com.cemerick/piggieback "0.2.1"]
    ['org.clojure/tools.nrepl "0.2.10"]])

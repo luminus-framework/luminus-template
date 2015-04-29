@@ -15,10 +15,9 @@
                  [ring/ring-defaults "0.1.4"]
                  [ring/ring-session-timeout "0.1.0"]
                  [ring-middleware-format "0.5.0"]
-                 [noir-exception "0.2.3"]
                  [bouncer "0.3.2"]
                  [prone "0.8.1"]
-                 [org.clojure/tools.nrepl "0.2.8"]
+                 [org.clojure/tools.nrepl "0.2.10"]
                  <<dependencies>>]
 
   :min-lein-version "<<min-lein-version>>"
@@ -30,30 +29,26 @@
 
   :main <<project-ns>>.core
 
-  :plugins [[lein-ring "0.9.1"]
+  :plugins [<% ifequal server "jetty" %>[lein-ring "0.9.1"]<% endifequal %>
             [lein-environ "1.0.0"]
             [lein-ancient "0.6.5"]
             <<plugins>>]
-  <% if cucumber-feature-paths %>
-  :cucumber-feature-paths <<cucumber-feature-paths>>
-  <% endif %>
-
-  <% if sassc-config-params %>
+  <% if cucumber-feature-paths %>:cucumber-feature-paths <<cucumber-feature-paths>><% endif %>
+<% if sassc-config-params %>
   :sassc <<sassc-config-params>>
   :hooks [leiningen.sassc]
   <% endif %>
-
+  <% ifequal server "jetty" %>
   :ring {:handler <<name>>.handler/app
          :init    <<name>>.handler/init
          :destroy <<name>>.handler/destroy
          :uberwar-name "<<name>>.war"}
+<% endifequal %>
   <% if migrations %>
   :ragtime
   <<migrations>>
   <% endif %>
-  <% if clean-targets %>
-  :clean-targets ^{:protect false} <<clean-targets>>
-  <% endif %>
+  <% if clean-targets %>:clean-targets ^{:protect false} <<clean-targets>><% endif %>
   <% if cljs-build %>
   :cljsbuild
   <<cljs-build>>
@@ -68,15 +63,10 @@
                         [pjstadig/humane-test-output "0.7.0"]
                         <<dev-dependencies>>]
          :source-paths <<dev-source-paths>>
-         <% if dev-plugins %>
-         :plugins <<dev-plugins>>
-         <% endif %>
+         <% if dev-plugins %>:plugins <<dev-plugins>><% endif %>
          <<cljs-dev>>
-         <% if figwheel %>
-         :figwheel
-         <<figwheel>>
-         <% endif %>
-         :repl-options {:init-ns <<project-ns>>.repl}
+         <% if figwheel %>:figwheel<<figwheel>><% endif %>
+         <% ifequal server "jetty" %>:repl-options {:init-ns <<project-ns>>.repl}<% endifequal %>
          :injections [(require 'pjstadig.humane-test-output)
                       (pjstadig.humane-test-output/activate!)]
          :env {:dev true}}})
