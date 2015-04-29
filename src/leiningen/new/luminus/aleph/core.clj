@@ -1,6 +1,6 @@
 (ns <<project-ns>>.core
   (:require
-    [<<name>>.handler :refer [app]]
+    [<<name>>.handler :refer [app init]]
     [aleph.http :as http]
     [ring.middleware.reload :as reload]
     [environ.core :refer [env]]
@@ -14,6 +14,7 @@
   "e.g. lein run 3000"
   (let [port (parse-port args)]
     (try
+      (init)
       (http/start-server
         (if (env :dev) (reload/wrap-reload app) app)
         {:port port})
