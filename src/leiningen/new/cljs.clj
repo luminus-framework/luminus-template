@@ -12,6 +12,7 @@
   [['org.clojure/clojurescript "0.0-3211" :scope "provided"]
    ['org.clojure/tools.reader "0.9.2"]
    ['reagent "0.5.0"]
+   ['cljsjs/react "0.13.1-0"]
    ['reagent-forms "0.5.0"]
    ['reagent-utils "0.1.4"]
    ['secretary "1.2.3"]
