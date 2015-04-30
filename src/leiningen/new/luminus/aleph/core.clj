@@ -8,7 +8,7 @@
   (:gen-class))
 
 (defn parse-port [[port]]
-  (if port (Integer/parseInt port) 3000))
+  (Integer/parseInt (or port (env :port) "3000")))
 
 (defn -main [& args]
   "e.g. lein run 3000"

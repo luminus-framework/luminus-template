@@ -23,7 +23,9 @@
   (destroy)
   (immutant/stop @server))
 
-(defn -main [& args]
+(defn -main
+  "e.g. lein run -dev port 3000"
+  [& args]
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-server))
   (start-server args)
   (timbre/info "server started on port:" (:port @server)))

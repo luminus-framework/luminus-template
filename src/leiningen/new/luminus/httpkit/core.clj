@@ -11,7 +11,7 @@
 (defonce server (atom nil))
 
 (defn parse-port [[port]]
-  (if port (Integer/parseInt port) 3000))
+  (Integer/parseInt (or port (env :port) "3000")))
 
 (defn start-server [port]
   (init)
