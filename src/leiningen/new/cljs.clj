@@ -21,11 +21,7 @@
 (def clean-targets ["resources/public/js"])
 
 (def cljs-dev-dependencies
-  [['leiningen "2.5.1"]
-   ['figwheel "0.2.7"]
-   ['weasel "0.6.0"]
-   ['com.cemerick/piggieback "0.2.1"]
-   ['org.clojure/tools.nrepl "0.2.10"]])
+  [['weasel "0.6.0"]])
 
 (def cljs-build
   {:builds {:app {:source-paths ["src-cljs"]
@@ -61,8 +57,8 @@
      (-> options
          (append-options :dependencies cljs-dependencies)
          (append-options :dev-dependencies cljs-dev-dependencies)
-         (append-options :plugins [['lein-cljsbuild "1.0.4"]])
-         (append-options :dev-plugins [['lein-figwheel "0.2.5"]])
+         (append-options :plugins [['lein-cljsbuild "1.0.5"]])
+         (append-options :dev-plugins [['lein-figwheel "0.2.8"]])
          (update-in [:clean-targets] (fnil into []) clean-targets)
          (assoc
            :cljs true
