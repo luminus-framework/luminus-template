@@ -66,7 +66,7 @@
          <% if dev-plugins %>:plugins <<dev-plugins>><% endif %>
          <<cljs-dev>>
          <% if figwheel %>:figwheel<<figwheel>><% endif %>
-         <% ifequal server "jetty" %>:repl-options {:init-ns <<project-ns>>.repl}<% endifequal %>
+         :repl-options {:init-ns <<project-ns>>.core}
          :injections [(require 'pjstadig.humane-test-output)
                       (pjstadig.humane-test-output/activate!)]
          :env {:dev true}}})

@@ -5,7 +5,6 @@
   (if (some #{"+immutant"} (:features options))
     [(-> assets
          (remove-conflicting-assets "core.clj")
-         (remove-conflicting-assets "repl.clj")
          (into [["src/<<sanitized>>/core.clj" "immutant/core.clj"]]))
      (-> options
          (assoc :server "immutant")

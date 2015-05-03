@@ -5,7 +5,6 @@
   (if (some #{"+http-kit"} (:features options))
     [(-> assets
          (remove-conflicting-assets "core.clj")
-         (remove-conflicting-assets "repl.clj")
          (into [["src/<<sanitized>>/core.clj" "httpkit/core.clj"]]))
      (-> options
          (assoc :server "http-kit")

@@ -17,7 +17,7 @@
       (init)
       (.addShutdownHook (Runtime/getRuntime) (Thread. destroy))
       (http/start-server
-        (if (env :dev) (reload/wrap-reload app) app)
+        (if (env :dev) (reload/wrap-reload #'app) app)
         {:port port})
       (timbre/info "server started on port:" port)
       (catch Throwable t

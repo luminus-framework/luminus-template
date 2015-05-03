@@ -16,12 +16,14 @@
   (init)
   (reset! server
           (if (env :dev)
-            (immutant/run-dmc app args)
+            (immutant/run-dmc #'app args)
             (immutant/run app args))))
 
 (defn stop-server []
-  (destroy)
-  (immutant/stop @server))
+  (when @server
+    (destroy)
+    (immutant/stop @server)
+    (reset! server nil)))
 
 (defn -main
   "e.g. lein run -dev port 3000"

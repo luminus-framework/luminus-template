@@ -5,7 +5,6 @@
   (if (some #{"+aleph"} (:features options))
     [(-> assets
          (remove-conflicting-assets "core.clj")
-         (remove-conflicting-assets "repl.clj")
          (into [["src/<<sanitized>>/core.clj" "aleph/core.clj"]]))
      (-> options
          (assoc :server "aleph")
