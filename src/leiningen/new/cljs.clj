@@ -22,7 +22,9 @@
 (def clean-targets ["resources/public/js"])
 
 (def cljs-dev-dependencies
-  [['weasel "0.6.0"]])
+  [['weasel "0.6.0"]
+   ['org.clojure/tools.nrepl "0.2.10"]
+   ['com.cemerick/piggieback "0.2.1"]])
 
 (def cljs-build
   {:builds {:app {:source-paths ["src-cljs"]
