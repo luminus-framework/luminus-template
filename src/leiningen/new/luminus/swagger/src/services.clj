@@ -12,6 +12,7 @@
 (defapi service-routes
   (ring.swagger.ui/swagger-ui
    "/swagger-ui")
+  ;JSON docs available at the /swagger.json route
   (swagger-docs
     {:info {:title "Sample api"}})
   (context* "/api" []

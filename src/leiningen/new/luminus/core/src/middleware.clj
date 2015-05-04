@@ -66,6 +66,7 @@
         (-> site-defaults
             (assoc-in [:security :anti-forgery] false)
             (assoc-in  [:session :store] (memory-store session/mem))))
+      wrap-servlet-context
       wrap-internal-error))
 <% else %>
 (defn production-middleware [handler]
