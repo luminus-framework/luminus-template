@@ -13,7 +13,7 @@
                  [compojure "1.3.3"]
                  [ring/ring-defaults "0.1.4"]
                  [ring/ring-session-timeout "0.1.0"]
-                 [ring-middleware-format "0.5.0"]
+                 [ring-middleware-format "0.6.0"]
                  [bouncer "0.3.2"]
                  [prone "0.8.1"]
                  [org.clojure/tools.nrepl "0.2.10"]
