@@ -9,10 +9,10 @@
    ["resources/templates/home.html" "cljs/templates/home.html"]])
 
 (def cljs-dependencies
-  [['org.clojure/clojurescript "0.0-3255" :scope "provided"]
+  [['org.clojure/clojurescript "0.0-3269" :scope "provided"]
    ['org.clojure/tools.reader "0.9.2"]
    ['reagent "0.5.0"]
-   ['cljsjs/react "0.13.1-0"]
+   ['cljsjs/react "0.13.3-0"]
    ['reagent-forms "0.5.1"]
    ['reagent-utils "0.1.4"]
    ['secretary "1.2.3"]
