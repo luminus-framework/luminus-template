@@ -1,8 +1,10 @@
 (ns <<project-ns>>.db.core
   (:require
+    [clojure.java.jdbc :as jdbc]
     [yesql.core :refer [defqueries]]
-    [clojure.java.jdbc :as jdbc])
-  (:import [java.sql PreparedStatement]))
+    [cheshire.core :refer [parse-string generate-string]])
+  (:import java.sql.PreparedStatement
+           org.postgresql.util.PGobject))
 
 (def db-spec
   {:subprotocol "postgresql"
@@ -32,3 +34,24 @@
   jdbc/ISQLParameter
   (set-parameter [v ^PreparedStatement stmt idx]
     (.setTimestamp stmt idx (java.sql.Timestamp. (.getTime v)))))
+
+(defn to-pg-json [value]
+  (doto (PGobject.)
+    (.setType "jsonb")
+    (.setValue (generate-string value))))
+
+(extend-protocol jdbc/ISQLValue
+  clojure.lang.IPersistentMap
+  (sql-value [value] (to-pg-json value))
+  clojure.lang.IPersistentVector
+  (sql-value [value] (to-pg-json value)))
+
+(extend-protocol jdbc/IResultSetReadColumn
+  PGobject
+  (result-set-read-column [pgobj _metadata _index]
+    (let [type  (.getType pgobj)
+          value (.getValue pgobj)]
+      (case type
+        "json" (parse-string value true)
+        "jsonb" (parse-string value true)
+        :else value))))
