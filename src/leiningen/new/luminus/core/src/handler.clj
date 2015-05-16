@@ -10,7 +10,6 @@
             [taoensso.timbre.appenders.rotor :as rotor]
             [selmer.parser :as parser]
             [environ.core :refer [env]]
-            [cronj.core :as cronj]
             [clojure.tools.nrepl.server :as nrepl]))
 
 (defonce nrepl-server (atom nil))
@@ -54,7 +53,7 @@
   (if (env :dev) (parser/cache-off!))
   (start-nrepl)
   ;;start the expired session cleanup job
-  (cronj/start! session/cleanup-job)
+  (session/start-cleanup-job!)
   (timbre/info "\n-=[ <<name>> started successfully"
                (when (env :dev) "using the development profile") "]=-"))
 
@@ -64,7 +63,6 @@
   []
   (timbre/info "<<name>> is shutting down...")
   (stop-nrepl)
-  (cronj/shutdown! session/cleanup-job)
   (timbre/info "shutdown complete!"))
 
 (def app

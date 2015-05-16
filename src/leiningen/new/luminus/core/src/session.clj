@@ -1,7 +1,7 @@
-(ns <<project-ns>>.session
-  (:require [cronj.core :refer [cronj]]))
+(ns <<project-ns>>.session)
 
 (defonce mem (atom {}))
+(def half-hour 1800000)
 
 (defn- current-time []
   (quot (System/currentTimeMillis) 1000))
@@ -12,10 +12,9 @@
 (defn clear-expired-sessions []
   (clojure.core/swap! mem #(->> % (filter expired?) (into {}))))
 
-(def cleanup-job
-  (cronj
-    :entries
-    [{:id "session-cleanup"
-      :handler (fn [_ _] (clear-expired-sessions))
-      :schedule "* /30 * * * * *"
-      :opts {}}]))
+(defn start-cleanup-job! []
+  (future
+    (loop []
+      (clear-expired-sessions)
+      (Thread/sleep half-hour)
+      (recur))))

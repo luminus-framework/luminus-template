@@ -8,5 +8,5 @@
          (into [["src/<<sanitized>>/core.clj" "immutant/core.clj"]]))
      (-> options
          (assoc :server "immutant")
-         (append-options :dependencies [['org.immutant/web "2.0.0"]]))]
+         (append-options :dependencies [['org.immutant/web "2.0.1"]]))]
     state))

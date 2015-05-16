@@ -1,8 +1,7 @@
 (ns ^:figwheel-no-load <<project-ns>>.app
   (:require [<<project-ns>>.core :as core]
             [figwheel.client :as figwheel :include-macros true]
-            [weasel.repl :as weasel]
-            [reagent.core :as r]))
+            [weasel.repl :as weasel]))
 
 (enable-console-print!)
 
