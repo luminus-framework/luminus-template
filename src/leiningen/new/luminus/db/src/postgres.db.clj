@@ -1,8 +1,11 @@
 (ns <<project-ns>>.db.core
   (:require
+    [clojure.java.jdbc :as jdbc]
     [yesql.core :refer [defqueries]]
-    [clojure.java.jdbc :as jdbc])
-  (:import [java.sql PreparedStatement]))
+    [cheshire.core :refer [parse-string]])
+  (:import org.postgresql.util.PGobject
+           org.postgresql.jdbc4.Jdbc4Array
+           [java.sql Date Timestamp PreparedStatement]))
 
 (def db-spec
   {:subprotocol "postgresql"
@@ -16,19 +19,29 @@
   (-> sql-date (.getTime) (java.util.Date.)))
 
 (extend-protocol jdbc/IResultSetReadColumn
-  java.sql.Date
+  Date
   (result-set-read-column [v _ _] (to-date v))
 
-  java.sql.Timestamp
+  Timestamp
   (result-set-read-column [v _ _] (to-date v))
 
-  org.postgresql.jdbc4.Jdbc4Array
+  Jdbc4Array
   (result-set-read-column [v _ _] (vec (.getArray v)))
 
-  org.postgresql.util.PGobject
+  PGobject
   (result-set-read-column [v _ _] (str v)))
 
 (extend-type java.util.Date
   jdbc/ISQLParameter
   (set-parameter [v ^PreparedStatement stmt idx]
-    (.setTimestamp stmt idx (java.sql.Timestamp. (.getTime v)))))
+    (.setTimestamp stmt idx (Timestamp. (.getTime v)))))
+
+(extend-protocol jdbc/IResultSetReadColumn
+  PGobject
+  (result-set-read-column [pgobj _metadata _index]
+    (let [type  (.getType pgobj)
+          value (.getValue pgobj)]
+      (case type
+        "json" (parse-string value true)
+        "jsonb" (parse-string value true)
+        :else value))))
