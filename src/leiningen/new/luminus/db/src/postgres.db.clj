@@ -2,7 +2,7 @@
   (:require
     [clojure.java.jdbc :as jdbc]
     [yesql.core :refer [defqueries]]
-    [cheshire.core :refer [parse-string]])
+    [cheshire.core :refer [generate-string parse-string]])
   (:import org.postgresql.util.PGobject
            org.postgresql.jdbc4.Jdbc4Array
            clojure.lang.IPersistentMap

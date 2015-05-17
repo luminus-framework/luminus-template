@@ -8,6 +8,7 @@
             [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]
             [environ.core :refer [env]]))
 
+<% if auth-middleware-required %>(declare ^:dynamic *identity*)<% endif %>
 (declare ^:dynamic *servlet-context*)
 (parser/set-resource-path!  (clojure.java.io/resource "templates"))
 (parser/add-tag! :csrf-field (fn [_ _] (anti-forgery-field)))
@@ -20,6 +21,7 @@
           :page template
           :dev (env :dev)
           :csrf-token *anti-forgery-token*
-          :servlet-context *servlet-context*))
+          :servlet-context *servlet-context*
+          <% if auth-middleware-required %>:identity *identity*<% endif %>))
       response
       (content-type "text/html; charset=utf-8")))

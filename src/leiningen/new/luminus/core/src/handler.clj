@@ -2,8 +2,7 @@
   (:require [compojure.core :refer [defroutes routes]]
             [<<project-ns>>.routes.home :refer [home-routes]]
             <<service-required>>
-            [<<project-ns>>.middleware
-             :refer [development-middleware production-middleware]]
+            [<<project-ns>>.middleware :as middleware]
             [<<project-ns>>.session :as session]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
@@ -67,8 +66,7 @@
 
 (def app
   (-> (routes
-        home-routes
         <<service-routes>>
+        (middleware/wrap-csrf home-routes)
         base-routes)
-      development-middleware
-      production-middleware))
+      middleware/wrap-base))

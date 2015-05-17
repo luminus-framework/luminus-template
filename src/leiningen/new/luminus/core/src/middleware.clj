@@ -3,15 +3,17 @@
             [<<project-ns>>.layout :refer [*servlet-context*]]
             [taoensso.timbre :as timbre]
             [environ.core :refer [env]]
+            [clojure.java.io :as io]
             [selmer.middleware :refer [wrap-error-page]]
             [prone.middleware :refer [wrap-exceptions]]
             [ring.util.response :refer [redirect]]
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
+            [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
             [ring.middleware.session-timeout :refer [wrap-idle-session-timeout]]
             [ring.middleware.session.memory :refer [memory-store]]
             [ring.middleware.format :refer [wrap-restful-format]]
             <<service-middleware-required>>
-            <<auth-required>>
+            <<auth-middleware-required>>
             ))
 
 (defn wrap-servlet-context [handler]
@@ -33,51 +35,52 @@
         (timbre/error t)
         {:status 500
          :headers {"Content-Type" "text/html"}
-         :body "<body>
-                  <h1>Something very bad has happened!</h1>
-                  <p>We've dispatched a team of highly trained gnomes to take care of the problem.</p>
-                </body>"}))))
+         :body (-> "templates/error.html" io/resource slurp)}))))
 
-(defn development-middleware [handler]
+(defn wrap-dev [handler]
   (if (env :dev)
     (-> handler
         wrap-error-page
         wrap-exceptions)
     handler))
 
-<% if swagger %>
-(defn wrap-csrf
-  "disables CSRF for URIs that match the specified pattern"
-  [handler pattern]
-  (let [anti-forgery-handler (wrap-anti-forgery handler)]
-    (fn [req]
-      (if (re-matches pattern (:uri req))
-        (handler req)
-        (anti-forgery-handler req)))))
+(defn wrap-csrf [handler]
+  (wrap-anti-forgery handler))
 
-(defn production-middleware [handler]
+(defn wrap-formats [handler]
+  (wrap-restful-format handler :formats [:json-kw :transit-json :transit-msgpack]))
+<% if auth-middleware-required %>
+(def rules
+  [{:uri "/restricted/*"
+    :handler authenticated?}])
+
+(defn on-error [request value]
+  {:status 403
+   :headers {}
+   :body "Not authorized"})
+
+(defn wrap-identity [handler]
+  (fn [request]
+    (binding [*identity* (or (get-in request [:session :identity]) nil)]
+      (handler request))))
+
+(defn wrap-auth [handler]
   (-> handler
-      (wrap-restful-format :formats [:json-kw :edn :transit-json :transit-msgpack])
+      wrap-identity
+      (wrap-access-rules {:rules rules :on-error on-error})
+      (wrap-authentication (session-backend))))
+<% endif %>
+(defn wrap-base [handler]
+  (-> handler
+      wrap-dev
+      <% if auth-middleware-required %>wrap-auth<% endif %>
       (wrap-idle-session-timeout
         {:timeout (* 60 30)
          :timeout-response (redirect "/")})
-      (wrap-csrf #"^/api/.*")
+      wrap-formats
       (wrap-defaults
         (-> site-defaults
             (assoc-in [:security :anti-forgery] false)
             (assoc-in  [:session :store] (memory-store session/mem))))
       wrap-servlet-context
       wrap-internal-error))
-<% else %>
-(defn production-middleware [handler]
-  (-> handler
-      <<auth-middleware>>
-      (wrap-restful-format :formats [:json-kw :edn :transit-json :transit-msgpack])
-      (wrap-idle-session-timeout
-        {:timeout (* 60 30)
-         :timeout-response (redirect "/")})
-      (wrap-defaults
-        (assoc-in site-defaults [:session :store] (memory-store session/mem)))
-      wrap-servlet-context
-      wrap-internal-error))
-<% endif %>
