@@ -56,7 +56,7 @@
 
 (defn on-error [request value]
   {:status 403
-   :headers {}
+   :headers {"Content-Type" "text/plain"}
    :body "Not authorized"})
 
 (defn wrap-identity [handler]
