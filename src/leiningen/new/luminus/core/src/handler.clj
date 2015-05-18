@@ -1,5 +1,5 @@
 (ns <<project-ns>>.handler
-  (:require [compojure.core :refer [defroutes routes]]
+  (:require [compojure.core :refer [defroutes routes wrap-routes]]
             [<<project-ns>>.routes.home :refer [home-routes]]
             <<service-required>>
             [<<project-ns>>.middleware :as middleware]
@@ -67,6 +67,6 @@
 (def app
   (-> (routes
         <<service-routes>>
-        (middleware/wrap-csrf home-routes)
+        (wrap-routes home-routes middleware/wrap-csrf)
         base-routes)
       middleware/wrap-base))
