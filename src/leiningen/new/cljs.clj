@@ -9,7 +9,7 @@
    ["resources/templates/home.html" "cljs/templates/home.html"]])
 
 (def cljs-dependencies
-  [['org.clojure/clojurescript "0.0-3269" :scope "provided"]
+  [['org.clojure/clojurescript "0.0-3291" :scope "provided"]
    ['org.clojure/tools.reader "0.9.2"]
    ['reagent "0.5.0"]
    ['cljsjs/react "0.13.3-0"]
@@ -23,6 +23,7 @@
 
 (def cljs-dev-dependencies
   [['weasel "0.6.0"]
+   ['lein-figwheel "0.3.3"]
    ['org.clojure/tools.nrepl "0.2.10"]
    ['com.cemerick/piggieback "0.2.1"]])
 
@@ -61,7 +62,7 @@
          (append-options :dependencies cljs-dependencies)
          (append-options :dev-dependencies cljs-dev-dependencies)
          (append-options :plugins [['lein-cljsbuild "1.0.5"]])
-         (append-options :dev-plugins [['lein-figwheel "0.3.1"]])
+         (append-options :dev-plugins [['lein-figwheel "0.3.3"]])
          (update-in [:clean-targets] (fnil into []) clean-targets)
          (assoc
            :cljs true
