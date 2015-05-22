@@ -36,6 +36,7 @@
    ["resources/templates/base.html" "core/resources/templates/base.html"]
    ["resources/templates/home.html" "core/resources/templates/home.html"]
    ["resources/templates/about.html" "core/resources/templates/about.html"]
+   ["resources/templates/error.html" "core/resources/templates/error.html"]
 
    ;; public resources, example URL: /css/screen.css
    ["resources/public/css/screen.css" "core/resources/css/screen.css"]

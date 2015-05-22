@@ -13,7 +13,7 @@
                  [ring/ring-defaults "0.1.5"]
                  [ring/ring-session-timeout "0.1.0"]
                  [metosin/ring-middleware-format "0.6.0"]
-                 [metosin/ring-http-response "0.6.1"]
+                 [metosin/ring-http-response "0.6.2"]
                  [bouncer "0.3.2"]
                  [prone "0.8.2"]
                  [org.clojure/tools.nrepl "0.2.10"]
