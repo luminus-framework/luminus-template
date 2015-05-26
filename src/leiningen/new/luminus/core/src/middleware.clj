@@ -50,14 +50,14 @@
 (defn wrap-formats [handler]
   (wrap-restful-format handler :formats [:json-kw :transit-json :transit-msgpack]))
 <% if auth-middleware-required %>
-(def rules
-  [{:uri "/restricted/*"
-    :handler authenticated?}])
-
-(defn on-error [request value]
-  {:status 403
+(defn on-error [request response]
+  {:status  403
    :headers {"Content-Type" "text/plain"}
-   :body "Not authorized"})
+   :body    (str "Access to " (:uri request) " is not authorized")})
+
+(defn wrap-restricted [handler]
+  (restrict handler {:handler authenticated?
+                     :on-error on-error}))
 
 (defn wrap-identity [handler]
   (fn [request]
@@ -67,7 +67,6 @@
 (defn wrap-auth [handler]
   (-> handler
       wrap-identity
-      (wrap-access-rules {:rules rules :on-error on-error})
       (wrap-authentication (session-backend))))
 <% endif %>
 (defn wrap-base [handler]
