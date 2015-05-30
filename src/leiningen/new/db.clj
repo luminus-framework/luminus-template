@@ -15,7 +15,7 @@
    ['yesql "0.5.0-rc2"]
    ({:postgres ['org.postgresql/postgresql "9.3-1102-jdbc41"]
      :mysql    ['mysql/mysql-connector-java "5.1.6"]
-     :h2       ['com.h2database/h2 "1.4.182"]}
+     :h2       ['com.h2database/h2 "1.4.187"]}
      (select-db options))])
 
 (defn migrations [{:keys [sanitized] :as options}]
