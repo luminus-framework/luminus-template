@@ -3,13 +3,12 @@
 
 (def cljs-assets
   [["src-cljs/<<sanitized>>/core.cljs" "cljs/src/cljs/core.cljs"]
-   ["env/dev/clj/<<sanitized>>/dev.clj" "cljs/env/dev/clj/dev.clj"]
    ["env/dev/cljs/<<sanitized>>/dev.cljs" "cljs/env/dev/cljs/app.cljs"]
    ["env/prod/cljs/<<sanitized>>/prod.cljs" "cljs/env/prod/cljs/app.cljs"]
    ["resources/templates/home.html" "cljs/templates/home.html"]])
 
 (def cljs-dependencies
-  [['org.clojure/clojurescript "0.0-3291" :scope "provided"]
+  [['org.clojure/clojurescript "0.0-3308" :scope "provided"]
    ['org.clojure/tools.reader "0.9.2"]
    ['reagent "0.5.0"]
    ['cljsjs/react "0.13.3-0"]

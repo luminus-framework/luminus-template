@@ -14,7 +14,7 @@
                  [ring/ring-session-timeout "0.1.0"]
                  [metosin/ring-middleware-format "0.6.0"]
                  [metosin/ring-http-response "0.6.2"]
-                 [bouncer "0.3.2"]
+                 [bouncer "0.3.3"]
                  [prone "0.8.2"]
                  [org.clojure/tools.nrepl "0.2.10"]
                  <% ifequal server "jetty" %>[ring-server "0.4.0"]<% endifequal %>
