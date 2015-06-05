@@ -94,7 +94,6 @@
                  :project-ns (sanitize-ns name)
                  :sanitized  (name-to-path name)
                  :year       (year)
-                 :dev-source-paths ["env/dev/clj"]
                  :server "jetty"
                  :features   (set feature-params)}
         unsupported (-> (set feature-params)

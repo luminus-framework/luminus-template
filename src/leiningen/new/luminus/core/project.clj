@@ -62,7 +62,6 @@
                         [ring/ring-devel "1.3.2"]
                         [pjstadig/humane-test-output "0.7.0"]
                         <<dev-dependencies>>]
-         :source-paths <<dev-source-paths>>
          <% if dev-plugins %>:plugins <<dev-plugins>><% endif %>
          <<cljs-dev>>
          <% if figwheel %>:figwheel
