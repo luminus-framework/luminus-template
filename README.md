@@ -21,7 +21,7 @@ However, if you would like to attach further functionality to your template you 
 
 ### alternative servers
 
-* `+alpeh` adds the [Aleph](https://github.com/ztellman/aleph) server
+* `+aleph` adds the [Aleph](https://github.com/ztellman/aleph) server
 * `+http-kit` adds the fast [HTTP Kit](http://www.http-kit.org/) web server to the project
 * `+immutant` adds the [Immutant](http://immutant.org/) web server to the project
 
