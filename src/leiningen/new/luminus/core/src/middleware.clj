@@ -20,7 +20,7 @@
   (fn [request]
     (binding [*servlet-context*
               (if-let [context (:servlet-context request)]
-                ;; If we're not inside a serlvet environment
+                ;; If we're not inside a servlet environment
                 ;; (for example when using mock requests), then
                 ;; .getContextPath might not exist
                 (try (.getContextPath context)
