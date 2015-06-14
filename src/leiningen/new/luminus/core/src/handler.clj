@@ -37,9 +37,10 @@
    an app server such as Tomcat
    put any initialization code here"
   []
+
   (timbre/set-config!
     [:appenders :rotor]
-    {:min-level             :info
+    {:min-level             (if (env :dev) :trace :info)
      :enabled?              true
      :async?                false ; should be always false for rotor
      :max-message-per-msecs nil
