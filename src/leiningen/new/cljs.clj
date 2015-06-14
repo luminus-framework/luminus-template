@@ -21,7 +21,7 @@
 (def clean-targets ["resources/public/js"])
 
 (def cljs-dev-dependencies
-  [['weasel "0.6.0"]
+  [['weasel "0.7.0"]
    ['lein-figwheel "0.3.3"]
    ['org.clojure/tools.nrepl "0.2.10"]
    ['com.cemerick/piggieback "0.2.1"]])

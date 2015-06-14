@@ -9,7 +9,7 @@
     (some #{"+h2"} features) :h2))
 
 (defn db-dependencies [options]
-  [['ragtime "0.3.8"]
+  [['ragtime "0.3.9"]
    ['org.clojure/java.jdbc "0.3.7"]
    ['instaparse "1.4.0"]
    ['yesql "0.5.0-rc2"]
