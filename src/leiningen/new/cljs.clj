@@ -49,6 +49,7 @@
 (defn figwheel [{:keys [project-ns]}]
   {:http-server-root "public"
    :server-port 3449
+   :nrepl-port 7002
    :css-dirs ["resources/public/css"]
    :ring-handler (symbol (str project-ns ".handler/app"))})
 
