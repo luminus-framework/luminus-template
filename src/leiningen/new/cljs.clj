@@ -16,7 +16,7 @@
    ['reagent-utils "0.1.4"]
    ['secretary "1.2.3"]
    ['org.clojure/core.async "0.1.346.0-17112a-alpha"]
-   ['cljs-ajax "0.3.12"]])
+   ['cljs-ajax "0.3.13"]])
 
 (def clean-targets ["resources/public/js"])
 
