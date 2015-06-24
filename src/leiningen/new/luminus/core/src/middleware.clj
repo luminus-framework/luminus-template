@@ -71,8 +71,8 @@
 <% endif %>
 (defn wrap-base [handler]
   (-> handler
-      wrap-dev
-      <% if auth-middleware-required %>wrap-auth<% endif %>
+      wrap-dev<% if auth-middleware-required %>
+      wrap-auth<% endif %>
       (wrap-idle-session-timeout
         {:timeout (* 60 30)
          :timeout-response (redirect "/")})

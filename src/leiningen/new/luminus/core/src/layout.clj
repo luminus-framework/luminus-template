@@ -21,7 +21,7 @@
           :page template
           :dev (env :dev)
           :csrf-token *anti-forgery-token*
-          :servlet-context *servlet-context*
-          <% if auth-middleware-required %>:identity *identity*<% endif %>))
+          :servlet-context *servlet-context*<% if auth-middleware-required %>
+          :identity *identity*<% endif %>))
       response
       (content-type "text/html; charset=utf-8")))
