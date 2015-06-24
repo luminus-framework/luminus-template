@@ -2,20 +2,15 @@
   (:require
     [clojure.java.jdbc :as jdbc]
     [yesql.core :refer [defqueries]]
-    [cheshire.core :refer [generate-string parse-string]])
+    [cheshire.core :refer [generate-string parse-string]]
+    [environ.core :refer [env]])
   (:import org.postgresql.util.PGobject
            org.postgresql.jdbc4.Jdbc4Array
            clojure.lang.IPersistentMap
            clojure.lang.IPersistentVector
            [java.sql Date Timestamp PreparedStatement]))
 
-(def db-spec
-  {:subprotocol "postgresql"
-   :subname "//localhost/<<sanitized>>"
-   :user "db_user_name_here"
-   :password "db_user_password_here"})
-
-(defqueries "sql/queries.sql" {:connection db-spec})
+(defqueries "sql/queries.sql" {:connection (env :database-url)})
 
 (defn to-date [sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))

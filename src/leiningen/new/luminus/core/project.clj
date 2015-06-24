@@ -44,10 +44,6 @@
          :destroy <<name>>.handler/destroy
          :uberwar-name "<<name>>.war"}
 <% endifequal %>
-  <% if migrations %>
-  :ragtime
-  <<migrations>>
-  <% endif %>
   <% if clean-targets %>:clean-targets ^{:protect false} <<clean-targets>><% endif %>
   <% if cljs-build %>
   :cljsbuild

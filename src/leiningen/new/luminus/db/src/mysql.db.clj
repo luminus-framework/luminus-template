@@ -1,16 +1,11 @@
 (ns <<project-ns>>.db.core
   (:require
     [yesql.core :refer [defqueries]]
-    [clojure.java.jdbc :as jdbc])
+    [clojure.java.jdbc :as jdbc]
+    [environ.core :refer [env]])
   (:import [java.sql PreparedStatement]))
 
-(def db-spec
-  {:subprotocol "mysql"
-   :subname "//localhost:3306/<<sanitized>>"
-   :user "db_user_name_here"
-   :password "db_user_password_here"})
-
-(defqueries "sql/queries.sql" {:connection db-spec})
+(defqueries "sql/queries.sql" {:connection (env :database-url)})
 
 (defn to-date [sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))

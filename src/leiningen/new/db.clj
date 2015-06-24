@@ -18,18 +18,16 @@
      :h2       ['com.h2database/h2 "1.4.187"]}
      (select-db options))])
 
-(defn migrations [{:keys [sanitized] :as options}]
-  {:migrations 'ragtime.sql.files/migrations
-   :database
-               ({:postgres
-                 (str "jdbc:postgresql://localhost/" sanitized
-                      "?user=db_user_name_here&password=db_user_password_here")
-                 :mysql
-                 (str "jdbc:mysql://localhost:3306/" sanitized
-                      "?user=db_user_name_here&password=db_user_password_here")
-                 :h2
-                 (str "jdbc:h2:./site.db")}
-                 (select-db options))})
+(defn database-profiles [{:keys [sanitized] :as options}]
+  (letfn [(db-url [suffix]
+                  ({:postgres (str "jdbc:postgresql://localhost/" sanitized "_" suffix
+                                   "?user=db_user_name_here&password=db_user_password_here")
+                    :mysql    (str "jdbc:mysql://localhost:3306/" sanitized "_" suffix
+                                   "?user=db_user_name_here&password=db_user_password_here")
+                    :h2       (str "jdbc:h2:./" sanitized "_" suffix ".db")}
+                    (select-db options)))]
+    {:dev  {:env {:database-url (db-url "devel")}}
+     :test {:env {:database-url (db-url "test")}}}))
 
 (defn relational-db-files [options]
   (let [timestamp (.format
@@ -40,6 +38,7 @@
                        :mysql    "mysql.db.clj"
                        :h2       "h2.db.clj"}
                        (select-db options)))]
+     ["profiles.clj" "db/profiles.clj"]
      ["resources/sql/queries.sql" "db/sql/queries.sql"]
      [(str "migrations/" timestamp "-add-users-table.up.sql") "db/migrations/add-users-table.up.sql"]
      [(str "migrations/" timestamp "-add-users-table.down.sql") "db/migrations/add-users-table.down.sql"]]))
@@ -64,7 +63,7 @@
                                     "db/docs/h2_instructions.md"
                                     "db/docs/db_instructions.md"))
                     options)
-         :migrations (indent root-indent (migrations options))))])
+         :database-profiles (indent root-indent (database-profiles options))))])
 
 (defn db-features [state]
   (if-let [db (select-db (second state))]
