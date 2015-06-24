@@ -25,13 +25,17 @@
     (.stop @server)
     (reset! server nil)))
 
+(defn migrate [args]
+  (ragtime.main/-main
+    "-r" "ragtime.sql.database"
+    "-d" (env :database-url)
+    "-m" "ragtime.sql.files/migrations"
+    (clojure.string/join args)))
+
 (defn -main [& args]
   <% if database-profiles %>(case (first args)
-    "ragtime" (ragtime.main/-main
-                "-r" "ragtime.sql.database"
-                "-d" (env :database-url)
-                "-m" "ragtime.sql.files/migrations"
-                (clojure.string/join (rest args)))
+    "migrate" (migrate args)
+    "rollback" (migrate args)
     (let [port (parse-port (first args))]
       (.addShutdownHook (Runtime/getRuntime) (Thread. stop-server))
       (start-server port))))
