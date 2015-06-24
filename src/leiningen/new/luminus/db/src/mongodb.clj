@@ -1,12 +1,12 @@
 (ns <<project-ns>>.db.core
     (:require [monger.core :as mg]
               [monger.collection :as mc]
-              [monger.operators :refer :all]))
+              [monger.operators :refer :all]
+              [environ.core :refer [env]]))
 
 ;; Tries to get the Mongo URI from the environment variable
-;; MONGOHQ_URL, otherwise default it to localhost <<! TODO: use environ like postgres and mysql>>
-(defonce db (let [uri (get (System/getenv) "MONGOHQ_URL" "mongodb://127.0.0.1/<<name>>")
-                  {:keys [conn db]} (mg/connect-via-uri uri)]
+(defonce db (let [uri (:database-url env)
+                  {:keys [db]} (mg/connect-via-uri uri)]
               db))
 
 (defn create-user [user]

@@ -24,7 +24,8 @@
                                    "?user=db_user_name_here&password=db_user_password_here")
                     :mysql    (str "jdbc:mysql://localhost:3306/" sanitized "_" suffix
                                    "?user=db_user_name_here&password=db_user_password_here")
-                    :h2       (str "jdbc:h2:./" sanitized "_" suffix ".db")}
+                    :h2       (str "jdbc:h2:./" sanitized "_" suffix ".db")
+                    :mongo    (str "mongodb://127.0.0.1/" sanitized "_" suffix)}
                     (select-db options)))]
     {:dev  {:env {:database-url (db-url "devel")}}
      :test {:env {:database-url (db-url "test")}}}))
@@ -44,13 +45,16 @@
      [(str "migrations/" timestamp "-add-users-table.down.sql") "db/migrations/add-users-table.down.sql"]]))
 
 (def mongo-files
-  [["src/<<sanitized>>/db/core.clj" "db/src/mongodb.clj"]])
+  [["profiles.clj" "db/profiles.clj"]
+   ["src/<<sanitized>>/db/core.clj" "db/src/mongodb.clj"]])
 
 (defn add-mongo [[assets options]]
   [(into assets mongo-files)
    (-> options
        (append-options :dependencies [['com.novemberain/monger "2.0.1"]])
-       (assoc :db-docs ((:selmer-renderer options) (slurp-resource "db/docs/mongo_instructions.md") options)))])
+       (assoc
+         :database-profiles (indent root-indent (database-profiles options))
+         :db-docs ((:selmer-renderer options) (slurp-resource "db/docs/mongo_instructions.md") options)))])
 
 (defn add-relational-db [db [assets options]]
   [(into assets (relational-db-files options))

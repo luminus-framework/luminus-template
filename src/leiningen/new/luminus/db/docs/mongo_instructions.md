@@ -5,7 +5,7 @@
 Before continuing please follow the steps below to configure your MongoDB connection.
 
 * Ensure that MongoDB is up and running.
-* Add the connection parameters in the `<<name>>.db.core` namespace.
+* Set the connection parameters in the `profiles.clj` file.
 * Restart the application.
 
 </div>
