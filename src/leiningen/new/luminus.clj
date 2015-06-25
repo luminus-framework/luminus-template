@@ -21,6 +21,7 @@
 (def core-assets
   [[".gitignore" "core/gitignore"]
    ["project.clj" "core/project.clj"]
+   ["profiles.clj" "core/profiles.clj"]
    ["Procfile" "core/Procfile"]
    ["README.md" "core/README.md"]
 

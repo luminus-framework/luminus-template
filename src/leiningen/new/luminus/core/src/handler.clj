@@ -54,8 +54,10 @@
   (start-nrepl)
   ;;start the expired session cleanup job
   (session/start-cleanup-job!)
-  (timbre/info "\n-=[ <<name>> started successfully"
-               (when (env :dev) "using the development profile") "]=-"))
+  (timbre/info (str
+                 "\n-=[ <<name>> started successfully"
+                 (when (env :dev) "using the development profile")
+                 "]=-")))
 
 (defn destroy
   "destroy will be called when your application
