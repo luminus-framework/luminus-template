@@ -1,3 +1,3 @@
-{:user {:env {<<database-dev-profiles>>}}
+{:provided {:env {<<database-dev-profiles>>}}
  :test {:env {<<database-test-profiles>>}}
  }
