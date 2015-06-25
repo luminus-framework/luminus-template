@@ -2,7 +2,8 @@
   (:require
     [<<name>>.handler :refer [app init destroy]]
     [immutant.web :as immutant]
-    [environ.core :refer [env]]
+    [environ.core :refer [env]]<% if database-profiles %>
+    [ragtime.main]<% endif %>
     [taoensso.timbre :as timbre])
   (:gen-class))
 
@@ -25,9 +26,22 @@
     (immutant/stop @server)
     (reset! server nil)))
 
-(defn -main
-  "e.g. lein run -dev port 3000"
-  [& args]
+(defn start-app [args]
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-server))
   (start-server args)
   (timbre/info "server started on port:" (:port @server)))
+
+<% if database-profiles %>(defn migrate [args]
+   (ragtime.main/-main
+     "-r" "ragtime.sql.database"
+     "-d" (env :database-url)
+     "-m" "ragtime.sql.files/migrations"
+     (clojure.string/join args)))<% endif %>
+
+(defn -main [& args]
+  <% if database-profiles %>(case (first args)
+     "migrate" (migrate args)
+     "rollback" (migrate args)
+     (start-app args)))
+  <% else %>(start-app args))
+<% endif %>

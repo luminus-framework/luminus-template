@@ -8,7 +8,7 @@
 
 (defonce server (atom nil))
 
-(defn parse-port [port]
+(defn parse-port [[port]]
   (Integer/parseInt (or port (env :port) "3000")))
 
 (defn start-server [port]
@@ -25,21 +25,22 @@
     (.stop @server)
     (reset! server nil)))
 
-(defn migrate [args]
+(defn start-app [args]
+  (let [port (parse-port args)]
+    (.addShutdownHook (Runtime/getRuntime) (Thread. stop-server))
+    (start-server port)))
+
+<% if database-profiles %>(defn migrate [args]
   (ragtime.main/-main
     "-r" "ragtime.sql.database"
     "-d" (env :database-url)
     "-m" "ragtime.sql.files/migrations"
-    (clojure.string/join args)))
+    (clojure.string/join args)))<% endif %>
 
 (defn -main [& args]
   <% if database-profiles %>(case (first args)
     "migrate" (migrate args)
     "rollback" (migrate args)
-    (let [port (parse-port (first args))]
-      (.addShutdownHook (Runtime/getRuntime) (Thread. stop-server))
-      (start-server port))))
-  <% else %>(let [port (parse-port (first args))]
-    (.addShutdownHook (Runtime/getRuntime) (Thread. stop-server))
-    (start-server port)))
-  <% endif %>
+    (start-app args)))
+  <% else %>(start-app args))
+<% endif %>
