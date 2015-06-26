@@ -10,6 +10,7 @@
             <% endifequal %>
             [ring.middleware.reload :as reload]<% if database-profiles %>
             [ragtime.main]<% endif %>
+            [taoensso.timbre :as timbre]
             [environ.core :refer [env]])
   (:gen-class))
 
