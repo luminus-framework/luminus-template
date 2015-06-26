@@ -3,7 +3,7 @@
             [aleph.http :as http]
             <% endifequal %><% ifequal server "http-kit" %>
             [org.httpkit.server :as http-kit]
-            <% endifequal %><% ifequal server "http-kit" %>
+            <% endifequal %><% ifequal server "immutant" %>
             [immutant.web :as immutant]
             <% endifequal %><% ifequal server "jetty" %>
             [ring.adapter.jetty :refer [run-jetty]]
