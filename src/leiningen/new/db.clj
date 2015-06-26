@@ -9,7 +9,7 @@
     (some #{"+h2"} features) :h2))
 
 (defn db-dependencies [options]
-  [['ragtime "0.3.9"]
+  [['ragtime "0.4.0"]
    ['org.clojure/java.jdbc "0.3.7"]
    ['instaparse "1.4.0"]
    ['yesql "0.5.0-rc2"]
@@ -37,8 +37,8 @@
                        :h2       "h2.db.clj"}
                        (select-db options)))]
      ["resources/sql/queries.sql" "db/sql/queries.sql"]
-     [(str "migrations/" timestamp "-add-users-table.up.sql") "db/migrations/add-users-table.up.sql"]
-     [(str "migrations/" timestamp "-add-users-table.down.sql") "db/migrations/add-users-table.down.sql"]]))
+     [(str "resources/migrations/" timestamp "-add-users-table.up.sql") "db/migrations/add-users-table.up.sql"]
+     [(str "resources/migrations/" timestamp "-add-users-table.down.sql") "db/migrations/add-users-table.down.sql"]]))
 
 (defn db-profiles [options]
   {:database-profiles true
@@ -60,7 +60,6 @@
   [(into assets (relational-db-files options))
    (-> options
        (append-options :dependencies (db-dependencies options))
-       (append-options :plugins [['ragtime/ragtime.lein "0.3.8"]])
        (assoc
          :db-docs ((:selmer-renderer options)
                     (slurp-resource (if (= :h2 db)

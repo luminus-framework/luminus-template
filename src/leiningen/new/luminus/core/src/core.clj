@@ -9,7 +9,8 @@
             [ring.adapter.jetty :refer [run-jetty]]
             <% endifequal %>
             [ring.middleware.reload :as reload]<% if database-profiles %>
-            [ragtime.main]<% endif %>
+            [ragtime.jdbc :as jdbc]
+            [ragtime.repl :as repl]<% endif %>
             [environ.core :refer [env]])
   (:gen-class))
 
@@ -104,16 +105,15 @@
 <% endifequal %>
 
 <% if database-profiles %>(defn migrate [args]
-  (ragtime.main/-main
-    "-r" "ragtime.sql.database"
-    "-d" (env :database-url)
-    "-m" "ragtime.sql.files/migrations"
-    (clojure.string/join args)))<% endif %>
+  (let [config {:database   (jdbc/sql-database {:connection-uri (:database-url env)})
+                :migrations (jdbc/load-resources "migrations")}]
+    (case (first args)
+      "migrate"  (repl/migrate config)
+      "rollback" (repl/rollback config))))<% endif %>
 
 (defn -main [& args]
-  <% if database-profiles %>(case (first args)
-    "migrate" (migrate args)
-    "rollback" (migrate args)
-    (start-app args)))
+  <% if database-profiles %>(cond
+    (some #{"migrate" "rollback"} args) (migrate args)
+    :else (start-app args)))
   <% else %>(start-app args))
 <% endif %>
