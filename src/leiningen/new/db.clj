@@ -36,14 +36,13 @@
                        :mysql    "mysql.db.clj"
                        :h2       "h2.db.clj"}
                        (select-db options)))]
+     ["src/<<sanitized>>/db/migrations.clj" "db/src/migrations.clj"]
      ["resources/sql/queries.sql" "db/sql/queries.sql"]
      [(str "resources/migrations/" timestamp "-add-users-table.up.sql") "db/migrations/add-users-table.up.sql"]
      [(str "resources/migrations/" timestamp "-add-users-table.down.sql") "db/migrations/add-users-table.down.sql"]]))
 
 (defn db-profiles [options]
-  {:database-profiles true
-   :database-dev-profiles (str :database-url " \"" (db-url options "dev") "\"")
-   :database-test-profiles (str :database-url " \"" (db-url options "test") "\"")})
+  {:database-profiles (str :database-url " \"" (db-url options "dev") "\"")})
 
 (def mongo-files
   [["src/<<sanitized>>/db/core.clj" "db/src/mongodb.clj"]])

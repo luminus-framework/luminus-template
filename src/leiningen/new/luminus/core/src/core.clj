@@ -1,26 +1,21 @@
 (ns <<project-ns>>.core
   (:require [<<project-ns>>.handler :refer [app init destroy]]<% ifequal server "aleph" %>
-            [aleph.http :as http]
-            <% endifequal %><% ifequal server "http-kit" %>
-            [org.httpkit.server :as http-kit]
-            <% endifequal %><% ifequal server "immutant" %>
-            [immutant.web :as immutant]
-            <% endifequal %><% ifequal server "jetty" %>
-            [ring.adapter.jetty :refer [run-jetty]]
-            <% endifequal %>
+            [aleph.http :as http]<% endifequal %><% ifequal server "http-kit" %>
+            [org.httpkit.server :as http-kit]<% endifequal %><% ifequal server "immutant" %>
+            [immutant.web :as immutant]<% endifequal %><% ifequal server "jetty" %>
+            [ring.adapter.jetty :refer [run-jetty]]<% endifequal %>
             [ring.middleware.reload :as reload]<% if database-profiles %>
-            [ragtime.jdbc :as jdbc]
-            [ragtime.repl :as repl]<% endif %>
+            [<<project-ns>>.db.migrations :as migrations]<% endif %>
             [taoensso.timbre :as timbre]
             [environ.core :refer [env]])
   (:gen-class))
-
+<% ifequal server "aleph" %>
 (defn parse-port [[port]]
   (Integer/parseInt (or port (env :port) "3000")))
 
-<% ifequal server "aleph" %>
-(defn start-app [args]
+(defn start-app
   "e.g. lein run 3000"
+  [args]
   (let [port (parse-port args)]
     (try
       (init)
@@ -31,40 +26,15 @@
       (timbre/info "server started on port:" port)
       (catch Throwable t
         (timbre/error (str "server failed to start on port: " port) t)))))
-<% endifequal %>
-<% ifequal server "http-kit" %>
+<% else %>
 (defonce server (atom nil))
-
-(defn parse-port [[port]]
-  (Integer/parseInt (or port (env :port) "3000")))
-
-(defn start-server [port]
-  (init)
-  (reset! server
-          (http-kit/run-server
-            (if (env :dev) (reload/wrap-reload #'app) app)
-            {:port port})))
-
-(defn stop-server []
-  (when @server
-    (destroy)
-    (@server :timeout 100)
-    (reset! server nil)))
-
-(defn start-app [args]
-  (let [port (parse-port args)]
-    (.addShutdownHook (Runtime/getRuntime) (Thread. stop-server))
-    (start-server port)
-    (timbre/info "server started on port:" port)))
-<% endifequal %>
 <% ifequal server "immutant" %>
-(defonce server (atom nil))
-
-(defn start-server [args]
+(defn start-server
   "Args should be a flat sequence of key/value pairs corresponding to
-  options accepted by `immutant.web/run`. Keys may be keywords or
-  strings, but the latter should not include the colon prefix. If the
-  :dev key is present in the environment, `immutant.web/run-dmc` will be used"
+   options accepted by `immutant.web/run`. Keys may be keywords or
+   strings, but the latter should not include the colon prefix. If the
+   :dev key is present in the environment, `immutant.web/run-dmc` will be used"
+  [args]
   (init)
   (reset! server
           (if (env :dev)
@@ -77,14 +47,29 @@
     (immutant/stop @server)
     (reset! server nil)))
 
-(defn start-app [args]
+(defn start-app
+  "e.g. lein run -dev port 3000"
+  [args]
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-server))
   (start-server args)
   (timbre/info "server started on port:" (:port @server)))
-<% endifequal %>
-<% ifequal server "jetty" %>
-(defonce server (atom nil))
+<% else %>
+(defn parse-port [[port]]
+  (Integer/parseInt (or port (env :port) "3000")))
+<% ifequal server "http-kit" %>
+(defn start-server [port]
+  (init)
+  (reset! server
+          (http-kit/run-server
+            (if (env :dev) (reload/wrap-reload #'app) app)
+            {:port port})))
 
+(defn stop-server []
+  (when @server
+    (destroy)
+    (@server :timeout 100)
+    (reset! server nil)))
+<% endifequal %><% ifequal server "jetty" %>
 (defn start-server [port]
   (init)
   (reset! server
@@ -98,23 +83,15 @@
     (destroy)
     (.stop @server)
     (reset! server nil)))
-
+<% endifequal %>
 (defn start-app [args]
   (let [port (parse-port args)]
     (.addShutdownHook (Runtime/getRuntime) (Thread. stop-server))
+    (timbre/info "server is starting on port " port)
     (start-server port)))
-<% endifequal %>
-
-<% if database-profiles %>(defn migrate [args]
-  (let [config {:database   (jdbc/sql-database {:connection-uri (:database-url env)})
-                :migrations (jdbc/load-resources "migrations")}]
-    (case (first args)
-      "migrate"  (repl/migrate config)
-      "rollback" (repl/rollback config))))<% endif %>
-
+<% endifequal %><% endifequal %>
 (defn -main [& args]
   <% if database-profiles %>(cond
-    (some #{"migrate" "rollback"} args) (migrate args)
+    (some #{"migrate" "rollback"} args) (migrations/migrate args)
     :else (start-app args)))
-  <% else %>(start-app args))
-<% endif %>
+  <% else %>(start-app args))<% endif %>
