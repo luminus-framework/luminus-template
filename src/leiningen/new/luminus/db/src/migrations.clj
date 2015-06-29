@@ -1,12 +1,18 @@
 (ns <<project-ns>>.db.migrations
   (:require
-    [ragtime.jdbc :as jdbc]
-    [ragtime.repl :as repl]
+    [migratus.core :as migratus]
     [environ.core :refer [env]]))
 
 (defn migrate [args]
-  (let [config {:database   (jdbc/sql-database {:connection-uri (:database-url env)})
-                :migrations (jdbc/load-resources "migrations")}]
+  (let [config {:store :database
+                :migration-dir "migrations"
+                :db {:connection-uri (:database-url env)}}]
     (case (first args)
-      "migrate"  (repl/migrate config)
-      "rollback" (repl/rollback config))))
+      "migrate"
+      (if (> (count args) 1)
+        (apply migratus/up config (rest args))
+        (migratus/migrate config))
+      "rollback"
+      (if (> (count args) 1)
+        (apply migratus/rollback config (rest args))
+        (migratus/rollback config)))))

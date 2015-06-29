@@ -9,10 +9,10 @@
     (some #{"+h2"} features) :h2))
 
 (defn db-dependencies [options]
-  [['ragtime "0.4.0"]
+  [['yogthos/migratus "0.8.0"]
    ['org.clojure/java.jdbc "0.3.7"]
    ['instaparse "1.4.0"]
-   ['yesql "0.5.0-rc2"]
+   ['yesql "0.5.0-rc3"]
    ({:postgres ['org.postgresql/postgresql "9.3-1102-jdbc41"]
      :mysql    ['mysql/mysql-connector-java "5.1.6"]
      :h2       ['com.h2database/h2 "1.4.187"]}
