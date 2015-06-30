@@ -6,7 +6,7 @@
             [<<project-ns>>.session :as session]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
-            [taoensso.timbre.appenders.rotor :as rotor]
+            [taoensso.timbre.appenders.3rd-party.rotor :as rotor]
             [selmer.parser :as parser]
             [environ.core :refer [env]]
             [clojure.tools.nrepl.server :as nrepl]))
@@ -38,17 +38,12 @@
    put any initialization code here"
   []
 
-  (timbre/set-config!
-    [:appenders :rotor]
-    {:min-level             (if (env :dev) :trace :info)
-     :enabled?              true
-     :async?                false ; should be always false for rotor
-     :max-message-per-msecs nil
-     :fn                    rotor/appender-fn})
-
-  (timbre/set-config!
-    [:shared-appender-config :rotor]
-    {:path "<<sanitized>>.log" :max-size (* 512 1024) :backlog 10})
+  (timbre/merge-config!
+    {:level     (if (env :dev) :trace :info)
+     :appenders {:rotor (rotor/rotor-appender
+                          {:path "<<sanitized>>.log"
+                           :max-size (* 512 1024)
+                           :backlog 10})}})
 
   (if (env :dev) (parser/cache-off!))
   (start-nrepl)

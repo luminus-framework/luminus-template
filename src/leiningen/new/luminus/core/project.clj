@@ -5,9 +5,9 @@
 
   :dependencies [[org.clojure/clojure "1.7.0-RC2"]
                  [selmer "0.8.2"]
-                 [com.taoensso/timbre "3.4.0"]
+                 [com.taoensso/timbre "4.0.2"]
                  [com.taoensso/tower "3.0.2"]
-                 [markdown-clj "0.9.66"]
+                 [markdown-clj "0.9.67"]
                  [environ "1.0.0"]
                  [compojure "1.3.4"]
                  [ring/ring-defaults "0.1.5"]

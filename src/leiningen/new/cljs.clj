@@ -13,7 +13,7 @@
    ['reagent "0.5.0"]
    ['cljsjs/react "0.13.3-0"]
    ['reagent-forms "0.5.1"]
-   ['reagent-utils "0.1.4"]
+   ['reagent-utils "0.1.5"]
    ['secretary "1.2.3"]
    ['org.clojure/core.async "0.1.346.0-17112a-alpha"]
    ['cljs-ajax "0.3.13"]])
@@ -21,7 +21,7 @@
 (def clean-targets ["resources/public/js"])
 
 (def cljs-dev-dependencies
-  [['lein-figwheel "0.3.3"]
+  [['lein-figwheel "0.3.5"]
    ['org.clojure/tools.nrepl "0.2.10"]])
 
 (def cljs-build
