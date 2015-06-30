@@ -9,7 +9,7 @@
     (some #{"+h2"} features) :h2))
 
 (defn db-dependencies [options]
-  [['yogthos/migratus "0.8.0"]
+  [['migratus "0.8.0"]
    ['org.clojure/java.jdbc "0.3.7"]
    ['instaparse "1.4.0"]
    ['yesql "0.5.0-rc3"]
