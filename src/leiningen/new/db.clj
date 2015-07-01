@@ -9,7 +9,7 @@
     (some #{"+h2"} features) :h2))
 
 (defn db-dependencies [options]
-  [['migratus "0.8.0"]
+  [['migratus "0.8.1"]
    ['org.clojure/java.jdbc "0.3.7"]
    ['instaparse "1.4.1"]
    ['yesql "0.5.0-rc3"]
@@ -59,7 +59,9 @@
   [(into assets (relational-db-files options))
    (-> options
        (append-options :dependencies (db-dependencies options))
+       (append-options :plugins [['migratus-lein "0.1.3"]])
        (assoc
+         :migrations (str {:store :database})
          :db-docs ((:selmer-renderer options)
                     (slurp-resource (if (= :h2 db)
                                     "db/docs/h2_instructions.md"

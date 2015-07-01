@@ -5,7 +5,6 @@
 
 (defn migrate [args]
   (let [config {:store :database
-                :migration-dir "migrations"
                 :db {:connection-uri (:database-url env)}}]
     (case (first args)
       "migrate"
