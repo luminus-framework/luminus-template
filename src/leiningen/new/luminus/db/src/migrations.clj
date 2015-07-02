@@ -13,5 +13,5 @@
         (migratus/migrate config))
       "rollback"
       (if (> (count args) 1)
-        (apply migratus/rollback config (rest args))
+        (apply migratus/down config (rest args))
         (migratus/rollback config)))))
