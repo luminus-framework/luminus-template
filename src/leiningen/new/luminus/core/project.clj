@@ -17,6 +17,7 @@
                  [bouncer "0.3.3"]
                  [prone "0.8.2"]
                  [org.clojure/tools.nrepl "0.2.10"]
+                 [ring "1.4.0-RC2"]
                  <% ifequal server "jetty" %>[ring-server "0.4.0"]<% endifequal %>
                  <<dependencies>>]
 
@@ -30,7 +31,7 @@
   :main <<project-ns>>.core<% if migrations %>
   :migratus <<migrations>><% endif %>
 
-  :plugins [<% ifequal server "jetty" %>[lein-ring "0.9.1"]<% endifequal %>
+  :plugins [<% ifequal server "jetty" %>[lein-ring "0.9.6"]<% endifequal %>
             [lein-environ "1.0.0"]
             [lein-ancient "0.6.5"]
             <<plugins>>]
