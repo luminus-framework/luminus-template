@@ -17,6 +17,7 @@
                  [bouncer "0.3.3"]
                  [prone "0.8.2"]
                  [org.clojure/tools.nrepl "0.2.10"]
+                 [info.sunng/ring-jetty9-adapter "0.8.5"]
                  [ring "1.4.0-RC2"]
                  <% ifequal server "jetty" %>[ring-server "0.4.0"]<% endifequal %>
                  <<dependencies>>]
