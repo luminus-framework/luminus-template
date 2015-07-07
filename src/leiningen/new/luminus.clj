@@ -60,12 +60,21 @@
       (update-in [:dev-dependencies] (partial indent dev-dependency-indent))
       (update-in [:plugins] (partial indent plugin-indent))))
 
+(defn unsupported-jetty-java-version? [java-version]
+  (as-> java-version %
+        (clojure.string/split % #"\.")      
+        (take 2 %)
+        (map #(Integer/parseInt %) %)
+        (and (< (first %) 2)
+             (< (second %) 8))))
+
 (defn generate-project
   "Create a new Luminus project"
   [options]
   (main/info "Generating a Luminus project.")
   (with-redefs [leiningen.new.templates/render-text render-template]
-    (let [[assets options]
+    (let [java-version (System/getProperty "java.version")
+          [assets options]
           (-> [core-assets options]
               auth-features
               db-features
@@ -77,6 +86,9 @@
               http-kit-features
               immutant-features
               sassc-features)]
+      (when (and (= "jetty" (:server options))
+                 (unsupported-jetty-java-version? java-version))
+        (main/info (str "Warning: Jetty requires JDK 8+, found: " java-version)))
       (render-assets assets (format-options options)))))
 
 (defn format-features [features]
