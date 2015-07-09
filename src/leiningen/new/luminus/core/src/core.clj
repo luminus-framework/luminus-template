@@ -3,8 +3,7 @@
             [aleph.http :as http]<% endifequal %><% ifequal server "http-kit" %>
             [org.httpkit.server :as http-kit]<% endifequal %><% ifequal server "immutant" %>
             [immutant.web :as immutant]<% endifequal %><% ifequal server "jetty" %>
-            [qbits.jet.server :refer [run-jetty]]<% endifequal %>
-            [ring.middleware.reload :as reload]<% if database-profiles %>
+            [qbits.jet.server :refer [run-jetty]]<% endifequal %><% if database-profiles %>
             [<<project-ns>>.db.migrations :as migrations]<% endif %>
             [taoensso.timbre :as timbre]
             [environ.core :refer [env]])
@@ -21,7 +20,7 @@
       (init)
       (.addShutdownHook (Runtime/getRuntime) (Thread. destroy))
       (http/start-server
-        (if (env :dev) (reload/wrap-reload #'app) app)
+        app
         {:port port})
       (timbre/info "server started on port:" port)
       (catch Throwable t
@@ -61,7 +60,7 @@
   (init)
   (reset! server
           (http-kit/run-server
-            (if (env :dev) (reload/wrap-reload #'app) app)
+            app
             {:port port})))
 
 (defn stop-server []
@@ -74,7 +73,7 @@
   (init)
   (reset! server
           (run-jetty
-            {:ring-handler (if (env :dev) (reload/wrap-reload #'app) app)
+            {:ring-handler app
              :port port
              :join? false})))
 
