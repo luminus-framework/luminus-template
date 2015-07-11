@@ -64,8 +64,8 @@
   (timbre/info "shutdown complete!"))
 
 (def app-base
-  (-> (routes
-        <<service-routes>>
+  (-> (routes<% if service-routes %>
+        <<service-routes>><% endif %>
         (wrap-routes #'home-routes middleware/wrap-csrf)
         #'base-routes)
       middleware/wrap-base))
