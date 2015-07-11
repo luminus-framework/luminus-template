@@ -12,5 +12,5 @@
       [assets
        (-> options
            (assoc :server "jetty")
-           (append-options :dependencies [['cc.qbits/jet "0.6.5"]]))])
+           (append-options :dependencies [['cc.qbits/jet "0.6.6"]]))])
     state))
