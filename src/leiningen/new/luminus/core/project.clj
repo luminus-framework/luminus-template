@@ -15,7 +15,7 @@
                  [ring "1.4.0"
                   :exclusions [ring/ring-jetty-adapter]]
                  [metosin/ring-middleware-format "0.6.0"]
-                 [metosin/ring-http-response "0.6.2"]
+                 [metosin/ring-http-response "0.6.3"]
                  [bouncer "0.3.3"]
                  [prone "0.8.2"]
                  [org.clojure/tools.nrepl "0.2.10"]
