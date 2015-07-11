@@ -11,9 +11,9 @@
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
             [ring.middleware.session-timeout :refer [wrap-idle-session-timeout]]
             [ring.middleware.session.memory :refer [memory-store]]
-            [ring.middleware.format :refer [wrap-restful-format]]
-            <<service-middleware-required>>
-            <<auth-middleware-required>>
+            [ring.middleware.format :refer [wrap-restful-format]]<% if service-middleware-required %>
+            <<service-middleware-required>><% endif %><% if auth-middleware-required %>
+            <<auth-middleware-required>><% endif %>
             ))
 
 (defn wrap-servlet-context [handler]

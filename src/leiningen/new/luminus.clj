@@ -11,11 +11,13 @@
             [leiningen.new.cljs :refer [cljs-features]]
             [leiningen.new.cucumber :refer [cucumber-features]]
             [leiningen.new.aleph :refer [aleph-features]]
+            [leiningen.new.jetty :refer [jetty-features]]
             [leiningen.new.http-kit :refer [http-kit-features]]
             [leiningen.new.immutant :refer [immutant-features]]
             [leiningen.new.swagger :refer [swagger-features]]
             [leiningen.new.sassc :refer [sassc-features]]
-            [leiningen.new.site :refer [site-features]])
+            [leiningen.new.site :refer [site-features]]
+            [leiningen.new.war :refer [war-features]])
   (:import java.io.File))
 
 (def core-assets
@@ -60,21 +62,13 @@
       (update-in [:dev-dependencies] (partial indent dev-dependency-indent))
       (update-in [:plugins] (partial indent plugin-indent))))
 
-(defn unsupported-jetty-java-version? [java-version]
-  (as-> java-version %
-        (clojure.string/split % #"\.")      
-        (take 2 %)
-        (map #(Integer/parseInt %) %)
-        (and (< (first %) 2)
-             (< (second %) 8))))
-
 (defn generate-project
   "Create a new Luminus project"
   [options]
   (main/info "Generating a Luminus project.")
+  (main/info options)
   (with-redefs [leiningen.new.templates/render-text render-template]
-    (let [java-version (System/getProperty "java.version")
-          [assets options]
+    (let [[assets options]
           (-> [core-assets options]
               auth-features
               db-features
@@ -83,32 +77,42 @@
               cljs-features
               swagger-features
               aleph-features
+              jetty-features
               http-kit-features
               immutant-features
-              sassc-features)]
-      (when (and (= "jetty" (:server options))
-                 (unsupported-jetty-java-version? java-version))
-        (main/info (str "Warning: Jetty requires JDK 8+, found: " java-version)))
+              sassc-features
+              war-features)]
       (render-assets assets (format-options options)))))
 
 (defn format-features [features]
   (apply str (interpose ", " features)))
 
+(defn set-default-features [options]
+  (if (empty?
+        (clojure.set/intersection
+          (-> options :features set)
+          #{"+http-kit" "+aleph" "+immutant"}))
+    (update-in options [:features] conj "+jetty")
+    options))
+
 (defn luminus
   "Create a new Luminus project"
   [name & feature-params]
-  (let [supported-features #{"+cljs" "+site" "+h2" "+postgres" "+dailycred"
-                             "+mysql" "+http-kit" "+cucumber" "+mongodb"
-                             "+auth" "+immutant" "+sassc" "+swagger"
-                             "+aleph"}
-        options {:name       (project-name name)
-                 :selmer-renderer render-template
+  (let [supported-features #{;;databases
+                             "+h2" "+postgres" "+mysql" "+mongodb"
+                             ;;servers
+                             "+aleph" "+http-kit" "+immutant"
+                             ;;misc
+                             "+cljs" "+auth" "+site"
+                             "+cucumber" "+dailycred"
+                             "+sassc" "+swagger" "+war"}
+        options {:name             (project-name name)
+                 :selmer-renderer  render-template
                  :min-lein-version "2.0.0"
-                 :project-ns (sanitize-ns name)
-                 :sanitized  (name-to-path name)
-                 :year       (year)
-                 :server "jetty"
-                 :features   (set feature-params)}
+                 :project-ns       (sanitize-ns name)
+                 :sanitized        (name-to-path name)
+                 :year             (year)
+                 :features         (set feature-params)}
         unsupported (-> (set feature-params)
                         (clojure.set/difference supported-features)
                         (not-empty))]
@@ -128,4 +132,4 @@
       (main/info "Could not create project because a directory named" name "already exists!")
 
       :else
-      (generate-project options))))
+      (-> options set-default-features generate-project))))

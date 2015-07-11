@@ -12,16 +12,13 @@
                  [compojure "1.3.4"]
                  [ring/ring-defaults "0.1.5"]
                  [ring/ring-session-timeout "0.1.0"]
-                 [ring "1.4.0-RC2"
-                  :exclusions [ring/ring-jetty-adapter]]<% ifequal server "jetty" %>
-                 [ring-server "0.4.0"]
-                 [cc.qbits/jet "0.6.5"]<% endifequal %>
+                 [ring "1.4.0"
+                  :exclusions [ring/ring-jetty-adapter]]
                  [metosin/ring-middleware-format "0.6.0"]
                  [metosin/ring-http-response "0.6.2"]
                  [bouncer "0.3.3"]
                  [prone "0.8.2"]
                  [org.clojure/tools.nrepl "0.2.10"]
-
                  <<dependencies>>]
 
   :min-lein-version "<<min-lein-version>>"
@@ -34,37 +31,32 @@
   :main <<project-ns>>.core<% if migrations %>
   :migratus <<migrations>><% endif %>
 
-  :plugins [<% ifequal server "jetty" %>[lein-ring "0.9.6"]<% endifequal %>
-            [lein-environ "1.0.0"]
-            [lein-ancient "0.6.5"]
-            <<plugins>>]
+  :plugins [[lein-environ "1.0.0"]
+            [lein-ancient "0.6.5"]<% if plugins %>
+            <<plugins>><% endif %>]
+
   <% if cucumber-feature-paths %>:cucumber-feature-paths <<cucumber-feature-paths>><% endif %>
-<% if sassc-config-params %>
+  <% if sassc-config-params %>
   :sassc <<sassc-config-params>>
-  :hooks [leiningen.sassc]
-  <% endif %>
-  <% ifequal server "jetty" %>
-  :ring {:handler <<name>>.handler/app
-         :init    <<name>>.handler/init
-         :destroy <<name>>.handler/destroy
-         :uberwar-name "<<name>>.war"}
-<% endifequal %>
+  :hooks [leiningen.sassc]<% endif %>
+  <% if ring-options %>
+  :ring
+  <<ring-options>><% endif %>
   <% if clean-targets %>:clean-targets ^{:protect false} <<clean-targets>><% endif %>
   <% if cljs-build %>
   :cljsbuild
-  <<cljs-build>>
-  <% endif %>
+  <<cljs-build>><% endif %>
   :profiles
   {:uberjar {:omit-source true
-             :env {:production true}
-             <<cljs-uberjar>>
+             :env {:production true}<% if cljs-uberjar %>
+             <<cljs-uberjar>><% endif %>
              :aot :all}
    :dev {:dependencies [[ring-mock "0.1.5"]
-                        [ring/ring-devel "1.3.2"]
-                        [pjstadig/humane-test-output "0.7.0"]
-                        <<dev-dependencies>>]
-         <% if dev-plugins %>:plugins <<dev-plugins>><% endif %>
-         <<cljs-dev>>
+                        [ring/ring-devel "1.4.0"]
+                        [pjstadig/humane-test-output "0.7.0"]<% if dev-dependencies %>
+                        <<dev-dependencies>><% endif %>]
+         <% if dev-plugins %>:plugins <<dev-plugins>><% endif %><% if cljs-dev %>
+         <<cljs-dev>><% endif %>
          <% if figwheel %>:figwheel
          <<figwheel>><% endif %>
          :repl-options {:init-ns <<project-ns>>.core}

@@ -65,3 +65,11 @@
   (remove #(and (coll? %)
                 (.endsWith (second %) filter-str))
           assets))
+
+(defn unsupported-jetty-java-version? [java-version]
+  (as-> java-version %
+        (clojure.string/split % #"\.")
+        (take 2 %)
+        (map #(Integer/parseInt %) %)
+        (and (< (first %) 2)
+             (< (second %) 8))))
