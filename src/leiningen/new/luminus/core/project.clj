@@ -25,25 +25,21 @@
   :uberjar-name "<<name>>.jar"
   :jvm-opts ["-server"]
 
-;;enable to start the nREPL server when the application launches
-;:env {:repl-port 7001}
+  ;;enable to start the nREPL server when the application launches
+  ;:env {:repl-port 7001}
 
   :main <<project-ns>>.core<% if migrations %>
   :migratus <<migrations>><% endif %>
 
   :plugins [[lein-environ "1.0.0"]
             [lein-ancient "0.6.5"]<% if plugins %>
-            <<plugins>><% endif %>]
-
-  <% if cucumber-feature-paths %>:cucumber-feature-paths <<cucumber-feature-paths>><% endif %>
-  <% if sassc-config-params %>
+            <<plugins>><% endif %>]<% if cucumber-feature-paths %>
+  :cucumber-feature-paths <<cucumber-feature-paths>><% endif %><% if sassc-config-params %>
   :sassc <<sassc-config-params>>
-  :hooks [leiningen.sassc]<% endif %>
-  <% if ring-options %>
+  :hooks [leiningen.sassc]<% endif %><% if ring-options %>
   :ring
-  <<ring-options>><% endif %>
-  <% if clean-targets %>:clean-targets ^{:protect false} <<clean-targets>><% endif %>
-  <% if cljs-build %>
+  <<ring-options>><% endif %><% if clean-targets %>
+  :clean-targets ^{:protect false} <<clean-targets>><% endif %><% if cljs-build %>
   :cljsbuild
   <<cljs-build>><% endif %>
   :profiles
