@@ -66,7 +66,6 @@
   "Create a new Luminus project"
   [options]
   (main/info "Generating a Luminus project.")
-  (main/info options)
   (with-redefs [leiningen.new.templates/render-text render-template]
     (let [[assets options]
           (-> [core-assets options]
@@ -91,8 +90,8 @@
   (if (empty?
         (clojure.set/intersection
           (-> options :features set)
-          #{"+http-kit" "+aleph" "+immutant"}))
-    (update-in options [:features] conj "+jetty")
+          #{"+jetty" "+aleph" "+immutant"}))
+    (update-in options [:features] conj "+http-kit")
     options))
 
 (defn luminus
@@ -101,7 +100,7 @@
   (let [supported-features #{;;databases
                              "+h2" "+postgres" "+mysql" "+mongodb"
                              ;;servers
-                             "+aleph" "+http-kit" "+immutant"
+                             "+aleph" "+jetty" "+immutant"
                              ;;misc
                              "+cljs" "+auth" "+site"
                              "+cucumber" "+dailycred"
