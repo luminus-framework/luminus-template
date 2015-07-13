@@ -25,9 +25,6 @@
   :uberjar-name "<<name>>.jar"
   :jvm-opts ["-server"]
 
-  ;;enable to start the nREPL server when the application launches
-  ;:env {:repl-port 7001}
-
   :main <<project-ns>>.core<% if migrations %>
   :migratus <<migrations>><% endif %>
 
