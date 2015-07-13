@@ -7,6 +7,7 @@
             [selmer.middleware :refer [wrap-error-page]]
             [prone.middleware :refer [wrap-exceptions]]
             [ring.util.response :refer [redirect]]
+            [ring.middleware.reload :as reload]
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
             [ring.middleware.session-timeout :refer [wrap-idle-session-timeout]]
@@ -39,6 +40,7 @@
 (defn wrap-dev [handler]
   (if (env :dev)
     (-> handler
+        reload/wrap-reload
         wrap-error-page
         wrap-exceptions)
     handler))

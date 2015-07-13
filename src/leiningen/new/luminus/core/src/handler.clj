@@ -1,8 +1,7 @@
 (ns <<project-ns>>.handler
   (:require [compojure.core :refer [defroutes routes wrap-routes]]
-            [ring.middleware.reload :as reload]
-            [<<project-ns>>.routes.home :refer [home-routes]]
-            <<service-required>>
+            [<<project-ns>>.routes.home :refer [home-routes]]<% if service-required %>
+            <<service-required>><% endif %>
             [<<project-ns>>.middleware :as middleware]
             [<<project-ns>>.session :as session]
             [compojure.route :as route]
@@ -67,11 +66,9 @@
   (timbre/info "shutdown complete!"))
 
 (def app-base
-  (-> (routes<% if service-routes %>
-        <<service-routes>><% endif %>
-        (wrap-routes #'home-routes middleware/wrap-csrf)
-        #'base-routes)
-      middleware/wrap-base))
+  (routes<% if service-routes %>
+    <<service-routes>><% endif %>
+    (wrap-routes #'home-routes middleware/wrap-csrf)
+    #'base-routes))
 
-(def app
-  (if (env :dev) (reload/wrap-reload #'app-base) app-base))
+(def app (middleware/wrap-base #'app-base))
