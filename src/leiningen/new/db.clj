@@ -8,11 +8,18 @@
     (some #{"+mongodb"} features) :mongo
     (some #{"+h2"} features) :h2))
 
+(defn select-sql-dsl [{:keys [features]}]
+  (cond
+    (some #{"+yesql"} features) :yesql
+    (some #{"+korma"} features) :korma))
+
 (defn db-dependencies [options]
   [['migratus "0.8.2"]
    ['org.clojure/java.jdbc "0.3.7"]
    ['instaparse "1.4.1"]
-   ['yesql "0.5.0-rc3"]
+   ({:yesql ['yesql "0.5.0-rc3"]
+     :korma ['korma "0.4.2"]}
+     (select-sql-dsl options))
    ({:postgres ['org.postgresql/postgresql "9.3-1102-jdbc41"]
      :mysql    ['mysql/mysql-connector-java "5.1.6"]
      :h2       ['com.h2database/h2 "1.4.187"]}
@@ -30,19 +37,24 @@
 (defn relational-db-files [options]
   (let [timestamp (.format
                     (java.text.SimpleDateFormat. "yyyyMMHHmmss")
-                    (java.util.Date.))]
-    [["src/<<sanitized>>/db/core.clj"
-      (str "db/src/" ({:postgres "postgres.db.clj"
-                       :mysql    "mysql.db.clj"
-                       :h2       "h2.db.clj"}
-                       (select-db options)))]
-     ["src/<<sanitized>>/db/migrations.clj" "db/src/migrations.clj"]
-     ["resources/sql/queries.sql" "db/sql/queries.sql"]
-     [(str "resources/migrations/" timestamp "-add-users-table.up.sql") "db/migrations/add-users-table.up.sql"]
-     [(str "resources/migrations/" timestamp "-add-users-table.down.sql") "db/migrations/add-users-table.down.sql"]]))
+                    (java.util.Date.))
+        db-files [["src/<<sanitized>>/db/core.clj"
+                   (str "db/src/" ({:yesql ({:postgres "postgres.yesql.clj"
+                                             :mysql    "mysql.yesql.clj"
+                                             :h2       "h2.yesql.clj"}
+                                             (select-db options))
+                                    :korma "korma.clj"}
+                                    (select-sql-dsl options)))]
+                  ["src/<<sanitized>>/db/migrations.clj" "db/src/migrations.clj"]
+                  [(str "resources/migrations/" timestamp "-add-users-table.up.sql") "db/migrations/add-users-table.up.sql"]
+                  [(str "resources/migrations/" timestamp "-add-users-table.down.sql") "db/migrations/add-users-table.down.sql"]]]
+    (if (= :yesql (select-sql-dsl options))
+      (conj db-files ["resources/sql/queries.sql" "db/sql/queries.sql"])
+      db-files)))
 
 (defn db-profiles [options]
-  {:database-profiles (str :database-url " \"" (db-url options "dev") "\"")})
+  {:database-profiles (str :database-url " \"" (db-url options "dev") "\"")
+   :database-name (name (select-db options))})
 
 (def mongo-files
   [["src/<<sanitized>>/db/core.clj" "db/src/mongodb.clj"]])

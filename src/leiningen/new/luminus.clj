@@ -99,6 +99,8 @@
   [name & feature-params]
   (let [supported-features #{;;databases
                              "+h2" "+postgres" "+mysql" "+mongodb"
+                             ;;SQL DSLs
+                             "+yesql" "+korma"
                              ;;servers
                              "+aleph" "+jetty" "+immutant"
                              ;;misc

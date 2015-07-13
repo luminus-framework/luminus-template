@@ -32,6 +32,11 @@ However, if you would like to attach further functionality to your template you 
 * `+mysql` adds db.core namespace and add [MySQL/MariaDB database][my] dependencies
 * `+mongodb` adds support for [MongoDB][mongo] using the [Monger][monger] library
 
+### SQL DSL
+
+* `+yesql` uses [yesql](https://github.com/krisajenkins/yesql) to query the database.
+* `+korma` uses [Korma](http://sqlkorma.com/) to query the database.
+
 ### misc
 
 * `+auth` adds [Buddy](https://funcool.github.io/buddy/latest/) dependency and authentication middleware
