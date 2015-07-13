@@ -23,7 +23,10 @@
   []
   (when-let [port (env :nrepl-port)]
     (try
-      (reset! nrepl-server (nrepl/start-server :port (Integer/parseInt port)))
+      (->> port
+           (Integer/parseInt)
+           (nrepl/start-server :port)
+           (reset! nrepl-server))
       (timbre/info "nREPL server started on port" port)
       (catch Throwable t
         (timbre/error "failed to start nREPL" t)))))
