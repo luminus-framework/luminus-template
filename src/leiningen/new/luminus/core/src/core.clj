@@ -54,7 +54,7 @@
   (timbre/info "server started on port:" (:port @server)))
 <% else %>
 (defn http-port [[port]]
-  (Integer/parseInt (or port (env :port) "3000")))
+  (parse-port (or port (env :port) "3000")))
 <% ifequal server "http-kit" %>
 (defn start-server [port]
   (init)
