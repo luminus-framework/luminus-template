@@ -52,7 +52,10 @@
          <<cljs-dev>><% endif %>
          <% if figwheel %>:figwheel
          <<figwheel>><% endif %>
+         ;;when set the application start the nREPL server on load
+
          :repl-options {:init-ns <<project-ns>>.core}
          :injections [(require 'pjstadig.humane-test-output)
                       (pjstadig.humane-test-output/activate!)]
-         :env {:dev true}}})
+         :env {:dev        true
+               :nrepl-port 7001}}})

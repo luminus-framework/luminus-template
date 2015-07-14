@@ -1,5 +1,5 @@
 (ns <<project-ns>>.core
-  (:require [<<project-ns>>.handler :refer [app init destroy]]<% ifequal server "aleph" %>
+  (:require [<<project-ns>>.handler :refer [app init destroy parse-port]]<% ifequal server "aleph" %>
             [aleph.http :as http]<% endifequal %><% ifequal server "http-kit" %>
             [org.httpkit.server :as http-kit]<% endifequal %><% ifequal server "immutant" %>
             [immutant.web :as immutant]<% endifequal %><% ifequal server "jetty" %>
@@ -9,13 +9,13 @@
             [environ.core :refer [env]])
   (:gen-class))
 <% ifequal server "aleph" %>
-(defn parse-port [[port]]
-  (Integer/parseInt (or port (env :port) "3000")))
+(defn http-port [[port]]
+  (parse-port (or port (env :port) "3000")))
 
 (defn start-app
   "e.g. lein run 3000"
   [args]
-  (let [port (parse-port args)]
+  (let [port (http-port args)]
     (try
       (init)
       (.addShutdownHook (Runtime/getRuntime) (Thread. destroy))
@@ -53,7 +53,7 @@
   (start-server args)
   (timbre/info "server started on port:" (:port @server)))
 <% else %>
-(defn parse-port [[port]]
+(defn http-port [[port]]
   (Integer/parseInt (or port (env :port) "3000")))
 <% ifequal server "http-kit" %>
 (defn start-server [port]
@@ -83,8 +83,8 @@
     (.stop @server)
     (reset! server nil)))
 <% endifequal %>
-(defn start-app [args]
-  (let [port (parse-port args)]
+(defn start-app [port]
+  (let [port (http-port port)]
     (.addShutdownHook (Runtime/getRuntime) (Thread. stop-server))
     (timbre/info "server is starting on port " port)
     (start-server port)))
