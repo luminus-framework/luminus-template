@@ -8,10 +8,11 @@
             [taoensso.timbre :as timbre]
             [environ.core :refer [env]])
   (:gen-class))
-<% ifequal server "aleph" %>
+<% ifunequal server "immutant" %>
 (defn http-port [[port]]
-  (parse-port (or port (env :port) "3000")))
-
+  (parse-port (or port (env :port) 3000)))
+<% endifunequal %>
+<% ifequal server "aleph" %>
 (defn start-app
   "e.g. lein run 3000"
   [args]
@@ -53,8 +54,6 @@
   (start-server args)
   (timbre/info "server started on port:" (:port @server)))
 <% else %>
-(defn http-port [[port]]
-  (parse-port (or port (env :port) "3000")))
 <% ifequal server "http-kit" %>
 (defn start-server [port]
   (init)
