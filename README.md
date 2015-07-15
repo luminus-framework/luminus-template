@@ -34,8 +34,7 @@ However, if you would like to attach further functionality to your template you 
 
 ### SQL DSL
 
-* `+yesql` uses [yesql](https://github.com/krisajenkins/yesql) to query the database.
-* `+korma` uses [Korma](http://sqlkorma.com/) to query the database.
+* `+korma` uses [Korma](http://sqlkorma.com/) to query the database instead of [yesql](https://github.com/krisajenkins/yesql)
 
 ### misc
 

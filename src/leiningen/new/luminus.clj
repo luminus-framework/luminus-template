@@ -100,7 +100,7 @@
   (let [supported-features #{;;databases
                              "+h2" "+postgres" "+mysql" "+mongodb"
                              ;;SQL DSLs
-                             "+yesql" "+korma"
+                             "+korma"
                              ;;servers
                              "+aleph" "+jetty" "+immutant"
                              ;;misc

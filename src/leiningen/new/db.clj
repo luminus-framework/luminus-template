@@ -10,8 +10,8 @@
 
 (defn select-sql-dsl [{:keys [features]}]
   (cond
-    (some #{"+yesql"} features) :yesql
-    (some #{"+korma"} features) :korma))
+    (some #{"+korma"} features) :korma
+    :else :yesql))
 
 (defn db-dependencies [options]
   [['migratus "0.8.2"]
