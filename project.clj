@@ -5,4 +5,4 @@
             :url "http://opensource.org/licenses/MIT"}
   :eval-in-leiningen true
   :dependencies [[leinjacker "0.2.0"]
-                 [selmer "0.8.4"]])
+                 [selmer "0.8.2"]])

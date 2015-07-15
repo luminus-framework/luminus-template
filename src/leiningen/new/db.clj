@@ -50,7 +50,7 @@
 (defn add-mongo [[assets options]]
   [(into assets mongo-files)
    (-> options
-       (append-options :dependencies [['com.novemberain/monger "2.0.1"]])
+       (append-options :dependencies [['com.novemberain/monger "2.1.0"]])
        (assoc
          :db-docs ((:selmer-renderer options) (slurp-resource "db/docs/mongo_instructions.md") options))
        (merge (db-profiles options)))])
@@ -61,6 +61,7 @@
        (append-options :dependencies (db-dependencies options))
        (append-options :plugins [['migratus-lein "0.1.5"]])
        (assoc
+         :relational-db true
          :migrations (str {:store :database})
          :db-docs ((:selmer-renderer options)
                     (slurp-resource (if (= :h2 db)

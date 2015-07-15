@@ -3,15 +3,15 @@
             [aleph.http :as http]<% endifequal %><% ifequal server "http-kit" %>
             [org.httpkit.server :as http-kit]<% endifequal %><% ifequal server "immutant" %>
             [immutant.web :as immutant]<% endifequal %><% ifequal server "jetty" %>
-            [qbits.jet.server :refer [run-jetty]]<% endifequal %><% if database-profiles %>
+            [qbits.jet.server :refer [run-jetty]]<% endifequal %><% if relational-db %>
             [<<project-ns>>.db.migrations :as migrations]<% endif %>
             [taoensso.timbre :as timbre]
             [environ.core :refer [env]])
   (:gen-class))
-<% ifunequal server "immutant" %>
+<% ifequal server "immutant" %><% else %>
 (defn http-port [[port]]
   (parse-port (or port (env :port) 3000)))
-<% endifunequal %>
+<% endifequal %>
 <% ifequal server "aleph" %>
 (defn start-app
   "e.g. lein run 3000"
@@ -89,7 +89,7 @@
     (start-server port)))
 <% endifequal %><% endifequal %>
 (defn -main [& args]
-  <% if database-profiles %>(cond
+  <% if relational-db %>(cond
     (some #{"migrate" "rollback"} args) (migrations/migrate args)
     :else (start-app args)))
   <% else %>(start-app args))<% endif %>

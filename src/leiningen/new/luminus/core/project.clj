@@ -9,7 +9,7 @@
                  [com.taoensso/tower "3.0.2"]
                  [markdown-clj "0.9.67"]
                  [environ "1.0.0"]
-                 [compojure "1.3.4"]
+                 [compojure "1.4.0"]
                  [ring/ring-defaults "0.1.5"]
                  [ring/ring-session-timeout "0.1.0"]
                  [ring "1.4.0"
