@@ -44,7 +44,7 @@
              :env {:production true}<% if cljs-uberjar %>
              <<cljs-uberjar>><% endif %>
              :aot :all}
-   :dev {:dependencies [[ring-mock "0.1.5"]
+   :dev {:dependencies [[ring/ring-mock "0.2.0"]
                         [ring/ring-devel "1.4.0"]
                         [pjstadig/humane-test-output "0.7.0"]<% if dev-dependencies %>
                         <<dev-dependencies>><% endif %>]
