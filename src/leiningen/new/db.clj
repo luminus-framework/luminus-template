@@ -29,7 +29,7 @@
 
 (defn relational-db-files [options]
   (let [timestamp (.format
-                    (java.text.SimpleDateFormat. "yyyyMMHHmmss")
+                    (java.text.SimpleDateFormat. "yyyyMMddHHmmss")
                     (java.util.Date.))]
     [["src/<<sanitized>>/db/core.clj"
       (str "db/src/" ({:postgres "postgres.db.clj"
