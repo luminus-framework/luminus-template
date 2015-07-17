@@ -3,7 +3,8 @@
     [clojure.java.jdbc :as jdbc]
     [yesql.core :refer [defqueries]]
     [cheshire.core :refer [generate-string parse-string]]
-    [environ.core :refer [env]])
+    [environ.core :refer [env]]
+    [to-jdbc-uri.core :refer [to-jdbc-uri]])
   (:import org.postgresql.util.PGobject
            org.postgresql.jdbc4.Jdbc4Array
            clojure.lang.IPersistentMap
@@ -11,7 +12,7 @@
            [java.sql Date Timestamp PreparedStatement]))
 
 (def db-spec
-  {:connection-uri (env :database-url)})
+  {:connection-uri (to-jdbc-uri (env :database-url))})
 
 (defqueries "sql/queries.sql" {:connection db-spec})
 
