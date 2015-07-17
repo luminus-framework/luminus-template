@@ -2,11 +2,12 @@
   (:require
     [yesql.core :refer [defqueries]]
     [clojure.java.jdbc :as jdbc]
-    [environ.core :refer [env]])
+    [environ.core :refer [env]]
+    [to-jdbc-uri.core :refer [to-jdbc-uri]])
   (:import [java.sql PreparedStatement]))
 
 (def db-spec
-  {:connection-uri (env :database-url)})
+  {:connection-uri (to-jdbc-uri (env :database-url))})
 
 (defqueries "sql/queries.sql" {:connection db-spec})
 

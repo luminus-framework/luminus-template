@@ -19,6 +19,7 @@
                  [bouncer "0.3.3"]
                  [prone "0.8.2"]
                  [org.clojure/tools.nrepl "0.2.10"]
+                 [to-jdbc-uri "0.1.0"]
                  <<dependencies>>]
 
   :min-lein-version "<<min-lein-version>>"
