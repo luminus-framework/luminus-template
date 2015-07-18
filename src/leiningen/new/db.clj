@@ -38,6 +38,7 @@
                        (select-db options)))]
      ["src/<<sanitized>>/db/migrations.clj" "db/src/migrations.clj"]
      ["resources/sql/queries.sql" "db/sql/queries.sql"]
+     ["test/<<sanitized>>/test/db/core.clj" "db/test/db/core.clj"]
      [(str "resources/migrations/" timestamp "-add-users-table.up.sql") "db/migrations/add-users-table.up.sql"]
      [(str "resources/migrations/" timestamp "-add-users-table.down.sql") "db/migrations/add-users-table.down.sql"]]))
 
