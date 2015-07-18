@@ -13,6 +13,7 @@
    ['org.clojure/java.jdbc "0.3.7"]
    ['instaparse "1.4.1"]
    ['yesql "0.5.0-rc3"]
+   ['to-jdbc-uri "0.1.0"]
    ({:postgres ['org.postgresql/postgresql "9.3-1102-jdbc41"]
      :mysql    ['mysql/mysql-connector-java "5.1.6"]
      :h2       ['com.h2database/h2 "1.4.187"]}
