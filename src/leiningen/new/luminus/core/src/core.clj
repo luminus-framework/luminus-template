@@ -8,10 +8,10 @@
             [taoensso.timbre :as timbre]
             [environ.core :refer [env]])
   (:gen-class))
-<% ifequal server "immutant" %><% else %>
+<% ifunequal server "immutant" %>
 (defn http-port [[port]]
   (parse-port (or port (env :port) 3000)))
-<% endifequal %>
+<% endifunequal %>
 <% ifequal server "aleph" %>
 (defn start-app
   "e.g. lein run 3000"

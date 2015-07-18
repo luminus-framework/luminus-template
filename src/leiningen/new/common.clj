@@ -4,10 +4,10 @@
     [clojure.pprint :refer [code-dispatch pprint with-pprint-dispatch]]))
 
 (def dependency-indent 17)
-(def dev-dependency-indent 24)
+(def dev-dependency-indent 33)
 (def plugin-indent 12)
 (def root-indent 2)
-(def dev-indent 9)
+(def dev-indent 18)
 (def uberjar-indent 13)
 (def require-indent 13)
 

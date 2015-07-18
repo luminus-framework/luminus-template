@@ -62,6 +62,7 @@
    (-> options
        (append-options :dependencies (db-dependencies options))
        (append-options :plugins [['migratus-lein "0.1.5"]])
+       (update-in [:dev-dependencies] conj ['mvxcvi/puget "0.8.1"])
        (assoc
          :relational-db true
          :migrations (str {:store :database})
