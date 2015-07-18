@@ -29,7 +29,7 @@
 
 (defn relational-db-files [options]
   (let [timestamp (.format
-                    (java.text.SimpleDateFormat. "yyyyMMHHmmss")
+                    (java.text.SimpleDateFormat. "yyyyMMddHHmmss")
                     (java.util.Date.))]
     [["src/<<sanitized>>/db/core.clj"
       (str "db/src/" ({:postgres "postgres.db.clj"
@@ -38,11 +38,13 @@
                        (select-db options)))]
      ["src/<<sanitized>>/db/migrations.clj" "db/src/migrations.clj"]
      ["resources/sql/queries.sql" "db/sql/queries.sql"]
+     ["test/<<sanitized>>/test/db/core.clj" "db/test/db/core.clj"]
      [(str "resources/migrations/" timestamp "-add-users-table.up.sql") "db/migrations/add-users-table.up.sql"]
      [(str "resources/migrations/" timestamp "-add-users-table.down.sql") "db/migrations/add-users-table.down.sql"]]))
 
 (defn db-profiles [options]
-  {:database-profiles (str :database-url " \"" (db-url options "dev") "\"")})
+  {:database-profile-dev (str :database-url " \"" (db-url options "dev") "\"")
+   :database-profile-test (str :database-url " \"" (db-url options "test") "\"")})
 
 (def mongo-files
   [["src/<<sanitized>>/db/core.clj" "db/src/mongodb.clj"]])
