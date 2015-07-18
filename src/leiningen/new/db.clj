@@ -42,7 +42,8 @@
      [(str "resources/migrations/" timestamp "-add-users-table.down.sql") "db/migrations/add-users-table.down.sql"]]))
 
 (defn db-profiles [options]
-  {:database-profiles (str :database-url " \"" (db-url options "dev") "\"")})
+  {:database-profile-dev (str :database-url " \"" (db-url options "dev") "\"")
+   :database-profile-test (str :database-url " \"" (db-url options "test") "\"")})
 
 (def mongo-files
   [["src/<<sanitized>>/db/core.clj" "db/src/mongodb.clj"]])

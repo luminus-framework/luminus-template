@@ -45,18 +45,24 @@
              :env {:production true}<% if cljs-uberjar %>
              <<cljs-uberjar>><% endif %>
              :aot :all}
-   :dev {:dependencies [[ring/ring-mock "0.2.0"]
-                        [ring/ring-devel "1.4.0"]
-                        [pjstadig/humane-test-output "0.7.0"]<% if dev-dependencies %>
-                        <<dev-dependencies>><% endif %>]
-         <% if dev-plugins %>:plugins <<dev-plugins>><% endif %><% if cljs-dev %>
-         <<cljs-dev>><% endif %>
-         <% if figwheel %>:figwheel
-         <<figwheel>><% endif %>
-         ;;when set the application start the nREPL server on load
+   :dev           [:project/dev :profiles/dev]
+   :test          [:project/test :profiles/test]
+   :project/dev  {:dependencies [[ring/ring-mock "0.2.0"]
+                                 [ring/ring-devel "1.4.0"]
+                                 [pjstadig/humane-test-output "0.7.0"]<% if dev-dependencies %>
+                                 <<dev-dependencies>><% endif %>]
+                  <% if dev-plugins %>:plugins <<dev-plugins>><% endif %><% if cljs-dev %>
+                  <<cljs-dev>><% endif %>
+                  <% if figwheel %>:figwheel
+                  <<figwheel>><% endif %>
+                   ;;when set the application start the nREPL server on load
 
-         :repl-options {:init-ns <<project-ns>>.core}
-         :injections [(require 'pjstadig.humane-test-output)
-                      (pjstadig.humane-test-output/activate!)]
-         :env {:dev        true
-               :nrepl-port 7001}}})
+                  :repl-options {:init-ns <<project-ns>>.core}
+                  :injections [(require 'pjstadig.humane-test-output)
+                               (pjstadig.humane-test-output/activate!)]
+                  :env {:dev        true
+                        :port       3000
+                        :nrepl-port 7001}}
+   :project/test {:env {:test       true
+                        :port       3001
+                        :nrepl-port 7002}}})
