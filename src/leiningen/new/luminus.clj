@@ -90,8 +90,8 @@
   (if (empty?
         (clojure.set/intersection
           (-> options :features set)
-          #{"+jetty" "+aleph" "+immutant"}))
-    (update-in options [:features] conj "+http-kit")
+          #{"+jetty" "+aleph" "+http-kit"}))
+    (update-in options [:features] conj "+immutant")
     options))
 
 (defn luminus
@@ -100,7 +100,7 @@
   (let [supported-features #{;;databases
                              "+h2" "+postgres" "+mysql" "+mongodb"
                              ;;servers
-                             "+aleph" "+jetty" "+immutant"
+                             "+aleph" "+jetty" "+http-kit"
                              ;;misc
                              "+cljs" "+auth" "+site"
                              "+cucumber" "+dailycred"

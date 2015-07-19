@@ -8,15 +8,14 @@
             [taoensso.timbre :as timbre]
             [environ.core :refer [env]])
   (:gen-class))
-<% ifunequal server "immutant" %>
-(defn http-port [[port]]
+
+(defn http-port [port]
   (parse-port (or port (env :port) 3000)))
-<% endifunequal %>
 <% ifequal server "aleph" %>
 (defn start-app
   "e.g. lein run 3000"
-  [args]
-  (let [port (http-port args)]
+  [[port]]
+  (let [port (http-port port)]
     (try
       (init)
       (.addShutdownHook (Runtime/getRuntime) (Thread. destroy))
@@ -29,17 +28,9 @@
 <% else %>
 (defonce server (atom nil))
 <% ifequal server "immutant" %>
-(defn start-server
-  "Args should be a flat sequence of key/value pairs corresponding to
-   options accepted by `immutant.web/run`. Keys may be keywords or
-   strings, but the latter should not include the colon prefix. If the
-   :dev key is present in the environment, `immutant.web/run-dmc` will be used"
-  [args]
+(defn start-server [port]
   (init)
-  (reset! server
-          (if (env :dev)
-            (immutant/run-dmc #'app args)
-            (immutant/run app args))))
+  (reset! server (immutant/run app :port port)))
 
 (defn stop-server []
   (when @server
@@ -47,11 +38,9 @@
     (immutant/stop @server)
     (reset! server nil)))
 
-(defn start-app
-  "e.g. lein run -dev port 3000"
-  [args]
+(defn start-app [[port]]
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-server))
-  (start-server args)
+  (start-server (http-port port))
   (timbre/info "server started on port:" (:port @server)))
 <% else %>
 <% ifequal server "http-kit" %>
@@ -82,7 +71,7 @@
     (.stop @server)
     (reset! server nil)))
 <% endifequal %>
-(defn start-app [port]
+(defn start-app [[port]]
   (let [port (http-port port)]
     (.addShutdownHook (Runtime/getRuntime) (Thread. stop-server))
     (timbre/info "server is starting on port " port)

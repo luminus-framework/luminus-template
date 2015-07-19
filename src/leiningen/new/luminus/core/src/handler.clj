@@ -61,7 +61,7 @@
   (session/start-cleanup-job!)
   (timbre/info (str
                  "\n-=[<<name>> started successfully"
-                 (when (env :dev) "using the development profile")
+                 (when (env :dev) " using the development profile")
                  "]=-")))
 
 (defn destroy
