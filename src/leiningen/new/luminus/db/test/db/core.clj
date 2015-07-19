@@ -4,7 +4,9 @@
             [<<project-ns>>.db.migrations :as migrations]))
 
 (deftest test-users
-  (delete-user! {:id "1"})                           ;; Make sure the user with id 1 doesn't exist. You can also use transactions around tests to ensure that.
+  ;; Make sure the user with id 1 doesn't exist.
+  ;; You can also use transactions around tests to ensure that.
+  (delete-user! {:id "1"})
   (is (= 1 (create-user! {:id         "1"
                           :first_name "Sam"
                           :last_name  "Smith"
