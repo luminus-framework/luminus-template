@@ -52,8 +52,7 @@
 (defn connect! []
   (try
     (reset!
-      conn
-      <% ifequal db-type "h2" %>
+      conn<% ifequal db-type "h2" %>
       {:classname   "org.h2.Driver"
        :connection-uri (:database-url env)
        :make-pool?     true
@@ -135,5 +134,4 @@
   IPersistentMap
   (sql-value [value] (to-pg-json value))
   IPersistentVector
-  (sql-value [value] (to-pg-json value)))
-<% endifequal %>
+  (sql-value [value] (to-pg-json value)))<% endifequal %>
