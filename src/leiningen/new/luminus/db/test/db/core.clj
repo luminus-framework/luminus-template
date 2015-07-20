@@ -16,7 +16,7 @@
   ;; You can also use transactions around tests to ensure that.
   (jdbc/with-db-transaction [trans-conn @db/conn]
     (jdbc/db-set-rollback-only! trans-conn)
-    (is (= 1 (db/execute
+    (is (= 1 (db/run
                db/create-user!
                {:id         "1"
                 :first_name "Sam"
@@ -32,4 +32,4 @@
              :admin      nil
              :last_login nil
              :is_active  nil}]
-           (db/execute db/get-user {:id "1"} trans-conn)))))
+           (db/run db/get-user {:id "1"} trans-conn)))))

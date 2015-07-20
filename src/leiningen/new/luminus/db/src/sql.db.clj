@@ -72,12 +72,12 @@
     (when-not (.isClosed conn)
       (.close conn)))<% endifunequal %>)
 
-(defn execute
+(defn run
   "executes a Yesql query using the given database connection and parameter map
   the parameter map defaults to an empty map and the database conection defaults
   to the conn atom"
-  ([query-fn] (execute query-fn {}))
-  ([query-fn query-map] (execute query-fn query-map @conn))
+  ([query-fn] (run query-fn {}))
+  ([query-fn query-map] (run query-fn query-map @conn))
   ([query-fn query-map db]
    (try
      (query-fn query-map {:connection db})
