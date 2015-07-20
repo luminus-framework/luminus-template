@@ -3,7 +3,9 @@
             [<<project-ns>>.routes.home :refer [home-routes]]<% if service-required %>
             <<service-required>><% endif %>
             [<<project-ns>>.middleware :as middleware]
-            [<<project-ns>>.session :as session]
+            [<<project-ns>>.session :as session]<% if relational-db %>
+            [<<project-ns>>.db.core :as db]
+            <% endif %>
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
             [taoensso.timbre.appenders.3rd-party.rotor :as rotor]
@@ -56,7 +58,9 @@
                            :backlog 10})}})
 
   (if (env :dev) (parser/cache-off!))
-  (start-nrepl)
+  (start-nrepl)<% if relational-db %>
+  (db/connect!)
+  <% endif %>
   ;;start the expired session cleanup job
   (session/start-cleanup-job!)
   (timbre/info (str

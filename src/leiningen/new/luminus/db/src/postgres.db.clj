@@ -11,10 +11,12 @@
            clojure.lang.IPersistentVector
            [java.sql Date Timestamp PreparedStatement]))
 
-(def db-spec
-  {:connection-uri (to-jdbc-uri (env :database-url))})
+(defonce db-spec (atom nil))
 
-(defqueries "sql/queries.sql" {:connection db-spec})
+(defqueries "sql/queries.sql")
+
+(defn connect! []
+  (reset! db-spec {:connection-uri (to-jdbc-uri (env :database-url))}))
 
 (defn to-date [sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))

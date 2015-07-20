@@ -2,14 +2,14 @@
   (:require
     [migratus.core :as migratus]
     [environ.core :refer [env]]
-    [to-jdbc-uri.core :refer [to-jdbc-uri]]))
+    [<<project-ns>>.db.core :as db]))
 
 (defn parse-ids [args]
   (map #(Long/parseLong %) (rest args)))
 
 (defn migrate [args]
   (let [config {:store :database
-                :db {:connection-uri (to-jdbc-uri (:database-url env))}}]
+                :db @db/db-spec}]
     (case (first args)
       "migrate"
       (if (> (count args) 1)
