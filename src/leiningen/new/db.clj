@@ -13,7 +13,8 @@
    ['org.clojure/java.jdbc "0.3.7"]
    ['instaparse "1.4.1"]
    ['yesql "0.5.0-rc3"]
-   ['to-jdbc-uri "0.1.0"]
+   ['clj-dbcp "0.8.1"]
+   ['to-jdbc-uri "0.2.0"]
    ({:postgres ['org.postgresql/postgresql "9.3-1102-jdbc41"]
      :mysql    ['mysql/mysql-connector-java "5.1.6"]
      :h2       ['com.h2database/h2 "1.4.187"]}
@@ -32,11 +33,7 @@
   (let [timestamp (.format
                     (java.text.SimpleDateFormat. "yyyyMMddHHmmss")
                     (java.util.Date.))]
-    [["src/<<sanitized>>/db/core.clj"
-      (str "db/src/" ({:postgres "postgres.db.clj"
-                       :mysql    "mysql.db.clj"
-                       :h2       "h2.db.clj"}
-                       (select-db options)))]
+    [["src/<<sanitized>>/db/core.clj" "db/src/sql.db.clj"]
      ["src/<<sanitized>>/db/migrations.clj" "db/src/migrations.clj"]
      ["resources/sql/queries.sql" "db/sql/queries.sql"]
      ["test/<<sanitized>>/test/db/core.clj" "db/test/db/core.clj"]
@@ -66,6 +63,7 @@
        (update-in [:dev-dependencies] conj ['mvxcvi/puget "0.8.1"])
        (assoc
          :relational-db true
+         :db-type (name db)
          :migrations (str {:store :database})
          :db-docs ((:selmer-renderer options)
                     (slurp-resource (if (= :h2 db)

@@ -73,7 +73,9 @@
    shuts down, put any clean up code here"
   []
   (timbre/info "<<name>> is shutting down...")
-  (stop-nrepl)
+  (stop-nrepl)<% if relational-db %>
+  (db/disconnect!)
+  <% endif %>
   (timbre/info "shutdown complete!"))
 
 (def app-base
