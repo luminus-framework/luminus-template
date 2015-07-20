@@ -40,8 +40,7 @@
    :init-size  1
    :min-idle   1
    :max-idle   4
-   :max-active 32})
-<% endifequal %><% ifequal db-type "mysql" %>
+   :max-active 32})<% endifequal %><% ifequal db-type "mysql" %>
 
 (def pool-spec
   {:adapter    :mysql
