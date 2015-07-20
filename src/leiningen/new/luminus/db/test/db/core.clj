@@ -14,7 +14,7 @@
 (deftest test-users
   ;; Make sure the user with id 1 doesn't exist.
   ;; You can also use transactions around tests to ensure that.
-  (jdbc/with-db-transaction [trans-conn (:connection @db/conn)]
+  (jdbc/with-db-transaction [trans-conn @db/conn]
     (jdbc/db-set-rollback-only! trans-conn)
     (is (= 1 (db/execute
                db/create-user!
@@ -23,7 +23,7 @@
                 :last_name  "Smith"
                 :email      "sam.smith@example.com"
                 :pass       "pass"}
-               {:connection trans-conn})))
+               trans-conn)))
     (is (= [{:id         "1"
              :first_name "Sam"
              :last_name  "Smith"
@@ -32,4 +32,4 @@
              :admin      nil
              :last_login nil
              :is_active  nil}]
-           (db/execute db/get-user {:id "1"} {:connection trans-conn})))))
+           (db/execute db/get-user {:id "1"} trans-conn)))))

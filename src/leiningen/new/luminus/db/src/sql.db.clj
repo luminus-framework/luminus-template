@@ -54,16 +54,16 @@
   (try
     (reset!
       conn
-      {:connection<% ifequal db-type "h2" %>
-       {:classname   "org.h2.Driver"
-        :connection-uri (:database-url env)
-        :make-pool?     true
-        :naming         {:keys   clojure.string/lower-case
-                         :fields clojure.string/upper-case}}<% else %>
-       {:datasource
-        (dbcp/make-datasource
-          (assoc pool-spec
-            :jdbc-url (to-jdbc-uri (env :database-url))))}<% endifequal %>})
+      <% ifequal db-type "h2" %>
+      {:classname   "org.h2.Driver"
+       :connection-uri (:database-url env)
+       :make-pool?     true
+       :naming         {:keys   clojure.string/lower-case
+                        :fields clojure.string/upper-case}}<% else %>
+      {:datasource
+       (dbcp/make-datasource
+         (assoc pool-spec
+           :jdbc-url (to-jdbc-uri (env :database-url))))}<% endifequal %>)
     (catch Exception e
       (timbre/error "Error occured while connecting to the database!" e))))
 
@@ -80,7 +80,7 @@
   ([query-fn query-map] (execute query-fn query-map @conn))
   ([query-fn query-map db]
    (try
-     (query-fn query-map db)
+     (query-fn query-map {:connection db})
      (catch BatchUpdateException e
        (throw (or (.getNextException e) e))))))
 <% ifequal db-type "mysql" %>
