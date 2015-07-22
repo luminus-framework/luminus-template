@@ -4,8 +4,7 @@
             <<service-required>><% endif %>
             [<<project-ns>>.middleware :as middleware]
             [<<project-ns>>.session :as session]<% if relational-db %>
-            [<<project-ns>>.db.core :as db]
-            <% endif %>
+            [<<project-ns>>.db.core :as db]<% endif %>
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
             [taoensso.timbre.appenders.3rd-party.rotor :as rotor]

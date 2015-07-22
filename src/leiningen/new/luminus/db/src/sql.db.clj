@@ -53,8 +53,7 @@
 (defn connect! []
   (try
     (reset!
-      conn
-      <% ifequal db-type "h2" %>
+      conn<% ifequal db-type "h2" %>
       {:classname   "org.h2.Driver"
        :connection-uri (:database-url env)
        :make-pool?     true
