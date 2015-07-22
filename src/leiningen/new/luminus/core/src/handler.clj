@@ -58,8 +58,7 @@
 
   (if (env :dev) (parser/cache-off!))
   (start-nrepl)<% if relational-db %>
-  (db/connect!)
-  <% endif %>
+  (db/connect!)<% endif %>
   ;;start the expired session cleanup job
   (session/start-cleanup-job!)
   (timbre/info (str
@@ -73,8 +72,7 @@
   []
   (timbre/info "<<name>> is shutting down...")
   (stop-nrepl)<% if relational-db %>
-  (db/disconnect!)
-  <% endif %>
+  (db/disconnect!)<% endif %>
   (timbre/info "shutdown complete!"))
 
 (def app-base

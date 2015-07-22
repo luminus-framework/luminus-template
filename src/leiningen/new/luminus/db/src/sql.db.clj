@@ -33,23 +33,22 @@
 
 (defonce conn (atom nil))
 
-(defqueries "sql/queries.sql")
-<% ifequal db-type "postgres" %>
+(defqueries "sql/queries.sql")<% ifequal db-type "postgres" %>
+
 (def pool-spec
   {:adapter    :postgresql
    :init-size  1
    :min-idle   1
    :max-idle   4
-   :max-active 32})
-<% endifequal %>
-<% ifequal db-type "mysql" %>
+   :max-active 32})<% endifequal %><% ifequal db-type "mysql" %>
+
 (def pool-spec
   {:adapter    :mysql
    :init-size  1
    :min-idle   1
    :max-idle   4
-   :max-active 32})
-<% endifequal %>
+   :max-active 32})<% endifequal %>
+ 
 (defn connect! []
   (try
     (reset!
@@ -135,5 +134,4 @@
   IPersistentMap
   (sql-value [value] (to-pg-json value))
   IPersistentVector
-  (sql-value [value] (to-pg-json value)))
-<% endifequal %>
+  (sql-value [value] (to-pg-json value)))<% endifequal %>
