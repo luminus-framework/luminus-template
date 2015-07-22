@@ -49,7 +49,7 @@
   (wrap-anti-forgery handler))
 
 (defn wrap-formats [handler]
-  (wrap-restful-format handler :formats [:json-kw :transit-json :transit-msgpack]))
+  (wrap-restful-format handler {:formats [:json-kw :transit-json :transit-msgpack]}))
 <% if auth-middleware-required %>
 (defn on-error [request response]
   {:status  403
