@@ -66,9 +66,10 @@
       (timbre/error "Error occured while connecting to the database!" e))))
 
 (defn disconnect! []<% ifunequal db-type "h2" %>
-  (when-let [conn (:datasource conn)]
-    (when-not (.isClosed conn)
-      (.close conn)))<% endifunequal %>)
+  (when-let [ds (:datasource @conn)]
+    (when-not (.isClosed ds)
+      (.close ds)
+      (reset! conn nil)))<% endifunequal %>)
 
 (defn run
   "executes a Yesql query using the given database connection and parameter map
