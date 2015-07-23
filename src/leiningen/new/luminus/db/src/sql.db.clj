@@ -48,7 +48,7 @@
    :min-idle   1
    :max-idle   4
    :max-active 32})<% endifequal %>
- 
+
 (defn connect! []
   (try
     (reset!
@@ -66,7 +66,7 @@
       (timbre/error "Error occured while connecting to the database!" e))))
 
 (defn disconnect! []<% ifunequal db-type "h2" %>
-  (when-let [conn (:connection conn)]
+  (when-let [conn (:datasource conn)]
     (when-not (.isClosed conn)
       (.close conn)))<% endifunequal %>)
 
