@@ -12,8 +12,6 @@
     (f)))
 
 (deftest test-users
-  ;; Make sure the user with id 1 doesn't exist.
-  ;; You can also use transactions around tests to ensure that.
   (jdbc/with-db-transaction [trans-conn @db/conn]
     (jdbc/db-set-rollback-only! trans-conn)
     (is (= 1 (db/run
