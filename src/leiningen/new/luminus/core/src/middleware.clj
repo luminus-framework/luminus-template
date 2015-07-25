@@ -8,6 +8,7 @@
             [prone.middleware :refer [wrap-exceptions]]
             [ring.util.response :refer [redirect]]
             [ring.middleware.reload :as reload]
+            [ring.middleware.webjars :refer [wrap-webjars]]
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
             [ring.middleware.session-timeout :refer [wrap-idle-session-timeout]]
@@ -82,5 +83,6 @@
         (-> site-defaults
             (assoc-in [:security :anti-forgery] false)
             (assoc-in  [:session :store] (memory-store session/mem))))
+      wrap-webjars
       wrap-servlet-context
       wrap-internal-error))
