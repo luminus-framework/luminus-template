@@ -10,7 +10,7 @@
 
 (defn db-dependencies [options]
   [['migratus "0.8.2"]
-   ['org.clojure/java.jdbc "0.3.7"]
+   ['org.clojure/java.jdbc "0.4.1"]
    ['instaparse "1.4.1"]
    ['yesql "0.5.0-rc3"]
    ['clj-dbcp "0.8.1"]
