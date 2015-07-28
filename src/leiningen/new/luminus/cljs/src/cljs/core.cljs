@@ -21,7 +21,10 @@
        [:a {:href "#/about"} "About"]]]]]])
 
 (defn about-page []
-  [:div "this is the story of <<name>>... work in progress"])
+  [:div.container
+   [:div.row
+    [:div.col-md-12
+     "this is the story of <<name>>... work in progress"]]])
 
 (defn home-page []
   [:div.container
@@ -33,10 +36,10 @@
     [:div.col-md-12
      [:h2 "Welcome to ClojureScript"]]]
    (when-let [docs (session/get :docs)]
-             [:div.row
-              [:div.col-md-12
-               [:div {:dangerouslySetInnerHTML
-                      {:__html (md->html docs)}}]]])])
+     [:div.row
+      [:div.col-md-12
+       [:div {:dangerouslySetInnerHTML
+              {:__html (md->html docs)}}]]])])
 
 (def pages
   {:home #'home-page
@@ -69,16 +72,13 @@
 ;; -------------------------
 ;; Initialize app
 (defn fetch-docs! []
-      (GET "/docs" {:handler #(session/put! :docs %)}))
+  (GET "/docs" {:handler #(session/put! :docs %)}))
 
 (defn mount-components []
-  (reagent/render-component [#'navbar] (.getElementById js/document "navbar"))
-  (reagent/render-component [#'page] (.getElementById js/document "app")))
+  (reagent/render [#'navbar] (.getElementById js/document "navbar"))
+  (reagent/render [#'page] (.getElementById js/document "app")))
 
 (defn init! []
   (fetch-docs!)
   (hook-browser-navigation!)
-  (session/put! :page :home)
   (mount-components))
-
-
