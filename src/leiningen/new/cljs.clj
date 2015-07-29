@@ -62,6 +62,7 @@
          (append-options :plugins [['lein-cljsbuild "1.0.6"]])
          (append-options :dev-plugins [['lein-figwheel "0.3.7"]])
          (update-in [:clean-targets] (fnil into []) clean-targets)
+         (update-in [:gitignore] conj "resources/public/js")
          (assoc
            :cljs true
            :cljs-build (indent root-indent cljs-build)

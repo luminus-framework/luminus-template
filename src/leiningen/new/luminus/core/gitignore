@@ -8,4 +8,5 @@ pom.xml
 /.lein-*
 profiles.clj
 /.env
-*.log
+*.log<% for item in gitignore %>
+<<item>><% endfor %>
