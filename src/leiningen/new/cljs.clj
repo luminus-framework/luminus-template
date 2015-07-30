@@ -16,7 +16,7 @@
    ['reagent-utils "0.1.5"]
    ['secretary "1.2.3"]
    ['org.clojure/core.async "0.1.346.0-17112a-alpha"]
-   ['cljs-ajax "0.3.13"]])
+   ['cljs-ajax "0.3.14"]])
 
 (def clean-targets ["resources/public/js"])
 
@@ -62,6 +62,7 @@
          (append-options :plugins [['lein-cljsbuild "1.0.6"]])
          (append-options :dev-plugins [['lein-figwheel "0.3.7"]])
          (update-in [:clean-targets] (fnil into []) clean-targets)
+         (update-in [:gitignore] conj "resources/public/js")
          (assoc
            :cljs true
            :cljs-build (indent root-indent cljs-build)
