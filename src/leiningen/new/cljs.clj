@@ -18,7 +18,9 @@
    ['org.clojure/core.async "0.1.346.0-17112a-alpha"]
    ['cljs-ajax "0.3.14"]])
 
-(def clean-targets ["resources/public/js"])
+(def clean-targets [:target-path
+                    [:cljsbuild :builds :app :compiler :output-dir]
+                    [:cljsbuild :builds :app :compiler :output-to]])
 
 (def cljs-dev-dependencies
   [['lein-figwheel "0.3.7"]
