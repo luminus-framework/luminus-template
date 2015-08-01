@@ -2,8 +2,7 @@
   (:require [compojure.core :refer [defroutes routes wrap-routes]]
             [<<project-ns>>.routes.home :refer [home-routes]]<% if service-required %>
             <<service-required>><% endif %>
-            [<<project-ns>>.middleware :as middleware]
-            [<<project-ns>>.session :as session]<% if relational-db %>
+            [<<project-ns>>.middleware :as middleware]<% if relational-db %>
             [<<project-ns>>.db.core :as db]<% endif %>
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
@@ -59,8 +58,6 @@
   (if (env :dev) (parser/cache-off!))
   (start-nrepl)<% if relational-db %>
   (db/connect!)<% endif %>
-  ;;start the expired session cleanup job
-  (session/start-cleanup-job!)
   (timbre/info (str
                  "\n-=[<<name>> started successfully"
                  (when (env :dev) " using the development profile")
