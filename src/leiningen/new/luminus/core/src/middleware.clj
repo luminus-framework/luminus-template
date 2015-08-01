@@ -11,8 +11,6 @@
             [ring.middleware.webjars :refer [wrap-webjars]]
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
-            [ring.middleware.session-timeout :refer [wrap-idle-session-timeout]]
-            [ring.middleware.session.memory :refer [memory-store]]
             [ring.middleware.format :refer [wrap-restful-format]]<% if service-middleware-required %>
             <<service-middleware-required>><% endif %><% if auth-middleware-required %>
             <<auth-middleware-required>><% endif %>))
@@ -75,14 +73,11 @@
   (-> handler
       wrap-dev<% if auth-middleware-required %>
       wrap-auth<% endif %>
-      (wrap-idle-session-timeout
-        {:timeout (* 60 30)
-         :timeout-response (redirect "/")})
       wrap-formats
       (wrap-defaults
         (-> site-defaults
             (assoc-in [:security :anti-forgery] false)
-            (assoc-in  [:session :store] (memory-store session/mem))))
+            (assoc-in  [:session :store] session/ttl-mem)))
       wrap-webjars
       wrap-servlet-context
       wrap-internal-error))
