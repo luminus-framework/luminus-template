@@ -33,7 +33,6 @@
    ["src/<<sanitized>>/routes/home.clj" "core/src/home.clj"]
    ["src/<<sanitized>>/layout.clj" "core/src/layout.clj"]
    ["src/<<sanitized>>/middleware.clj" "core/src/middleware.clj"]
-   ["src/<<sanitized>>/session.clj" "core/src/session.clj"]
 
    ;;HTML templates
    ["resources/templates/base.html" "core/resources/templates/base.html"]

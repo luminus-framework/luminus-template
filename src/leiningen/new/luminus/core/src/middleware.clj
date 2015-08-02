@@ -1,11 +1,11 @@
 (ns <<project-ns>>.middleware
-  (:require [<<project-ns>>.session :as session]
-            [<<project-ns>>.layout :refer [*servlet-context*]]
+  (:require [<<project-ns>>.layout :refer [*servlet-context*]]
             [taoensso.timbre :as timbre]
             [environ.core :refer [env]]
             [clojure.java.io :as io]
             [selmer.middleware :refer [wrap-error-page]]
             [prone.middleware :refer [wrap-exceptions]]
+            [ring-ttl-session.core :refer [ttl-memory-store]]
             [ring.util.response :refer [redirect]]
             [ring.middleware.reload :as reload]
             [ring.middleware.webjars :refer [wrap-webjars]]
@@ -77,7 +77,7 @@
       (wrap-defaults
         (-> site-defaults
             (assoc-in [:security :anti-forgery] false)
-            (assoc-in  [:session :store] session/ttl-mem)))
+            (assoc-in  [:session :store] (ttl-memory-store (* 60 30)))))
       wrap-webjars
       wrap-servlet-context
       wrap-internal-error))

@@ -9,7 +9,7 @@
     [cheshire.core :refer [generate-string parse-string]]
     [taoensso.timbre :as timbre]
     [clojure.java.jdbc :as jdbc]
-    [luminus-db.core :as db]
+    [conman.core :as conman]
     [to-jdbc-uri.core :refer [to-jdbc-uri]]
     [environ.core :refer [env]])
   (:import org.postgresql.util.PGobject
@@ -23,7 +23,7 @@
   (:require
     [taoensso.timbre :as timbre]
     [clojure.java.jdbc :as jdbc]
-    [luminus-db.core :as db]
+    [conman.core :as conman]
     [to-jdbc-uri.core :refer [to-jdbc-uri]]
     [environ.core :refer [env]])
   (:import [java.sql BatchUpdateException
@@ -40,7 +40,7 @@
 
 (defonce ^:dynamic conn (atom nil))
 
-(db/bind-connection conn "sql/queries.sql")<% ifequal db-type "postgres" %>
+(conman/bind-connection conn "sql/queries.sql")<% ifequal db-type "postgres" %>
 
 (def pool-spec
   {:adapter    :postgresql
@@ -57,14 +57,14 @@
    :max-active 32})<% endifequal %>
 
 (defn connect! []
-  (db/connect!
+  (conman/connect!
    conn
    (assoc
      pool-spec
      :jdbc-url (to-jdbc-uri (env :database-url)))))
 
 (defn disconnect! []
-  (db/disconnect! conn))<% endifequal %><% ifequal db-type "mysql" %>
+  (conman/disconnect! conn))<% endifequal %><% ifequal db-type "mysql" %>
 
 (defn to-date [sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))

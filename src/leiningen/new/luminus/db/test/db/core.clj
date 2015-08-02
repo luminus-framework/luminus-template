@@ -3,7 +3,7 @@
             [<<project-ns>>.db.migrations :as migrations]
             [clojure.test :refer :all]
             [clojure.java.jdbc :as jdbc]<% ifunequal db-type "h2" %>
-            [luminus-db.core :refer [with-transaction]]<% endifunequal %>
+            [conman.core :refer [with-transaction]]<% endifunequal %>
             [environ.core :refer [env]]))
 
 (use-fixtures
