@@ -56,7 +56,6 @@
     (create-ns queries-ns)
     (in-ns queries-ns)
     (require '[yesql.core :as yesql])
-    (defonce ^:dynamic conn (atom nil))
     (doseq [filename filenames]
       (let [yesql-queries (yesql/defqueries filename)]
         (doall
