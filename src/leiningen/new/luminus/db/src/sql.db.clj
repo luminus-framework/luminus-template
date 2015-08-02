@@ -58,14 +58,13 @@
     (require '[yesql.core :as yesql])
     (doseq [filename filenames]
       (let [yesql-queries (yesql/defqueries filename)]
-        (doall
-         (for [yesql-query yesql-queries]
-           (intern base-namespace
-                   (with-meta (:name (meta yesql-query)) (meta yesql-queries))
-                   (fn
-                     ([] (yesql-query {} {:connection @conn}))
-                     ([args] (yesql-query args {:connection @conn}))
-                     ([args conn] (yesql-query args {:connection conn}))))))))
+        (doseq [yesql-query yesql-queries]
+          (intern base-namespace
+                  (with-meta (:name (meta yesql-query)) (meta yesql-queries))
+                  (fn
+                    ([] (yesql-query {} {:connection @conn}))
+                    ([args] (yesql-query args {:connection @conn}))
+                    ([args conn] (yesql-query args {:connection conn})))))))
     (in-ns (ns-name base-namespace))))
 
 (defmacro with-transaction
