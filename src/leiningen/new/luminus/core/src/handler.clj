@@ -56,8 +56,8 @@
                            :backlog 10})}})
 
   (if (env :dev) (parser/cache-off!))
-  (start-nrepl)<% if relational-db %>
-  (db/connect!)<% endif %>
+  (start-nrepl)<% if relational-db %><% ifunequal db-type "h2" %>
+  (db/connect!)<% endifunequal %><% endif %>
   (timbre/info (str
                  "\n-=[<<name>> started successfully"
                  (when (env :dev) " using the development profile")
@@ -68,8 +68,8 @@
    shuts down, put any clean up code here"
   []
   (timbre/info "<<name>> is shutting down...")
-  (stop-nrepl)<% if relational-db %>
-  (db/disconnect!)<% endif %>
+  (stop-nrepl)<% if relational-db %><% ifunequal db-type "h2" %>
+  (db/disconnect!)<% endifunequal %><% endif %>
   (timbre/info "shutdown complete!"))
 
 (def app-base

@@ -9,8 +9,7 @@
     [cheshire.core :refer [generate-string parse-string]]
     [taoensso.timbre :as timbre]
     [clojure.java.jdbc :as jdbc]
-    [yesql.core :as yesql]
-    [clj-dbcp.core :as dbcp]
+    [luminus-db.core :as db]
     [to-jdbc-uri.core :refer [to-jdbc-uri]]
     [environ.core :refer [env]])
   (:import org.postgresql.util.PGobject
@@ -24,8 +23,7 @@
   (:require
     [taoensso.timbre :as timbre]
     [clojure.java.jdbc :as jdbc]
-    [yesql.core :as yesql]
-    [clj-dbcp.core :as dbcp]
+    [luminus-db.core :as db]
     [to-jdbc-uri.core :refer [to-jdbc-uri]]
     [environ.core :refer [env]])
   (:import [java.sql BatchUpdateException
@@ -38,45 +36,11 @@
    :naming         {:keys   clojure.string/lower-case
                     :fields clojure.string/upper-case}})
 
-(defqueries "sql/queries.sql" {:connection conn})
-
-(defn connect! [])
-
-(defn disconnect! [])<% else %>
+(defqueries "sql/queries.sql" {:connection conn})<% else %>
 
 (defonce ^:dynamic conn (atom nil))
 
-(defn init!
-  "initialize wrapper queries for Yesql connectionless queries
-   the wrappers will use the current connection defined in the conn atom
-   unless one is explicitly passed in"
-  [& filenames]
-  (let [base-namespace *ns*
-        queries-ns (-> *ns* ns-name name (str ".connectionless-queries") symbol)]
-    (create-ns queries-ns)
-    (in-ns queries-ns)
-    (require '[yesql.core :as yesql])
-    (doseq [filename filenames]
-      (let [yesql-queries (yesql/defqueries filename)]
-        (doseq [yesql-query yesql-queries]
-          (intern base-namespace
-                  (with-meta (:name (meta yesql-query)) (meta yesql-queries))
-                  (fn
-                    ([] (yesql-query {} {:connection @conn}))
-                    ([args] (yesql-query args {:connection @conn}))
-                    ([args conn] (yesql-query args {:connection conn})))))))
-    (in-ns (ns-name base-namespace))))
-
-(defmacro with-transaction
-  "runs the body in a transaction where t-conn is the name of the transaction connection
-   the body will be evaluated within a binding where conn is set to the transactional
-   connection"
-  [t-conn & body]
-  `(jdbc/with-db-transaction [~t-conn @<<project-ns>>.db.core/conn]
-     (binding [<<project-ns>>.db.core/conn (atom ~t-conn)]
-       ~@body)))
-
-(init! "sql/queries.sql")<% ifequal db-type "postgres" %>
+(db/bind-connection conn "sql/queries.sql")<% ifequal db-type "postgres" %>
 
 (def pool-spec
   {:adapter    :postgresql
@@ -93,22 +57,14 @@
    :max-active 32})<% endifequal %>
 
 (defn connect! []
-  (try
-    (reset!
-     conn
-     {:datasource
-      (dbcp/make-datasource
-       (assoc
-        pool-spec
-        :jdbc-url (to-jdbc-uri (env :database-url))))})
-    (catch Throwable t
-      (throw (Exception. "Error occured while connecting to the database!" t)))))
+  (db/connect!
+   conn
+   (assoc
+     pool-spec
+     :jdbc-url (to-jdbc-uri (env :database-url)))))
 
-(defn disconnect! [conn]
-  (when-let [ds (:datasource @conn)]
-    (when-not (.isClosed ds)
-      (.close ds)
-      (reset! conn nil))))<% endifequal %><% ifequal db-type "mysql" %>
+(defn disconnect! []
+  (db/disconnect! conn))<% endifequal %><% ifequal db-type "mysql" %>
 
 (defn to-date [sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))
