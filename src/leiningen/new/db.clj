@@ -10,10 +10,7 @@
 
 (defn db-dependencies [options]
   [['migratus "0.8.2"]
-   ['org.clojure/java.jdbc "0.4.1"]
-   ['instaparse "1.4.1"]
-   ['yesql "0.5.0-rc3"]
-   ['clj-dbcp "0.8.1"]
+   ['luminus-db "0.1.0"]
    ['to-jdbc-uri "0.2.0"]
    ({:postgres ['org.postgresql/postgresql "9.3-1102-jdbc41"]
      :mysql    ['mysql/mysql-connector-java "5.1.6"]

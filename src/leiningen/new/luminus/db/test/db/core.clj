@@ -1,8 +1,10 @@
 (ns <<project-ns>>.test.db.core
-  (:require [clojure.test :refer :all]
-            [<<project-ns>>.db.core :as db]
+  (:require [<<project-ns>>.db.core :as db]
+            [<<project-ns>>.db.migrations :as migrations]
+            [clojure.test :refer :all]
             [clojure.java.jdbc :as jdbc]
-            [<<project-ns>>.db.migrations :as migrations]))
+            [environ.core :refer [env]]<% ifunequal db-type "h2" %>
+            [luminus-db.core :refer [with-transaction]]<% endifunequal %>))
 
 (use-fixtures
   :once
@@ -12,16 +14,14 @@
     (f)))
 
 (deftest test-users
-  (jdbc/with-db-transaction [trans-conn @db/conn]
+  (<% ifequal db-type "h2" %>jdbc/with-db-transaction [trans-conn db/conn]<% else %>with-transaction trans-conn<% endifequal %>
     (jdbc/db-set-rollback-only! trans-conn)
-    (is (= 1 (db/run
-               db/create-user!
+    (is (= 1 (db/create-user!
                {:id         "1"
                 :first_name "Sam"
                 :last_name  "Smith"
                 :email      "sam.smith@example.com"
-                :pass       "pass"}
-               trans-conn)))
+                :pass       "pass"})))
     (is (= [{:id         "1"
              :first_name "Sam"
              :last_name  "Smith"
@@ -30,4 +30,4 @@
              :admin      nil
              :last_login nil
              :is_active  nil}]
-           (db/run db/get-user {:id "1"} trans-conn)))))
+           (db/get-user {:id "1"})))))
