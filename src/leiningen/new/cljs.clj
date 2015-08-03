@@ -8,11 +8,11 @@
    ["resources/templates/home.html" "cljs/templates/home.html"]])
 
 (def cljs-dependencies
-  [['org.clojure/clojurescript "1.7.10" :scope "provided"]
+  [['org.clojure/clojurescript "1.7.28" :scope "provided"]
    ['org.clojure/tools.reader "0.9.2"]
    ['reagent "0.5.0"]
    ['cljsjs/react "0.13.3-1"]
-   ['reagent-forms "0.5.4"]
+   ['reagent-forms "0.5.5"]
    ['reagent-utils "0.1.5"]
    ['secretary "1.2.3"]
    ['org.clojure/core.async "0.1.346.0-17112a-alpha"]
