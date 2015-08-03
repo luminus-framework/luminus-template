@@ -58,8 +58,8 @@
         {:port port})
       (timbre/info "server started on port:" port)
       (catch Throwable t
-        (timbre/error (str "server failed to start on port: " port) t)))))
-<% else %>
+        (timbre/error (str "server failed to start on port: " port) t)))))<% else %>
+
 (defonce server (atom nil))<% ifequal server "immutant" %>
 
 (defn start-http-server [port]
@@ -118,8 +118,8 @@
     (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app))
     (start-nrepl)
     (timbre/info "server is starting on port " port)
-    (start-http-server port)))
-<% endifequal %><% endifequal %>
+    (start-http-server port)))<% endifequal %><% endifequal %>
+
 (defn -main [& args]
   <% if relational-db %>(cond
     (some #{"migrate" "rollback"} args) (migrations/migrate args)
