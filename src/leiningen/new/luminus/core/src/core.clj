@@ -39,8 +39,7 @@
           (timbre/error "failed to start nREPL" t))))))
 
 (defn http-port [port]
-  (parse-port (or port (env :port) 3000)))
-<% ifequal server "aleph" %>
+  (parse-port (or port (env :port) 3000)))<% ifequal server "aleph" %>
 
 (defn stop-app []
   (stop-nrepl)
@@ -61,8 +60,8 @@
       (catch Throwable t
         (timbre/error (str "server failed to start on port: " port) t)))))
 <% else %>
-(defonce server (atom nil))
-<% ifequal server "immutant" %>
+(defonce server (atom nil))<% ifequal server "immutant" %>
+
 (defn start-http-server [port]
   (init)
   (reset! server (immutant/run app :port port)))
@@ -81,9 +80,8 @@
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app))
   (start-nrepl)
   (start-http-server (http-port port))
-  (timbre/info "server started on port:" (:port @server)))
-<% else %>
-<% ifequal server "http-kit" %>
+  (timbre/info "server started on port:" (:port @server)))<% else %><% ifequal server "http-kit" %>
+
 (defn start-http-server [port]
   (init)
   (reset! server
@@ -95,8 +93,8 @@
   (when @server
     (destroy)
     (@server :timeout 100)
-    (reset! server nil)))
-<% endifequal %><% ifequal server "jetty" %>
+    (reset! server nil)))<% endifequal %><% ifequal server "jetty" %>
+
 (defn start-http-server [port]
   (init)
   (reset! server
@@ -109,8 +107,8 @@
   (when @server
     (destroy)
     (.stop @server)
-    (reset! server nil)))
-<% endifequal %>
+    (reset! server nil)))<% endifequal %>
+
 (defn stop-app []
   (stop-nrepl)
   (stop-http-server))
