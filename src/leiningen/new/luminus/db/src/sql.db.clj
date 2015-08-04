@@ -10,7 +10,6 @@
     [taoensso.timbre :as timbre]
     [clojure.java.jdbc :as jdbc]
     [conman.core :as conman]
-    [to-jdbc-uri.core :refer [to-jdbc-uri]]
     [environ.core :refer [env]])
   (:import org.postgresql.util.PGobject
            org.postgresql.jdbc4.Jdbc4Array
@@ -24,7 +23,6 @@
     [taoensso.timbre :as timbre]
     [clojure.java.jdbc :as jdbc]
     [conman.core :as conman]
-    [to-jdbc-uri.core :refer [to-jdbc-uri]]
     [environ.core :refer [env]])
   (:import [java.sql BatchUpdateException
             PreparedStatement])<% endifequal %>)<% ifequal db-type "h2"%>
@@ -61,7 +59,7 @@
    conn
    (assoc
      pool-spec
-     :jdbc-url (to-jdbc-uri (env :database-url)))))
+     :jdbc-url (env :database-url))))
 
 (defn disconnect! []
   (conman/disconnect! conn))<% endifequal %><% ifequal db-type "mysql" %>
