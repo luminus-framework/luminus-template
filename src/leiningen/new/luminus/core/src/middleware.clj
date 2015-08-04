@@ -74,10 +74,10 @@
       wrap-dev<% if auth-middleware-required %>
       wrap-auth<% endif %>
       wrap-formats
+      wrap-webjars
       (wrap-defaults
         (-> site-defaults
             (assoc-in [:security :anti-forgery] false)
             (assoc-in  [:session :store] (ttl-memory-store (* 60 30)))))
-      wrap-webjars
       wrap-servlet-context
       wrap-internal-error))
