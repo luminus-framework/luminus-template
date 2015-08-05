@@ -61,7 +61,7 @@
 
 (defn wrap-identity [handler]
   (fn [request]
-    (binding [*identity* (or (get-in request [:session :identity]) nil)]
+    (binding [*identity* (get-in request [:session :identity])]
       (handler request))))
 
 (defn wrap-auth [handler]
