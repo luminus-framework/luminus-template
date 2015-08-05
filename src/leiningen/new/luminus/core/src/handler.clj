@@ -39,14 +39,10 @@
   (db/disconnect!)<% endifunequal %><% endif %>
   (timbre/info "shutdown complete!"))
 
-(defroutes base-routes
-  (route/resources "/")
-  (route/not-found "Not Found"))
-
 (def app-base
   (routes<% if service-routes %>
     <<service-routes>><% endif %>
     (wrap-routes #'home-routes middleware/wrap-csrf)
-    #'base-routes))
+    (route/not-found "Not Found")))
 
 (def app (middleware/wrap-base #'app-base))
