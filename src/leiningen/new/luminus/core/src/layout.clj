@@ -31,6 +31,8 @@
   "error-details should be a map containing the following keys:
    :code - error code
    :title - error title (optional)
-   :message - detailed error message (optional)"
+   :message - detailed error message (optional)
+
+   returns HTML string"
   [error-details]
   (parser/render-file "error.html" error-details))
