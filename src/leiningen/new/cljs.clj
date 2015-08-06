@@ -5,10 +5,11 @@
   [["src-cljs/<<sanitized>>/core.cljs" "cljs/src/cljs/core.cljs"]
    ["env/dev/cljs/<<sanitized>>/dev.cljs" "cljs/env/dev/cljs/app.cljs"]
    ["env/prod/cljs/<<sanitized>>/prod.cljs" "cljs/env/prod/cljs/app.cljs"]
-   ["resources/templates/home.html" "cljs/templates/home.html"]])
+   ["resources/templates/home.html" "cljs/templates/home.html"]
+   ["resources/templates/error.html" "core/resources/templates/error.html"]])
 
 (def cljs-dependencies
-  [['org.clojure/clojurescript "1.7.28" :scope "provided"]
+  [['org.clojure/clojurescript "1.7.58" :scope "provided"]
    ['org.clojure/tools.reader "0.9.2"]
    ['reagent "0.5.0"]
    ['cljsjs/react "0.13.3-1"]
