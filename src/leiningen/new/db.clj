@@ -10,7 +10,7 @@
 
 (defn db-dependencies [options]
   [['migratus "0.8.2"]
-   ['conman "0.1.4"]
+   ['conman "0.1.5"]
    ({:postgres ['org.postgresql/postgresql "9.3-1102-jdbc41"]
      :mysql    ['mysql/mysql-connector-java "5.1.6"]
      :h2       ['com.h2database/h2 "1.4.187"]}
