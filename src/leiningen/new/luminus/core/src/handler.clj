@@ -1,5 +1,6 @@
 (ns <<project-ns>>.handler
   (:require [compojure.core :refer [defroutes routes wrap-routes]]
+            [<<project-ns>>.layout :refer [error-page]]
             [<<project-ns>>.routes.home :refer [home-routes]]<% if service-required %>
             <<service-required>><% endif %>
             [<<project-ns>>.middleware :as middleware]<% if relational-db %>
@@ -43,6 +44,8 @@
   (routes<% if service-routes %>
     <<service-routes>><% endif %>
     (wrap-routes #'home-routes middleware/wrap-csrf)
-    (route/not-found "Not Found")))
+    (route/not-found
+      (error-page {:code 404
+                   :title "page not found"}))))
 
 (def app (middleware/wrap-base #'app-base))
