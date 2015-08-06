@@ -40,7 +40,7 @@
   (db/disconnect!)<% endifunequal %><% endif %>
   (timbre/info "shutdown complete!"))
 
-(def app-base
+(def app-routes
   (routes<% if service-routes %>
     <<service-routes>><% endif %>
     (wrap-routes #'home-routes middleware/wrap-csrf)
@@ -48,4 +48,4 @@
       (error-page {:code 404
                    :title "page not found"}))))
 
-(def app (middleware/wrap-base #'app-base))
+(def app (middleware/wrap-base #'app-routes))
