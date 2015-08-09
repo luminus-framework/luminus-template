@@ -7,7 +7,7 @@
                  [selmer "0.8.8"]
                  [com.taoensso/timbre "4.0.2"]
                  [com.taoensso/tower "3.0.2"]
-                 [markdown-clj "0.9.67"]
+                 [markdown-clj "0.9.68"]
                  [environ "1.0.0"]
                  [compojure "1.4.0"]
                  [ring-webjars "0.1.1"]
