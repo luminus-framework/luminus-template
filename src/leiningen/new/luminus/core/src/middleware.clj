@@ -5,7 +5,6 @@
             [selmer.middleware :refer [wrap-error-page]]
             [prone.middleware :refer [wrap-exceptions]]
             [ring-ttl-session.core :refer [ttl-memory-store]]
-            [ring.util.http-response :refer [internal-server-error forbidden]]
             [ring.middleware.reload :as reload]
             [ring.middleware.webjars :refer [wrap-webjars]]
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
@@ -35,10 +34,9 @@
       (handler req)
       (catch Throwable t
         (timbre/error t)
-        (internal-server-error
-          (error-page {:code 500
-                       :title "Something very bad has happened!"
-                       :message "We've dispatched a team of highly trained gnomes to take care of the problem."}))))))
+        (error-page {:status 500
+                     :title "Something very bad has happened!"
+                     :message "We've dispatched a team of highly trained gnomes to take care of the problem."})))))
 
 (defn wrap-dev [handler]
   (if (env :dev)
@@ -52,17 +50,17 @@
   (wrap-anti-forgery
     handler
     {:error-response
-     (forbidden
-       (error-page {:code 403
-                    :title "Invalid anti-forgery token"}))}))
+     (error-page
+       {:status 403
+        :title "Invalid anti-forgery token"})}))
 
 (defn wrap-formats [handler]
   (wrap-restful-format handler {:formats [:json-kw :transit-json :transit-msgpack]}))
 <% if auth-middleware-required %>
 (defn on-error [request response]
-  {:status  403
-   :headers {"Content-Type" "text/plain"}
-   :body    (str "Access to " (:uri request) " is not authorized")})
+  (error-page
+    {:status 403
+     :title (str "Access to " (:uri request) " is not authorized")}))
 
 (defn wrap-restricted [handler]
   (restrict handler {:handler authenticated?

@@ -45,7 +45,8 @@
     <<service-routes>><% endif %>
     (wrap-routes #'home-routes middleware/wrap-csrf)
     (route/not-found
-      (error-page {:code 404
-                   :title "page not found"}))))
+      (:body
+        (error-page {:status 404
+                     :title "page not found"})))))
 
 (def app (middleware/wrap-base #'app-routes))
