@@ -5,7 +5,7 @@
             [selmer.middleware :refer [wrap-error-page]]
             [prone.middleware :refer [wrap-exceptions]]
             [ring-ttl-session.core :refer [ttl-memory-store]]
-            [ring.util.http-response :refer [internal-server-error]]
+            [ring.util.http-response :refer [internal-server-error forbidden]]
             [ring.middleware.reload :as reload]
             [ring.middleware.webjars :refer [wrap-webjars]]
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
@@ -49,7 +49,12 @@
     handler))
 
 (defn wrap-csrf [handler]
-  (wrap-anti-forgery handler))
+  (wrap-anti-forgery
+    handler
+    {:error-response
+     (forbidden
+       (error-page {:code 403
+                    :title "Invalid anti-forgery token"}))}))
 
 (defn wrap-formats [handler]
   (wrap-restful-format handler {:formats [:json-kw :transit-json :transit-msgpack]}))
