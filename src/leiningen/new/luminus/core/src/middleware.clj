@@ -25,7 +25,7 @@
                      (catch IllegalArgumentException _ context))
                 ;; if the context is not specified in the request
                 ;; we check if one has been specified in the environment
-                ;; istead
+                ;; instead
                 (:servlet-context env))]
       (handler request))))
 
