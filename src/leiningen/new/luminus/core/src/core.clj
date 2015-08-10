@@ -60,17 +60,17 @@
       (catch Throwable t
         (timbre/error (str "server failed to start on port: " port) t)))))<% else %>
 
-(defonce server (atom nil))<% ifequal server "immutant" %>
+(defonce http-server (atom nil))<% ifequal server "immutant" %>
 
 (defn start-http-server [port]
   (init)
-  (reset! server (immutant/run app :port port)))
+  (reset! http-server (immutant/run app :port port)))
 
 (defn stop-http-server []
-  (when @server
+  (when @http-server
     (destroy)
-    (immutant/stop @server)
-    (reset! server nil)))
+    (immutant/stop @http-server)
+    (reset! http-server nil)))
 
 (defn stop-app []
   (stop-nrepl)
@@ -80,34 +80,34 @@
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app))
   (start-nrepl)
   (start-http-server (http-port port))
-  (timbre/info "server started on port:" (:port @server)))<% else %><% ifequal server "http-kit" %>
+  (timbre/info "server started on port:" (:port @http-server)))<% else %><% ifequal server "http-kit" %>
 
 (defn start-http-server [port]
   (init)
-  (reset! server
+  (reset! http-server
           (http-kit/run-server
             app
             {:port port})))
 
 (defn stop-http-server []
-  (when @server
+  (when @http-server
     (destroy)
-    (@server :timeout 100)
-    (reset! server nil)))<% endifequal %><% ifequal server "jetty" %>
+    (@http-server :timeout 100)
+    (reset! http-server nil)))<% endifequal %><% ifequal server "jetty" %>
 
 (defn start-http-server [port]
   (init)
-  (reset! server
+  (reset! http-server
           (run-jetty
             {:ring-handler app
              :port port
              :join? false})))
 
 (defn stop-http-server []
-  (when @server
+  (when @http-server
     (destroy)
-    (.stop @server)
-    (reset! server nil)))<% endifequal %>
+    (.stop @http-server)
+    (reset! http-server nil)))<% endifequal %>
 
 (defn stop-app []
   (stop-nrepl)
