@@ -2,7 +2,7 @@
   (:require [leiningen.new.common :refer :all]))
 
 (def cucumber-assets
-  [["test/<<sanitized>>/browser.clj" "cucumber/src/browser.clj"]
+  [["test/{{sanitized}}/browser.clj" "cucumber/src/browser.clj"]
    ["test/features/step_definitions/home_page_steps.clj" "cucumber/src/home_page_steps.clj"]
    ["resources/log4j.properties" "cucumber/resources/log4j.properties"]
    ["test/features/index_page.feature" "cucumber/resources/index_page.feature"]])

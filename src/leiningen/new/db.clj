@@ -29,10 +29,10 @@
   (let [timestamp (.format
                     (java.text.SimpleDateFormat. "yyyyMMddHHmmss")
                     (java.util.Date.))]
-    [["src/<<sanitized>>/db/core.clj" "db/src/sql.db.clj"]
-     ["src/<<sanitized>>/db/migrations.clj" "db/src/migrations.clj"]
+    [["src/{{sanitized}}/db/core.clj" "db/src/sql.db.clj"]
+     ["src/{{sanitized}}/db/migrations.clj" "db/src/migrations.clj"]
      ["resources/sql/queries.sql" "db/sql/queries.sql"]
-     ["test/<<sanitized>>/test/db/core.clj" "db/test/db/core.clj"]
+     ["test/{{sanitized}}/test/db/core.clj" "db/test/db/core.clj"]
      [(str "resources/migrations/" timestamp "-add-users-table.up.sql") "db/migrations/add-users-table.up.sql"]
      [(str "resources/migrations/" timestamp "-add-users-table.down.sql") "db/migrations/add-users-table.down.sql"]]))
 
@@ -41,7 +41,7 @@
    :database-profile-test (str :database-url " \"" (db-url options "test") "\"")})
 
 (def mongo-files
-  [["src/<<sanitized>>/db/core.clj" "db/src/mongodb.clj"]])
+  [["src/{{sanitized}}/db/core.clj" "db/src/mongodb.clj"]])
 
 (defn add-mongo [[assets options]]
   [(into assets mongo-files)

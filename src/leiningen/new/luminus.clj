@@ -3,7 +3,6 @@
              :refer [name-to-path year
                      sanitize sanitize-ns project-name]]
             [leinjacker.utils :refer [lein-generation]]
-            [selmer.parser :as selmer]
             [leiningen.core.main :as main]
             [leiningen.new.common :refer :all]
             [leiningen.new.auth :refer [auth-features]]
@@ -28,11 +27,11 @@
    ["README.md" "core/README.md"]
 
    ;; core namespaces
-   ["src/<<sanitized>>/core.clj" "core/src/core.clj"]
-   ["src/<<sanitized>>/handler.clj" "core/src/handler.clj"]
-   ["src/<<sanitized>>/routes/home.clj" "core/src/home.clj"]
-   ["src/<<sanitized>>/layout.clj" "core/src/layout.clj"]
-   ["src/<<sanitized>>/middleware.clj" "core/src/middleware.clj"]
+   ["src/{{sanitized}}/core.clj" "core/src/core.clj"]
+   ["src/{{sanitized}}/handler.clj" "core/src/handler.clj"]
+   ["src/{{sanitized}}/routes/home.clj" "core/src/home.clj"]
+   ["src/{{sanitized}}/layout.clj" "core/src/layout.clj"]
+   ["src/{{sanitized}}/middleware.clj" "core/src/middleware.clj"]
 
    ;;HTML templates
    ["resources/templates/base.html" "core/resources/templates/base.html"]
@@ -47,13 +46,7 @@
    "resources/public/img"
 
    ;; tests
-   ["test/<<sanitized>>/test/handler.clj" "core/test/handler.clj"]])
-
-(defn render-template [template options]
-  (selmer/render
-    (str "<% safe %>" template "<% endsafe %>")
-    options
-    {:tag-open \< :tag-close \> :filter-open \< :filter-close \>}))
+   ["test/{{sanitized}}/test/handler.clj" "core/test/handler.clj"]])
 
 (defn format-options [options]
   (-> options
@@ -65,22 +58,21 @@
   "Create a new Luminus project"
   [options]
   (main/info "Generating a Luminus project.")
-  (with-redefs [leiningen.new.templates/render-text render-template]
-    (let [[assets options]
-          (-> [core-assets options]
-              auth-features
-              db-features
-              cucumber-features
-              site-features
-              cljs-features
-              swagger-features
-              aleph-features
-              jetty-features
-              http-kit-features
-              immutant-features
-              sassc-features
-              war-features)]
-      (render-assets assets (format-options options)))))
+  (let [[assets options]
+        (-> [core-assets options]
+            auth-features
+            db-features
+            cucumber-features
+            site-features
+            cljs-features
+            swagger-features
+            aleph-features
+            jetty-features
+            http-kit-features
+            immutant-features
+            sassc-features
+            war-features)]
+    (render-assets assets (format-options options))))
 
 (defn format-features [features]
   (apply str (interpose ", " features)))

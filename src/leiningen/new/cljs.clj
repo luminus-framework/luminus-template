@@ -2,9 +2,9 @@
   (:require [leiningen.new.common :refer :all]))
 
 (def cljs-assets
-  [["src-cljs/<<sanitized>>/core.cljs" "cljs/src/cljs/core.cljs"]
-   ["env/dev/cljs/<<sanitized>>/dev.cljs" "cljs/env/dev/cljs/app.cljs"]
-   ["env/prod/cljs/<<sanitized>>/prod.cljs" "cljs/env/prod/cljs/app.cljs"]
+  [["src-cljs/{{sanitized}}/core.cljs" "cljs/src/cljs/core.cljs"]
+   ["env/dev/cljs/{{sanitized}}/dev.cljs" "cljs/env/dev/cljs/app.cljs"]
+   ["env/prod/cljs/{{sanitized}}/prod.cljs" "cljs/env/prod/cljs/app.cljs"]
    ["resources/templates/home.html" "cljs/templates/home.html"]
    ["resources/templates/error.html" "core/resources/templates/error.html"]])
 
