@@ -13,7 +13,7 @@
             <<service-middleware-required>><% endif %><% if auth-middleware-required %>
             <<auth-middleware-required>><% endif %>))
 
-(defn wrap-servlet-context [handler]
+(defn wrap-context [handler]
   (fn [request]
     (binding [*app-context*
               (if-let [context (:servlet-context request)]
@@ -86,5 +86,5 @@
         (-> site-defaults
             (assoc-in [:security :anti-forgery] false)
             (assoc-in  [:session :store] (ttl-memory-store (* 60 30)))))
-      wrap-servlet-context
+      wrap-context
       wrap-internal-error))
