@@ -1,5 +1,5 @@
 (ns <<project-ns>>.middleware
-  (:require [<<project-ns>>.layout :refer [*servlet-context* error-page]]
+  (:require [<<project-ns>>.layout :refer [*app-context* error-page]]
             [taoensso.timbre :as timbre]
             [environ.core :refer [env]]
             [selmer.middleware :refer [wrap-error-page]]
@@ -15,7 +15,7 @@
 
 (defn wrap-servlet-context [handler]
   (fn [request]
-    (binding [*servlet-context*
+    (binding [*app-context*
               (if-let [context (:servlet-context request)]
                 ;; If we're not inside a servlet environment
                 ;; (for example when using mock requests), then
@@ -25,7 +25,7 @@
                 ;; if the context is not specified in the request
                 ;; we check if one has been specified in the environment
                 ;; instead
-                (:servlet-context env))]
+                (:app-context env))]
       (handler request))))
 
 (defn wrap-internal-error [handler]

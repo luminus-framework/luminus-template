@@ -8,7 +8,7 @@
             [environ.core :refer [env]]))
 
 <% if auth-middleware-required %>(declare ^:dynamic *identity*)<% endif %>
-(declare ^:dynamic *servlet-context*)
+(declare ^:dynamic *app-context*)
 (parser/set-resource-path!  (clojure.java.io/resource "templates"))
 (parser/add-tag! :csrf-field (fn [_ _] (anti-forgery-field)))
 (filters/add-filter! :markdown (fn [content] [:safe (md-to-html-string content)]))
@@ -24,7 +24,7 @@
           :page template
           :dev (env :dev)
           :csrf-token *anti-forgery-token*
-          :servlet-context *servlet-context*)))
+          :servlet-context *app-context*)))
     "text/html; charset=utf-8"))
 
 (defn error-page
