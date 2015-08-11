@@ -2,7 +2,7 @@
   (:require [leiningen.new.templates
              :refer [name-to-path year
                      sanitize sanitize-ns project-name]]
-            [leinjacker.utils :refer [lein-generation]]
+            [leiningen.core.main :refer [leiningen-version]]
             [leiningen.core.main :as main]
             [leiningen.new.common :refer :all]
             [leiningen.new.auth :refer [auth-features]]
@@ -85,6 +85,18 @@
     (update-in options [:features] conj "+immutant")
     options))
 
+(defn parse-version [v]
+  (map #(Integer/parseInt %)
+       (clojure.string/split v #"\.")))
+
+(defn old-version? [v]
+  (let [[x1 y1 z1] (parse-version (leiningen-version))
+        [x2 y2 z2] (parse-version v)]
+    (or
+      (< x2 x1)
+      (< y2 y1)
+      (and (= x2 x1) (= y2 y1) (< z2 z1)))))
+
 (defn luminus
   "Create a new Luminus project"
   [name & feature-params]
@@ -107,8 +119,8 @@
                         (clojure.set/difference supported-features)
                         (not-empty))]
     (cond
-      (< (lein-generation) 2)
-      (main/info "Leiningen version 2.x is required.")
+      (old-version? "2.5.2")
+      (main/info "Leiningen version 2.5.2+ is required, found " (leiningen-version) "\nplease run: 'lein upgrade'")
 
       (re-matches #"\A\+.+" name)
       (main/info "Project name is missing.\nTry: lein new luminus PROJECT_NAME"
