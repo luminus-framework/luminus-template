@@ -72,7 +72,7 @@
             immutant-features
             sassc-features
             war-features)]
-    (render-assets assets (format-options options))))
+    (render-assets (init-render) assets (format-options options))))
 
 (defn format-features [features]
   (apply str (interpose ", " features)))

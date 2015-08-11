@@ -18,21 +18,21 @@
     options
     {:tag-open \< :tag-close \> :filter-open \< :filter-close \>}))
 
-(def render (renderer "luminus" render-template))
+(defn init-render [] (renderer "luminus" render-template))
 
 (defn slurp-resource [path]
   (-> (str "leiningen/new/luminus/" path)
       clojure.java.io/resource
       slurp))
 
-(defn render-asset [options asset]
+(defn render-asset [render options asset]
   (if (string? asset)
     asset
     (let [[target source] asset]
       [target (render source options)])))
 
-(defn render-assets [assets options]
-  (apply ->files options (map (partial render-asset options) assets)))
+(defn render-assets [render assets options]
+  (apply ->files options (map (partial render-asset render options) assets)))
 
 (defn pprint-code [code]
   (-> (pprint code)
