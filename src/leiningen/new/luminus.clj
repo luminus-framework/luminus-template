@@ -121,7 +121,8 @@
                         (not-empty))]
     (cond
       (version-before? min-version)
-      (main/info "Leiningen version " min-version "+ is required, found " (leiningen-version) "\nplease run: 'lein upgrade'")
+      (main/info "Leiningen version" min-version "or higher is required, found " (leiningen-version)
+                 "\nplease run: 'lein upgrade' to upgrade Leiningen")
 
       (re-matches #"\A\+.+" name)
       (main/info "Project name is missing.\nTry: lein new luminus PROJECT_NAME"
