@@ -89,18 +89,19 @@
   (map #(Integer/parseInt %)
        (clojure.string/split v #"\.")))
 
-(defn old-version? [v]
+(defn version-before? [v]
   (let [[x1 y1 z1] (parse-version (leiningen-version))
         [x2 y2 z2] (parse-version v)]
     (or
-      (< x2 x1)
-      (< y2 y1)
-      (and (= x2 x1) (= y2 y1) (< z2 z1)))))
+      (< x1 x2)
+      (and (= x1 x2) (< y1 y2))
+      (and (and (= x1 x2) (= y1 y2) (< z1 z2))))))
 
 (defn luminus
   "Create a new Luminus project"
   [name & feature-params]
-  (let [supported-features #{;;databases
+  (let [min-version "2.5.2"
+        supported-features #{;;databases
                              "+h2" "+postgres" "+mysql" "+mongodb"
                              ;;servers
                              "+aleph" "+jetty" "+http-kit"
@@ -119,8 +120,8 @@
                         (clojure.set/difference supported-features)
                         (not-empty))]
     (cond
-      (old-version? "2.5.2")
-      (main/info "Leiningen version 2.5.2+ is required, found " (leiningen-version) "\nplease run: 'lein upgrade'")
+      (version-before? min-version)
+      (main/info "Leiningen version " min-version "+ is required, found " (leiningen-version) "\nplease run: 'lein upgrade'")
 
       (re-matches #"\A\+.+" name)
       (main/info "Project name is missing.\nTry: lein new luminus PROJECT_NAME"
