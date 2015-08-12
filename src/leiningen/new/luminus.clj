@@ -86,14 +86,16 @@
     options))
 
 (defn parse-version [v]
-  (->> (clojure.string/split v #"\.")
-       (map #(Integer/parseInt %))
-       (map #(/ %2 %1) [1 10 100])
-       (reduce +)))
+  (map #(Integer/parseInt %)
+       (clojure.string/split v #"\.")))
 
 (defn version-before? [v]
-  (< (parse-version (leiningen-version))
-     (parse-version v)))
+  (let [[x1 y1 z1] (parse-version (leiningen-version))
+        [x2 y2 z2] (parse-version v)]
+    (or
+      (< x1 x2)
+      (and (= x1 x2) (< y1 y2))
+      (and (and (= x1 x2) (= y1 y2) (< z1 z2))))))
 
 (defn luminus
   "Create a new Luminus project"
