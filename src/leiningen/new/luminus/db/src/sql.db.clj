@@ -2,12 +2,10 @@
   (:require
     [clojure.java.jdbc :as jdbc]
     [yesql.core :refer [defqueries]]
-    [taoensso.timbre :as timbre]
     [environ.core :refer [env]])
   (:import java.sql.BatchUpdateException)<% endifequal %><% ifequal db-type "postgres" %>
   (:require
     [cheshire.core :refer [generate-string parse-string]]
-    [taoensso.timbre :as timbre]
     [clojure.java.jdbc :as jdbc]
     [conman.core :as conman]
     [environ.core :refer [env]])
@@ -20,7 +18,6 @@
             Timestamp
             PreparedStatement])<% endifequal %><% ifequal db-type "mysql" %>
   (:require
-    [taoensso.timbre :as timbre]
     [clojure.java.jdbc :as jdbc]
     [conman.core :as conman]
     [environ.core :refer [env]])
