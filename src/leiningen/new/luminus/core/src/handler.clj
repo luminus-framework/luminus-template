@@ -3,8 +3,8 @@
             [<<project-ns>>.layout :refer [error-page]]
             [<<project-ns>>.routes.home :refer [home-routes]]<% if service-required %>
             <<service-required>><% endif %>
-            [<<project-ns>>.middleware :as middleware]<% if relational-db %>
-            [<<project-ns>>.db.core :as db]<% endif %>
+            [<<project-ns>>.middleware :as middleware]<% if relational-db %><% ifunequal db-type "h2" %>
+            [<<project-ns>>.db.core :as db]<% endifunequal %><% endif %>
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
             [taoensso.timbre.appenders.3rd-party.rotor :as rotor]
