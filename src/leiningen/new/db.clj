@@ -13,7 +13,7 @@
    ['conman "0.1.6"]
    ({:postgres ['org.postgresql/postgresql "9.3-1102-jdbc41"]
      :mysql    ['mysql/mysql-connector-java "5.1.34"]
-     :h2       ['com.h2database/h2 "1.4.187"]}
+     :h2       ['com.h2database/h2 "1.4.188"]}
      (select-db options))])
 
 (defn db-url [{:keys [sanitized] :as options} suffix]

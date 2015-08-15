@@ -4,7 +4,7 @@
   :url "http://example.com/FIXME"
 
   :dependencies [[org.clojure/clojure "1.7.0"]
-                 [selmer "0.8.8"]
+                 [selmer "0.8.9"]
                  [com.taoensso/timbre "4.1.0"]
                  [com.taoensso/tower "3.0.2"]
                  [markdown-clj "0.9.68"]
