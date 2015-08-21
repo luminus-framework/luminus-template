@@ -11,7 +11,7 @@
 (def cljs-dependencies
   [['org.clojure/clojurescript "1.7.107" :scope "provided"]
    ['org.clojure/tools.reader "0.9.2"]
-   ['reagent "0.5.0"]
+   ['reagent "0.5.1-rc"]
    ['cljsjs/react "0.13.3-1"]
    ['reagent-forms "0.5.6"]
    ['reagent-utils "0.1.5"]
