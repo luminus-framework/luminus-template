@@ -36,7 +36,7 @@
              (reset! nrepl-server))
         (timbre/info "nREPL server started on port" port)
         (catch Throwable t
-          (timbre/error "failed to start nREPL" t))))))
+          (timbre/error t "failed to start nREPL"))))))
 
 (defn http-port [port]
   (parse-port (or port (env :port) 3000)))<% ifequal server "aleph" %>
@@ -58,7 +58,7 @@
         {:port port})
       (timbre/info "server started on port:" port)
       (catch Throwable t
-        (timbre/error (str "server failed to start on port: " port) t)))))<% else %>
+        (timbre/error t (str "server failed to start on port: " port))))))<% else %>
 
 (defonce http-server (atom nil))<% ifequal server "immutant" %>
 
