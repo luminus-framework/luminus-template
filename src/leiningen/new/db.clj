@@ -6,14 +6,16 @@
     (some #{"+postgres"} features) :postgres
     (some #{"+mysql"} features) :mysql
     (some #{"+mongodb"} features) :mongo
-    (some #{"+h2"} features) :h2))
+    (some #{"+h2"} features) :h2
+    (some #{"+sqlite"} features) :sqlite))
 
 (defn db-dependencies [options]
   [['migratus "0.8.4"]
    ['conman "0.1.7"]
    ({:postgres ['org.postgresql/postgresql "9.4-1201-jdbc41"]
      :mysql    ['mysql/mysql-connector-java "5.1.34"]
-     :h2       ['com.h2database/h2 "1.4.188"]}
+     :h2       ['com.h2database/h2 "1.4.188"]
+     :sqlite   ['org.xerial/sqlite-jdbc "3.8.11.1"]}
      (select-db options))])
 
 (defn db-url [{:keys [sanitized] :as options} suffix]
@@ -22,6 +24,7 @@
     :mysql    (str "jdbc:mysql://localhost:3306/" sanitized "_" suffix
                    "?user=db_user_name_here&password=db_user_password_here")
     :h2       (str "jdbc:h2:./" sanitized "_" suffix ".db")
+    :sqlite   (str "jdbc:sqlite:" sanitized "_" suffix ".db")
     :mongo    (str "mongodb://127.0.0.1/" sanitized "_" suffix)}
     (select-db options)))
 
@@ -60,6 +63,7 @@
        (assoc
          :relational-db true
          :db-type (name db)
+         :embedded-db (some #{(name db)} ["h2" "sqlite"])
          :migrations (str {:store :database})
          :db-docs ((:selmer-renderer options)
                     (slurp-resource (if (= :h2 db)

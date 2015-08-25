@@ -3,8 +3,8 @@
             [<<project-ns>>.layout :refer [error-page]]
             [<<project-ns>>.routes.home :refer [home-routes]]<% if service-required %>
             <<service-required>><% endif %>
-            [<<project-ns>>.middleware :as middleware]<% if relational-db %><% ifunequal db-type "h2" %>
-            [<<project-ns>>.db.core :as db]<% endifunequal %><% endif %>
+            [<<project-ns>>.middleware :as middleware]<% if relational-db %><% if not embedded-db %>
+            [<<project-ns>>.db.core :as db]<% endif %><% endif %>
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
             [taoensso.timbre.appenders.3rd-party.rotor :as rotor]
@@ -25,8 +25,8 @@
                            :max-size (* 512 1024)
                            :backlog 10})}})
 
-  (if (env :dev) (parser/cache-off!))<% if relational-db %><% ifunequal db-type "h2" %>
-  (db/connect!)<% endifunequal %><% endif %>
+  (if (env :dev) (parser/cache-off!))<% if relational-db %><% if not embedded-db  %>
+  (db/connect!)<% endif %><% endif %>
   (timbre/info (str
                  "\n-=[<<name>> started successfully"
                  (when (env :dev) " using the development profile")
@@ -36,8 +36,8 @@
   "destroy will be called when your application
    shuts down, put any clean up code here"
   []
-  (timbre/info "<<name>> is shutting down...")<% if relational-db %><% ifunequal db-type "h2" %>
-  (db/disconnect!)<% endifunequal %><% endif %>
+  (timbre/info "<<name>> is shutting down...")<% if relational-db %><% if not embedded-db  %>
+  (db/disconnect!)<% endif %><% endif %>
   (timbre/info "shutdown complete!"))
 
 (def app-routes

@@ -1,4 +1,8 @@
-(ns <<project-ns>>.db.core<% ifequal db-type "h2" %>
+(ns <<project-ns>>.db.core<% ifequal db-type "sqlite"%>
+  (:require
+    [clojure.java.jdbc :as jdbc]
+    [yesql.core :refer [defqueries]]
+    [environ.core :refer [env]])<% endifequal %><% ifequal db-type "h2" %>
   (:require
     [clojure.java.jdbc :as jdbc]
     [yesql.core :refer [defqueries]]
@@ -13,7 +17,8 @@
            org.postgresql.jdbc4.Jdbc4Array
            clojure.lang.IPersistentMap
            clojure.lang.IPersistentVector
-           [java.sql BatchUpdateException
+           [java.sql
+            BatchUpdateException
             Date
             Timestamp
             PreparedStatement])<% endifequal %><% ifequal db-type "mysql" %>
@@ -21,9 +26,15 @@
     [clojure.java.jdbc :as jdbc]
     [conman.core :as conman]
     [environ.core :refer [env]])
-  (:import [java.sql BatchUpdateException
-            PreparedStatement])<% endifequal %>)<% ifequal db-type "h2"%>
-
+  (:import [java.sql
+            BatchUpdateException
+            PreparedStatement])<% endifequal %>)<% if embedded-db %>
+<% ifequal db-type "sqlite"%>
+(def conn
+  {:classname      "org.sqlite.JDBC"
+   :connection-uri (:database-url env)
+   :naming         {:keys   clojure.string/lower-case
+                    :fields clojure.string/upper-case}})<% endifequal %><% ifequal db-type "h2"%>
 (def conn
   {:classname   "org.h2.Driver"
    :connection-uri (:database-url env)
@@ -31,7 +42,7 @@
    :naming         {:keys   clojure.string/lower-case
                     :fields clojure.string/upper-case}})
 
-(defqueries "sql/queries.sql" {:connection conn})<% else %>
+(defqueries "sql/queries.sql" {:connection conn})<% endifequal %><% else %>
 
 (defonce ^:dynamic conn (atom nil))
 
@@ -59,7 +70,7 @@
      :jdbc-url (env :database-url))))
 
 (defn disconnect! []
-  (conman/disconnect! conn))<% endifequal %><% ifequal db-type "mysql" %>
+  (conman/disconnect! conn))<% endif %><% ifequal db-type "mysql" %>
 
 (defn to-date [sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))

@@ -102,7 +102,7 @@
   [name & feature-params]
   (let [min-version "2.5.2"
         supported-features #{;;databases
-                             "+h2" "+postgres" "+mysql" "+mongodb"
+                             "+sqlite" "+h2" "+postgres" "+mysql" "+mongodb"
                              ;;servers
                              "+aleph" "+jetty" "+http-kit"
                              ;;misc
