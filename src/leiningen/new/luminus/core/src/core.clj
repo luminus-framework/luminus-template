@@ -43,7 +43,8 @@
 
 (defn stop-app []
   (stop-nrepl)
-  (destroy))
+  (destroy)
+  (shutdown-agents))
 
 (defn start-app
   "e.g. lein run 3000"
@@ -74,7 +75,8 @@
 
 (defn stop-app []
   (stop-nrepl)
-  (stop-http-server))
+  (stop-http-server)
+  (shutdown-agents))
 
 (defn start-app [[port]]
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app))
@@ -111,7 +113,8 @@
 
 (defn stop-app []
   (stop-nrepl)
-  (stop-http-server))
+  (stop-http-server)
+  (shutdown-agents))
 
 (defn start-app [[port]]
   (let [port (http-port port)]
