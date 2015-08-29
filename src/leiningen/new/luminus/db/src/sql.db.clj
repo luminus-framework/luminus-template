@@ -44,9 +44,9 @@
 
 (defqueries "sql/queries.sql" {:connection conn})<% endifequal %><% else %>
 
-(defonce ^:dynamic conn (atom nil))
+(defonce ^:dynamic *conn* (atom nil))
 
-(conman/bind-connection conn "sql/queries.sql")<% ifequal db-type "postgres" %>
+(conman/bind-connection *conn* "sql/queries.sql")<% ifequal db-type "postgres" %>
 
 (def pool-spec
   {:adapter    :postgresql
@@ -64,13 +64,13 @@
 
 (defn connect! []
   (conman/connect!
-   conn
+    *conn*
    (assoc
      pool-spec
      :jdbc-url (env :database-url))))
 
 (defn disconnect! []
-  (conman/disconnect! conn))<% endif %><% ifequal db-type "mysql" %>
+  (conman/disconnect! *conn*))<% endif %><% ifequal db-type "mysql" %>
 
 (defn to-date [sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))
