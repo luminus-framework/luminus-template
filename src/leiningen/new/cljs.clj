@@ -24,7 +24,7 @@
                     [:cljsbuild :builds :app :compiler :output-to]])
 
 (def cljs-dev-dependencies
-  [['lein-figwheel "0.3.7"]
+  [['lein-figwheel "0.3.8"]
    ['org.clojure/tools.nrepl "0.2.10"]])
 
 (def cljs-build
