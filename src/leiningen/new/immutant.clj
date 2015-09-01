@@ -6,5 +6,5 @@
     [assets
      (-> options
          (assoc :server "immutant")
-         (append-options :dependencies [['org.immutant/web "2.0.2"]]))]
+         (append-options :dependencies [['org.immutant/web "2.1.0"]]))]
     state))
