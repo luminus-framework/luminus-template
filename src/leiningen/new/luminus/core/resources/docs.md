@@ -3,17 +3,14 @@
 ### Managing Your Middleware
 
 Request middleware functions are located under the `<<name>>.middleware` namespace.
-A request logging helper called `log-request` is defined below:
 
-```clojure
-(defn log-request [handler]
-  (fn [req]
-    (timbre/debug req)
-    (handler req)))
-```
+This namespace is reserved for any custom middleware for the application. Some default middleware is
+already defined here.
 
-This namespace also defines two vectors for organizing the middleware called `development-middleware` and `production-middleware`.
-Any middleware that you only wish to run in development mode, such as `log-request`, should be added to the first vector.
+The two function for organizing the middleware are called `wrap-dev` and `wrap-base`.
+
+Any middleware that you only wish to run in development mode should be added inside the `wrap-dev` function.
+This middleware will only be invoked when the environment contains the `:dev` key with a truthy value.
 
 ### Here are some links to get started
 
