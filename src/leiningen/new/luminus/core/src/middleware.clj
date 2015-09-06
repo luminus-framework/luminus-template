@@ -3,8 +3,10 @@
             [taoensso.timbre :as timbre]
             [environ.core :refer [env]]
             [selmer.middleware :refer [wrap-error-page]]
-            [prone.middleware :refer [wrap-exceptions]]
-            [ring-ttl-session.core :refer [ttl-memory-store]]
+            [prone.middleware :refer [wrap-exceptions]]<% ifequal server "immutant" %>
+            [ring.middleware.flash :refer [wrap-flash]]
+            [immutant.web.middleware :refer [wrap-session]]<% else %>
+            [ring-ttl-session.core :refer [ttl-memory-store]]<% endifequal %>
             [ring.middleware.reload :as reload]
             [ring.middleware.webjars :refer [wrap-webjars]]
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
@@ -81,10 +83,16 @@
       wrap-dev<% if auth-middleware-required %>
       wrap-auth<% endif %>
       wrap-formats
-      wrap-webjars
+      wrap-webjars<% ifequal server "immutant" %>
       (wrap-defaults
         (-> site-defaults
             (assoc-in [:security :anti-forgery] false)
-            (assoc-in  [:session :store] (ttl-memory-store (* 60 30)))))
+            (dissoc :session)))
+      wrap-flash
+      wrap-session<% else %>
+      (wrap-defaults
+        (-> site-defaults
+            (assoc-in [:security :anti-forgery] false)
+            (assoc-in  [:session :store] (ttl-memory-store (* 60 30)))))<% endifequal %>
       wrap-context
       wrap-internal-error))
