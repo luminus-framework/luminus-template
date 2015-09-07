@@ -84,12 +84,12 @@
       wrap-auth<% endif %>
       wrap-formats
       wrap-webjars<% ifequal server "immutant" %>
+      wrap-flash
+      (wrap-session {:cookie-attrs {:http-only true}})
       (wrap-defaults
         (-> site-defaults
             (assoc-in [:security :anti-forgery] false)
-            (dissoc :session)))
-      wrap-flash
-      (wrap-session {:cookie-attrs {:http-only true}})<% else %>
+            (dissoc :session)))<% else %>
       (wrap-defaults
         (-> site-defaults
             (assoc-in [:security :anti-forgery] false)
