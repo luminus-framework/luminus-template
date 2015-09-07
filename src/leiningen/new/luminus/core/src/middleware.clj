@@ -89,7 +89,7 @@
             (assoc-in [:security :anti-forgery] false)
             (dissoc :session)))
       wrap-flash
-      wrap-session<% else %>
+      (wrap-session {:cookie-attrs {:http-only true}})<% else %>
       (wrap-defaults
         (-> site-defaults
             (assoc-in [:security :anti-forgery] false)
