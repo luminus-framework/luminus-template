@@ -8,7 +8,7 @@
                  [com.taoensso/timbre "4.1.1"]
                  [com.taoensso/tower "3.0.2"]
                  [markdown-clj "0.9.74"]
-                 [environ "1.0.0"]
+                 [environ "1.0.1"]
                  [compojure "1.4.0"]
                  [ring-webjars "0.1.1"]
                  [ring/ring-defaults "0.1.5"]<% ifunequal server "immutant" %>
@@ -48,7 +48,7 @@
              :aot :all}
    :dev           [:project/dev :profiles/dev]
    :test          [:project/test :profiles/test]
-   :project/dev  {:dependencies [[ring/ring-mock "0.2.0"]
+   :project/dev  {:dependencies [[ring/ring-mock "0.3.0"]
                                  [ring/ring-devel "1.4.0"]
                                  [pjstadig/humane-test-output "0.7.0"]<% if dev-dependencies %>
                                  <<dev-dependencies>><% endif %>]
