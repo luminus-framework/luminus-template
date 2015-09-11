@@ -31,7 +31,7 @@
   :main <<project-ns>>.core<% if migrations %>
   :migratus <<migrations>><% endif %>
 
-  :plugins [[lein-environ "1.0.0"]<% if plugins %>
+  :plugins [[lein-environ "1.0.1"]<% if plugins %>
             <<plugins>><% endif %>]<% if cucumber-feature-paths %>
   :cucumber-feature-paths <<cucumber-feature-paths>><% endif %><% if sassc-config-params %>
   :sassc <<sassc-config-params>>
