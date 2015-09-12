@@ -9,13 +9,13 @@
   (:import goog.History))
 
 (defn navbar []
-  (let [collapsed? (atom false)]
+  (let [collapsed? (atom true)]
     (fn []
       [:nav.navbar.navbar-inverse.navbar-fixed-top
        [:div.container
         [:div.navbar-header
          [:button.navbar-toggle
-          {:class         (when @collapsed? "collapsed")
+          {:class         (when-not @collapsed? "collapsed")
            :data-toggle   "collapse"
            :aria-expanded @collapsed?
            :aria-controls "navbar"
@@ -24,14 +24,18 @@
           [:span.icon-bar]
           [:span.icon-bar]
           [:span.icon-bar]]
-         [:a.navbar-brand {:href "#/"} "myapp"]]
+         [:a.navbar-brand {:href "#/"} "<<name>>"]]
         [:div.navbar-collapse.collapse
-         (when @collapsed? {:class "in"})
+         (when-not @collapsed? {:class "in"})
          [:ul.nav.navbar-nav
           [:li {:class (when (= :home (session/get :page)) "active")}
-           [:a {:href "#/"} "Home"]]
+           [:a {:href "#/"
+                :on-click #(reset! collapsed? true)}
+            "Home"]]
           [:li {:class (when (= :about (session/get :page)) "active")}
-           [:a {:href "#/about"} "About"]]]]]])))
+           [:a {:href "#/about"
+                :on-click #(reset! collapsed? true)}
+            "About"]]]]]])))
 
 (defn about-page []
   [:div.container
