@@ -8,6 +8,12 @@
             [ajax.core :refer [GET POST]])
   (:import goog.History))
 
+(defn nav-link [uri title page collapsed?]
+  [:li {:class (when (= page (session/get :page)) "active")}
+   [:a {:href uri
+        :on-click #(reset! collapsed? true)}
+    title]])
+
 (defn navbar []
   (let [collapsed? (atom true)]
     (fn []
@@ -28,14 +34,8 @@
         [:div.navbar-collapse.collapse
          (when-not @collapsed? {:class "in"})
          [:ul.nav.navbar-nav
-          [:li {:class (when (= :home (session/get :page)) "active")}
-           [:a {:href "#/"
-                :on-click #(reset! collapsed? true)}
-            "Home"]]
-          [:li {:class (when (= :about (session/get :page)) "active")}
-           [:a {:href "#/about"
-                :on-click #(reset! collapsed? true)}
-            "About"]]]]]])))
+          [nav-link "#/" "Home" :home collapsed?]
+          [nav-link "#/about" "About" :about collapsed?]]]]])))
 
 (defn about-page []
   [:div.container
