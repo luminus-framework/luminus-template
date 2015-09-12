@@ -8,17 +8,34 @@
             [ajax.core :refer [GET POST]])
   (:import goog.History))
 
+(defn nav-link [uri title page collapsed?]
+  [:li {:class (when (= page (session/get :page)) "active")}
+   [:a {:href uri
+        :on-click #(reset! collapsed? true)}
+    title]])
+
 (defn navbar []
-  [:div.navbar.navbar-inverse.navbar-fixed-top
-   [:div.container
-    [:div.navbar-header
-     [:a.navbar-brand {:href "#/"} "myapp"]]
-    [:div.navbar-collapse.collapse
-     [:ul.nav.navbar-nav
-      [:li {:class (when (= :home (session/get :page)) "active")}
-       [:a {:href "#/"} "Home"]]
-      [:li {:class (when (= :about (session/get :page)) "active")}
-       [:a {:href "#/about"} "About"]]]]]])
+  (let [collapsed? (atom true)]
+    (fn []
+      [:nav.navbar.navbar-inverse.navbar-fixed-top
+       [:div.container
+        [:div.navbar-header
+         [:button.navbar-toggle
+          {:class         (when-not @collapsed? "collapsed")
+           :data-toggle   "collapse"
+           :aria-expanded @collapsed?
+           :aria-controls "navbar"
+           :on-click      #(swap! collapsed? not)}
+          [:span.sr-only "Toggle Navigation"]
+          [:span.icon-bar]
+          [:span.icon-bar]
+          [:span.icon-bar]]
+         [:a.navbar-brand {:href "#/"} "<<name>>"]]
+        [:div.navbar-collapse.collapse
+         (when-not @collapsed? {:class "in"})
+         [:ul.nav.navbar-nav
+          [nav-link "#/" "Home" :home collapsed?]
+          [nav-link "#/about" "About" :about collapsed?]]]]])))
 
 (defn about-page []
   [:div.container
