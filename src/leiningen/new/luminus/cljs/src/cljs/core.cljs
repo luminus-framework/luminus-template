@@ -9,16 +9,29 @@
   (:import goog.History))
 
 (defn navbar []
-  [:div.navbar.navbar-inverse.navbar-fixed-top
-   [:div.container
-    [:div.navbar-header
-     [:a.navbar-brand {:href "#/"} "myapp"]]
-    [:div.navbar-collapse.collapse
-     [:ul.nav.navbar-nav
-      [:li {:class (when (= :home (session/get :page)) "active")}
-       [:a {:href "#/"} "Home"]]
-      [:li {:class (when (= :about (session/get :page)) "active")}
-       [:a {:href "#/about"} "About"]]]]]])
+  (let [collapsed? (atom false)]
+    (fn []
+      [:nav.navbar.navbar-inverse.navbar-fixed-top
+       [:div.container
+        [:div.navbar-header
+         [:button.navbar-toggle
+          {:class         (when @collapsed? "collapsed")
+           :data-toggle   "collapse"
+           :aria-expanded @collapsed?
+           :aria-controls "navbar"
+           :on-click      #(swap! collapsed? not)}
+          [:span.sr-only "Toggle Navigation"]
+          [:span.icon-bar]
+          [:span.icon-bar]
+          [:span.icon-bar]]
+         [:a.navbar-brand {:href "#/"} "myapp"]]
+        [:div.navbar-collapse.collapse
+         (when @collapsed? {:class "in"})
+         [:ul.nav.navbar-nav
+          [:li {:class (when (= :home (session/get :page)) "active")}
+           [:a {:href "#/"} "Home"]]
+          [:li {:class (when (= :about (session/get :page)) "active")}
+           [:a {:href "#/about"} "About"]]]]]])))
 
 (defn about-page []
   [:div.container
