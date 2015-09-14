@@ -12,7 +12,7 @@
                  [compojure "1.4.0"]
                  [ring-webjars "0.1.1"]
                  [ring/ring-defaults "0.1.5"]<% ifunequal server "immutant" %>
-                 [ring-ttl-session "0.1.1"]<% endifunequal %>
+                 [ring-ttl-session "0.3.0"]<% endifunequal %>
                  [ring "1.4.0"
                   :exclusions [ring/ring-jetty-adapter]]
                  [metosin/ring-middleware-format "0.6.0"]
