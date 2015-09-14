@@ -61,13 +61,11 @@ lein ring uberjar
 To run the resulting standalone executable `.jar` file, do as you would with any other:
 
 ```bash
-user$ java -jar target/myapp-0.1.0-SNAPSHOT-standalone.jar
-
-2012-12-15 19:17:23.471:INFO:oejs.Server:jetty-7.x.y-SNAPSHOT
-2012-12-15 19:17:23.512:INFO:oejs.AbstractConnector:Started
-SelectChannelConnector@0.0.0.0:3000
-Server started on port [ 3000 ].
-You can view the site at http://localhost:3000
+user$ java -jar target/myapp.jar
+15-Sep-14 16:06:21 APc47d.4f39.65e6.uhn.ca INFO [myapp.handler] -
+-=[myapp started successfully]=-
+16:06:21.685 INFO  [org.projectodd.wunderboss.web.Web] (main) Registered web context /
+15-Sep-14 16:06:21 APc47d.4f39.65e6.uhn.ca INFO [myapp.core] - server started on port: 3002
 ```
 
 To build a [WAR][war] (or Web application ARchive) file run:
