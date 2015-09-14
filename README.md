@@ -23,7 +23,7 @@ However, if you would like to attach further functionality to your template you 
 
 * `+aleph` adds the [Aleph](https://github.com/ztellman/aleph) server
 * `+http-kit` adds the fast [HTTP Kit](http://www.http-kit.org/) web server to the project
-* `+immutant` adds the [Immutant](http://immutant.org/) web server to the project
+* `+jetty` adds the [jetty](https://github.com/mpenet/jet) web server to the project
 
 ### databases
 
