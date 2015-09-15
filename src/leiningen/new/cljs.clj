@@ -43,8 +43,8 @@
 (def cljs-dev
   {:cljsbuild {:builds
                {:app
-                {:compiler {:source-map true}
-                 :source-paths ["env/dev/cljs"]}}}})
+                {:source-paths ["env/dev/cljs"]
+                 :compiler {:source-map true}}}}})
 
 (defn figwheel [{:keys [project-ns]}]
   {:http-server-root "public"
