@@ -29,9 +29,7 @@
 (def cljs-build
   {:builds {:app {:source-paths ["src-cljs"]
                   :compiler     {:output-to     "resources/public/js/app.js"
-                                 :output-dir    "resources/public/js/out"
                                  :externs       ["react/externs/react.js"]
-                                 :optimizations :none
                                  :pretty-print  true}}}})
 
 (def cljs-uberjar
@@ -45,8 +43,8 @@
 (def cljs-dev
   {:cljsbuild {:builds
                {:app
-                {:compiler {:source-map true}
-                 :source-paths ["env/dev/cljs"]}}}})
+                {:source-paths ["env/dev/cljs"]
+                 :compiler {:source-map true}}}}})
 
 (defn figwheel [{:keys [project-ns]}]
   {:http-server-root "public"
