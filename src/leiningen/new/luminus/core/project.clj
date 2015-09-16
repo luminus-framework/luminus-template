@@ -19,7 +19,7 @@
                  [metosin/ring-http-response "0.6.5"]
                  [bouncer "0.3.3"]
                  [prone "0.8.2"]
-                 [org.clojure/tools.nrepl "0.2.10"]
+                 [org.clojure/tools.nrepl "0.2.11"]
                  [org.webjars/bootstrap "3.3.5"]
                  [org.webjars/jquery "2.1.4"]
                  <<dependencies>>]
