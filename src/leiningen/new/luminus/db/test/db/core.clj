@@ -14,7 +14,7 @@
     (f)))
 
 (deftest test-users
-  (<% ifequal db-type "h2" %>jdbc/with-db-transaction<% else %>with-transaction<% endifequal %> [t-conn db/conn]
+  (<% ifequal db-type "h2" %>jdbc/with-db-transaction<% else %>with-transaction<% endifequal %> [t-conn db/*conn*]
     (jdbc/db-set-rollback-only! t-conn)
     (is (= 1 (db/create-user!
                {:id         "1"
