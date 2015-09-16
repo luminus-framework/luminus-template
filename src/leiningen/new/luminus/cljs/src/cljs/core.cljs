@@ -89,7 +89,7 @@
 ;; -------------------------
 ;; Initialize app
 (defn fetch-docs! []
-  (GET "/docs" {:handler #(session/put! :docs %)}))
+  (GET (str js/context "/docs") {:handler #(session/put! :docs %)}))
 
 (defn mount-components []
   (reagent/render [#'navbar] (.getElementById js/document "navbar"))
