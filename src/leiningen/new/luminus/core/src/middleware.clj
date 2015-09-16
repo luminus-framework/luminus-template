@@ -13,7 +13,8 @@
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
             [ring.middleware.format :refer [wrap-restful-format]]<% if service-middleware-required %>
             <<service-middleware-required>><% endif %><% if auth-middleware-required %>
-            <<auth-middleware-required>><% endif %>))
+            <<auth-middleware-required>><% endif %>)
+  (:import [javax.servlet ServletContext]))
 
 (defn wrap-context [handler]
   (fn [request]
@@ -22,7 +23,7 @@
                 ;; If we're not inside a servlet environment
                 ;; (for example when using mock requests), then
                 ;; .getContextPath might not exist
-                (try (.getContextPath context)
+                (try (.getContextPath ^ServletContext context)
                      (catch IllegalArgumentException _ context))
                 ;; if the context is not specified in the request
                 ;; we check if one has been specified in the environment
