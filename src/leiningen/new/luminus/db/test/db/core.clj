@@ -2,8 +2,8 @@
   (:require [<<project-ns>>.db.core :as db]
             [<<project-ns>>.db.migrations :as migrations]
             [clojure.test :refer :all]
-            [clojure.java.jdbc :as jdbc]<% ifunequal db-type "h2" %>
-            [conman.core :refer [with-transaction]]<% endifunequal %>
+            [clojure.java.jdbc :as jdbc]<% if not embedded-db %>
+            [conman.core :refer [with-transaction]]<% endif %>
             [environ.core :refer [env]]))
 
 (use-fixtures
@@ -14,7 +14,7 @@
     (f)))
 
 (deftest test-users
-  (<% ifequal db-type "h2" %>jdbc/with-db-transaction<% else %>with-transaction<% endifequal %> [t-conn db/conn]
+  (<% if embedded-db %>jdbc/with-db-transaction [t-conn db/conn]<% else %>with-transaction [t-conn db/*conn*]<% endif %>
     (jdbc/db-set-rollback-only! t-conn)
     (is (= 1 (db/create-user!
                {:id         "1"

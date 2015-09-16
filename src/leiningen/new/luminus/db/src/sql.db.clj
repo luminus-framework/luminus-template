@@ -1,13 +1,7 @@
-(ns <<project-ns>>.db.core<% ifequal db-type "sqlite"%>
+(ns <<project-ns>>.db.core<% if embedded-db %>
   (:require
-    [clojure.java.jdbc :as jdbc]
     [yesql.core :refer [defqueries]]
-    [environ.core :refer [env]])<% endifequal %><% ifequal db-type "h2" %>
-  (:require
-    [clojure.java.jdbc :as jdbc]
-    [yesql.core :refer [defqueries]]
-    [environ.core :refer [env]])
-  (:import java.sql.BatchUpdateException)<% endifequal %><% ifequal db-type "postgres" %>
+    [environ.core :refer [env]])<% endif %><% ifequal db-type "postgres" %>
   (:require
     [cheshire.core :refer [generate-string parse-string]]
     [clojure.java.jdbc :as jdbc]
