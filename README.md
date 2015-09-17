@@ -77,6 +77,16 @@ lein ring uberwar
 You can then easily deploy the resulting WAR to Tomcat or any other Java application
 server.
 
+## Performance Testing
+
+The app can be stress tested by running the [Apache benchmark](https://httpd.apache.org/docs/2.2/programs/ab.html) command:
+
+```
+ab -c 10 -n 1000 http://127.0.0.1:3000/
+```
+
+The memory and CPU usage can be inspected by running either `jconsole` or `jvisualvm` and attaching them to a running Luminus server.
+
 ## License
 
 Copyright © 2015 Dmitri Sotnikov
