@@ -59,7 +59,7 @@
      (-> options
          (append-options :dependencies cljs-dependencies)
          (append-options :dev-dependencies cljs-dev-dependencies)
-         (append-options :plugins [['lein-cljsbuild "1.0.6"]])
+         (append-options :plugins [['lein-cljsbuild "1.1.0"]])
          (append-options :dev-plugins [['lein-figwheel "0.3.9"]])
          (update-in [:clean-targets] (fnil into []) clean-targets)
          (update-in [:gitignore] conj "resources/public/js")
