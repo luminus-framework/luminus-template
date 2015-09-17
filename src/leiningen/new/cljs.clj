@@ -23,7 +23,7 @@
                     [:cljsbuild :builds :app :compiler :output-to]])
 
 (def cljs-dev-dependencies
-  [['lein-figwheel "0.3.9"]
+  [['lein-figwheel "0.4.0"]
    ['org.clojure/tools.nrepl "0.2.10"]])
 
 (def cljs-build
@@ -60,7 +60,7 @@
          (append-options :dependencies cljs-dependencies)
          (append-options :dev-dependencies cljs-dev-dependencies)
          (append-options :plugins [['lein-cljsbuild "1.1.0"]])
-         (append-options :dev-plugins [['lein-figwheel "0.3.9"]])
+         (append-options :dev-plugins [['lein-figwheel "0.4.0"]])
          (update-in [:clean-targets] (fnil into []) clean-targets)
          (update-in [:gitignore] conj "resources/public/js")
          (assoc
