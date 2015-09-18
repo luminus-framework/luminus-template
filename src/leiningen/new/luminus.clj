@@ -16,7 +16,8 @@
             [leiningen.new.swagger :refer [swagger-features]]
             [leiningen.new.sassc :refer [sassc-features]]
             [leiningen.new.site :refer [site-features]]
-            [leiningen.new.war :refer [war-features]])
+            [leiningen.new.war :refer [war-features]]
+            [leiningen.new.kibit :refer [kibit-features]])
   (:import java.io.File))
 
 (def core-assets
@@ -71,7 +72,8 @@
             http-kit-features
             immutant-features
             sassc-features
-            war-features)]
+            war-features
+            kibit-features)]
     (render-assets (init-render) assets (format-options options))))
 
 (defn format-features [features]
@@ -108,7 +110,8 @@
                              ;;misc
                              "+cljs" "+auth" "+site"
                              "+cucumber" "+dailycred"
-                             "+sassc" "+swagger" "+war"}
+                             "+sassc" "+swagger" "+war"
+                             "+kibit"}
         options {:name             (project-name name)
                  :selmer-renderer  render-template
                  :min-lein-version "2.0.0"
