@@ -109,8 +109,8 @@
                              "+aleph" "+jetty" "+http-kit"
                              ;;misc
                              "+cljs" "+auth" "+site"
-                             "+cucumber" "+dailycred"
-                             "+sassc" "+swagger" "+war"
+                             "+cucumber" "+sassc"
+                             "+swagger" "+war"
                              "+kibit"}
         options {:name             (project-name name)
                  :selmer-renderer  render-template
