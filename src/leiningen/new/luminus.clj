@@ -20,6 +20,11 @@
             [leiningen.new.kibit :refer [kibit-features]])
   (:import java.io.File))
 
+(defn resource [resource]
+  (-> (Thread/currentThread)
+      (.getContextClassLoader)
+      (.getResource (str "leiningen/new/luminus/core/resources/" resource))))
+
 (def core-assets
   [[".gitignore" "core/gitignore"]
    ["project.clj" "core/project.clj"]
@@ -41,6 +46,7 @@
    ["resources/templates/error.html" "core/resources/templates/error.html"]
 
    ;; public resources, example URL: /css/screen.css
+   ["resources/public/favicon.ico"  (resource "site/favicon.ico")]
    ["resources/public/css/screen.css" "core/resources/css/screen.css"]
    ["resources/docs/docs.md" "core/resources/docs.md"]
    "resources/public/js"
