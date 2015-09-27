@@ -33,8 +33,7 @@
 
 (def cljs-uberjar
   {:hooks     ['leiningen.cljsbuild]
-   :cljsbuild {:jar    true
-               :builds {:app
+   :cljsbuild {:builds {:app
                         {:source-paths ["env/prod/cljs"]
                          :compiler     {:optimizations :advanced
                                         :pretty-print  false}}}}})
