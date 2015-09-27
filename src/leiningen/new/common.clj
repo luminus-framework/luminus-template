@@ -44,7 +44,7 @@
     (subs text 0 (count text))))
 
 (defn indented-code [n form]
-  (let [text (form->str form)
+  (let [text    (form->str form)
         indents (apply str (repeat n " "))]
     (.replaceAll (str text) "\n" (str "\n" indents))))
 
@@ -70,7 +70,8 @@
 
 (defn remove-conflicting-assets [assets filter-str]
   (remove #(and (coll? %)
-                (.endsWith (second %) filter-str))
+                (and (string? (second %))
+                     (.endsWith (second %) filter-str)))
           assets))
 
 (defn unsupported-jetty-java-version? [java-version]
