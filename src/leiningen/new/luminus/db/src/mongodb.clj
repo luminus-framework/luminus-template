@@ -13,10 +13,10 @@
   (mc/insert db "users" user))
 
 (defn update-user [id first-name last-name email]
-  (mc/update db "users" {:id id}
+  (mc/update db "users" {:_id id}
              {$set {:first_name first-name
                     :last_name last-name
                     :email email}}))
 
 (defn get-user [id]
-  (mc/find-one-as-map db "users" {:id id}))
+  (mc/find-one-as-map db "users" {:_id id}))
