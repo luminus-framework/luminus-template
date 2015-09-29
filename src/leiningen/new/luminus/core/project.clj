@@ -35,9 +35,9 @@
             <<plugins>><% endif %>]<% if cucumber-feature-paths %>
   :cucumber-feature-paths <<cucumber-feature-paths>><% endif %><% if sassc-config-params %>
   :sassc <<sassc-config-params>>
-  :hooks [leiningen.sassc]<% endif %><% if ring-options %>
+  :hooks [leiningen.sassc]<% endif %><% if uberwar-options %>
   :uberwar
-  <<ring-options>><% endif %><% if clean-targets %>
+  <<uberwar-options>><% endif %><% if clean-targets %>
   :clean-targets ^{:protect false} <<clean-targets>><% endif %><% if cljs-build %>
   :cljsbuild
   <<cljs-build>><% endif %>
