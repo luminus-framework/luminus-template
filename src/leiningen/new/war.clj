@@ -12,5 +12,5 @@
     [assets
      (-> options
          (assoc :ring-options (indent root-indent (ring-options options)))
-         (append-options :plugins [['lein-ring "0.9.7"]]))]
+         (append-options :plugins [['lein-uberwar "0.1.0"]]))]
     state))
