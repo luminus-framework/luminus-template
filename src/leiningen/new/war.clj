@@ -1,9 +1,6 @@
 (ns leiningen.new.war
   (:require [leiningen.new.common :refer :all]))
 
-(def war-dependencies
-  [['ring-server "0.4.0"]])
-
 (defn ring-options [{:keys [name project-ns]}]
   {:handler      (symbol (str project-ns ".handler/app"))
    :init         (symbol (str project-ns ".handler/init"))
