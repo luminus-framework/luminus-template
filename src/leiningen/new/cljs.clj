@@ -16,7 +16,7 @@
    ['reagent-utils "0.1.5"]
    ['secretary "1.2.3"]
    ['org.clojure/core.async "0.1.346.0-17112a-alpha"]
-   ['cljs-ajax "0.3.14"]])
+   ['cljs-ajax "0.5.0"]])
 
 (def clean-targets [:target-path
                     [:cljsbuild :builds :app :compiler :output-dir]
