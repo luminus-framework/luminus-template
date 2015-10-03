@@ -28,6 +28,7 @@
 (def cljs-build
   {:builds {:app {:source-paths ["src-cljs"]
                   :compiler     {:output-to     "resources/public/js/app.js"
+                                 :output-dir    "resources/public/js/out"
                                  :externs       ["react/externs/react.js"]
                                  :pretty-print  true}}}})
 
