@@ -23,7 +23,8 @@
                     [:cljsbuild :builds :app :compiler :output-to]])
 
 (def cljs-dev-dependencies
-  [['lein-figwheel "0.3.9"]])
+  [['lein-figwheel "0.4.0"]
+   ['com.cemerick/piggieback "0.1.5"]])
 
 (def cljs-build
   {:builds {:app {:source-paths ["src-cljs"]
@@ -49,6 +50,7 @@
   {:http-server-root "public"
    :server-port      3449
    :nrepl-port       7002
+   :nrepl-middleware ["cemerick.piggieback/wrap-cljs-repl"]
    :css-dirs         ["resources/public/css"]
    :ring-handler     (symbol (str project-ns ".handler/app"))})
 
@@ -59,7 +61,7 @@
          (append-options :dependencies cljs-dependencies)
          (append-options :dev-dependencies cljs-dev-dependencies)
          (append-options :plugins [['lein-cljsbuild "1.1.0"]])
-         (append-options :dev-plugins [['lein-figwheel "0.3.9"]])
+         (append-options :dev-plugins [['lein-figwheel "0.4.0"]])
          (update-in [:clean-targets] (fnil into []) clean-targets)
          (update-in [:gitignore] conj "resources/public/js")
          (assoc
