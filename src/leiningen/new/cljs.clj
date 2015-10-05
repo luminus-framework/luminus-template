@@ -23,15 +23,14 @@
                     [:cljsbuild :builds :app :compiler :output-to]])
 
 (def cljs-dev-dependencies
-  [['lein-figwheel "0.4.0"]
-   ['com.cemerick/piggieback "0.2.0"]])
+  [['lein-figwheel "0.3.9"]])
 
 (def cljs-build
   {:builds {:app {:source-paths ["src-cljs"]
-                  :compiler     {:output-to     "resources/public/js/app.js"
-                                 :output-dir    "resources/public/js/out"
-                                 :externs       ["react/externs/react.js"]
-                                 :pretty-print  true}}}})
+                  :compiler     {:output-to    "resources/public/js/app.js"
+                                 :output-dir   "resources/public/js/out"
+                                 :externs      ["react/externs/react.js"]
+                                 :pretty-print true}}}})
 
 (def cljs-uberjar
   {:hooks     ['leiningen.cljsbuild]
@@ -44,14 +43,14 @@
   {:cljsbuild {:builds
                {:app
                 {:source-paths ["env/dev/cljs"]
-                 :compiler {:source-map true}}}}})
+                 :compiler     {:source-map true}}}}})
 
 (defn figwheel [{:keys [project-ns]}]
   {:http-server-root "public"
-   :server-port 3449
-   :nrepl-port 7002
-   :css-dirs ["resources/public/css"]
-   :ring-handler (symbol (str project-ns ".handler/app"))})
+   :server-port      3449
+   :nrepl-port       7002
+   :css-dirs         ["resources/public/css"]
+   :ring-handler     (symbol (str project-ns ".handler/app"))})
 
 (defn cljs-features [[assets options :as state]]
   (if (some #{"+cljs"} (:features options))
@@ -60,7 +59,7 @@
          (append-options :dependencies cljs-dependencies)
          (append-options :dev-dependencies cljs-dev-dependencies)
          (append-options :plugins [['lein-cljsbuild "1.1.0"]])
-         (append-options :dev-plugins [['lein-figwheel "0.4.0"]])
+         (append-options :dev-plugins [['lein-figwheel "0.3.9"]])
          (update-in [:clean-targets] (fnil into []) clean-targets)
          (update-in [:gitignore] conj "resources/public/js")
          (assoc
