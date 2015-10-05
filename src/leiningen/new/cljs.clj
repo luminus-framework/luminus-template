@@ -23,7 +23,8 @@
                     [:cljsbuild :builds :app :compiler :output-to]])
 
 (def cljs-dev-dependencies
-  [['lein-figwheel "0.4.0"]])
+  [['lein-figwheel "0.4.0"]
+   ['com.cemerick/piggieback "0.2.0"]])
 
 (def cljs-build
   {:builds {:app {:source-paths ["src-cljs"]
