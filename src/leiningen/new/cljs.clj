@@ -9,7 +9,7 @@
    ["resources/templates/error.html" "core/resources/templates/error.html"]])
 
 (def cljs-dependencies
-  [['org.clojure/clojurescript "1.7.122" :scope "provided"]
+  [['org.clojure/clojurescript "1.7.145" :scope "provided"]
    ['org.clojure/tools.reader "0.9.2"]
    ['reagent "0.5.1"]
    ['reagent-forms "0.5.12"]
