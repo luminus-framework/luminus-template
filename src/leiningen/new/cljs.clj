@@ -10,7 +10,7 @@
 
 (def cljs-dependencies
   [['org.clojure/clojurescript "1.7.145" :scope "provided"]
-   ['org.clojure/tools.reader "0.9.2"]
+   ['org.clojure/tools.reader "0.10.0"]
    ['reagent "0.5.1"]
    ['reagent-forms "0.5.12"]
    ['reagent-utils "0.1.5"]
@@ -23,7 +23,7 @@
                     [:cljsbuild :builds :app :compiler :output-to]])
 
 (def cljs-dev-dependencies
-  [['lein-figwheel "0.4.0"]
+  [['lein-figwheel "0.4.1"]
    ['com.cemerick/piggieback "0.1.5"]])
 
 (def cljs-build
@@ -61,7 +61,7 @@
          (append-options :dependencies cljs-dependencies)
          (append-options :dev-dependencies cljs-dev-dependencies)
          (append-options :plugins [['lein-cljsbuild "1.1.0"]])
-         (append-options :dev-plugins [['lein-figwheel "0.4.0"]])
+         (append-options :dev-plugins [['lein-figwheel "0.4.1"]])
          (update-in [:clean-targets] (fnil into []) clean-targets)
          (update-in [:gitignore] conj "resources/public/js")
          (assoc
