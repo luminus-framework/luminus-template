@@ -4,10 +4,17 @@
               [monger.operators :refer :all]
               [environ.core :refer [env]]))
 
-;; Tries to get the Mongo URI from the environment variable
-(defonce db (let [uri (:database-url env)
-                  {:keys [db]} (mg/connect-via-uri uri)]
-              db))
+
+(defonce db (atom nil))
+
+(defn connect! []
+  ;; Tries to get the Mongo URI from the environment variable
+  (reset! db (-> (:database-url env) mg/connect-via-uri :db)))
+
+(defn disconnect! []
+  (when-let [conn @db]
+    (mg/disconnect conn)
+    (reset! db nil)))
 
 (defn create-user [user]
   (mc/insert db "users" user))

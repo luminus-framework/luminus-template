@@ -49,28 +49,31 @@
 (defn add-mongo [[assets options]]
   [(into assets mongo-files)
    (-> options
-       (append-options :dependencies [['com.novemberain/monger "2.1.0"]])
+       (append-options :dependencies [['com.novemberain/monger "3.0.0-rc2"]])
        (assoc
+         :db-connection true
          :db-docs ((:selmer-renderer options) (slurp-resource "db/docs/mongo_instructions.md") options))
        (merge (db-profiles options)))])
 
 (defn add-relational-db [db [assets options]]
   [(into assets (relational-db-files options))
-   (-> options
+   (let [embedded-db? (some #{(name db)} ["h2" "sqlite"])]
+     (-> options
        (append-options :dependencies (db-dependencies options))
        (append-options :plugins [['migratus-lein "0.2.0"]])
        (update-in [:dev-dependencies] conj ['mvxcvi/puget "0.9.0"])
        (assoc
          :relational-db true
+         :db-connection (not embedded-db?)
          :db-type (name db)
-         :embedded-db (some #{(name db)} ["h2" "sqlite"])
+         :embedded-db embedded-db?
          :migrations (str {:store :database})
          :db-docs ((:selmer-renderer options)
                     (slurp-resource (if (= :h2 db)
                                     "db/docs/h2_instructions.md"
                                     "db/docs/db_instructions.md"))
                     options))
-       (merge (db-profiles options)))])
+       (merge (db-profiles options))))])
 
 (defn db-features [state]
   (if-let [db (select-db (second state))]
