@@ -12,10 +12,10 @@
   [['org.clojure/clojurescript "1.7.145" :scope "provided"]
    ['org.clojure/tools.reader "0.10.0"]
    ['reagent "0.5.1"]
-   ['reagent-forms "0.5.12"]
+   ['reagent-forms "0.5.13"]
    ['reagent-utils "0.1.5"]
    ['secretary "1.2.3"]
-   ['org.clojure/core.async "0.1.346.0-17112a-alpha"]
+   ['org.clojure/core.async "0.2.371"]
    ['cljs-ajax "0.5.1"]])
 
 (def clean-targets [:target-path
