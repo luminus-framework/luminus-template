@@ -6,7 +6,7 @@
 
 (def swagger-dependencies
   [['metosin/compojure-api "0.23.1"]
-   ['metosin/ring-swagger-ui "2.1.3"]])
+   ['metosin/ring-swagger-ui "2.1.3-2"]])
 
 (defn swagger-features [[assets options :as state]]
   (if (some #{"+swagger"} (:features options))

@@ -2,6 +2,7 @@
   (:require [leiningen.new.templates
              :refer [name-to-path year
                      sanitize sanitize-ns project-name]]
+            [clojure.java.io :as io]
             [leiningen.core.main :refer [leiningen-version]]
             [leiningen.core.main :as main]
             [leiningen.new.common :refer :all]
@@ -17,13 +18,10 @@
             [leiningen.new.sassc :refer [sassc-features]]
             [leiningen.new.site :refer [site-features]]
             [leiningen.new.war :refer [war-features]]
-            [leiningen.new.kibit :refer [kibit-features]])
-  (:import java.io.File))
+            [leiningen.new.kibit :refer [kibit-features]]))
 
-(defn resource [resource]
-  (-> (Thread/currentThread)
-      (.getContextClassLoader)
-      (.getResource (str "leiningen/new/luminus/core/resources/" resource))))
+(defn resource [r]
+  (->> r (str "leiningen/new/luminus/core/resources/") (io/resource)))
 
 (def core-assets
   [[".gitignore" "core/gitignore"]
@@ -141,7 +139,7 @@
       (main/info "Unrecognized options:" (format-features unsupported)
                  "\nSupported options are:" (format-features supported-features))
 
-      (.exists (File. name))
+      (.exists (io/file name))
       (main/info "Could not create project because a directory named" name "already exists!")
 
       :else
