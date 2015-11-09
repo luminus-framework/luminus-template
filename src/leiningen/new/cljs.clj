@@ -9,8 +9,7 @@
    ["resources/templates/error.html" "core/resources/templates/error.html"]])
 
 (def cljs-dependencies
-  [['org.clojure/clojurescript "1.7.145" :scope "provided"]
-   ['org.clojure/tools.reader "0.10.0"]
+  [['org.clojure/clojurescript "1.7.170" :scope "provided"]
    ['reagent "0.5.1"]
    ['reagent-forms "0.5.13"]
    ['reagent-utils "0.1.5"]
@@ -18,12 +17,15 @@
    ['org.clojure/core.async "0.2.371"]
    ['cljs-ajax "0.5.1"]])
 
+(def cljs-dev-plugins
+  [['lein-figwheel "0.5.0-SNAPSHOT"]])
+
 (def clean-targets [:target-path
                     [:cljsbuild :builds :app :compiler :output-dir]
                     [:cljsbuild :builds :app :compiler :output-to]])
 
 (def cljs-dev-dependencies
-  [['lein-figwheel "0.4.1"]
+  [['lein-figwheel "0.5.0-SNAPSHOT"]
    ['com.cemerick/piggieback "0.1.5"]])
 
 (def cljs-build
@@ -60,8 +62,7 @@
      (-> options
          (append-options :dependencies cljs-dependencies)
          (append-options :dev-dependencies cljs-dev-dependencies)
-         (append-options :plugins [['lein-cljsbuild "1.1.0"]])
-         (append-options :dev-plugins [['lein-figwheel "0.4.1"]])
+         (append-options :dev-plugins cljs-dev-plugins)
          (update-in [:clean-targets] (fnil into []) clean-targets)
          (update-in [:gitignore] conj "resources/public/js")
          (assoc
