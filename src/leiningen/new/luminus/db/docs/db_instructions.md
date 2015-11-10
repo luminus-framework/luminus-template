@@ -2,7 +2,7 @@
 
 ### Database Configuration is Required
 
-Before continuing please follow the steps below to configure your database connection and run the necessary migrations.
+If you haven't already, then please follow the steps below to configure your database connection and run the necessary migrations.
 
 * Create the database for your application.
 * Update the connection URL in the `profiles.clj` file with your database name and login.
