@@ -17,6 +17,9 @@
    ['org.clojure/core.async "0.2.371"]
    ['cljs-ajax "0.5.1"]])
 
+(def cljs-plugins
+   [['lein-cljsbuild "1.1.1"]])
+
 (def cljs-dev-plugins
   [['lein-figwheel "0.5.0-SNAPSHOT"]])
 
@@ -36,7 +39,7 @@
                                  :pretty-print true}}}})
 
 (def cljs-uberjar
-  {:hooks     ['leiningen.cljsbuild]
+  {:prep-tasks ["compile" ["cljsbuild" "once"]]
    :cljsbuild {:builds {:app
                         {:source-paths ["env/prod/cljs"]
                          :compiler     {:optimizations :advanced
@@ -61,6 +64,7 @@
     [(into (remove-conflicting-assets assets ".html") cljs-assets)
      (-> options
          (append-options :dependencies cljs-dependencies)
+         (append-options :plugins cljs-plugins)
          (append-options :dev-dependencies cljs-dev-dependencies)
          (append-options :dev-plugins cljs-dev-plugins)
          (update-in [:clean-targets] (fnil into []) clean-targets)
