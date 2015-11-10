@@ -2,7 +2,7 @@
 
 ### MongoDB Configuration is Required
 
-Before continuing please follow the steps below to configure your MongoDB connection.
+If you haven't already, then please follow the steps below to configure your MongoDB connection.
 
 * Ensure that MongoDB is up and running.
 * Set the connection parameters in the `profiles.clj` file.
