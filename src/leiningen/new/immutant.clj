@@ -6,5 +6,8 @@
     [assets
      (-> options
          (assoc :server "immutant")
-         (append-options :dependencies [['org.immutant/web "2.1.0"]]))]
+         (append-options :dependencies
+                         [['org.immutant/web "2.1.0"
+                           :exclusions ['ch.qos.logback/logback-classic]]]))]
     state))
+
