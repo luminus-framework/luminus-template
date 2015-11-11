@@ -17,6 +17,9 @@
    ['org.clojure/core.async "0.2.371"]
    ['cljs-ajax "0.5.1"]])
 
+(def resource-paths
+  ["resources" "target/cljsbuild"])
+
 (def cljs-plugins
    [['lein-cljsbuild "1.1.1"]])
 
@@ -33,8 +36,8 @@
 
 (def cljs-build
   {:builds {:app {:source-paths ["src-cljs"]
-                  :compiler     {:output-to    "resources/public/js/app.js"
-                                 :output-dir   "resources/public/js/out"
+                  :compiler     {:output-to    "target/cljsbuild/public/js/app.js"
+                                 :output-dir   "target/cljsbuild/public/js/out"
                                  :externs      ["react/externs/react.js"]
                                  :pretty-print true}}}})
 
@@ -65,10 +68,10 @@
      (-> options
          (append-options :dependencies cljs-dependencies)
          (append-options :plugins cljs-plugins)
+         (append-options :resource-paths resource-paths)
          (append-options :dev-dependencies cljs-dev-dependencies)
          (append-options :dev-plugins cljs-dev-plugins)
          (update-in [:clean-targets] (fnil into []) clean-targets)
-         (update-in [:gitignore] conj "resources/public/js")
          (assoc
            :cljs true
            :cljs-build (indent root-indent cljs-build)

@@ -27,7 +27,8 @@
 
   :min-lein-version "<<min-lein-version>>"
   :uberjar-name "<<name>>.jar"
-  :jvm-opts ["-server"]
+  :jvm-opts ["-server"]<% if resource-paths %>
+  :resource-paths <<resource-paths>><% endif %>
 
   :main <<project-ns>>.core<% if migrations %>
   :migratus <<migrations>><% endif %>
