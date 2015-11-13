@@ -32,7 +32,7 @@
 
 (def cljs-dev-dependencies
   [['lein-figwheel "0.5.0"]
-   ['com.cemerick/piggieback "0.1.5"]])
+   ['com.cemerick/piggieback "0.2.2-SNAPSHOT"]])
 
 (def cljs-build
   {:builds {:app {:source-paths ["src-cljs"]
