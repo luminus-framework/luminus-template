@@ -64,9 +64,11 @@
                   ;;when :nrepl-port is set the application starts the nREPL server on load
                   :env {:dev        true
                         :port       3000
-                        :nrepl-port 7000}}
+                        :nrepl-port 7000
+                        :log-level  :trace}}
    :project/test {:env {:test       true
                         :port       3001
-                        :nrepl-port 7001}}
+                        :nrepl-port 7001
+                        :log-level  :trace}}
    :profiles/dev {}
    :profiles/test {}})
