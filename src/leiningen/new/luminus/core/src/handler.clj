@@ -19,7 +19,7 @@
   []
 
   (timbre/merge-config!
-    {:level     (if (env :dev) :trace :info)
+    {:level     ((fnil keyword :info) (env :log-level))
      :appenders {:rotor (rotor/rotor-appender
                           {:path "<<sanitized>>.log"
                            :max-size (* 512 1024)
