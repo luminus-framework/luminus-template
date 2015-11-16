@@ -14,7 +14,7 @@
    ['reagent-forms "0.5.13"]
    ['reagent-utils "0.1.5"]
    ['secretary "1.2.3"]
-   ['org.clojure/core.async "0.2.371"]
+   ['org.clojure/core.async "0.2.374"]
    ['cljs-ajax "0.5.1"]])
 
 (def resource-paths
@@ -24,14 +24,14 @@
    [['lein-cljsbuild "1.1.1"]])
 
 (def cljs-dev-plugins
-  [['lein-figwheel "0.5.0"]])
+  [['lein-figwheel "0.5.0-1"]])
 
 (def clean-targets [:target-path
                     [:cljsbuild :builds :app :compiler :output-dir]
                     [:cljsbuild :builds :app :compiler :output-to]])
 
 (def cljs-dev-dependencies
-  [['lein-figwheel "0.5.0"]
+  [['lein-figwheel "0.5.0-1"]
    ['com.cemerick/piggieback "0.2.2-SNAPSHOT"]])
 
 (def cljs-build
