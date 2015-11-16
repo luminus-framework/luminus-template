@@ -30,6 +30,9 @@
    ["Procfile" "core/Procfile"]
    ["README.md" "core/README.md"]
 
+   ;; config namespaces
+   ["env/dev/clj/{{sanitized}}/config.clj" "core/env/dev/clj/config.clj"]
+   ["env/prod/clj/{{sanitized}}/config.clj" "core/env/prod/clj/src/config.clj"]
    ;; core namespaces
    ["src/{{sanitized}}/core.clj" "core/src/core.clj"]
    ["src/{{sanitized}}/handler.clj" "core/src/handler.clj"]

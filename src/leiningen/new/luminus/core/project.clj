@@ -47,7 +47,8 @@
   {:uberjar {:omit-source true
              :env {:production true}<% if cljs-uberjar %>
              <<cljs-uberjar>><% endif %>
-             :aot :all}
+             :aot :all
+             :source-paths ["env/prod/src/clj"]}
    :dev           [:project/dev :profiles/dev]
    :test          [:project/test :profiles/test]
    :project/dev  {:dependencies [[ring/ring-mock "0.3.0"]
@@ -58,6 +59,7 @@
                   <<cljs-dev>><% endif %>
                   <% if figwheel %>:figwheel
                   <<figwheel>><% endif %>
+                  :source-paths ["env/dev/src/clj"]
                   :repl-options {:init-ns <<project-ns>>.core}
                   :injections [(require 'pjstadig.humane-test-output)
                                (pjstadig.humane-test-output/activate!)]

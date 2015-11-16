@@ -13,7 +13,8 @@
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
             [ring.middleware.format :refer [wrap-restful-format]]<% if service-middleware-required %>
             <<service-middleware-required>><% endif %><% if auth-middleware-required %>
-            <<auth-middleware-required>><% endif %>)
+            <<auth-middleware-required>><% endif %>
+            [myapp.config :refer [defaults]])
   (:import [javax.servlet ServletContext]))
 
 (defn wrap-context [handler]
@@ -40,14 +41,6 @@
         (error-page {:status 500
                      :title "Something very bad has happened!"
                      :message "We've dispatched a team of highly trained gnomes to take care of the problem."})))))
-
-(defn wrap-dev [handler]
-  (if (env :dev)
-    (-> handler
-        reload/wrap-reload
-        wrap-error-page
-        wrap-exceptions)
-    handler))
 
 (defn wrap-csrf [handler]
   (wrap-anti-forgery
@@ -80,8 +73,7 @@
       (wrap-authentication (session-backend))))
 <% endif %>
 (defn wrap-base [handler]
-  (-> handler
-      wrap-dev<% if auth-middleware-required %>
+  (-> ((:middleware defaults) handler)<% if auth-middleware-required %>
       wrap-auth<% endif %>
       wrap-formats
       wrap-webjars<% ifequal server "immutant" %>

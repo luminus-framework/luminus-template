@@ -9,7 +9,8 @@
             [taoensso.timbre :as timbre]
             [taoensso.timbre.appenders.3rd-party.rotor :as rotor]
             [selmer.parser :as parser]
-            [environ.core :refer [env]]))
+            [environ.core :refer [env]]
+            [myapp.config :refer [defaults]]))
 
 (defn init
   "init will be called once when
@@ -23,14 +24,9 @@
      :appenders {:rotor (rotor/rotor-appender
                           {:path "<<sanitized>>.log"
                            :max-size (* 512 1024)
-                           :backlog 10})}})
-
-  (if (env :dev) (parser/cache-off!))<% if db-connection %>
+                           :backlog 10})}})<% if db-connection %>
   (db/connect!)<% endif %>
-  (timbre/info (str
-                 "\n-=[<<name>> started successfully"
-                 (when (env :dev) " using the development profile")
-                 "]=-")))
+  ((:init defaults)))
 
 (defn destroy
   "destroy will be called when your application
