@@ -4,5 +4,5 @@
 (def defaults
   {:init
    (fn []
-     (timbre/info "\n-=[myapp started successfully]=-"))
+     (timbre/info "\n-=[<<name>> started successfully]=-"))
    :middleware identity})

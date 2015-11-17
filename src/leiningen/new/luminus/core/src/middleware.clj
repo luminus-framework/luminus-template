@@ -11,7 +11,7 @@
             [ring.middleware.format :refer [wrap-restful-format]]<% if service-middleware-required %>
             <<service-middleware-required>><% endif %><% if auth-middleware-required %>
             <<auth-middleware-required>><% endif %>
-            [myapp.config :refer [defaults]])
+            [<<project-ns>>.config :refer [defaults]])
   (:import [javax.servlet ServletContext]))
 
 (defn wrap-context [handler]

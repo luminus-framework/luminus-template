@@ -10,7 +10,7 @@
             [taoensso.timbre.appenders.3rd-party.rotor :as rotor]
             [selmer.parser :as parser]
             [environ.core :refer [env]]
-            [myapp.config :refer [defaults]]))
+            [<<project-ns>>.config :refer [defaults]]))
 
 (defn init
   "init will be called once when

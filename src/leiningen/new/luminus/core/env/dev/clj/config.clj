@@ -7,5 +7,5 @@
   {:init
    (fn []
      (parser/cache-off!)
-     (timbre/info "\n-=[myapp started successfully using the development profile]=-"))
+     (timbre/info "\n-=[<<name>> started successfully using the development profile]=-"))
    :middleware wrap-dev})
