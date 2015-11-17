@@ -1,15 +1,7 @@
 (ns <<project-ns>>.config
   (:require [selmer.parser :as parser]
             [taoensso.timbre :as timbre]
-            [ring.middleware.reload :refer [wrap-reload]]
-            [selmer.middleware :refer [wrap-error-page]]
-            [prone.middleware :refer [wrap-exceptions]]))
-
-(defn wrap-dev [handler]
-  (-> handler
-      wrap-reload
-      wrap-error-page
-      wrap-exceptions))
+            [<<project-ns>>.dev-middleware :refer [wrap-dev]]))
 
 (def defaults
   {:init

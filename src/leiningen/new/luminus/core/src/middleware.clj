@@ -1,13 +1,10 @@
 (ns <<project-ns>>.middleware
   (:require [<<project-ns>>.layout :refer [*app-context* error-page]]
             [taoensso.timbre :as timbre]
-            [environ.core :refer [env]]
-            [selmer.middleware :refer [wrap-error-page]]
-            [prone.middleware :refer [wrap-exceptions]]<% ifequal server "immutant" %>
+            [environ.core :refer [env]]<% ifequal server "immutant" %>
             [ring.middleware.flash :refer [wrap-flash]]
             [immutant.web.middleware :refer [wrap-session]]<% else %>
             [ring-ttl-session.core :refer [ttl-memory-store]]<% endifequal %>
-            [ring.middleware.reload :as reload]
             [ring.middleware.webjars :refer [wrap-webjars]]
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]

@@ -5,12 +5,10 @@
 Request middleware functions are located under the `<<name>>.middleware` namespace.
 
 This namespace is reserved for any custom middleware for the application. Some default middleware is
-already defined here.
+already defined here. The middleware is assembled in the `wrap-base` function.
 
-The two function for organizing the middleware are called `wrap-dev` and `wrap-base`.
-
-Any middleware that you only wish to run in development mode should be added inside the `wrap-dev` function.
-This middleware will only be invoked when the environment contains the `:dev` key with a truthy value.
+Middleware used for development is placed in the `<<project-ns>>.dev-middleware` namespace found in
+the `env/dev/clj/` source path.
 
 ### Here are some links to get started
 
