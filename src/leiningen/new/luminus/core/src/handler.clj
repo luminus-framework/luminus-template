@@ -10,7 +10,8 @@
             [taoensso.timbre.appenders.3rd-party.rotor :as rotor]
             [selmer.parser :as parser]
             [environ.core :refer [env]]
-            [<<project-ns>>.config :refer [defaults]]))
+            [<<project-ns>>.config :refer [defaults]]
+            mount))
 
 (defn init
   "init will be called once when
@@ -24,16 +25,16 @@
      :appenders {:rotor (rotor/rotor-appender
                           {:path (or (env :log-path) "<<sanitized>>.log")
                            :max-size (* 512 1024)
-                           :backlog 10})}})<% if db-connection %>
-  (db/connect!)<% endif %>
+                           :backlog 10})}})
+  (mount/start)
   ((:init defaults)))
 
 (defn destroy
   "destroy will be called when your application
    shuts down, put any clean up code here"
   []
-  (timbre/info "<<name>> is shutting down...")<% if db-connection %>
-  (db/disconnect!)<% endif %>
+  (timbre/info "<<name>> is shutting down...")
+  (mount/stop)
   (timbre/info "shutdown complete!"))
 
 (def app-routes

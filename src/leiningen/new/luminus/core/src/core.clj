@@ -125,6 +125,8 @@
 
 (defn -main [& args]
   <% if relational-db %>(cond
-    (some #{"migrate" "rollback"} args) (migrations/migrate args)
-    :else (start-app args)))
+    (some #{"migrate" "rollback"} args)
+    (do (migrations/migrate args) (System/exit 0))
+    :else
+    (start-app args)))
   <% else %>(start-app args))<% endif %>

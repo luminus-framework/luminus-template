@@ -9,12 +9,12 @@
 (use-fixtures
   :once
   (fn [f]<% ifunequal db-type "h2" %>
-    (db/connect!)<% endifunequal %>
+    (mount/start #'myapp.db.core/*db*)<% endifunequal %>
     (migrations/migrate ["migrate"])
     (f)))
 
 (deftest test-users
-  (<% if embedded-db %>jdbc/with-db-transaction [t-conn db/conn]<% else %>with-transaction [t-conn db/*conn*]<% endif %>
+  (<% if embedded-db %>jdbc/with-db-transaction [t-conn db/conn]<% else %>with-transaction [t-conn db/*db*]<% endif %>
     (jdbc/db-set-rollback-only! t-conn)
     (is (= 1 (db/create-user!
                {:id         "1"

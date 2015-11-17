@@ -6,7 +6,8 @@
     [cheshire.core :refer [generate-string parse-string]]
     [clojure.java.jdbc :as jdbc]
     [conman.core :as conman]
-    [environ.core :refer [env]])
+    [environ.core :refer [env]]
+    [mount :refer [defstate]])
   (:import org.postgresql.util.PGobject
            org.postgresql.jdbc4.Jdbc4Array
            clojure.lang.IPersistentMap
@@ -19,7 +20,8 @@
   (:require
     [clojure.java.jdbc :as jdbc]
     [conman.core :as conman]
-    [environ.core :refer [env]])
+    [environ.core :refer [env]]
+    [mount :refer [defstate]])
   (:import [java.sql
             BatchUpdateException
             PreparedStatement])<% endifequal %>)<% if embedded-db %>
@@ -28,7 +30,9 @@
   {:classname      "org.sqlite.JDBC"
    :connection-uri (:database-url env)
    :naming         {:keys   clojure.string/lower-case
-                    :fields clojure.string/upper-case}})<% endifequal %><% ifequal db-type "h2"%>
+                    :fields clojure.string/upper-case}})
+
+(defqueries "sql/queries.sql" {:connection conn})<% endifequal %><% ifequal db-type "h2"%>
 (def conn
   {:classname   "org.h2.Driver"
    :connection-uri (:database-url env)
@@ -37,11 +41,7 @@
                     :fields clojure.string/upper-case}})
 
 (defqueries "sql/queries.sql" {:connection conn})<% endifequal %><% else %>
-
-(defonce ^:dynamic *conn* (atom nil))
-
-(conman/bind-connection *conn* "sql/queries.sql")<% ifequal db-type "postgres" %>
-
+<% ifequal db-type "postgres" %>
 (def pool-spec
   {:adapter    :postgresql
    :init-size  1
@@ -57,14 +57,22 @@
    :max-active 32})<% endifequal %>
 
 (defn connect! []
-  (conman/connect!
-    *conn*
-   (assoc
-     pool-spec
-     :jdbc-url (env :database-url))))
+  (let [conn (atom nil)]
+    (conman/connect!
+      conn
+      (assoc
+        pool-spec
+        :jdbc-url (env :database-url)))
+    conn))
 
-(defn disconnect! []
-  (conman/disconnect! *conn*))<% endif %><% ifequal db-type "mysql" %>
+(defn disconnect! [conn]
+  (conman/disconnect! conn))<% endif %><% if not embedded-db %>
+
+(defstate ^:dynamic *db*
+          :start (connect!)
+          :stop (disconnect! *db*))
+
+(conman/bind-connection *db* "sql/queries.sql")<% endif %><% ifequal db-type "mysql" %>
 
 (defn to-date [sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))
