@@ -48,13 +48,12 @@
    :min-idle   1
    :max-idle   4
    :max-active 32})<% endifequal %><% ifequal db-type "mysql" %>
-
 (def pool-spec
   {:adapter    :mysql
    :init-size  1
    :min-idle   1
    :max-idle   4
-   :max-active 32})<% endifequal %>
+   :max-active 32})<% endifequal %> <% endif %><% if not embedded-db %>
 
 (defn connect! []
   (let [conn (atom nil)]
@@ -66,14 +65,14 @@
     conn))
 
 (defn disconnect! [conn]
-  (conman/disconnect! conn))<% endif %><% if not embedded-db %>
+  (conman/disconnect! conn))
 
 (defstate ^:dynamic *db*
           :start (connect!)
           :stop (disconnect! *db*))
 
-(conman/bind-connection *db* "sql/queries.sql")<% endif %><% ifequal db-type "mysql" %>
-
+(conman/bind-connection *db* "sql/queries.sql")
+<% endif %><% ifequal db-type "mysql" %>
 (defn to-date [sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))
 
@@ -89,7 +88,6 @@
   (set-parameter [v ^PreparedStatement stmt idx]
     (.setTimestamp stmt idx (java.sql.Timestamp. (.getTime v)))))
 <% endifequal %><% ifequal db-type "postgres" %>
-
 (defn to-date [sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))
 
