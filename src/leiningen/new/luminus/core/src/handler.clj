@@ -11,7 +11,7 @@
             [selmer.parser :as parser]
             [environ.core :refer [env]]
             [<<project-ns>>.config :refer [defaults]]
-            mount))
+            [mount.core :as mount]))
 
 (defn init
   "init will be called once when

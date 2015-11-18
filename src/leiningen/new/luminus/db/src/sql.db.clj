@@ -7,7 +7,7 @@
     [clojure.java.jdbc :as jdbc]
     [conman.core :as conman]
     [environ.core :refer [env]]
-    [mount :refer [defstate]])
+    [mount.core :refer [defstate]])
   (:import org.postgresql.util.PGobject
            org.postgresql.jdbc4.Jdbc4Array
            clojure.lang.IPersistentMap
@@ -21,7 +21,7 @@
     [clojure.java.jdbc :as jdbc]
     [conman.core :as conman]
     [environ.core :refer [env]]
-    [mount :refer [defstate]])
+    [mount.core :refer [defstate]])
   (:import [java.sql
             BatchUpdateException
             PreparedStatement])<% endifequal %>)<% if embedded-db %>

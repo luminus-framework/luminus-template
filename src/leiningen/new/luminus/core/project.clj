@@ -21,7 +21,7 @@
                  [ring/ring-defaults "0.1.5"]<% ifunequal server "immutant" %>
                  [ring-ttl-session "0.3.0"]<% endifunequal %>
                  [ring "1.4.0" :exclusions [ring/ring-jetty-adapter]]
-                 [mount "0.1.2" :exclusions [ch.qos.logback/logback-classic]]
+                 [mount "0.1.3" :exclusions [ch.qos.logback/logback-classic]]
                  <<dependencies>>]
 
   :min-lein-version "<<min-lein-version>>"
