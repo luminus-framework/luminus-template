@@ -21,7 +21,7 @@
   ["resources" "target/cljsbuild"])
 
 (def cljs-plugins
-   [['lein-cljsbuild "1.1.1"]])
+  [['lein-cljsbuild "1.1.1"]])
 
 (def cljs-dev-plugins
   [['lein-figwheel "0.5.0-1"]])
@@ -43,16 +43,19 @@
 
 (def cljs-uberjar
   {:prep-tasks ["compile" ["cljsbuild" "once"]]
-   :cljsbuild {:builds {:app
-                        {:source-paths ["env/prod/cljs"]
-                         :compiler     {:optimizations :advanced
-                                        :pretty-print  false}}}}})
+   :cljsbuild  {:builds {:app
+                         {:source-paths ["env/prod/cljs"]
+                          :compiler     {:optimizations :advanced
+                                         :pretty-print  false
+                                         :closure-warnings
+                                                        {:externs-validation :off
+                                                         :non-standard-jsdoc :off}}}}}})
 
 (defn cljs-dev [{:keys [project-ns]}]
   {:cljsbuild {:builds
                {:app
                 {:source-paths ["env/dev/cljs"]
-                 :compiler     {:main (str project-ns ".app")
+                 :compiler     {:main       (str project-ns ".app")
                                 :asset-path "/js/out"
                                 :source-map true}}}}})
 
