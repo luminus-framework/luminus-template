@@ -48,11 +48,13 @@
                          :compiler     {:optimizations :advanced
                                         :pretty-print  false}}}}})
 
-(def cljs-dev
+(defn cljs-dev [{:keys [project-ns]}]
   {:cljsbuild {:builds
                {:app
                 {:source-paths ["env/dev/cljs"]
-                 :compiler     {:source-map true}}}}})
+                 :compiler     {:main (str project-ns ".app")
+                                :asset-path "/js/out"
+                                :source-map true}}}}})
 
 (defn figwheel [{:keys [project-ns]}]
   {:http-server-root "public"
@@ -76,6 +78,6 @@
            :cljs true
            :cljs-build (indent root-indent cljs-build)
            :figwheel (indent dev-indent (figwheel options))
-           :cljs-dev (unwrap-map (indent dev-indent cljs-dev))
+           :cljs-dev (unwrap-map (indent dev-indent (cljs-dev options)))
            :cljs-uberjar (unwrap-map (indent uberjar-indent cljs-uberjar))))]
     state))

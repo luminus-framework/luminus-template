@@ -4,8 +4,7 @@
             [markdown.core :refer [md-to-html-string]]
             [ring.util.http-response :refer [content-type ok]]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
-            [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]
-            [environ.core :refer [env]]))
+            [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]))
 
 <% if auth-middleware-required %>(declare ^:dynamic *identity*)<% endif %>
 (declare ^:dynamic *app-context*)
@@ -22,7 +21,6 @@
         template
         (assoc params
           :page template
-          :dev (env :dev)
           :csrf-token *anti-forgery-token*
           :servlet-context *app-context*)))
     "text/html; charset=utf-8"))
