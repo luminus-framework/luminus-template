@@ -5,7 +5,7 @@
 
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [selmer "0.9.5"]
-                 [markdown-clj "0.9.80"]
+                 [markdown-clj "0.9.82"]
                  [environ "1.0.1"]
                  [metosin/ring-middleware-format "0.6.0"]
                  [metosin/ring-http-response "0.6.5"]
