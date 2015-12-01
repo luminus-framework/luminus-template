@@ -26,7 +26,8 @@
                           {:path (or (env :log-path) "<<sanitized>>.log")
                            :max-size (* 512 1024)
                            :backlog 10})}})
-  (timbre/info (mount/start))
+  (doseq [component (:started (mount/start))]
+    (timbre/info component "started"))
   ((:init defaults)))
 
 (defn destroy
@@ -34,7 +35,8 @@
    shuts down, put any clean up code here"
   []
   (timbre/info "<<name>> is shutting down...")
-  (mount/stop)
+  (doseq [component (:stopped (mount/stop))]
+    (timbre/info component "stopped"))
   (timbre/info "shutdown complete!"))
 
 (def app-routes
