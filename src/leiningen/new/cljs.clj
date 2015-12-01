@@ -57,6 +57,7 @@
                 {:source-paths ["env/dev/cljs"]
                  :compiler     {:main       (str project-ns ".app")
                                 :asset-path "/js/out"
+                                :optimizations :none
                                 :source-map true}}}}})
 
 (defn figwheel [{:keys [project-ns]}]
