@@ -26,7 +26,7 @@
                           {:path (or (env :log-path) "<<sanitized>>.log")
                            :max-size (* 512 1024)
                            :backlog 10})}})
-  (mount/start)
+  (timbre/info (mount/start))
   ((:init defaults)))
 
 (defn destroy
