@@ -4,12 +4,13 @@
             [clojure.test :refer :all]
             [clojure.java.jdbc :as jdbc]<% if not embedded-db %>
             [conman.core :refer [with-transaction]]<% endif %>
-            [environ.core :refer [env]]))
+            [environ.core :refer [env]
+            [mount.core :as m]]))
 
 (use-fixtures
   :once
   (fn [f]<% ifunequal db-type "h2" %>
-    (mount/start #'myapp.db.core/*db*)<% endifunequal %>
+    (m/start #'myapp.db.core/*db*)<% endifunequal %>
     (migrations/migrate ["migrate"])
     (f)))
 
