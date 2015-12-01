@@ -11,7 +11,7 @@
                  [metosin/ring-http-response "0.6.5"]
                  [bouncer "0.3.3"]
                  [org.clojure/tools.nrepl "0.2.12"]
-                 [org.webjars/bootstrap "3.3.5"]
+                 [org.webjars/bootstrap "3.3.6"]
                  [org.webjars/jquery "2.1.4"]
                  [com.taoensso/tower "3.0.2"]
                  [com.taoensso/timbre "4.1.4"]
@@ -53,7 +53,7 @@
    :project/dev  {:dependencies [[prone "0.8.2"]
                                  [ring/ring-mock "0.3.0"]
                                  [ring/ring-devel "1.4.0"]
-                                 [pjstadig/humane-test-output "0.7.0"]<% if dev-dependencies %>
+                                 [pjstadig/humane-test-output "0.7.1"]<% if dev-dependencies %>
                                  <<dev-dependencies>><% endif %>]
                   <% if dev-plugins %>:plugins <<dev-plugins>><% endif %><% if cljs-dev %>
                   <<cljs-dev>><% endif %>

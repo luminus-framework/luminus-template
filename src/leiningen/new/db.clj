@@ -10,7 +10,7 @@
     (some #{"+sqlite"} features) :sqlite))
 
 (defn db-dependencies [options]
-  [['migratus "0.8.7"]
+  [['migratus "0.8.8"]
    ['conman "0.2.7"]
    ({:postgres ['org.postgresql/postgresql "9.4-1203-jdbc41"]
      :mysql    ['mysql/mysql-connector-java "5.1.34"]
