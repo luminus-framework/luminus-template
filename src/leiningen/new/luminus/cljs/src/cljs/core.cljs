@@ -3,7 +3,7 @@
             [reagent.session :as session]
             [secretary.core :as secretary :include-macros true]
             [goog.events :as events]
-            [goog.history.EventType :as EventType]
+            [goog.history.EventType :as HistoryEventType]
             [markdown.core :refer [md->html]]
             [ajax.core :refer [GET POST]])
   (:import goog.History))
@@ -81,7 +81,7 @@
 (defn hook-browser-navigation! []
   (doto (History.)
         (events/listen
-          EventType/NAVIGATE
+          HistoryEventType/NAVIGATE
           (fn [event]
               (secretary/dispatch! (.-token event))))
         (.setEnabled true)))
