@@ -15,7 +15,7 @@
    ['reagent-utils "0.1.5"]
    ['secretary "1.2.3"]
    ['org.clojure/core.async "0.2.374"]
-   ['cljs-ajax "0.5.1"]])
+   ['cljs-ajax "0.5.2"]])
 
 (def resource-paths
   ["resources" "target/cljsbuild"])
