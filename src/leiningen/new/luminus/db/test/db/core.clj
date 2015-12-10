@@ -10,7 +10,7 @@
 (use-fixtures
   :once
   (fn [f]<% ifunequal db-type "h2" %>
-    (mount/start #'myapp.db.core/*db*)<% endifunequal %>
+    (mount/start #'<<project-ns>>.db.core/*db*)<% endifunequal %>
     (migrations/migrate ["migrate"])
     (f)))
 
