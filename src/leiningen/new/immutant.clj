@@ -7,7 +7,8 @@
      (-> options
          (assoc :server "immutant")
          (append-options :dependencies
-                         [['org.immutant/web "2.1.1"
+                         [['org.immutant/web "2.1.1"]
+                          #_['org.immutant/web "2.1.1"
                            :exclusions ['ch.qos.logback/logback-classic]]]))]
     state))
 
