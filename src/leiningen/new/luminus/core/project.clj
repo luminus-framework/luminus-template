@@ -9,7 +9,7 @@
                  [environ "1.0.1"]
                  [ring-middleware-format "0.7.0"]
                  [metosin/ring-http-response "0.6.5"]
-                 [bouncer "0.3.3"]
+                 [bouncer "1.0.0"]
                  [org.clojure/tools.nrepl "0.2.12"]
                  [org.webjars/bootstrap "3.3.6"]
                  [org.webjars/jquery "2.1.4"]
