@@ -20,7 +20,7 @@
                  [ring/ring-defaults "0.1.5"]<% ifunequal server "immutant" %>
                  [ring-ttl-session "0.3.0"]<% endifunequal %>
                  [ring "1.4.0" :exclusions [ring/ring-jetty-adapter]]
-                 [mount "0.1.6"]
+                 [mount "0.1.7"]
                  <<dependencies>>]
 
   :min-lein-version "<<min-lein-version>>"
