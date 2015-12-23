@@ -7,7 +7,7 @@
      (-> options
          (append-options :dependencies [['buddy "0.8.3"]])
          (append-formatted :auth-middleware-required
-                           [['buddy.auth.middleware :refer ['wrap-authentication]]
+                           [['buddy.auth.middleware :refer ['wrap-authentication 'wrap-authorization]]
                             ['buddy.auth.backends.session :refer ['session-backend]]
                             ['buddy.auth.accessrules :refer ['restrict]]
                             ['buddy.auth :refer ['authenticated?]]

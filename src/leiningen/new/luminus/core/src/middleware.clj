@@ -65,9 +65,11 @@
       (handler request))))
 
 (defn wrap-auth [handler]
-  (-> handler
-      wrap-identity
-      (wrap-authentication (session-backend))))
+  (let [backend (session-backend)]
+    (-> handler
+        wrap-identity
+        (wrap-authentication backend)
+        (wrap-authorization backend))))
 <% endif %>
 (defn wrap-base [handler]
   (-> ((:middleware defaults) handler)<% if auth-middleware-required %>
