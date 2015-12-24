@@ -12,7 +12,7 @@
 (defn db-dependencies [options]
   [['migratus "0.8.8"]
    ['conman "0.2.8"]
-   ({:postgres ['org.postgresql/postgresql "9.4-1203-jdbc41"]
+   ({:postgres ['org.postgresql/postgresql "9.4.1207"]
      :mysql    ['mysql/mysql-connector-java "5.1.34"]
      :h2       ['com.h2database/h2 "1.4.188"]
      :sqlite   ['org.xerial/sqlite-jdbc "3.8.11.1"]}
