@@ -29,6 +29,7 @@
    ["profiles.clj" "core/profiles.clj"]
    ["Procfile" "core/Procfile"]
    ["README.md" "core/README.md"]
+   ["resources/log4j.properties" "core/resources/log4j.properties"]
 
    ;; config namespaces
    ["env/dev/clj/{{sanitized}}/config.clj" "core/env/dev/clj/config.clj"]
@@ -126,7 +127,8 @@
                  :project-ns       (sanitize-ns name)
                  :sanitized        (name-to-path name)
                  :year             (year)
-                 :features         (set feature-params)}
+                 :features         (set feature-params)
+                 :resource-paths ["resources"]}
         unsupported (-> (set feature-params)
                         (clojure.set/difference supported-features)
                         (not-empty))]

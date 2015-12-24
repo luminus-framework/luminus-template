@@ -1,8 +1,8 @@
 (ns <<project-ns>>.config
-  (:require [taoensso.timbre :as timbre]))
+  (:require [clojure.tools.logging :as log]))
 
 (def defaults
   {:init
    (fn []
-     (timbre/info "\n-=[<<name>> started successfully]=-"))
+     (log/info "\n-=[<<name>> started successfully]=-"))
    :middleware identity})

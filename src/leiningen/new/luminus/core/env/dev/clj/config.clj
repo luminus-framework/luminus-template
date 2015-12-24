@@ -1,11 +1,11 @@
 (ns <<project-ns>>.config
   (:require [selmer.parser :as parser]
-            [taoensso.timbre :as timbre]
+            [clojure.tools.logging :as log]
             [<<project-ns>>.dev-middleware :refer [wrap-dev]]))
 
 (def defaults
   {:init
    (fn []
      (parser/cache-off!)
-     (timbre/info "\n-=[<<name>> started successfully using the development profile]=-"))
+     (log/info "\n-=[<<name>> started successfully using the development profile]=-"))
    :middleware wrap-dev})

@@ -6,7 +6,7 @@
             [qbits.jet.server :refer [run-jetty]]<% endifequal %><% if relational-db %>
             [<<project-ns>>.db.migrations :as migrations]<% endif %>
             [clojure.tools.nrepl.server :as nrepl]
-            [taoensso.timbre :as timbre]
+            [clojure.tools.logging :as log]
             [environ.core :refer [env]])
   (:gen-class))
 
@@ -27,16 +27,16 @@
   "Start a network repl for debugging when the :nrepl-port is set in the environment."
   []
   (if @nrepl-server
-    (timbre/error "nREPL is already running!")
+    (log/error "nREPL is already running!")
     (when-let [port (env :nrepl-port)]
       (try
         (->> port
              (parse-port)
              (nrepl/start-server :port)
              (reset! nrepl-server))
-        (timbre/info "nREPL server started on port" port)
+        (log/info "nREPL server started on port" port)
         (catch Throwable t
-          (timbre/error t "failed to start nREPL"))))))
+          (log/error t "failed to start nREPL"))))))
 
 (defn http-port [port]
   (parse-port (or port (env :port) 3000)))<% ifequal server "aleph" %>
@@ -57,9 +57,9 @@
       (http/start-server
         app
         {:port port})
-      (timbre/info "server started on port:" port)
+      (log/info "server started on port:" port)
       (catch Throwable t
-        (timbre/error t (str "server failed to start on port: " port))))))<% else %>
+        (log/error t (str "server failed to start on port: " port))))))<% else %>
 
 (defonce http-server (atom nil))<% ifequal server "immutant" %>
 
@@ -82,7 +82,7 @@
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app))
   (start-nrepl)
   (start-http-server (http-port port))
-  (timbre/info "server started on port:" (:port @http-server)))<% else %><% ifequal server "http-kit" %>
+  (log/info "server started on port:" (:port @http-server)))<% else %><% ifequal server "http-kit" %>
 
 (defn start-http-server [port]
   (init)
@@ -120,7 +120,7 @@
   (let [port (http-port port)]
     (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app))
     (start-nrepl)
-    (timbre/info "server is starting on port " port)
+    (log/info "server is starting on port " port)
     (start-http-server port)))<% endifequal %><% endifequal %>
 
 (defn -main [& args]

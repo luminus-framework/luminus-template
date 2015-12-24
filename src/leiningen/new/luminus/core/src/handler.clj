@@ -3,12 +3,9 @@
             [<<project-ns>>.layout :refer [error-page]]
             [<<project-ns>>.routes.home :refer [home-routes]]<% if service-required %>
             <<service-required>><% endif %>
-            [<<project-ns>>.middleware :as middleware]<% if db-connection %>
-            [<<project-ns>>.db.core :as db]<% endif %>
+            [<<project-ns>>.middleware :as middleware]
+            [clojure.tools.logging :as log]
             [compojure.route :as route]
-            [taoensso.timbre :as timbre]
-            [taoensso.timbre.appenders.3rd-party.rotor :as rotor]
-            [selmer.parser :as parser]
             [environ.core :refer [env]]
             [<<project-ns>>.config :refer [defaults]]
             [mount.core :as mount]))
@@ -19,25 +16,20 @@
    an app server such as Tomcat
    put any initialization code here"
   []
-
-  (timbre/merge-config!
-    {:level     ((fnil keyword :info) (env :log-level))
-     :appenders {:rotor (rotor/rotor-appender
-                          {:path (or (env :log-path) "<<sanitized>>.log")
-                           :max-size (* 512 1024)
-                           :backlog 10})}})
+  (when-let [config (:log-config env)]
+    (org.apache.log4j.PropertyConfigurator/configure config))
   (doseq [component (:started (mount/start))]
-    (timbre/info component "started"))
+    (log/info component "started"))
   ((:init defaults)))
 
 (defn destroy
   "destroy will be called when your application
    shuts down, put any clean up code here"
   []
-  (timbre/info "<<name>> is shutting down...")
+  (log/info "<<name>> is shutting down...")
   (doseq [component (:stopped (mount/stop))]
-    (timbre/info component "stopped"))
-  (timbre/info "shutdown complete!"))
+    (log/info component "stopped"))
+  (log/info "shutdown complete!"))
 
 (def app-routes
   (routes<% if service-routes %>

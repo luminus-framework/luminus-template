@@ -1,6 +1,6 @@
 (ns <<project-ns>>.middleware
   (:require [<<project-ns>>.layout :refer [*app-context* error-page]]
-            [taoensso.timbre :as timbre]
+            [clojure.tools.logging :as log]
             [environ.core :refer [env]]<% ifequal server "immutant" %>
             [ring.middleware.flash :refer [wrap-flash]]
             [immutant.web.middleware :refer [wrap-session]]<% else %>
@@ -34,7 +34,7 @@
     (try
       (handler req)
       (catch Throwable t
-        (timbre/error t)
+        (log/error t)
         (error-page {:status 500
                      :title "Something very bad has happened!"
                      :message "We've dispatched a team of highly trained gnomes to take care of the problem."})))))

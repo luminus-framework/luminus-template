@@ -18,7 +18,7 @@
    ['cljs-ajax "0.5.2"]])
 
 (def resource-paths
-  ["resources" "target/cljsbuild"])
+  ["target/cljsbuild"])
 
 (def cljs-plugins
   [['lein-cljsbuild "1.1.1"]])

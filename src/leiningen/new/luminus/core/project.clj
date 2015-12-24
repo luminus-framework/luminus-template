@@ -5,7 +5,7 @@
 
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [selmer "0.9.6"]
-                 [markdown-clj "0.9.83"]
+                 [markdown-clj "0.9.84"]
                  [environ "1.0.1"]
                  [ring-middleware-format "0.7.0"]
                  [metosin/ring-http-response "0.6.5"]
@@ -13,7 +13,9 @@
                  [org.clojure/tools.nrepl "0.2.12"]
                  [org.webjars/bootstrap "3.3.6"]
                  [org.webjars/jquery "2.1.4"]
-                 [com.taoensso/timbre "4.1.5-SNAPSHOT"]
+                 [org.clojure/tools.logging "0.3.1"]
+                 [org.slf4j/slf4j-log4j12 "1.7.13"]
+                 [org.apache.logging.log4j/log4j-core "2.5"]
                  [com.taoensso/tower "3.0.2"]
                  [compojure "1.4.0"]
                  [ring-webjars "0.1.1"]
@@ -66,11 +68,9 @@
                   ;;when :nrepl-port is set the application starts the nREPL server on load
                   :env {:dev        true
                         :port       3000
-                        :nrepl-port 7000
-                        :log-level  :trace}}
+                        :nrepl-port 7000}}
    :project/test {:env {:test       true
                         :port       3001
-                        :nrepl-port 7001
-                        :log-level  :trace}}
+                        :nrepl-port 7001}}
    :profiles/dev {}
    :profiles/test {}})
