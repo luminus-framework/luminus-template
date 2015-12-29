@@ -12,7 +12,7 @@
   [['org.clojure/clojurescript "1.7.170" :scope "provided"]
    ['reagent "0.5.1"]
    ['reagent-forms "0.5.13"]
-   ['reagent-utils "0.1.5"]
+   ['reagent-utils "0.1.7"]
    ['secretary "1.2.3"]
    ['org.clojure/core.async "0.2.374"]
    ['cljs-ajax "0.5.2"]])
