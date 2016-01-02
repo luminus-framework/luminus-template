@@ -14,9 +14,6 @@
      (-> options
          (append-options :dependencies swagger-dependencies)
          (assoc :swagger true
-                :service-middleware-required
-                (indent require-indent
-                        [['ring.middleware.anti-forgery :refer ['wrap-anti-forgery]]])
                 :service-required
                 (indent require-indent
                         [[(symbol (str (:project-ns options) ".routes.services")) :refer ['service-routes]]])

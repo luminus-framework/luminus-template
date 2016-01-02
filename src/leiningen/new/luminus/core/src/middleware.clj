@@ -8,8 +8,7 @@
             [ring.middleware.webjars :refer [wrap-webjars]]
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
-            [ring.middleware.format :refer [wrap-restful-format]]<% if service-middleware-required %>
-            <<service-middleware-required>><% endif %><% if auth-middleware-required %>
+            [ring.middleware.format :refer [wrap-restful-format]]<% if auth-middleware-required %>
             <<auth-middleware-required>><% endif %>
             [<<project-ns>>.config :refer [defaults]])
   (:import [javax.servlet ServletContext]))
