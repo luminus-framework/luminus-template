@@ -11,9 +11,10 @@
   (if (some #{"+cucumber"} (:features options))
     [(into assets cucumber-assets)
      (-> options
-         (append-options :plugins [['org.clojars.punkisdead/lein-cucumber "1.0.4"]])
+         (append-options :plugins [['org.clojars.punkisdead/lein-cucumber "1.0.5"]])
          (append-options :dev-dependencies [['org.clojure/core.cache "0.6.3"]
                                             ['org.apache.httpcomponents/httpcore "4.4"]
-                                            ['clj-webdriver/clj-webdriver "0.6.1"]])
+                                            ['clj-webdriver/clj-webdriver "0.7.2"]
+                                            ['org.seleniumhq.selenium/selenium-server "2.48.2"]])
          (assoc :cucumber-feature-paths (pprint-code ["test/features"])))]
     state))
