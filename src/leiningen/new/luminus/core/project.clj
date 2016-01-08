@@ -10,7 +10,6 @@
                  [ring-middleware-format "0.7.0"]
                  [metosin/ring-http-response "0.6.5"]
                  [bouncer "1.0.0"]
-                 [org.clojure/tools.nrepl "0.2.12"]
                  [org.webjars/bootstrap "3.3.6"]
                  [org.webjars/jquery "2.1.4"]
                  [org.clojure/tools.logging "0.3.1"]
@@ -23,6 +22,7 @@
                  [ring-ttl-session "0.3.0"]<% endifunequal %>
                  [ring "1.4.0" :exclusions [ring/ring-jetty-adapter]]
                  [mount "0.1.7"]
+                 [luminus-nrepl "0.1.0"]
                  <<dependencies>>]
 
   :min-lein-version "<<min-lein-version>>"

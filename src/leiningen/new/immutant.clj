@@ -8,7 +8,6 @@
          (assoc :server "immutant")
          (append-options :dependencies
                          [['org.webjars/webjars-locator-jboss-vfs "0.1.0"]
-                          ['org.immutant/web "2.1.1"
-                           :exclusions ['ch.qos.logback/logback-classic]]]))]
+                          ['luminus-immutant "0.1.0"]]))]
     state))
 
