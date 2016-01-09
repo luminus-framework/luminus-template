@@ -24,14 +24,14 @@
   [['lein-cljsbuild "1.1.1"]])
 
 (def cljs-dev-plugins
-  [['lein-figwheel "0.5.0-2"]])
+  [['lein-figwheel "0.5.0-3"]])
 
 (def clean-targets [:target-path
                     [:cljsbuild :builds :app :compiler :output-dir]
                     [:cljsbuild :builds :app :compiler :output-to]])
 
 (def cljs-dev-dependencies
-  [['lein-figwheel "0.5.0-2"]
+  [['lein-figwheel "0.5.0-3"]
    ['com.cemerick/piggieback "0.2.2-SNAPSHOT"]])
 
 (def cljs-build

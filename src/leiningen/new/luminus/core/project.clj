@@ -4,7 +4,7 @@
   :url "http://example.com/FIXME"
 
   :dependencies [[org.clojure/clojure "1.7.0"]
-                 [selmer "0.9.8"]
+                 [selmer "0.9.9"]
                  [markdown-clj "0.9.85"]
                  [environ "1.0.1"]
                  [ring-middleware-format "0.7.0"]
@@ -21,7 +21,7 @@
                  [ring/ring-defaults "0.1.5"]<% ifunequal server "immutant" %>
                  [ring-ttl-session "0.3.0"]<% endifunequal %>
                  [ring "1.4.0" :exclusions [ring/ring-jetty-adapter]]
-                 [mount "0.1.7"]
+                 [mount "0.1.8"]
                  [luminus-nrepl "0.1.0"]
                  <<dependencies>>]
 
@@ -52,7 +52,7 @@
              :source-paths ["env/prod/clj"]}
    :dev           [:project/dev :profiles/dev]
    :test          [:project/test :profiles/test]
-   :project/dev  {:dependencies [[prone "0.8.3"]
+   :project/dev  {:dependencies [[prone "1.0.0"]
                                  [ring/ring-mock "0.3.0"]
                                  [ring/ring-devel "1.4.0"]
                                  [pjstadig/humane-test-output "0.7.1"]<% if dev-dependencies %>
