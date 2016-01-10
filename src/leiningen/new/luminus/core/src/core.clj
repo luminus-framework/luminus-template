@@ -27,7 +27,7 @@
   (let [port (http-port port)]
     (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app))
     (when-let [repl-port (env :nrepl-port)]
-      (repl/start (parse-port repl-port)))
+      (repl/start {:port (parse-port repl-port)}))
     (http/start {:handler app
                  :init    init
                  :port    port})))
