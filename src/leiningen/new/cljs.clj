@@ -24,7 +24,8 @@
   [['lein-cljsbuild "1.1.1"]])
 
 (def cljs-dev-plugins
-  [['lein-figwheel "0.5.0-3"]])
+  [['lein-figwheel "0.5.0-3"]
+   ['org.clojure/clojurescript "1.7.170"]])
 
 (def clean-targets [:target-path
                     [:cljsbuild :builds :app :compiler :output-dir]
