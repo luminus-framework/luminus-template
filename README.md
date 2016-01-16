@@ -55,7 +55,7 @@ lein new luminus myapp +auth +postgres
 To build as a executable [Java ARchive (JAR)][jar] standalone, run the following command:
 
 ```bash
-lein ring uberjar
+lein uberjar
 ```
 
 To run the resulting standalone executable `.jar` file, do as you would with any other:
@@ -67,15 +67,6 @@ user$ java -jar target/myapp.jar
 16:06:21.685 INFO  [org.projectodd.wunderboss.web.Web] (main) Registered web context /
 15-Sep-14 16:06:21 APc47d.4f39.65e6.uhn.ca INFO [myapp.core] - server started on port: 3002
 ```
-
-To build a [WAR][war] (or Web application ARchive) file run:
-
-```bash
-lein ring uberwar
-```
-
-You can then easily deploy the resulting WAR to Tomcat or any other Java application
-server.
 
 ## Performance Testing
 
