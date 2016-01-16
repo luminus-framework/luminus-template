@@ -37,7 +37,7 @@
             <<plugins>><% endif %>]<% if cucumber-feature-paths %>
   :cucumber-feature-paths <<cucumber-feature-paths>><% endif %><% if sassc-config-params %>
   <<sassc-config-params>>
-  <<lein-sassy-params>>
+  <<sassc-auto-config>>
   :hooks [leiningen.sassc]<% endif %><% if uberwar-options %>
   :uberwar
   <<uberwar-options>><% endif %><% if clean-targets %>

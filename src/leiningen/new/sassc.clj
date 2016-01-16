@@ -6,19 +6,18 @@
 
 (def sassc-config
   {:sassc
-   {:src         "resources/scss/screen.scss"               ;; default "src/scss/main.scss"
-    :output-to   "resources/public/css/screen.css"          ;; default "target/sassc/main.css"
-    :style       "nested"                                   ;; "nested" or "compressed", default "nested"
-    :import-path "resources/scss"}})                        ;; default "src/scss"
+   [{:src         "resources/scss/screen.scss"
+     :output-to   "resources/public/css/screen.css"
+     :style       "nested"
+     :import-path "resources/scss"}]})
 
-(def lein-sassy-config
-  {:sass
-   {:src "resources/sass/stylesheets"
-    :dst "resources/public/css"}})
+(def sassc-auto-config
+  {:auto {"sassc" {:file-pattern  #"\.(scss|sass)$"
+                   :paths ["resources/scss"]}}})
 
 (def sass-plugins
-  [['lein-sassy "1.0.7"]
-   ['lein-sassc "0.10.4"]])
+  [['lein-sassc "0.10.4"]
+   ['lein-auto "0.1.2"]])
 
 (defn sassc-features [[assets options :as state]]
   (if (some #{"+sassc"} (:features options))
@@ -29,5 +28,5 @@
                               (slurp-resource "sassc/docs/sassc_instructions.md")
                               options))
          (assoc :sassc-config-params (unwrap-map (indent root-indent sassc-config)))
-         (assoc :lein-sassy-params (unwrap-map (indent root-indent lein-sassy-config))))]
+         (assoc :sassc-auto-config (unwrap-map (indent root-indent sassc-auto-config))))]
     state))
