@@ -29,7 +29,8 @@
    ["profiles.clj" "core/profiles.clj"]
    ["Procfile" "core/Procfile"]
    ["README.md" "core/README.md"]
-   ["resources/log4j.properties" "core/resources/log4j.properties"]
+   ["env/dev/resources/log4j.properties" "core/env/dev/resources/log4j.properties"]
+   ["env/prod/resources/log4j.properties" "core/env/prod/resources/log4j.properties"]
 
    ;; config namespaces
    ["env/dev/clj/{{sanitized}}/config.clj" "core/env/dev/clj/config.clj"]

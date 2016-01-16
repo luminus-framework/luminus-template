@@ -49,7 +49,8 @@
              :env {:production true}<% if cljs-uberjar %>
              <<cljs-uberjar>><% endif %>
              :aot :all
-             :source-paths ["env/prod/clj"]}
+             :source-paths ["env/prod/clj"]
+             :resource-paths ["env/prod/resources"]}
    :dev           [:project/dev :profiles/dev]
    :test          [:project/test :profiles/test]
    :project/dev  {:dependencies [[prone "1.0.1"]
@@ -62,6 +63,7 @@
                   <% if figwheel %>:figwheel
                   <<figwheel>><% endif %>
                   :source-paths ["env/dev/clj"]
+                  :resource-paths ["env/dev/resources"]
                   :repl-options {:init-ns <<project-ns>>.core}
                   :injections [(require 'pjstadig.humane-test-output)
                                (pjstadig.humane-test-output/activate!)]
