@@ -14,7 +14,9 @@
       :else          (throw (Exception. (str "invalid port value: " port))))))
 
 (defn http-port [port]
-  (parse-port (or port (env :port) 3000)))
+  ;;default production port is set in
+  ;;env/prod/resources/config.edn
+  (parse-port (or port (env :port))))
 
 (defn stop-app []
   (repl/stop)
