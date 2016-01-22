@@ -3,7 +3,7 @@
             [luminus.repl-server :as repl]
             [luminus.http-server :as http]<% if relational-db %>
             [<<project-ns>>.db.migrations :as migrations]<% endif %>
-            [environ.core :refer [env]])
+            [config.core :refer [env]])
   (:gen-class))
 
 (defn parse-port [port]

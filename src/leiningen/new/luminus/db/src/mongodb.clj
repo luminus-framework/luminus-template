@@ -2,7 +2,7 @@
     (:require [monger.core :as mg]
               [monger.collection :as mc]
               [monger.operators :refer :all]
-              [environ.core :refer [env]]))
+              [config.core :refer [env]]))
 
 
 (defonce db (atom nil))

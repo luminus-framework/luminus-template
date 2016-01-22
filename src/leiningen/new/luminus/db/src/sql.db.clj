@@ -1,12 +1,12 @@
 (ns <<project-ns>>.db.core<% if embedded-db %>
   (:require
     [yesql.core :refer [defqueries]]
-    [environ.core :refer [env]])<% endif %><% ifequal db-type "postgres" %>
+    [config.core :refer [env]])<% endif %><% ifequal db-type "postgres" %>
   (:require
     [cheshire.core :refer [generate-string parse-string]]
     [clojure.java.jdbc :as jdbc]
     [conman.core :as conman]
-    [environ.core :refer [env]]
+    [config.core :refer [env]]
     [mount.core :refer [defstate]])
   (:import org.postgresql.util.PGobject
            org.postgresql.jdbc4.Jdbc4Array
@@ -20,7 +20,7 @@
   (:require
     [clojure.java.jdbc :as jdbc]
     [conman.core :as conman]
-    [environ.core :refer [env]]
+    [config.core :refer [env]]
     [mount.core :refer [defstate]])
   (:import [java.sql
             BatchUpdateException

@@ -6,7 +6,7 @@
             [<<project-ns>>.middleware :as middleware]
             [clojure.tools.logging :as log]
             [compojure.route :as route]
-            [environ.core :refer [env]]
+            [config.core :refer [env]]
             [<<project-ns>>.config :refer [defaults]]
             [mount.core :as mount]))
 

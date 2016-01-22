@@ -4,7 +4,7 @@
             [clojure.test :refer :all]
             [clojure.java.jdbc :as jdbc]<% if not embedded-db %>
             [conman.core :refer [with-transaction]]<% endif %>
-            [environ.core :refer [env]]
+            [config.core :refer [env]]
             [mount.core :as mount]))
 
 (use-fixtures

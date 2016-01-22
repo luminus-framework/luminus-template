@@ -1,7 +1,7 @@
 (ns <<project-ns>>.middleware
   (:require [<<project-ns>>.layout :refer [*app-context* error-page]]
             [clojure.tools.logging :as log]
-            [environ.core :refer [env]]<% ifequal server "immutant" %>
+            [config.core :refer [env]]<% ifequal server "immutant" %>
             [ring.middleware.flash :refer [wrap-flash]]
             [immutant.web.middleware :refer [wrap-session]]<% else %>
             [ring-ttl-session.core :refer [ttl-memory-store]]<% endifequal %>
