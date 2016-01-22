@@ -64,7 +64,7 @@
                   <<figwheel>><% endif %>
                   :source-paths ["env/dev/clj"]
                   :resource-paths ["env/dev/resources"]
-                  :repl-options {:init-ns <<project-ns>>.core}
+                  :repl-options {:init-ns user}
                   :injections [(require 'pjstadig.humane-test-output)
                                (pjstadig.humane-test-output/activate!)]
                   ;;when :nrepl-port is set the application starts the nREPL server on load

@@ -29,6 +29,8 @@
    ["profiles.clj" "core/profiles.clj"]
    ["Procfile" "core/Procfile"]
    ["README.md" "core/README.md"]
+   ["env/dev/resources/config.edn" "core/env/dev/resources/config.edn"]
+   ["env/prod/resources/config.edn" "core/env/prod/resources/config.edn"]
    ["env/dev/resources/log4j.properties" "core/env/dev/resources/log4j.properties"]
    ["env/prod/resources/log4j.properties" "core/env/prod/resources/log4j.properties"]
 
@@ -37,6 +39,7 @@
    ["env/dev/clj/{{sanitized}}/dev_middleware.clj" "core/env/dev/clj/dev_middleware.clj"]
    ["env/prod/clj/{{sanitized}}/config.clj" "core/env/prod/clj/config.clj"]
    ;; core namespaces
+   ["env/dev/clj/user.clj" "core/env/dev/clj/user.clj"]
    ["src/{{sanitized}}/core.clj" "core/src/core.clj"]
    ["src/{{sanitized}}/handler.clj" "core/src/handler.clj"]
    ["src/{{sanitized}}/routes/home.clj" "core/src/home.clj"]
