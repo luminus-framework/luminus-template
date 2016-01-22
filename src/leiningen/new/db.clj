@@ -14,7 +14,7 @@
    ['conman "0.2.9"]
    ({:postgres ['org.postgresql/postgresql "9.4-1206-jdbc4"]
      :mysql    ['mysql/mysql-connector-java "5.1.6"]
-     :h2       ['com.h2database/h2 "1.4.190"]
+     :h2       ['com.h2database/h2 "1.4.191"]
      :sqlite   ['org.xerial/sqlite-jdbc "3.8.11.1"]}
      (select-db options))])
 
