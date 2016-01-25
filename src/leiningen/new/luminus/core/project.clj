@@ -13,7 +13,6 @@
                  [org.webjars/bootstrap "3.3.6"]
                  [org.webjars/jquery "2.2.0"]
                  [org.clojure/tools.logging "0.3.1"]
-                 [luminus-log4j "0.1.1"]
                  [com.taoensso/tower "3.0.2"]
                  [compojure "1.4.0"]
                  [ring-webjars "0.1.1"]

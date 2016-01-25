@@ -18,7 +18,8 @@
             [leiningen.new.sassc :refer [sassc-features]]
             [leiningen.new.site :refer [site-features]]
             [leiningen.new.war :refer [war-features]]
-            [leiningen.new.kibit :refer [kibit-features]]))
+            [leiningen.new.kibit :refer [kibit-features]]
+            [leiningen.new.log4j :refer [log4j-features]]))
 
 (defn resource [r]
   (->> r (str "leiningen/new/luminus/core/resources/") (io/resource)))
@@ -29,8 +30,6 @@
    ["profiles.clj" "core/profiles.clj"]
    ["Procfile" "core/Procfile"]
    ["README.md" "core/README.md"]
-   ["env/dev/resources/log4j.properties" "core/env/dev/resources/log4j.properties"]
-   ["env/prod/resources/log4j.properties" "core/env/prod/resources/log4j.properties"]
    ["env/prod/resources/config.edn" "core/env/prod/resources/config.edn"]
 
    ;; config namespaces
@@ -85,19 +84,25 @@
             immutant-features
             sassc-features
             war-features
-            kibit-features)]
+            kibit-features
+            log4j-features)]
     (render-assets (init-render) assets (format-options options))))
 
 (defn format-features [features]
   (apply str (interpose ", " features)))
 
-(defn set-default-features [options]
+(defn set-feature [options feature features]
   (if (empty?
         (clojure.set/intersection
           (-> options :features set)
-          #{"+jetty" "+aleph" "+http-kit"}))
-    (update-in options [:features] conj "+immutant")
+          features))
+    (update-in options [:features] conj feature)
     options))
+
+(defn set-default-features [options]
+  (-> options
+      (set-feature "+immutant" #{"+jetty" "+aleph" "+http-kit"})
+      (set-feature "+log4j" #{})))
 
 (defn parse-version [v]
   (map #(Integer/parseInt %)

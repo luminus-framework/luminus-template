@@ -9,7 +9,7 @@
             [config.core :refer [env]]
             [<<project-ns>>.config :refer [defaults]]
             [mount.core :as mount]
-            [luminus-log4j.core :as log-adapter]))
+            [luminus.logger :as logger]))
 
 (defn init
   "init will be called once when
@@ -17,7 +17,7 @@
    an app server such as Tomcat
    put any initialization code here"
   []
-  (log-adapter/init env)
+  (logger/init env)
   (doseq [component (:started (mount/start))]
     (log/info component "started"))
   ((:init defaults)))
