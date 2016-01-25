@@ -5,6 +5,7 @@
             [ring.middleware.flash :refer [wrap-flash]]
             [immutant.web.middleware :refer [wrap-session]]<% else %>
             [ring-ttl-session.core :refer [ttl-memory-store]]<% endifequal %>
+            [ring.middleware.conditional :as rmc]
             [ring.middleware.webjars :refer [wrap-webjars]]
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
@@ -73,7 +74,10 @@
 (defn wrap-base [handler]
   (-> ((:middleware defaults) handler)<% if auth-middleware-required %>
       wrap-auth<% endif %>
-      wrap-formats
+      (rmc/if (fn [request] (not (:websocket? request)))
+        ;; disable wrap-formats for websockets
+        ;; since websockets break when wrap-formats is enabled
+        wrap-formats)
       wrap-webjars<% ifequal server "immutant" %>
       wrap-flash
       (wrap-session {:cookie-attrs {:http-only true}})
