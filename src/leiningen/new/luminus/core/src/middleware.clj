@@ -52,7 +52,7 @@
                   {:formats [:json-kw :transit-json :transit-msgpack]})]
     (fn [request]
       ;; disable wrap-formats for websockets
-      ;; since websockets break when wrap-formats is enabled
+      ;; since they're not compatible with this middleware
       ((if (:websocket? request) handler wrapped) request))))
 <% if auth-middleware-required %>
 (defn on-error [request response]

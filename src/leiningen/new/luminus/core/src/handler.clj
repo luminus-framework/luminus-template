@@ -8,7 +8,8 @@
             [compojure.route :as route]
             [config.core :refer [env]]
             [<<project-ns>>.config :refer [defaults]]
-            [mount.core :as mount]))
+            [mount.core :as mount]
+            [luminus-log4j.core :as log-adapter]))
 
 (defn init
   "init will be called once when
@@ -16,8 +17,7 @@
    an app server such as Tomcat
    put any initialization code here"
   []
-  (when-let [config (:log-config env)]
-    (org.apache.log4j.PropertyConfigurator/configure config))
+  (log-adapter/init env)
   (doseq [component (:started (mount/start))]
     (log/info component "started"))
   ((:init defaults)))
