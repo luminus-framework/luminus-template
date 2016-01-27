@@ -2,9 +2,35 @@ html,
 body {
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     height: 100%;
-    padding-top: 40px;
 }
-{% if cljs %}
+.navbar {
+  margin-bottom: 10px;
+}
+.navbar-brand {
+  float: none;
+}
+.navbar-nav .nav-item {
+  float: none;
+}
+.navbar-divider,
+.navbar-nav .nav-item+.nav-item,
+.navbar-nav .nav-link + .nav-link {
+  margin-left: 0;
+}
+@media (min-width: 34em) {
+  .navbar-brand {
+    float: left;
+  }
+  .navbar-nav .nav-item {
+    float: left;
+  }
+  .navbar-divider,
+  .navbar-nav .nav-item+.nav-item,
+  .navbar-nav .nav-link + .nav-link {
+    margin-left: 1rem;
+  }
+}
+<% if cljs %>
 @-moz-keyframes three-quarters-loader {
     0% {
         -moz-transform: rotate(0deg);
@@ -39,20 +65,4 @@ body {
         transform: rotate(360deg);
     }
 }
-/* :not(:required) hides this rule from IE9 and below */
-.three-quarters-loader:not(:required) {
-    -moz-animation: three-quarters-loader 1250ms infinite linear;
-    -webkit-animation: three-quarters-loader 1250ms infinite linear;
-    animation: three-quarters-loader 1250ms infinite linear;
-    border: 8px solid #38e;
-    border-right-color: transparent;
-    border-radius: 16px;
-    box-sizing: border-box;
-    display: inline-block;
-    position: relative;
-    overflow: hidden;
-    text-indent: -9999px;
-    width: 32px;
-    height: 32px;
-}
-{% endif %}
+<% endif %>
