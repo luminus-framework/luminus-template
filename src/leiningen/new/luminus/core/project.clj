@@ -11,6 +11,7 @@
                  [metosin/ring-http-response "0.6.5"]
                  [bouncer "1.0.0"]
                  [org.webjars/bootstrap "4.0.0-alpha.2"]
+                 [org.webjars/font-awesome "4.5.0"]
                  [org.webjars.bower/tether "1.1.1"]
                  [org.webjars/jquery "2.2.0"]
                  [org.clojure/tools.logging "0.3.1"]
