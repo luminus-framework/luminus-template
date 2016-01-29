@@ -10,7 +10,7 @@
     (some #{"+sqlite"} features) :sqlite))
 
 (defn db-dependencies [options]
-  [['migratus "0.8.8"]
+  [['migratus "0.8.9"]
    ['conman "0.2.9"]
    ({:postgres ['org.postgresql/postgresql "9.4-1206-jdbc4"]
      :mysql    ['mysql/mysql-connector-java "5.1.6"]
@@ -60,7 +60,7 @@
    (let [embedded-db? (some #{(name db)} ["h2" "sqlite"])]
      (-> options
        (append-options :dependencies (db-dependencies options))
-       (append-options :plugins [['migratus-lein "0.2.0"]])
+       (append-options :plugins [['migratus-lein "0.2.1"]])
        (update-in [:dev-dependencies] conj ['mvxcvi/puget "1.0.0"])
        (assoc
          :relational-db true
