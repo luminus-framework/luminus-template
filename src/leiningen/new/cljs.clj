@@ -3,6 +3,8 @@
 
 (def cljs-assets
   [["src-cljs/{{sanitized}}/core.cljs" "cljs/src/cljs/core.cljs"]
+   ["test-cljs/{{sanitized}}/doo_runner.cljs" "cljs/test/cljs/doo_runner.cljs"]
+   ["test-cljs/{{sanitized}}/core_test.cljs" "cljs/test/cljs/core_test.cljs"]
    ["env/dev/cljs/{{sanitized}}/dev.cljs" "cljs/env/dev/cljs/app.cljs"]
    ["env/prod/cljs/{{sanitized}}/prod.cljs" "cljs/env/prod/cljs/app.cljs"]
    ["resources/templates/home.html" "cljs/templates/home.html"]
@@ -25,6 +27,7 @@
 
 (def cljs-dev-plugins
   [['lein-figwheel "0.5.0-6"]
+   ['lein-doo "0.1.6"]
    ['org.clojure/clojurescript "1.7.228"]])
 
 (def clean-targets [:target-path
@@ -33,6 +36,7 @@
 
 (def cljs-dev-dependencies
   [['lein-figwheel "0.5.0-6"]
+   ['lein-doo "0.1.6"]
    ['com.cemerick/piggieback "0.2.2-SNAPSHOT"]])
 
 (def cljs-build
@@ -59,7 +63,15 @@
                  :compiler     {:main       (str project-ns ".app")
                                 :asset-path "/js/out"
                                 :optimizations :none
-                                :source-map true}}}}})
+                                :source-map true}}
+                :test {:source-paths ["src-cljs" "test-cljs"]
+                       :compiler {:output-to "target/test.js"
+                                  :main (str project-ns ".doo-runner")
+                                  :optimizations :whitespace
+                                  :pretty-print true}}}}})
+
+(def cljs-test
+  {:build "test"})
 
 (defn figwheel [{:keys [project-ns]}]
   {:http-server-root "public"
@@ -82,6 +94,7 @@
          (assoc
            :cljs true
            :cljs-build (indent root-indent cljs-build)
+           :cljs-test cljs-test
            :figwheel (indent dev-indent (figwheel options))
            :cljs-dev (unwrap-map (indent dev-indent (cljs-dev options)))
            :cljs-uberjar (unwrap-map (indent uberjar-indent cljs-uberjar))))]

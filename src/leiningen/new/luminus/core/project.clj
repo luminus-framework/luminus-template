@@ -61,7 +61,7 @@
                   <% if dev-plugins %>:plugins <<dev-plugins>><% endif %><% if cljs-dev %>
                   <<cljs-dev>><% endif %>
                   <% if figwheel %>:figwheel
-                  <<figwheel>><% endif %>
+                  <<figwheel>><% endif %><% if cljs-test %>:doo <<cljs-test>><% endif %>
                   :source-paths ["env/dev/clj"]
                   :resource-paths ["env/dev/resources"]
                   :repl-options {:init-ns user}
