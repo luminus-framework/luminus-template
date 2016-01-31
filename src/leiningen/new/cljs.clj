@@ -2,10 +2,11 @@
   (:require [leiningen.new.common :refer :all]))
 
 (def cljs-assets
-  [["src-cljs/{{sanitized}}/core.cljs" "cljs/src/cljs/core.cljs"]
-   ["src-cljs/{{sanitized}}/ajax.cljs" "cljs/src/cljs/ajax.cljs"]
-   ["test-cljs/{{sanitized}}/doo_runner.cljs" "cljs/test/cljs/doo_runner.cljs"]
-   ["test-cljs/{{sanitized}}/core_test.cljs" "cljs/test/cljs/core_test.cljs"]
+  [["src/cljs/{{sanitized}}/core.cljs" "cljs/src/cljs/core.cljs"]
+   ["src/cljs/{{sanitized}}/ajax.cljs" "cljs/src/cljs/ajax.cljs"]
+   "src/cljc/{{sanitized}}"
+   ["test/cljs/{{sanitized}}/doo_runner.cljs" "cljs/test/cljs/doo_runner.cljs"]
+   ["test/cljs/{{sanitized}}/core_test.cljs" "cljs/test/cljs/core_test.cljs"]
    ["env/dev/cljs/{{sanitized}}/dev.cljs" "cljs/env/dev/cljs/app.cljs"]
    ["env/prod/cljs/{{sanitized}}/prod.cljs" "cljs/env/prod/cljs/app.cljs"]
    ["resources/templates/home.html" "cljs/templates/home.html"]
@@ -19,6 +20,9 @@
    ['secretary "1.2.3"]
    ['org.clojure/core.async "0.2.374"]
    ['cljs-ajax "0.5.3"]])
+
+(def source-paths
+  ["src/cljc"])
 
 (def resource-paths
   ["target/cljsbuild"])
@@ -41,7 +45,7 @@
    ['com.cemerick/piggieback "0.2.2-SNAPSHOT"]])
 
 (def cljs-build
-  {:builds {:app {:source-paths ["src-cljs"]
+  {:builds {:app {:source-paths ["src/cljc" "src/cljs"]
                   :compiler     {:output-to    "target/cljsbuild/public/js/app.js"
                                  :output-dir   "target/cljsbuild/public/js/out"
                                  :externs      ["react/externs/react.js"]
@@ -65,7 +69,7 @@
                                 :asset-path "/js/out"
                                 :optimizations :none
                                 :source-map true}}
-                :test {:source-paths ["src-cljs" "test-cljs"]
+                :test {:source-paths ["src/cljc" "src/cljs" "test/cljs"]
                        :compiler {:output-to "target/test.js"
                                   :main (str project-ns ".doo-runner")
                                   :optimizations :whitespace
@@ -88,6 +92,7 @@
      (-> options
          (append-options :dependencies cljs-dependencies)
          (append-options :plugins cljs-plugins)
+         (append-options :source-paths source-paths)
          (append-options :resource-paths resource-paths)
          (append-options :dev-dependencies cljs-dev-dependencies)
          (append-options :dev-plugins cljs-dev-plugins)

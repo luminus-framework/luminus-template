@@ -28,6 +28,7 @@
   :min-lein-version "<<min-lein-version>>"
   :uberjar-name "<<name>>.jar"
   :jvm-opts ["-server"]<% if resource-paths %>
+  :source-paths <<source-paths>>
   :resource-paths <<resource-paths>><% endif %>
 
   :main <<project-ns>>.core<% if migrations %>
@@ -62,7 +63,7 @@
                   <<cljs-dev>><% endif %>
                   <% if figwheel %>:figwheel
                   <<figwheel>><% endif %><% if cljs-test %>:doo <<cljs-test>><% endif %>
-                  :source-paths ["env/dev/clj"]
+                  :source-paths ["env/dev/clj" "test/clj"]
                   :resource-paths ["env/dev/resources"]
                   :repl-options {:init-ns user}
                   :injections [(require 'pjstadig.humane-test-output)

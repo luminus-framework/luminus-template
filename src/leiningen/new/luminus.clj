@@ -38,11 +38,11 @@
    ["env/prod/clj/{{sanitized}}/config.clj" "core/env/prod/clj/config.clj"]
    ;; core namespaces
    ["env/dev/clj/user.clj" "core/env/dev/clj/user.clj"]
-   ["src/{{sanitized}}/core.clj" "core/src/core.clj"]
-   ["src/{{sanitized}}/handler.clj" "core/src/handler.clj"]
-   ["src/{{sanitized}}/routes/home.clj" "core/src/home.clj"]
-   ["src/{{sanitized}}/layout.clj" "core/src/layout.clj"]
-   ["src/{{sanitized}}/middleware.clj" "core/src/middleware.clj"]
+   ["src/clj/{{sanitized}}/core.clj" "core/src/core.clj"]
+   ["src/clj/{{sanitized}}/handler.clj" "core/src/handler.clj"]
+   ["src/clj/{{sanitized}}/routes/home.clj" "core/src/home.clj"]
+   ["src/clj/{{sanitized}}/layout.clj" "core/src/layout.clj"]
+   ["src/clj/{{sanitized}}/middleware.clj" "core/src/middleware.clj"]
 
    ;;HTML templates
    ["resources/templates/base.html" "core/resources/templates/base.html"]
@@ -58,7 +58,7 @@
    "resources/public/img"
 
    ;; tests
-   ["test/{{sanitized}}/test/handler.clj" "core/test/handler.clj"]])
+   ["test/clj/{{sanitized}}/test/handler.clj" "core/test/handler.clj"]])
 
 (defn format-options [options]
   (-> options
@@ -129,14 +129,15 @@
                              "+cucumber" "+sassc"
                              "+swagger" "+war"
                              "+kibit"}
-        options {:name             (project-name name)
-                 :selmer-renderer  render-template
-                 :min-lein-version "2.0.0"
-                 :project-ns       (sanitize-ns name)
-                 :sanitized        (name-to-path name)
-                 :year             (year)
-                 :features         (set feature-params)
-                 :resource-paths ["resources"]}
+        options {:name              (project-name name)
+                 :selmer-renderer   render-template
+                 :min-lein-version  "2.0.0"
+                 :project-ns        (sanitize-ns name)
+                 :sanitized         (name-to-path name)
+                 :year              (year)
+                 :features          (set feature-params)
+                 :source-paths      ["src/clj"]
+                 :resource-paths    ["resources"]}
         unsupported (-> (set feature-params)
                         (clojure.set/difference supported-features)
                         (not-empty))]

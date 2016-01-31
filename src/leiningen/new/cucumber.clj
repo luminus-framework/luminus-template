@@ -2,10 +2,10 @@
   (:require [leiningen.new.common :refer :all]))
 
 (def cucumber-assets
-  [["test/{{sanitized}}/browser.clj" "cucumber/src/browser.clj"]
-   ["test/features/step_definitions/home_page_steps.clj" "cucumber/src/home_page_steps.clj"]
+  [["test/clj/{{sanitized}}/browser.clj" "cucumber/src/browser.clj"]
+   ["test/clj/features/step_definitions/home_page_steps.clj" "cucumber/src/home_page_steps.clj"]
    ["resources/log4j.properties" "cucumber/resources/log4j.properties"]
-   ["test/features/index_page.feature" "cucumber/resources/index_page.feature"]])
+   ["test/clj/features/index_page.feature" "cucumber/resources/index_page.feature"]])
 
 (defn cucumber-features [[assets options :as state]]
   (if (some #{"+cucumber"} (:features options))
@@ -16,5 +16,5 @@
                                             ['org.apache.httpcomponents/httpcore "4.4"]
                                             ['clj-webdriver/clj-webdriver "0.7.2"]
                                             ['org.seleniumhq.selenium/selenium-server "2.48.2"]])
-         (assoc :cucumber-feature-paths (pprint-code ["test/features"])))]
+         (assoc :cucumber-feature-paths (pprint-code ["test/clj/features"])))]
     state))
