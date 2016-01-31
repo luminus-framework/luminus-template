@@ -18,5 +18,5 @@
                 (indent require-indent
                         [[(symbol (str (:project-ns options) ".routes.services")) :refer ['service-routes]]])
                 :service-routes
-                (indent dev-indent ['#'service-routes])))]
+                (indent dev-indent ["#'service-routes"])))]
     state))

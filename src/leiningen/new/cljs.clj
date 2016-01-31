@@ -3,6 +3,7 @@
 
 (def cljs-assets
   [["src-cljs/{{sanitized}}/core.cljs" "cljs/src/cljs/core.cljs"]
+   ["src-cljs/{{sanitized}}/ajax.cljs" "cljs/src/cljs/ajax.cljs"]
    ["test-cljs/{{sanitized}}/doo_runner.cljs" "cljs/test/cljs/doo_runner.cljs"]
    ["test-cljs/{{sanitized}}/core_test.cljs" "cljs/test/cljs/core_test.cljs"]
    ["env/dev/cljs/{{sanitized}}/dev.cljs" "cljs/env/dev/cljs/app.cljs"]

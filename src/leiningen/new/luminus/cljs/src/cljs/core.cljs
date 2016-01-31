@@ -5,6 +5,7 @@
             [goog.events :as events]
             [goog.history.EventType :as HistoryEventType]
             [markdown.core :refer [md->html]]
+            [<<project-ns>>.ajax :refer [load-interceptors!]]
             [ajax.core :refer [GET POST]])
   (:import goog.History))
 
@@ -87,6 +88,7 @@
   (r/render [#'page] (.getElementById js/document "app")))
 
 (defn init! []
+  (load-interceptors!)
   (fetch-docs!)
   (hook-browser-navigation!)
   (mount-components))
