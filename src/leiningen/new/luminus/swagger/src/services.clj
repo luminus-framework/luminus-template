@@ -10,64 +10,65 @@
                                :type #{{:id String}}}]})
 
 (defapi service-routes
-  (ring.swagger.ui/swagger-ui
-   "/swagger-ui")
+  {:swagger {:ui "/swagger-ui"
+             :spec "/swagger.json"
+             :data {:info {:version "1.0.0"
+                           :title "Sample API"
+                           :description "Sample Services"}}}}
   ;JSON docs available at the /swagger.json route
-  (swagger-docs
-    {:info {:title "Sample api"}})
-  (context* "/api" []
-            :tags ["thingie"]
+  (context "/api" []
+           :tags ["thingie"]
 
-            (GET* "/plus" []
-                  :return       Long
-                  :query-params [x :- Long, {y :- Long 1}]
-                  :summary      "x+y with query-parameters. y defaults to 1."
-                  (ok (+ x y)))
+           (GET "/plus" []
+                :return       Long
+                :query-params [x :- Long, {y :- Long 1}]
+                :summary      "x+y with query-parameters. y defaults to 1."
+                (ok (+ x y)))
 
-            (POST* "/minus" []
-                   :return      Long
-                   :body-params [x :- Long, y :- Long]
-                   :summary     "x-y with body-parameters."
-                   (ok (- x y)))
+           (POST "/minus" []
+                 :return      Long
+                 :body-params [x :- Long, y :- Long]
+                 :summary     "x-y with body-parameters."
+                 (ok (- x y)))
 
-            (GET* "/times/:x/:y" []
-                  :return      Long
-                  :path-params [x :- Long, y :- Long]
-                  :summary     "x*y with path-parameters"
-                  (ok (* x y)))
+           (GET "/times/:x/:y" []
+                :return      Long
+                :path-params [x :- Long, y :- Long]
+                :summary     "x*y with path-parameters"
+                (ok (* x y)))
 
-            (POST* "/divide" []
-                   :return      Double
-                   :form-params [x :- Long, y :- Long]
-                   :summary     "x/y with form-parameters"
-                   (ok (/ x y)))
+           (POST "/divide" []
+                 :return      Double
+                 :form-params [x :- Long, y :- Long]
+                 :summary     "x/y with form-parameters"
+                 (ok (/ x y)))
 
-            (GET* "/power" []
-                  :return      Long
-                  :header-params [x :- Long, y :- Long]
-                  :summary     "x^y with header-parameters"
-                  (ok (long (Math/pow x y))))
+           (GET "/power" []
+                :return      Long
+                :header-params [x :- Long, y :- Long]
+                :summary     "x^y with header-parameters"
+                (ok (long (Math/pow x y))))
 
-            (PUT* "/echo" []
-                  :return   [{:hot Boolean}]
-                  :body     [body [{:hot Boolean}]]
-                  :summary  "echoes a vector of anonymous hotties"
-                  (ok body))
+           (PUT "/echo" []
+                :return   [{:hot Boolean}]
+                :body     [body [{:hot Boolean}]]
+                :summary  "echoes a vector of anonymous hotties"
+                (ok body))
 
-            (POST* "/echo" []
-                   :return   (s/maybe Thingie)
-                   :body     [thingie (s/maybe Thingie)]
-                   :summary  "echoes a Thingie from json-body"
-                   (ok thingie)))
+           (POST "/echo" []
+                 :return   (s/maybe Thingie)
+                 :body     [thingie (s/maybe Thingie)]
+                 :summary  "echoes a Thingie from json-body"
+                 (ok thingie)))
 
-  (context* "/context" []
-            :tags ["context*"]
-            :summary "summary inherited from context"
-            (context* "/:kikka" []
-                      :path-params [kikka :- s/Str]
-                      :query-params [kukka :- s/Str]
-                      (GET* "/:kakka" []
-                            :path-params [kakka :- s/Str]
-                            (ok {:kikka kikka
-                                 :kukka kukka
-                                 :kakka kakka})))))
+  (context "/context" []
+           :tags ["context"]
+           :summary "summary inherited from context"
+           (context "/:kikka" []
+                    :path-params [kikka :- s/Str]
+                    :query-params [kukka :- s/Str]
+                    (GET "/:kakka" []
+                         :path-params [kakka :- s/Str]
+                         (ok {:kikka kikka
+                              :kukka kukka
+                              :kakka kakka})))))
