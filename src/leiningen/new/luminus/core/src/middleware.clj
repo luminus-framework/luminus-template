@@ -82,7 +82,6 @@
       wrap-formats
       wrap-webjars<% ifequal server "immutant" %>
       wrap-flash
-      wrap-csrf
       (wrap-session {:cookie-attrs {:http-only true}})
       (wrap-defaults
         (-> site-defaults
