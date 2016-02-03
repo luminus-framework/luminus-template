@@ -15,7 +15,6 @@
              :data {:info {:version "1.0.0"
                            :title "Sample API"
                            :description "Sample Services"}}}}
-  ;JSON docs available at the /swagger.json route
   (context "/api" []
            :tags ["thingie"]
 
