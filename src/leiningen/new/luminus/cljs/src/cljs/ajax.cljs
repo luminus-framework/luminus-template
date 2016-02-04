@@ -6,9 +6,9 @@
     request
     :headers
     #(merge
+      %
       {"Accept" "application/transit+json"
-       "x-csrf-token" js/csrfToken}
-      %)))
+       "x-csrf-token" js/csrfToken})))
 
 (defn load-interceptors! []
   (swap! ajax/default-interceptors
