@@ -113,24 +113,24 @@
 
 (extend-type java.util.Date
   jdbc/ISQLParameter
-  (set-parameter [v ^PreparedStatement stmt idx]
+  (set-parameter [v ^PreparedStatement stmt ^long idx]
     (.setTimestamp stmt idx (Timestamp. (.getTime v)))))
+
+(extend-type clojure.lang.IPersistentVector
+  jdbc/ISQLParameter
+  (set-parameter [v ^java.sql.PreparedStatement stmt ^long idx]
+    (let [conn      (.getConnection stmt)
+          meta      (.getParameterMetaData stmt)
+          type-name (.getParameterTypeName meta idx)]
+      (if-let [elem-type (when (= (first type-name) \_) (apply str (rest type-name)))]
+        (.setObject stmt idx (.createArrayOf conn elem-type (to-array v)))
+        (.setObject stmt idx v)))))
 
 (defn to-pg-json [value]
   (doto (PGobject.)
     (.setType "jsonb")
     (.setValue (generate-string value))))
 
-(extend-protocol jdbc/ISQLParameter
-  clojure.lang.IPersistentVector
-  (set-parameter [v ^java.sql.PreparedStatement stmt ^long i]
-    (let [conn      (.getConnection stmt)
-          meta      (.getParameterMetaData stmt)
-          type-name (.getParameterTypeName meta i)]
-      (if-let [elem-type (when (= (first type-name) \_) (apply str (rest type-name)))]
-        (.setObject stmt i (.createArrayOf conn elem-type (to-array v)))
-        (.setObject stmt i v)))))
-      
 (extend-protocol jdbc/ISQLValue
   IPersistentMap
   (sql-value [value] (to-pg-json value))
