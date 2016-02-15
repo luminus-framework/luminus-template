@@ -1,5 +1,7 @@
 # <<name>>
 
+generated using Luminus version <<luminus-version>>
+
 FIXME
 
 ## Prerequisites

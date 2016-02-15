@@ -114,7 +114,7 @@
     (or
       (< x1 x2)
       (and (= x1 x2) (< y1 y2))
-      (and (and (= x1 x2) (= y1 y2) (< z1 z2))))))
+      (and (= x1 x2) (= y1 y2) (< z1 z2)))))
 
 (defn luminus
   "Create a new Luminus project"
@@ -130,6 +130,7 @@
                              "+swagger" "+war"
                              "+kibit"}
         options {:name              (project-name name)
+                 :luminus-version   "2.9.x"
                  :selmer-renderer   render-template
                  :min-lein-version  "2.0.0"
                  :project-ns        (sanitize-ns name)
