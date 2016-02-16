@@ -26,7 +26,7 @@
                  <<dependencies>>]
 
   :min-lein-version "<<min-lein-version>>"
-  :uberjar-name "<<name>>.jar"
+
   :jvm-opts ["-server"]<% if resource-paths %>
   :source-paths <<source-paths>>
   :resource-paths <<resource-paths>><% endif %>
@@ -50,6 +50,7 @@
              :env {:production true}<% if cljs-uberjar %>
              <<cljs-uberjar>><% endif %>
              :aot :all
+             :uberjar-name "<<name>>.jar"
              :source-paths ["env/prod/clj"]
              :resource-paths ["env/prod/resources"]}
    :dev           [:project/dev :profiles/dev]
