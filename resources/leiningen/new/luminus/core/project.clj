@@ -21,7 +21,7 @@
                  [ring/ring-defaults "0.1.5"]<% ifunequal server "immutant" %>
                  [ring-ttl-session "0.3.0"]<% endifunequal %>
                  [ring "1.4.0" :exclusions [ring/ring-jetty-adapter]]
-                 [mount "0.1.8"]
+                 [mount "0.1.9"]
                  [luminus-nrepl "0.1.2"]
                  <<dependencies>>]
 
@@ -55,7 +55,7 @@
              :resource-paths ["env/prod/resources"]}
    :dev           [:project/dev :profiles/dev]
    :test          [:project/test :profiles/test]
-   :project/dev  {:dependencies [[prone "1.0.1"]
+   :project/dev  {:dependencies [[prone "1.0.2"]
                                  [ring/ring-mock "0.3.0"]
                                  [ring/ring-devel "1.4.0"]
                                  [pjstadig/humane-test-output "0.7.1"]<% if dev-dependencies %>
