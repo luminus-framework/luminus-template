@@ -23,12 +23,12 @@
                 :last_name  "Smith"
                 :email      "sam.smith@example.com"
                 :pass       "pass"}<% ifequal db-type "h2" %> {:connection t-conn}<% endifequal %>)))
-    (is (= [{:id         "1"
-             :first_name "Sam"
-             :last_name  "Smith"
-             :email      "sam.smith@example.com"
-             :pass       "pass"
-             :admin      nil
-             :last_login nil
-             :is_active  nil}]
+    (is (= {:id         "1"
+            :first_name "Sam"
+            :last_name  "Smith"
+            :email      "sam.smith@example.com"
+            :pass       "pass"
+            :admin      nil
+            :last_login nil
+            :is_active  nil}
            (db/get-user {:id "1"}<% ifequal db-type "h2" %> {:connection t-conn}<% endifequal %>)))))

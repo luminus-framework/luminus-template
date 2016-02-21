@@ -1,6 +1,7 @@
 (ns <<project-ns>>.db.core<% if embedded-db %>
   (:require
-    [yesql.core :refer [defqueries]]
+    [conman.core :as conman]
+    [mount.core :refer [defstate]]
     [config.core :refer [env]])<% endif %><% ifequal db-type "postgres" %>
   (:require
     [cheshire.core :refer [generate-string parse-string]]
@@ -24,55 +25,42 @@
     [mount.core :refer [defstate]])
   (:import [java.sql
             BatchUpdateException
-            PreparedStatement])<% endifequal %>)<% if embedded-db %>
+            PreparedStatement])<% endifequal %>)
 <% ifequal db-type "sqlite"%>
-(def conn
-  {:classname      "org.sqlite.JDBC"
-   :connection-uri (:database-url env)
-   :naming         {:keys   clojure.string/lower-case
-                    :fields clojure.string/upper-case}})
-
-(defqueries "sql/queries.sql" {:connection conn})<% endifequal %><% ifequal db-type "h2"%>
-(def conn
-  {:classname   "org.h2.Driver"
-   :connection-uri (:database-url env)
-   :make-pool?     true
-   :naming         {:keys   clojure.string/lower-case
-                    :fields clojure.string/upper-case}})
-
-(defqueries "sql/queries.sql" {:connection conn})<% endifequal %><% else %>
-<% ifequal db-type "postgres" %>
+(def pool-spec
+  {:datasource
+   (doto (org.sqlite.SQLiteDataSource.)
+     (.setUrl (:database-url env)))})
+<% endifequal %><% ifequal db-type "h2"%>
+(def pool-spec
+  {:datasource
+   (doto (org.h2.jdbcx.JdbcDataSource.)
+     (.setURL (:database-url env))
+     (.setUser "")
+     (.setPassword ""))})
+<% endifequal %><% ifequal db-type "postgres" %>
 (def pool-spec
   {:adapter    :postgresql
    :init-size  1
    :min-idle   1
    :max-idle   4
-   :max-active 32})<% endifequal %><% ifequal db-type "mysql" %>
+   :max-active 32
+   :jdbc-url   (env :database-url)})
+<% endifequal %><% ifequal db-type "mysql" %>
 (def pool-spec
   {:adapter    :mysql
    :init-size  1
    :min-idle   1
    :max-idle   4
-   :max-active 32})<% endifequal %> <% endif %><% if not embedded-db %>
-
-(defn connect! []
-  (let [conn (atom nil)]
-    (conman/connect!
-      conn
-      (assoc
-        pool-spec
-        :jdbc-url (env :database-url)))
-    conn))
-
-(defn disconnect! [conn]
-  (conman/disconnect! conn))
-
+   :max-active 32
+   :jdbc-url   (env :database-url)})
+<% endifequal %>
 (defstate ^:dynamic *db*
-          :start (connect!)
-          :stop (disconnect! *db*))
+          :start (conman/connect! pool-spec)
+          :stop (conman/disconnect! *db*))
 
 (conman/bind-connection *db* "sql/queries.sql")
-<% endif %><% ifequal db-type "mysql" %>
+<% ifequal db-type "mysql" %>
 (defn to-date [sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))
 
