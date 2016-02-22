@@ -60,7 +60,7 @@
    (let [embedded-db? (some #{(name db)} ["h2" "sqlite"])]
      (-> options
        (append-options :dependencies (db-dependencies options))
-       (append-options :plugins [['migratus-lein "0.2.2"]])
+       (append-options :plugins [['migratus-lein "0.2.3"]])
        (update-in [:dev-dependencies] conj ['mvxcvi/puget "1.0.0"])
        (assoc
          :relational-db true
