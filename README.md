@@ -6,7 +6,7 @@ The template initializes a base Luminus application.
 
 ## Requirements
 
-Luminus requires Leiningen version 2.x
+Luminus requires Leiningen version 2.5.3+
 
 ## Usage
 
