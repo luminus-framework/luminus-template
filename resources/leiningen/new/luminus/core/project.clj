@@ -6,7 +6,7 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [selmer "1.0.0"]
                  [markdown-clj "0.9.85"]
-                 [luminus/config "0.7"]
+                 [luminus/config "0.8"]
                  [ring-middleware-format "0.7.0"]
                  [metosin/ring-http-response "0.6.5"]
                  [bouncer "1.0.0"]
