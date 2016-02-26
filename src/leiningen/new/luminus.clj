@@ -31,14 +31,18 @@
    ["Procfile" "core/Procfile"]
    ["README.md" "core/README.md"]
    ["env/prod/resources/config.edn" "core/env/prod/resources/config.edn"]
+   ["env/dev/resources/config.edn" "core/env/dev/resources/config.edn"]
+   ["env/test/resources/config.edn" "core/env/test/resources/config.edn"]
 
    ;; config namespaces
-   ["env/dev/clj/{{sanitized}}/config.clj" "core/env/dev/clj/config.clj"]
+   ["env/dev/clj/{{sanitized}}/env.clj" "core/env/dev/clj/env.clj"]
    ["env/dev/clj/{{sanitized}}/dev_middleware.clj" "core/env/dev/clj/dev_middleware.clj"]
-   ["env/prod/clj/{{sanitized}}/config.clj" "core/env/prod/clj/config.clj"]
+   ["env/prod/clj/{{sanitized}}/env.clj" "core/env/prod/clj/env.clj"]
+
    ;; core namespaces
    ["env/dev/clj/user.clj" "core/env/dev/clj/user.clj"]
    ["src/clj/{{sanitized}}/core.clj" "core/src/core.clj"]
+   ["src/clj/{{sanitized}}/config.clj" "core/src/config.clj"]
    ["src/clj/{{sanitized}}/handler.clj" "core/src/handler.clj"]
    ["src/clj/{{sanitized}}/routes/home.clj" "core/src/home.clj"]
    ["src/clj/{{sanitized}}/layout.clj" "core/src/layout.clj"]

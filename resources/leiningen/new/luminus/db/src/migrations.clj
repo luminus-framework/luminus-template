@@ -1,7 +1,7 @@
 (ns <<project-ns>>.db.migrations
   (:require
     [migratus.core :as migratus]
-    [config.core :refer [env]]
+    [<<project-ns>>.config :refer [env]]
     [to-jdbc-uri.core :refer [to-jdbc-uri]]))
 
 (defn parse-ids [args]

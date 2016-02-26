@@ -6,7 +6,6 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [selmer "1.0.0"]
                  [markdown-clj "0.9.85"]
-                 [luminus/config "0.8"]
                  [ring-middleware-format "0.7.0"]
                  [metosin/ring-http-response "0.6.5"]
                  [bouncer "1.0.0"]
@@ -22,19 +21,20 @@
                  [ring-ttl-session "0.3.0"]<% endifunequal %>
                  [ring "1.4.0" :exclusions [ring/ring-jetty-adapter]]
                  [mount "0.1.9"]
+                 [cprop "0.1.3-SNAPSHOT"]
                  [luminus-nrepl "0.1.2"]
                  <<dependencies>>]
 
   :min-lein-version "<<min-lein-version>>"
 
-  :jvm-opts ["-server"]<% if resource-paths %>
+  :jvm-opts ["-server" "-Dconf=config.edn"]<% if resource-paths %>
   :source-paths <<source-paths>>
   :resource-paths <<resource-paths>><% endif %>
 
   :main <<project-ns>>.core<% if migrations %>
   :migratus <<migrations>><% endif %>
 
-  :plugins [[lein-environ "1.0.1"]<% if plugins %>
+  :plugins [<% if plugins %>
             <<plugins>><% endif %>]<% if cucumber-feature-paths %>
   :cucumber-feature-paths <<cucumber-feature-paths>><% endif %><% if sassc-config-params %>
   <<sassc-config-params>>
@@ -47,7 +47,7 @@
   <<cljs-build>><% endif %>
   :profiles
   {:uberjar {:omit-source true
-             :env {:production true}<% if cljs-uberjar %>
+             <% if cljs-uberjar %>
              <<cljs-uberjar>><% endif %>
              :aot :all
              :uberjar-name "<<name>>.jar"
@@ -68,13 +68,7 @@
                   :resource-paths ["env/dev/resources"]
                   :repl-options {:init-ns user}
                   :injections [(require 'pjstadig.humane-test-output)
-                               (pjstadig.humane-test-output/activate!)]
-                  ;;when :nrepl-port is set the application starts the nREPL server on load
-                  :env {:dev        true
-                        :port       3000
-                        :nrepl-port 7000}}
-   :project/test {:env {:test       true
-                        :port       3001
-                        :nrepl-port 7001}}
+                               (pjstadig.humane-test-output/activate!)]}
+   :project/test {:resource-paths ["env/dev/resources" "env/test/resources"]}
    :profiles/dev {}
    :profiles/test {}})

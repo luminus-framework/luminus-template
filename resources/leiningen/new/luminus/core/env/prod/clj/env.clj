@@ -1,4 +1,4 @@
-(ns <<project-ns>>.config
+(ns <<project-ns>>.env
   (:require [clojure.tools.logging :as log]))
 
 (def defaults

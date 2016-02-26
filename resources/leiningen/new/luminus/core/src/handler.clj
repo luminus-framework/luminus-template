@@ -6,8 +6,8 @@
             [<<project-ns>>.middleware :as middleware]
             [clojure.tools.logging :as log]
             [compojure.route :as route]
-            [config.core :refer [env]]
-            [<<project-ns>>.config :refer [defaults]]
+            [<<project-ns>>.config :refer [env]]
+            [<<project-ns>>.env :refer [defaults]]
             [mount.core :as mount]
             [luminus.logger :as logger]))
 

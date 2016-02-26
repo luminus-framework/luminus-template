@@ -3,7 +3,8 @@
             [luminus.repl-server :as repl]
             [luminus.http-server :as http]<% if relational-db %>
             [<<project-ns>>.db.migrations :as migrations]<% endif %>
-            [config.core :refer [env]])
+            [<<project-ns>>.config :refer [env]]
+            [mount.core :as mount])
   (:gen-class))
 
 (defn parse-port [port]
@@ -26,6 +27,7 @@
 (defn start-app
   "e.g. lein run 3000"
   [[port]]
+  (mount/start)
   (let [port (http-port port)]
     (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app))
     (when-let [repl-port (env :nrepl-port)]
