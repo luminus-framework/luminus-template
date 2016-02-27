@@ -3,7 +3,7 @@
             [<<project-ns>>.db.migrations :as migrations]
             [clojure.test :refer :all]
             [clojure.java.jdbc :as jdbc]
-            [config.core :refer [env]]
+            [<<project-ns>>.config :refer [env]]
             [mount.core :as mount]))
 
 (use-fixtures

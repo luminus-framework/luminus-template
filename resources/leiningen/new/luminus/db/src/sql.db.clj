@@ -2,12 +2,12 @@
   (:require
     [conman.core :as conman]
     [mount.core :refer [defstate]]
-    [config.core :refer [env]])<% endif %><% ifequal db-type "postgres" %>
+    [<<project-ns>>.config :refer [env]])<% endif %><% ifequal db-type "postgres" %>
   (:require
     [cheshire.core :refer [generate-string parse-string]]
     [clojure.java.jdbc :as jdbc]
     [conman.core :as conman]
-    [config.core :refer [env]]
+    [<<project-ns>>.config :refer [env]]
     [mount.core :refer [defstate]])
   (:import org.postgresql.util.PGobject
            org.postgresql.jdbc4.Jdbc4Array
@@ -21,7 +21,7 @@
   (:require
     [clojure.java.jdbc :as jdbc]
     [conman.core :as conman]
-    [config.core :refer [env]]
+    [<<project-ns>>.config :refer [env]]
     [mount.core :refer [defstate]])
   (:import [java.sql
             BatchUpdateException
