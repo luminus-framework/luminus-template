@@ -4,40 +4,44 @@
             [luminus.http-server :as http]<% if relational-db %>
             [<<project-ns>>.db.migrations :as migrations]<% endif %>
             [<<project-ns>>.config :refer [env]]
+            [clojure.tools.cli :refer [parse-opts]]
+            [clojure.tools.logging :as log]
             [mount.core :as mount])
   (:gen-class))
 
-(defn parse-port [port]
-  (when port
-    (cond
-      (string? port) (Integer/parseInt port)
-      (number? port) port
-      :else          (throw (Exception. (str "invalid port value: " port))))))
+(def cli-options
+  [["-p" "--port PORT" "Port number"
+    :parse-fn #(Integer/parseInt %)]])
 
-(defn http-port [port]
-  ;;default production port is set in
-  ;;env/prod/resources/config.edn
-  (parse-port (or port (env :port))))
+(mount/defstate http-server
+                :start
+                (http/start
+                  {:handler app
+                   :init    init
+                   :port    (or (-> env :options :port)
+                                (:port env))})
+                :stop
+                (http/stop http-server destroy))
+
+(mount/defstate repl-server
+                :start
+                (repl/start
+                 {:port (env :nrepl-port)})
+                :stop
+                (repl/stop repl-server))
 
 (defn stop-app []
   (doseq [component (:stopped (mount/stop))]
     (log/info component "stopped"))
-  (repl/stop)
-  (http/stop destroy)
   (shutdown-agents))
 
-(defn start-app
-  "e.g. lein run 3000"
-  [[port]]
-  (doseq [component (:started (mount/start))]
+(defn start-app [args]
+  (doseq [component (-> args
+                        (parse-opts cli-options)
+                        mount/start-with-args
+                        :started)]
     (log/info component "started"))
-  (let [port (http-port port)]
-    (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app))
-    (when-let [repl-port (env :nrepl-port)]
-      (repl/start {:port (parse-port repl-port)}))
-    (http/start {:handler app
-                 :init    init
-                 :port    port})))
+  (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app)))
 
 (defn -main [& args]
   <% if relational-db %>(cond
