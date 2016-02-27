@@ -18,8 +18,6 @@
    put any initialization code here"
   []
   (logger/init env)
-  (doseq [component (:started (mount/start))]
-    (log/info component "started"))
   ((:init defaults)))
 
 (defn destroy
@@ -27,8 +25,6 @@
    shuts down, put any clean up code here"
   []
   (log/info "<<name>> is shutting down...")
-  (doseq [component (:stopped (mount/stop))]
-    (log/info component "stopped"))
   (log/info "shutdown complete!"))
 
 (def app-routes

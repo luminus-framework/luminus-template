@@ -20,6 +20,8 @@
   (parse-port (or port (env :port))))
 
 (defn stop-app []
+  (doseq [component (:stopped (mount/stop))]
+    (log/info component "stopped"))
   (repl/stop)
   (http/stop destroy)
   (shutdown-agents))
@@ -27,7 +29,8 @@
 (defn start-app
   "e.g. lein run 3000"
   [[port]]
-  (mount/start)
+  (doseq [component (:started (mount/start))]
+    (log/info component "started"))
   (let [port (http-port port)]
     (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app))
     (when-let [repl-port (env :nrepl-port)]

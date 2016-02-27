@@ -21,7 +21,7 @@
                  [ring-ttl-session "0.3.0"]<% endifunequal %>
                  [ring "1.4.0" :exclusions [ring/ring-jetty-adapter]]
                  [mount "0.1.9"]
-                 [cprop "0.1.4"]
+                 [cprop "0.1.5"]
                  [luminus-nrepl "0.1.2"]
                  <<dependencies>>]
 
