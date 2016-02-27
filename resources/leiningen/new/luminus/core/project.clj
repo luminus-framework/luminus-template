@@ -28,7 +28,7 @@
 
   :min-lein-version "<<min-lein-version>>"
 
-  :jvm-opts ["-server" "-Dconf=config.edn"]<% if resource-paths %>
+  :jvm-opts ["-server"]<% if resource-paths %>
   :source-paths <<source-paths>>
   :resource-paths <<resource-paths>><% endif %>
 

@@ -1,3 +1,8 @@
+##2.9.10.6
+
+- switched to using [cprop](https://github.com/tolitius/cprop) as the default configuration system
+- updated to use [mount](https://github.com/tolitius/mount) for manging HTTP/nREPL server lifecycle
+ 
 ## 2.9.9.7
 
 - switched from using Yesql to [HugSQL](http://www.hugsql.org/), see documentation for syntactic differences for SQL queries
