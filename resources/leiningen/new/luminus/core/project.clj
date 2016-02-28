@@ -23,7 +23,7 @@
                  [mount "0.1.10-SNAPSHOT"]
                  [cprop "0.1.5"]
                  [org.clojure/tools.cli "0.3.3"]
-                 [luminus-nrepl "0.1.3"]
+                 [luminus-nrepl "0.1.4"]
                  <<http-server-dependencies>>
                  <<dependencies>>]
 
