@@ -1,15 +1,14 @@
 (ns user
   (:require [<<project-ns>>.handler :refer [app init destroy]]
-            [luminus.http-server :as http]
-            [<<project-ns>>.config :refer [env]]))
+            [mount.core :as mount]
+            [<<project-ns>>.config :refer [env]]
+            <<project-ns>>.core))
 
 (defn start []
-  (http/start {:handler app
-               :init    init
-               :port    (:port env)}))
+  (mount/start-without #'<<project-ns>>.core/repl-server))
 
 (defn stop []
-  (http/stop destroy))
+  (mount/stop-except #'<<project-ns>>.core/repl-server))
 
 (defn restart []
   (stop)
