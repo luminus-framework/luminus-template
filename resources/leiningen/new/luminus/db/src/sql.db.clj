@@ -28,36 +28,41 @@
             PreparedStatement])<% endifequal %>)
 <% ifequal db-type "sqlite"%>
 (def pool-spec
-  {:datasource
-   (doto (org.sqlite.SQLiteDataSource.)
-     (.setUrl (:database-url env)))})
+  )
+(defstate ^:dynamic *db*
+          :start (conman/connect!
+                   {:datasource
+                    (doto (org.sqlite.SQLiteDataSource.)
+                          (.setUrl (:database-url env)))})
+          :stop (conman/disconnect! *db*))
 <% endifequal %><% ifequal db-type "h2"%>
-(def pool-spec
-  {:datasource
-   (doto (org.h2.jdbcx.JdbcDataSource.)
-     (.setURL (:database-url env))
-     (.setUser "")
-     (.setPassword ""))})
+
+(defstate ^:dynamic *db*
+          :start (conman/connect!
+                   {:datasource
+                    (doto (org.h2.jdbcx.JdbcDataSource.)
+                          (.setURL (:database-url env))
+                          (.setUser "")
+                          (.setPassword ""))})
+          :stop (conman/disconnect! *db*))
 <% endifequal %><% ifequal db-type "postgres" %>
 (def pool-spec
   {:adapter    :postgresql
    :init-size  1
    :min-idle   1
    :max-idle   4
-   :max-active 32
-   :jdbc-url   (env :database-url)})
+   :max-active 32})
 <% endifequal %><% ifequal db-type "mysql" %>
 (def pool-spec
   {:adapter    :mysql
    :init-size  1
    :min-idle   1
    :max-idle   4
-   :max-active 32
-   :jdbc-url   (env :database-url)})
-<% endifequal %>
+   :max-active 32})
+<% endifequal %><% if not embedded-db %>
 (defstate ^:dynamic *db*
-          :start (conman/connect! pool-spec)
-          :stop (conman/disconnect! *db*))
+          :start (conman/connect! (assoc pool-spec :jdbc-url (env :database-url)))
+          :stop (conman/disconnect! *db*))< %endif %>
 
 (conman/bind-connection *db* "sql/queries.sql")
 <% ifequal db-type "mysql" %>

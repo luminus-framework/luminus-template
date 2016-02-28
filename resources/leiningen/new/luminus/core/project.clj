@@ -20,7 +20,7 @@
                  [ring/ring-defaults "0.1.5"]<% ifunequal server "immutant" %>
                  [ring-ttl-session "0.3.0"]<% endifunequal %>
                  [ring "1.4.0" :exclusions [ring/ring-jetty-adapter]]
-                 [mount "0.1.9"]
+                 [mount "0.1.10-SNAPSHOT"]
                  [cprop "0.1.5"]
                  [org.clojure/tools.cli "0.3.3"]
                  [luminus-nrepl "0.1.3"]
@@ -28,14 +28,14 @@
 
   :min-lein-version "<<min-lein-version>>"
 
-  :jvm-opts ["-server"]<% if resource-paths %>
+  :jvm-opts ["-server" "-Dconf=.lein-env"]<% if resource-paths %>
   :source-paths <<source-paths>>
   :resource-paths <<resource-paths>><% endif %>
 
   :main <<project-ns>>.core<% if migrations %>
   :migratus <<migrations>><% endif %>
 
-  :plugins [<% if plugins %>
+  :plugins [[lein-cprop "1.0.1"]<% if plugins %>
             <<plugins>><% endif %>]<% if cucumber-feature-paths %>
   :cucumber-feature-paths <<cucumber-feature-paths>><% endif %><% if sassc-config-params %>
   <<sassc-config-params>>

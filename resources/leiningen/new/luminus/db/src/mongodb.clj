@@ -2,28 +2,21 @@
     (:require [monger.core :as mg]
               [monger.collection :as mc]
               [monger.operators :refer :all]
+              [mount.core :refer [defstate]]
               [<<project-ns>>.config :refer [env]]))
 
-
-(defonce db (atom nil))
-
-(defn connect! []
-  ;; Tries to get the Mongo URI from the environment variable
-  (reset! db (-> (:database-url env) mg/connect-via-uri :db)))
-
-(defn disconnect! []
-  (when-let [conn @db]
-    (mg/disconnect conn)
-    (reset! db nil)))
+(defstate db
+          :start (-> (:database-url env) mg/connect-via-uri :db)
+          :stop (mg/disconnect db))
 
 (defn create-user [user]
-  (mc/insert @db "users" user))
+  (mc/insert db "users" user))
 
 (defn update-user [id first-name last-name email]
-  (mc/update @db "users" {:_id id}
+  (mc/update db "users" {:_id id}
              {$set {:first_name first-name
                     :last_name last-name
                     :email email}}))
 
 (defn get-user [id]
-  (mc/find-one-as-map @db "users" {:_id id}))
+  (mc/find-one-as-map db "users" {:_id id}))

@@ -47,7 +47,10 @@
 (defn -main [& args]
   <% if relational-db %>(cond
     (some #{"migrate" "rollback"} args)
-    (do (migrations/migrate args) (System/exit 0))
+    (do
+      (mount/start #'<<project-ns>>.config/env)
+      (migrations/migrate args)
+      (System/exit 0))
     :else
     (start-app args)))
   <% else %>(start-app args))<% endif %>

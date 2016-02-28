@@ -24,8 +24,7 @@
   "destroy will be called when your application
    shuts down, put any clean up code here"
   []
-  (log/info "<<name>> is shutting down...")
-  (log/info "shutdown complete!"))
+  (log/info "<<name>> has shutdown!"))
 
 (def app-routes
   (routes<% if service-routes %>

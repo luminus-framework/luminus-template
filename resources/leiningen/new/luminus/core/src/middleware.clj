@@ -1,6 +1,7 @@
 (ns <<project-ns>>.middleware
   (:require [<<project-ns>>.layout :refer [*app-context* error-page]]
             [clojure.tools.logging :as log]
+            [<<project-ns>>.env :refer [defaults]]
             [<<project-ns>>.config :refer [env]]<% ifequal server "immutant" %>
             [ring.middleware.flash :refer [wrap-flash]]
             [immutant.web.middleware :refer [wrap-session]]<% else %>
@@ -9,8 +10,7 @@
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
             [ring.middleware.format :refer [wrap-restful-format]]<% if auth-middleware-required %>
-            <<auth-middleware-required>><% endif %>
-            [<<project-ns>>.env :refer [defaults]])
+            <<auth-middleware-required>><% endif %>)
   (:import [javax.servlet ServletContext]))
 
 (defn wrap-context [handler]

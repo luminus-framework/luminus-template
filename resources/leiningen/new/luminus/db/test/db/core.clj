@@ -9,7 +9,9 @@
 (use-fixtures
   :once
   (fn [f]
-    (mount/start #'<<project-ns>>.db.core/*db*)
+    (mount/start
+      #'<<project-ns>>.config/env
+      #'<<project-ns>>.db.core/*db*)
     (migrations/migrate ["migrate"])
     (f)))
 
