@@ -17,13 +17,14 @@
                  [com.taoensso/tower "3.0.2"]
                  [compojure "1.4.0"]
                  [ring-webjars "0.1.1"]
-                 [ring/ring-defaults "0.1.5"]<% ifunequal server "immutant" %>
-                 [ring-ttl-session "0.3.0"]<% endifunequal %>
+                 [ring/ring-defaults "0.1.5"]<% if not immutant-session %>
+                 [ring-ttl-session "0.3.0"]<% endif %>
                  [ring "1.4.0" :exclusions [ring/ring-jetty-adapter]]
                  [mount "0.1.10-SNAPSHOT"]
                  [cprop "0.1.5"]
                  [org.clojure/tools.cli "0.3.3"]
                  [luminus-nrepl "0.1.3"]
+                 <<http-server-dependencies>>
                  <<dependencies>>]
 
   :min-lein-version "<<min-lein-version>>"
@@ -58,7 +59,8 @@
    :test          [:project/test :profiles/test]
    :project/dev  {:dependencies [[prone "1.0.2"]
                                  [ring/ring-mock "0.3.0"]
-                                 [ring/ring-devel "1.4.0"]
+                                 [ring/ring-devel "1.4.0"]<%if war %>
+                                 <<dev-http-server-dependencies>><% endif %>
                                  [pjstadig/humane-test-output "0.7.1"]<% if dev-dependencies %>
                                  <<dev-dependencies>><% endif %>]
                   <% if dev-plugins %>:plugins <<dev-plugins>><% endif %><% if cljs-dev %>

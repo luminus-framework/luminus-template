@@ -2,10 +2,10 @@
   (:require [<<project-ns>>.layout :refer [*app-context* error-page]]
             [clojure.tools.logging :as log]
             [<<project-ns>>.env :refer [defaults]]
-            [<<project-ns>>.config :refer [env]]<% ifequal server "immutant" %>
+            [<<project-ns>>.config :refer [env]]<% if immutant-session %>
             [ring.middleware.flash :refer [wrap-flash]]
             [immutant.web.middleware :refer [wrap-session]]<% else %>
-            [ring-ttl-session.core :refer [ttl-memory-store]]<% endifequal %>
+            [ring-ttl-session.core :refer [ttl-memory-store]]<% endif %>
             [ring.middleware.webjars :refer [wrap-webjars]]
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
@@ -80,7 +80,7 @@
   (-> ((:middleware defaults) handler)<% if auth-middleware-required %>
       wrap-auth<% endif %>
       wrap-formats
-      wrap-webjars<% ifequal server "immutant" %>
+      wrap-webjars<% if immutant-session %>
       wrap-flash
       (wrap-session {:cookie-attrs {:http-only true}})
       (wrap-defaults
@@ -90,6 +90,6 @@
       (wrap-defaults
         (-> site-defaults
             (assoc-in [:security :anti-forgery] false)
-            (assoc-in  [:session :store] (ttl-memory-store (* 60 30)))))<% endifequal %>
+            (assoc-in  [:session :store] (ttl-memory-store (* 60 30)))))<% endif %>
       wrap-context
       wrap-internal-error))

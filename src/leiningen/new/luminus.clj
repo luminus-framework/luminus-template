@@ -67,6 +67,8 @@
 (defn format-options [options]
   (-> options
       (update-in [:dependencies] (partial indent dependency-indent))
+      (update-in [:http-server-dependencies] (partial indent dependency-indent))
+      (update-in [:dev-http-server-dependencies] (partial indent dev-dependency-indent))
       (update-in [:dev-dependencies] (partial indent dev-dependency-indent))
       (update-in [:plugins] (partial indent plugin-indent))))
 
@@ -87,9 +89,9 @@
             http-kit-features
             immutant-features
             sassc-features
-            war-features
             kibit-features
-            log4j-features)]
+            log4j-features
+            war-features)]
     (render-assets (init-render) assets (format-options options))))
 
 (defn format-features [features]

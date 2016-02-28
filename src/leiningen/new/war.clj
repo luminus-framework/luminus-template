@@ -1,5 +1,6 @@
 (ns leiningen.new.war
-  (:require [leiningen.new.common :refer :all]))
+  (:require [leiningen.new.common :refer :all]
+            [clojure.set :refer [rename-keys]]))
 
 (defn ring-options [{:keys [name project-ns]}]
   {:handler      (symbol (str project-ns ".handler/app"))
@@ -7,10 +8,21 @@
    :destroy      (symbol (str project-ns ".handler/destroy"))
    :name (str name ".war")})
 
+(defn update-assets [assets]
+  (map
+    #(if (and (vector? %) (= (second %) "core/src/core.clj"))
+      (assoc % 0 "env/dev/clj/{{sanitized}}/core.clj") %)
+    assets))
+
 (defn war-features [[assets options :as state]]
   (if (some #{"+war"} (:features options))
-    [assets
+    [(update-assets assets)
      (-> options
-         (assoc :uberwar-options (indent root-indent (ring-options options)))
+         (rename-keys {:http-server-dependencies :dev-http-server-dependencies})
+         (dissoc :immutant-session)
+         (assoc
+           :war true
+           :uberwar-options (indent root-indent (ring-options options)))
+         (append-options :dev-dependencies [['directory-naming/naming-java "0.8"]])
          (append-options :plugins [['lein-uberwar "0.2.0"]]))]
     state))

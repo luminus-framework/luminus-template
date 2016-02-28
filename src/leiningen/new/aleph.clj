@@ -6,5 +6,5 @@
     [assets
      (-> options
          (assoc :server "aleph")
-         (append-options :dependencies [['luminus-aleph "0.1.1"]]))]
+         (append-options :http-server-dependencies [['luminus-aleph "0.1.2"]]))]
     state))

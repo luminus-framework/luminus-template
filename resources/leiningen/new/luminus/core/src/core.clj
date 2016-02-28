@@ -1,11 +1,13 @@
 (ns <<project-ns>>.core
-  (:require [<<project-ns>>.handler :refer [app init destroy]]
+  (:require [<<project-ns>>.handler :as handler]
             [luminus.repl-server :as repl]
             [luminus.http-server :as http]<% if relational-db %>
             [<<project-ns>>.db.migrations :as migrations]<% endif %>
             [<<project-ns>>.config :refer [env]]
             [clojure.tools.cli :refer [parse-opts]]
-            [clojure.tools.logging :as log]
+            [clojure.tools.logging :as log]<% if not war %>
+            [<<project-ns>>.env :refer [defaults]]
+            [luminus.logger :as logger]<% endif %>
             [mount.core :as mount])
   (:gen-class))
 
@@ -16,12 +18,11 @@
 (mount/defstate http-server
                 :start
                 (http/start
-                  {:handler app
-                   :init    init
+                  {:handler handler/app
                    :port    (or (-> env :options :port)
                                 (:port env))})
                 :stop
-                (http/stop http-server destroy))
+                (http/stop http-server))
 
 (mount/defstate repl-server
                 :start
@@ -30,20 +31,37 @@
                 :stop
                 (when repl-server
                   (repl/stop repl-server)))
+<% if war %>
+(defn init-jndi []
+  (System/setProperty "java.naming.factory.initial"
+                      "org.apache.naming.java.javaURLContextFactory")
+  (System/setProperty "java.naming.factory.url.pkgs"
+                      "org.apache.naming"))
 
+(defn start-app [args]
+  (init-jndi)
+  (doseq [component (-> args
+                        (parse-opts cli-options)
+                        mount/start-with-args
+                        :started)]
+    (log/info component "started"))
+  (.addShutdownHook (Runtime/getRuntime) (Thread. handler/destroy)))
+<% else %>
 (defn stop-app []
   (doseq [component (:stopped (mount/stop))]
     (log/info component "stopped"))
   (shutdown-agents))
 
 (defn start-app [args]
+  (logger/init env)
   (doseq [component (-> args
                         (parse-opts cli-options)
                         mount/start-with-args
                         :started)]
     (log/info component "started"))
+  ((:init defaults))
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app)))
-
+<% endif %>
 (defn -main [& args]
   <% if relational-db %>(cond
     (some #{"migrate" "rollback"} args)

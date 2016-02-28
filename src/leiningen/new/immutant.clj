@@ -5,9 +5,11 @@
   (if (some #{"+immutant"} (:features options))
     [assets
      (-> options
-         (assoc :server "immutant")
-         (append-options :dependencies
+         (assoc
+           :immutant-session true
+           :server "immutant")
+         (append-options :http-server-dependencies
                          [['org.webjars/webjars-locator-jboss-vfs "0.1.0"]
-                          ['luminus-immutant "0.1.2"]]))]
+                          ['luminus-immutant "0.1.3"]]))]
     state))
 
