@@ -27,8 +27,6 @@
             BatchUpdateException
             PreparedStatement])<% endifequal %>)
 <% ifequal db-type "sqlite"%>
-(def pool-spec
-  )
 (defstate ^:dynamic *db*
           :start (conman/connect!
                    {:datasource
@@ -36,7 +34,6 @@
                           (.setUrl (:database-url env)))})
           :stop (conman/disconnect! *db*))
 <% endifequal %><% ifequal db-type "h2"%>
-
 (defstate ^:dynamic *db*
           :start (conman/connect!
                    {:datasource
@@ -62,7 +59,7 @@
 <% endifequal %><% if not embedded-db %>
 (defstate ^:dynamic *db*
           :start (conman/connect! (assoc pool-spec :jdbc-url (env :database-url)))
-          :stop (conman/disconnect! *db*))< %endif %>
+          :stop (conman/disconnect! *db*))<% endif %>
 
 (conman/bind-connection *db* "sql/queries.sql")
 <% ifequal db-type "mysql" %>
