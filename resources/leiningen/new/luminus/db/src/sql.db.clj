@@ -58,7 +58,8 @@
    :max-active 32})
 <% endifequal %><% if not embedded-db %>
 (defstate ^:dynamic *db*
-          :start (conman/connect! (assoc pool-spec :jdbc-url (env :database-url)))
+          :start (conman/connect!
+                   (assoc pool-spec :jdbc-url (env :database-url)))
           :stop (conman/disconnect! *db*))<% endif %>
 
 (conman/bind-connection *db* "sql/queries.sql")
