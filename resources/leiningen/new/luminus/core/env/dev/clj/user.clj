@@ -1,6 +1,5 @@
 (ns user
-  (:require [<<project-ns>>.handler :refer [app init destroy]]
-            [mount.core :as mount]
+  (:require [mount.core :as mount]
             [<<project-ns>>.config :refer [env]]
             <<project-ns>>.core))
 
