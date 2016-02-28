@@ -6,7 +6,7 @@
    ["env/prod/resources/log4j.properties" "core/env/prod/resources/log4j.properties"]])
 
 (def log4j-dependencies
-  [['luminus-log4j "0.1.2"]])
+  [['luminus-log4j "0.1.3"]])
 
 (defn log4j-features [[assets options :as state]]
   (if (some #{"+log4j"} (:features options))

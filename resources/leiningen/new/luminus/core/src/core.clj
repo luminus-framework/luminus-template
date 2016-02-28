@@ -53,7 +53,7 @@
   (shutdown-agents))
 
 (defn start-app [args]
-  (logger/init env)
+  (logger/init (:log-config env))
   (doseq [component (-> args
                         (parse-opts cli-options)
                         mount/start-with-args

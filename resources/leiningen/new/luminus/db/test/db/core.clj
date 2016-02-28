@@ -1,6 +1,6 @@
 (ns <<project-ns>>.test.db.core
   (:require [<<project-ns>>.db.core :refer [*db*] :as db]
-            [<<project-ns>>.db.migrations :as migrations]
+            [luminus-migrations.core :as migrations]
             [clojure.test :refer :all]
             [clojure.java.jdbc :as jdbc]
             [<<project-ns>>.config :refer [env]]
@@ -12,7 +12,7 @@
     (mount/start
       #'<<project-ns>>.config/env
       #'<<project-ns>>.db.core/*db*)
-    (migrations/migrate ["migrate"])
+    (migrations/migrate ["migrate"] (-> env :database :url))
     (f)))
 
 (deftest test-users
