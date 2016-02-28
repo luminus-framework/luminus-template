@@ -2,6 +2,10 @@
 
 - switched to using [cprop](https://github.com/tolitius/cprop) as the default configuration system
 - updated to use [mount](https://github.com/tolitius/mount) for manging HTTP/nREPL server lifecycle
+- removed init/destroy functions from handler unless using +war profile
+- war profile defaults to putting the core namespace in the dev source path
+- war profile sets up mock JNDI in the core namespace
+- war profile puts HTTP server dependency under the dev profile
  
 ## 2.9.9.7
 
