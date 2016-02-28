@@ -3,8 +3,4 @@
             [cprop.source :refer [from-resource]]
             [mount.core :refer [args defstate]]))
 
-
-(defstate env :start (merge
-                       (load-config (from-resource "config.edn"))
-                       (load-config)
-                       (args)))
+(defstate env :start (load-config :merge [(args)]))

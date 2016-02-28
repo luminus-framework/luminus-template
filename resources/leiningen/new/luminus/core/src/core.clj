@@ -25,10 +25,11 @@
 
 (mount/defstate repl-server
                 :start
-                (repl/start
-                 {:port (env :nrepl-port)})
+                (when-let [nrepl-port (env :nrepl-port)]
+                  (repl/start {:port nrepl-port}))
                 :stop
-                (repl/stop repl-server))
+                (when repl-server
+                  (repl/stop repl-server)))
 
 (defn stop-app []
   (doseq [component (:stopped (mount/stop))]
