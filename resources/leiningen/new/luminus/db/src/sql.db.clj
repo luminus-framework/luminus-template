@@ -31,14 +31,14 @@
           :start (conman/connect!
                    {:datasource
                     (doto (org.sqlite.SQLiteDataSource.)
-                          (.setUrl (:database-url env)))})
+                          (.setUrl (-> env :database :url)))})
           :stop (conman/disconnect! *db*))
 <% endifequal %><% ifequal db-type "h2"%>
 (defstate ^:dynamic *db*
           :start (conman/connect!
                    {:datasource
                     (doto (org.h2.jdbcx.JdbcDataSource.)
-                          (.setURL (:database-url env))
+                          (.setURL (-> env :database :url))
                           (.setUser "")
                           (.setPassword ""))})
           :stop (conman/disconnect! *db*))
@@ -50,7 +50,7 @@
                     :min-idle   1
                     :max-idle   4
                     :max-active 32
-                    :jdbc-url   (env :database-url)})
+                    :jdbc-url   (-> env :database :url)})
           :stop (conman/disconnect! *db*))
 <% endifequal %><% ifequal db-type "mysql" %>
 (defstate ^:dynamic *db*
@@ -60,7 +60,7 @@
                     :min-idle   1
                     :max-idle   4
                     :max-active 32
-                    :jdbc-url   (env :database-url)})
+                    :jdbc-url   (-> env :database :url)})
           :stop (conman/disconnect! *db*))
 <% endifequal %>
 (conman/bind-connection *db* "sql/queries.sql")

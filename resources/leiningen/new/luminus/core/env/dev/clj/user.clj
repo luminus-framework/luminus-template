@@ -1,6 +1,5 @@
 (ns user
   (:require [mount.core :as mount]
-            [<<project-ns>>.config :refer [env]]
             <<project-ns>>.core))
 
 (defn start []
