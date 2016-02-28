@@ -10,7 +10,7 @@
     (some #{"+sqlite"} features) :sqlite))
 
 (defn db-dependencies [options]
-  [['migratus "0.8.13"]
+  [['luminus-migrations "0.1.0"]
    ['conman "0.4.5"]
    ({:postgres ['org.postgresql/postgresql "9.4-1206-jdbc4"]
      :mysql    ['mysql/mysql-connector-java "5.1.6"]
@@ -33,7 +33,6 @@
                     (java.text.SimpleDateFormat. "yyyyMMddHHmmss")
                     (java.util.Date.))]
     [["src/clj/{{sanitized}}/db/core.clj" "db/src/sql.db.clj"]
-     ["src/clj/{{sanitized}}/db/migrations.clj" "db/src/migrations.clj"]
      ["resources/sql/queries.sql" "db/sql/queries.sql"]
      ["test/clj/{{sanitized}}/test/db/core.clj" "db/test/db/core.clj"]
      [(str "resources/migrations/" timestamp "-add-users-table.up.sql") "db/migrations/add-users-table.up.sql"]

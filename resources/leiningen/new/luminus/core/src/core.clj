@@ -2,7 +2,7 @@
   (:require [<<project-ns>>.handler :as handler]
             [luminus.repl-server :as repl]
             [luminus.http-server :as http]<% if relational-db %>
-            [<<project-ns>>.db.migrations :as migrations]<% endif %>
+            [luminus-migrations.core :as migrations]<% endif %>
             [<<project-ns>>.config :refer [env]]
             [clojure.tools.cli :refer [parse-opts]]
             [clojure.tools.logging :as log]<% if not war %>
@@ -67,7 +67,7 @@
     (some #{"migrate" "rollback"} args)
     (do
       (mount/start #'<<project-ns>>.config/env)
-      (migrations/migrate args)
+      (migrations/migrate args (-> env :database :url))
       (System/exit 0))
     :else
     (start-app args)))
