@@ -43,25 +43,26 @@
                           (.setPassword ""))})
           :stop (conman/disconnect! *db*))
 <% endifequal %><% ifequal db-type "postgres" %>
-(def pool-spec
-  {:adapter    :postgresql
-   :init-size  1
-   :min-idle   1
-   :max-idle   4
-   :max-active 32})
-<% endifequal %><% ifequal db-type "mysql" %>
-(def pool-spec
-  {:adapter    :mysql
-   :init-size  1
-   :min-idle   1
-   :max-idle   4
-   :max-active 32})
-<% endifequal %><% if not embedded-db %>
 (defstate ^:dynamic *db*
           :start (conman/connect!
-                   (assoc pool-spec :jdbc-url (env :database-url)))
-          :stop (conman/disconnect! *db*))<% endif %>
-
+                   {:adapter    :postgresql
+                    :init-size  1
+                    :min-idle   1
+                    :max-idle   4
+                    :max-active 32
+                    :jdbc-url   (env :database-url)})
+          :stop (conman/disconnect! *db*))
+<% endifequal %><% ifequal db-type "mysql" %>
+(defstate ^:dynamic *db*
+          :start (conman/connect!
+                   {:adapter    :mysql
+                    :init-size  1
+                    :min-idle   1
+                    :max-idle   4
+                    :max-active 32
+                    :jdbc-url   (env :database-url)})
+          :stop (conman/disconnect! *db*))
+<% endifequal %>
 (conman/bind-connection *db* "sql/queries.sql")
 <% ifequal db-type "mysql" %>
 (defn to-date [sql-date]
