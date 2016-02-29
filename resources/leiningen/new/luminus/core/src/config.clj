@@ -1,6 +1,10 @@
 (ns <<project-ns>>.config
   (:require [cprop.core :refer [load-config]]
-            [cprop.source :refer [from-resource]]
+            [cprop.source :as source]
             [mount.core :refer [args defstate]]))
 
-(defstate env :start (load-config :merge [(args)]))
+(defstate env :start (load-config
+                       :merge
+                       [(args)
+                        (source/from-system-props)
+                        (source/from-env)]))

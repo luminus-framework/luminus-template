@@ -12,7 +12,7 @@
     (mount/start
       #'<<project-ns>>.config/env
       #'<<project-ns>>.db.core/*db*)
-    (migrations/migrate ["migrate"] (-> env :database :url))
+    (migrations/migrate ["migrate"] (env :database-url))
     (f)))
 
 (deftest test-users
