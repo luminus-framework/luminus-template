@@ -6,7 +6,7 @@
               [<<project-ns>>.config :refer [env]]))
 
 (defstate db
-          :start (-> env :database :url mg/connect-via-uri :db)
+          :start (-> env :database-url mg/connect-via-uri :db)
           :stop (mg/disconnect db))
 
 (defn create-user [user]
