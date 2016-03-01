@@ -136,7 +136,6 @@
                              "+swagger" "+war"
                              "+kibit"}
         options {:name              (project-name name)
-                 :luminus-version   "2.9.x"
                  :selmer-renderer   render-template
                  :min-lein-version  "2.0.0"
                  :project-ns        (sanitize-ns name)

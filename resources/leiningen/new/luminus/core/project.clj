@@ -12,7 +12,7 @@
                  [org.webjars/bootstrap "4.0.0-alpha.2"]
                  [org.webjars/font-awesome "4.5.0"]
                  [org.webjars.bower/tether "1.1.1"]
-                 [org.webjars/jquery "2.2.0"]
+                 [org.webjars/jquery "2.2.1"]
                  [org.clojure/tools.logging "0.3.1"]
                  [com.taoensso/tower "3.0.2"]
                  [compojure "1.4.0"]
@@ -21,7 +21,7 @@
                  [ring-ttl-session "0.3.0"]<% endif %>
                  [ring "1.4.0" :exclusions [ring/ring-jetty-adapter]]
                  [mount "0.1.10"]
-                 [cprop "0.1.5"]
+                 [cprop "0.1.6"]
                  [org.clojure/tools.cli "0.3.3"]
                  [luminus-nrepl "0.1.4"]
                  <<http-server-dependencies>>
