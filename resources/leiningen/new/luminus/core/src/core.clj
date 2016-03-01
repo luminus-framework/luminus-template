@@ -18,9 +18,9 @@
 (mount/defstate http-server
                 :start
                 (http/start
-                  {:handler handler/app
-                   :port    (or (-> env :options :port)
-                                (:port env))})
+                  (-> env
+                      (assoc :handler handler/app)
+                      (update :port #(or (-> env :options :port) %))))
                 :stop
                 (http/stop http-server))
 
