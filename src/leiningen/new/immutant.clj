@@ -10,6 +10,6 @@
            :server "immutant")
          (append-options :http-server-dependencies
                          [['org.webjars/webjars-locator-jboss-vfs "0.1.0"]
-                          ['luminus-immutant "0.1.7"]]))]
+                          ['luminus-immutant "0.1.8"]]))]
     state))
 

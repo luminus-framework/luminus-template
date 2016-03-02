@@ -19,8 +19,6 @@
                 :start
                 (http/start
                   (-> env
-                      ;;system path, servers such asImmutant uses :path key to indicate server path
-                      (dissoc :path)
                       (assoc :handler handler/app)
                       (update :port #(or (-> env :options :port) %))))
                 :stop
