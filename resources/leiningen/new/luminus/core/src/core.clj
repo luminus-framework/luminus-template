@@ -18,8 +18,11 @@
 (mount/defstate http-server
                 :start
                 (http/start
-                  (-> env
-                      (assoc :handler handler/app)
+                  (-> env<% ifequal server "immutant" %>
+                      (assoc :handler handler/app
+                             :worker-threads 200
+                             :io-threads (* 2 (.availableProcessors (Runtime/getRuntime)))))<% else %>
+                      (assoc :handler handler/app)<% endifequal %>
                       (update :port #(or (-> env :options :port) %))))
                 :stop
                 (http/stop http-server))
