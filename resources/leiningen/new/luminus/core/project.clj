@@ -4,7 +4,7 @@
   :url "http://example.com/FIXME"
 
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [selmer "1.0.0"]
+                 [selmer "1.0.2"]
                  [markdown-clj "0.9.86"]
                  [ring-middleware-format "0.7.0"]
                  [metosin/ring-http-response "0.6.5"]
