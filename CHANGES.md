@@ -1,4 +1,8 @@
-##2.9.10.6
+## 2.9.10.15
+
+- switched to use [profile-dependent target path to avoid cross-profile contamination](https://github.com/luminus-framework/luminus-template/pull/210)
+
+## 2.9.10.6
 
 - switched to using [cprop](https://github.com/tolitius/cprop) as the default configuration system
 - updated to use [mount](https://github.com/tolitius/mount) for manging HTTP/nREPL server lifecycle
