@@ -47,6 +47,7 @@
   :clean-targets ^{:protect false} <<clean-targets>><% endif %><% if cljs-build %>
   :cljsbuild
   <<cljs-build>><% endif %>
+  :target-path "target/%s/"
   :profiles
   {:uberjar {:omit-source true
              <% if cljs-uberjar %>
