@@ -1,3 +1,7 @@
+## 2.9.10.16
+
+- added a default validation `cljc` namespace
+
 ## 2.9.10.15
 
 - switched to use [profile-dependent target path to avoid cross-profile contamination](https://github.com/luminus-framework/luminus-template/pull/210)
