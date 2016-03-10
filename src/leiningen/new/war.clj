@@ -23,6 +23,7 @@
          (assoc
            :war true
            :uberwar-options (indent root-indent (ring-options options)))
+         (append-options :dependencies [['ring/ring-servlet "1.1.0"]])
          (append-options :dev-dependencies [['directory-naming/naming-java "0.8"]])
          (append-options :plugins [['lein-uberwar "0.2.0"]]))]
     state))
