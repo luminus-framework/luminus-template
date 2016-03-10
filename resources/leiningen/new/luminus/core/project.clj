@@ -16,7 +16,7 @@
                  [org.clojure/tools.logging "0.3.1"]
                  [compojure "1.5.0"]
                  [ring-webjars "0.1.1"]
-                 [ring/ring-defaults "0.1.5"]<% if not immutant-session %>
+                 [ring/ring-defaults "0.2.0"]<% if not immutant-session %>
                  [ring-ttl-session "0.3.0"]<% endif %>
                  [ring "1.4.0" :exclusions [ring/ring-jetty-adapter]]
                  [mount "0.1.10"]
