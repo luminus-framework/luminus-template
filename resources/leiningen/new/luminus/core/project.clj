@@ -18,7 +18,6 @@
                  [ring-webjars "0.1.1"]
                  [ring/ring-defaults "0.2.0"]<% if not immutant-session %>
                  [ring-ttl-session "0.3.0"]<% endif %>
-                 [ring "1.4.0" :exclusions [ring/ring-jetty-adapter]]
                  [mount "0.1.10"]
                  [cprop "0.1.6"]
                  [org.clojure/tools.cli "0.3.3"]
