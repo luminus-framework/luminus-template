@@ -17,7 +17,6 @@
    an app server such as Tomcat
    put any initialization code here"
   []
-  (logger/init env)
   (doseq [component (:started (mount/start))]
     (log/info component "started"))
   ((:init defaults)))

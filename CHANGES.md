@@ -1,3 +1,7 @@
+## 2.9.10.18
+
+- fixed a regression in the `+war` profile
+
 ## 2.9.10.16
 
 - added a default validation `cljc` namespace
