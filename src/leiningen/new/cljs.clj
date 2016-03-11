@@ -20,7 +20,7 @@
    ['reagent-utils "0.1.7"]
    ['secretary "1.2.3"]
    ['org.clojure/core.async "0.2.374"]
-   ['cljs-ajax "0.5.3"]])
+   ['cljs-ajax "0.5.4"]])
 
 (def source-paths
   ["src/cljc"])
