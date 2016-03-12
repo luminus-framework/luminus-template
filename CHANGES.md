@@ -1,3 +1,7 @@
+## 2.9.10.19
+
+- enables the Figwheel REPL via this [PR](https://github.com/luminus-framework/luminus-template/pull/213), it's now possible to start and stop the figwheel compiler from the `user` namespace by running `start-fw` and `stop-fw` respectively. The ClojureScript REPL is start by running `cljs`. 
+
 ## 2.9.10.18
 
 - fixed a regression in the `+war` profile
