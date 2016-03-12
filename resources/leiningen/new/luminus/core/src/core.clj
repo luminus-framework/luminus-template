@@ -53,12 +53,12 @@
   (shutdown-agents))
 
 (defn start-app [args]
-  (logger/init (:log-config env))
   (doseq [component (-> args
                         (parse-opts cli-options)
                         mount/start-with-args
                         :started)]
     (log/info component "started"))
+  (logger/init (:log-config env))
   ((:init defaults))
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app)))
 <% endif %>
