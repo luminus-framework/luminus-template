@@ -1,5 +1,6 @@
 (ns user
   (:require [mount.core :as mount]
+            <% if figwheel %>[<<project-ns>>.figwheel :refer [start-fw stop-fw cljs]]<% endif %>
             <<project-ns>>.core))
 
 (defn start []
