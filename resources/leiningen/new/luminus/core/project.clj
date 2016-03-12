@@ -42,7 +42,8 @@
   :hooks [leiningen.sassc]<% endif %><% if uberwar-options %>
   :uberwar
   <<uberwar-options>><% endif %><% if clean-targets %>
-  :clean-targets ^{:protect false} <<clean-targets>><% endif %><% if cljs-build %>
+  :clean-targets ^{:protect false}
+  <<clean-targets>><% endif %><% if cljs-build %>
   :cljsbuild
   <<cljs-build>><% endif %>
   :target-path "target/%s/"
@@ -68,8 +69,8 @@
                   <<figwheel>><% endif %><% if cljs-test %>:doo <<cljs-test>><% endif %>
                   :source-paths ["env/dev/clj" "test/clj"]
                   :resource-paths ["env/dev/resources"]
-                  :repl-options {:init-ns user
-                                 <% if figwheel %>:nrepl-middleware
+                  :repl-options {:init-ns use<% if figwheel %>
+                                 :nrepl-middleware
                                  [cemerick.piggieback/wrap-cljs-repl]<% endif %>}
                   :injections [(require 'pjstadig.humane-test-output)
                                (pjstadig.humane-test-output/activate!)]}
