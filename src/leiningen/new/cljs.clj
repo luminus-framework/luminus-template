@@ -9,6 +9,7 @@
    ["test/cljs/{{sanitized}}/doo_runner.cljs" "cljs/test/cljs/doo_runner.cljs"]
    ["test/cljs/{{sanitized}}/core_test.cljs" "cljs/test/cljs/core_test.cljs"]
    ["env/dev/cljs/{{sanitized}}/dev.cljs" "cljs/env/dev/cljs/app.cljs"]
+   ["env/dev/clj/{{sanitized}}/figwheel.clj" "cljs/env/dev/clj/figwheel.clj"]
    ["env/prod/cljs/{{sanitized}}/prod.cljs" "cljs/env/prod/cljs/app.cljs"]
    ["resources/templates/home.html" "cljs/templates/home.html"]
    ["resources/templates/error.html" "core/resources/templates/error.html"]])
@@ -43,7 +44,8 @@
 (def cljs-dev-dependencies
   [['lein-figwheel "0.5.0-6"]
    ['lein-doo "0.1.6"]
-   ['com.cemerick/piggieback "0.2.2-SNAPSHOT"]])
+   ['com.cemerick/piggieback "0.2.2-SNAPSHOT"]
+   ['leiningen-core "2.6.1"]])
 
 (def cljs-build
   {:builds {:app {:source-paths ["src/cljc" "src/cljs"]
@@ -82,7 +84,6 @@
 (defn figwheel [{:keys [project-ns]}]
   {:http-server-root "public"
    :nrepl-port       7002
-   :nrepl-middleware ["cemerick.piggieback/wrap-cljs-repl"]
    :css-dirs         ["resources/public/css"]
    :ring-handler     (symbol (str project-ns ".handler/app"))})
 
