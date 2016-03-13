@@ -1,3 +1,7 @@
+## 2.9.10.23
+
+- added `^{:on-reload :noop}` for HTTP/nREPL server states
+
 ## 2.9.10.21
 
 - fixed regression with loading exteranl logging configuration
