@@ -1,3 +1,7 @@
+## 2.9.10.24
+
+- fixed bootstrap styling for navbar
+
 ## 2.9.10.23
 
 - added `^{:on-reload :noop}` for HTTP/nREPL server states
