@@ -10,11 +10,12 @@
   (:import goog.History))
 
 (defn nav-link [uri title page collapsed?]
-  [:ul.nav.navbar-nav>a.navbar-brand
-   {:class (when (= page (session/get :page)) "active")
-    :href uri
+  [:ul.nav.navbar-nav
+   {:class (when (= page (session/get :page)) "active")}
+   [:a.navbar-brand
+   {:href uri
     :on-click #(reset! collapsed? true)}
-   title])
+   title]])
 
 (defn navbar []
   (let [collapsed? (r/atom true)]
