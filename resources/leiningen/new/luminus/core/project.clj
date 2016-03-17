@@ -63,7 +63,9 @@
                                  <<dev-http-server-dependencies>><% endif %>
                                  [pjstadig/humane-test-output "0.7.1"]<% if dev-dependencies %>
                                  <<dev-dependencies>><% endif %>]
-                  <% if dev-plugins %>:plugins <<dev-plugins>><% endif %><% if cljs-dev %>
+                  :plugins      [[com.jakemccrary/lein-test-refresh "0.14.0"]<% if dev-plugins %>
+                                 <<dev-plugins>><% endif %>]
+                  <% if cljs-dev %>
                   <<cljs-dev>><% endif %>
                   <% if figwheel %>:figwheel
                   <<figwheel>><% endif %><% if cljs-test %>:doo <<cljs-test>><% endif %>

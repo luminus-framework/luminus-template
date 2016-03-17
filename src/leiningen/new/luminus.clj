@@ -70,7 +70,8 @@
       (update-in [:http-server-dependencies] (partial indent dependency-indent))
       (update-in [:dev-http-server-dependencies] (partial indent dev-dependency-indent))
       (update-in [:dev-dependencies] (partial indent dev-dependency-indent))
-      (update-in [:plugins] (partial indent plugin-indent))))
+      (update-in [:plugins] (partial indent plugin-indent))
+      (update-in [:dev-plugins] (partial indent dev-dependency-indent))))
 
 (defn generate-project
   "Create a new Luminus project"
