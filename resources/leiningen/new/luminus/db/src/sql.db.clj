@@ -45,8 +45,7 @@
 <% endifequal %><% ifequal db-type "postgres" %>
 (defstate ^:dynamic *db*
           :start (conman/connect!
-                   {:adapter    :postgresql
-                    :init-size  1
+                   {:init-size  1
                     :min-idle   1
                     :max-idle   4
                     :max-active 32
@@ -55,8 +54,7 @@
 <% endifequal %><% ifequal db-type "mysql" %>
 (defstate ^:dynamic *db*
           :start (conman/connect!
-                   {:adapter    :mysql
-                    :init-size  1
+                   {:init-size  1
                     :min-idle   1
                     :max-idle   4
                     :max-active 32
