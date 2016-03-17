@@ -1,3 +1,7 @@
+## 2.9.10.25
+
+- added [lein-test-refresh](https://github.com/jakemcc/lein-test-refresh) to default dev plugins
+
 ## 2.9.10.24
 
 - fixed bootstrap styling for navbar
