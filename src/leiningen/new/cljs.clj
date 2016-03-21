@@ -15,7 +15,7 @@
    ["resources/templates/error.html" "core/resources/templates/error.html"]])
 
 (def cljs-dependencies
-  [['org.clojure/clojurescript "1.7.228" :scope "provided"]
+  [['org.clojure/clojurescript "1.8.34" :scope "provided"]
    ['reagent "0.5.1"]
    ['reagent-forms "0.5.21"]
    ['reagent-utils "0.1.7"]
@@ -35,7 +35,7 @@
 (def cljs-dev-plugins
   [['lein-figwheel "0.5.0-6"]
    ['lein-doo "0.1.6"]
-   ['org.clojure/clojurescript "1.7.228"]])
+   ['org.clojure/clojurescript "1.8.34"]])
 
 (def clean-targets [:target-path
                     [:cljsbuild :builds :app :compiler :output-dir]

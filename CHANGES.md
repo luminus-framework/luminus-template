@@ -1,3 +1,7 @@
+## 2.9.10.27
+
+- updated to latest ClojureScript `1.8.34`
+
 ## 2.9.10.25
 
 - added [lein-test-refresh](https://github.com/jakemcc/lein-test-refresh) to default dev plugins
