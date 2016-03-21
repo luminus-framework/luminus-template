@@ -14,6 +14,7 @@
    ["resources/templates/home.html" "cljs/templates/home.html"]
    ["resources/templates/error.html" "core/resources/templates/error.html"]])
 
+;;TODO figure out the problem with cljs and lein in deps  #_"1.8.34"
 (def cljs-version "1.7.228")
 
 (def figwheel-version "0.5.0-6")
