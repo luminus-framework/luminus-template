@@ -14,8 +14,12 @@
    ["resources/templates/home.html" "cljs/templates/home.html"]
    ["resources/templates/error.html" "core/resources/templates/error.html"]])
 
+(def cljs-version "1.7.228")
+
+(def figwheel-version "0.5.0-6")
+
 (def cljs-dependencies
-  [['org.clojure/clojurescript "1.8.34" :scope "provided"]
+  [['org.clojure/clojurescript cljs-version :scope "provided"]
    ['reagent "0.5.1"]
    ['reagent-forms "0.5.21"]
    ['reagent-utils "0.1.7"]
@@ -33,16 +37,16 @@
   [['lein-cljsbuild "1.1.1"]])
 
 (def cljs-dev-plugins
-  [['lein-figwheel "0.5.0-6"]
+  [['lein-figwheel figwheel-version]
    ['lein-doo "0.1.6"]
-   ['org.clojure/clojurescript "1.8.34"]])
+   ['org.clojure/clojurescript cljs-version]])
 
 (def clean-targets [:target-path
                     [:cljsbuild :builds :app :compiler :output-dir]
                     [:cljsbuild :builds :app :compiler :output-to]])
 
 (def cljs-dev-dependencies
-  [['lein-figwheel "0.5.0-6"]
+  [['lein-figwheel figwheel-version]
    ['lein-doo "0.1.6"]
    ['com.cemerick/piggieback "0.2.2-SNAPSHOT"]
    ['leiningen-core "2.6.1"]])

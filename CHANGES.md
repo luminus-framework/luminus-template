@@ -1,6 +1,6 @@
 ## 2.9.10.27
 
-- updated to latest ClojureScript `1.8.34`
+- ClojureScript cleanup
 
 ## 2.9.10.25
 
