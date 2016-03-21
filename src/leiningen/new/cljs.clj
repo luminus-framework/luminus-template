@@ -84,8 +84,7 @@
 (defn figwheel [{:keys [project-ns]}]
   {:http-server-root "public"
    :nrepl-port       7002
-   :css-dirs         ["resources/public/css"]
-   :ring-handler     (symbol (str project-ns ".handler/app"))})
+   :css-dirs         ["resources/public/css"]})
 
 (defn cljs-features [[assets options :as state]]
   (if (some #{"+cljs"} (:features options))
