@@ -1,3 +1,7 @@
+## 2.9.10.28
+
+- updated dependencies, latest `conman` release supports setting `doc` meta for generated functions
+ 
 ## 2.9.10.27
 
 - ClojureScript cleanup

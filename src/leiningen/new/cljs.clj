@@ -17,12 +17,12 @@
 ;;TODO figure out the problem with cljs and lein in deps  #_"1.8.34"
 (def cljs-version "1.7.228")
 
-(def figwheel-version "0.5.0-6")
+(def figwheel-version "0.5.2")
 
 (def cljs-dependencies
   [['org.clojure/clojurescript cljs-version :scope "provided"]
    ['reagent "0.5.1"]
-   ['reagent-forms "0.5.21"]
+   ['reagent-forms "0.5.22"]
    ['reagent-utils "0.1.7"]
    ['secretary "1.2.3"]
    ['org.clojure/core.async "0.2.374"]

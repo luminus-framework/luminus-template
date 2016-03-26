@@ -11,15 +11,15 @@
                  [bouncer "1.0.0"]
                  [org.webjars/bootstrap "4.0.0-alpha.2"]
                  [org.webjars/font-awesome "4.5.0"]
-                 [org.webjars.bower/tether "1.1.1"]
-                 [org.webjars/jquery "2.2.1"]
+                 [org.webjars.bower/tether "1.1.1"]<% if not cljs %>
+                 [org.webjars/jquery "2.2.2"]<% endif %>
                  [org.clojure/tools.logging "0.3.1"]
                  [compojure "1.5.0"]
                  [ring-webjars "0.1.1"]
                  [ring/ring-defaults "0.2.0"]<% if not immutant-session %>
                  [ring-ttl-session "0.3.0"]<% endif %>
                  [mount "0.1.10"]
-                 [cprop "0.1.6"]
+                 [cprop "0.1.7"]
                  [org.clojure/tools.cli "0.3.3"]
                  [luminus-nrepl "0.1.4"]
                  <<http-server-dependencies>>
@@ -57,11 +57,11 @@
              :resource-paths ["env/prod/resources"]}
    :dev           [:project/dev :profiles/dev]
    :test          [:project/test :profiles/test]
-   :project/dev  {:dependencies [[prone "1.0.2"]
+   :project/dev  {:dependencies [[prone "1.1.0"]
                                  [ring/ring-mock "0.3.0"]
                                  [ring/ring-devel "1.4.0"]<%if war %>
                                  <<dev-http-server-dependencies>><% endif %>
-                                 [pjstadig/humane-test-output "0.7.1"]<% if dev-dependencies %>
+                                 [pjstadig/humane-test-output "0.8.0"]<% if dev-dependencies %>
                                  <<dev-dependencies>><% endif %>]
                   :plugins      [[com.jakemccrary/lein-test-refresh "0.14.0"]<% if dev-plugins %>
                                  <<dev-plugins>><% endif %>]
