@@ -1,3 +1,7 @@
+## 2.9.10.29
+
+- fix for target path in Heroku Procfile
+
 ## 2.9.10.28
 
 - updated dependencies, latest `conman` release supports setting `doc` meta for generated functions
