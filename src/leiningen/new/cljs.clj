@@ -14,8 +14,7 @@
    ["resources/templates/home.html" "cljs/templates/home.html"]
    ["resources/templates/error.html" "core/resources/templates/error.html"]])
 
-;;TODO updated to latest cljs "1.8.34" when Figwheel fixes warnings
-(def cljs-version "1.7.228")
+(def cljs-version "1.8.40")
 
 (def figwheel-version "0.5.2")
 
