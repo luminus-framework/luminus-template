@@ -1,3 +1,7 @@
+## 2.9.10.30
+
+- bumped ClojureScript to 1.8.40
+
 ## 2.9.10.29
 
 - fix for target path in Heroku Procfile
