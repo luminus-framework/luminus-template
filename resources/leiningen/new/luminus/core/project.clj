@@ -17,7 +17,7 @@
                  [compojure "1.5.0"]
                  [ring-webjars "0.1.1"]
                  [ring/ring-defaults "0.2.0"]<% if not immutant-session %>
-                 [ring-ttl-session "0.3.0"]<% endif %>
+                 [luminus/ring-ttl-session "0.3.1"]<% endif %>
                  [mount "0.1.10"]
                  [cprop "0.1.7"]
                  [org.clojure/tools.cli "0.3.3"]
