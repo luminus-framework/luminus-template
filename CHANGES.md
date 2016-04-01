@@ -1,3 +1,7 @@
+## 2.9.10.31
+
+- switched to luminus/ring-ttl-session for non-immutant HTTP servers
+
 ## 2.9.10.30
 
 - bumped ClojureScript to 1.8.40
