@@ -57,7 +57,7 @@
              :resource-paths ["env/prod/resources"]}
    :dev           [:project/dev :profiles/dev]
    :test          [:project/test :profiles/test]
-   :project/dev  {:dependencies [[prone "1.1.0"]
+   :project/dev  {:dependencies [[prone "1.1.1"]
                                  [ring/ring-mock "0.3.0"]
                                  [ring/ring-devel "1.4.0"]<%if war %>
                                  <<dev-http-server-dependencies>><% endif %>
