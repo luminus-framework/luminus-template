@@ -47,8 +47,7 @@
 (def cljs-dev-dependencies
   [['lein-figwheel figwheel-version]
    ['lein-doo "0.1.6"]
-   ['com.cemerick/piggieback "0.2.2-SNAPSHOT"]
-   ['leiningen-core "2.6.1"]])
+   ['com.cemerick/piggieback "0.2.2-SNAPSHOT"]])
 
 (def cljs-build
   {:builds {:app {:source-paths ["src/cljc" "src/cljs"]

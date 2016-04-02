@@ -1,3 +1,7 @@
+## 2.9.10.33
+
+- removed Leiningen dependency for running ClojureScript REPL
+
 ## 2.9.10.32
 
 - removed unused dev puget dependency

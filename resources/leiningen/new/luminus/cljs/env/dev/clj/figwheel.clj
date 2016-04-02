@@ -1,13 +1,30 @@
 (ns <<project-ns>>.figwheel
-  (:require [leiningen.core.project :as p]
-            [figwheel-sidecar.repl-api :as ra]))
+  (:require [figwheel-sidecar.repl-api :as ra]))
+
+(defn project->map []
+  (->> (slurp "project.clj")
+       (read-string)
+       (drop 3)
+       (partition 2)
+       (map vec)
+       (into {})))
+
+(defn deep-merge [a b]
+  (merge-with
+    (fn [x y]
+      (cond (map? y) (deep-merge x y)
+            (vector? y) (concat x y)
+            :else y))
+    a b))
 
 (def figwheel-config
-  (let [project-config (p/read "project.clj" [:dev])
-        figwheel-opts (:figwheel project-config)
-        all-builds (get-in project-config [:cljsbuild :builds])]
-    {:figwheel-options figwheel-opts
-     :all-builds all-builds}))
+  (let [project-opts (project->map)]
+    {:figwheel-options
+     (get-in project-opts [:profiles :project/dev :figwheel])
+     :all-builds
+     (deep-merge
+       (get-in project-opts [:cljsbuild :builds])
+       (get-in project-opts [:profiles :project/dev :cljsbuild :builds]))}))
 
 (defn start-fw []
   (ra/start-figwheel! figwheel-config))
