@@ -1,3 +1,7 @@
+## 2.9.10.32
+
+- removed unused dev puget dependency
+
 ## 2.9.10.31
 
 - switched to luminus/ring-ttl-session for non-immutant HTTP servers
