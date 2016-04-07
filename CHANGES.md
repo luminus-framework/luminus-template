@@ -1,3 +1,7 @@
+## 2.9.10.34
+
+- bumped up conman, markdown-clj versions
+
 ## 2.9.10.33
 
 - removed Leiningen dependency for running ClojureScript REPL
