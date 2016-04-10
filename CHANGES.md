@@ -1,3 +1,7 @@
+## 2.9.10.35
+
+- bumped up conman
+
 ## 2.9.10.34
 
 - bumped up conman, markdown-clj versions
