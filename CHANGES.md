@@ -1,3 +1,7 @@
+## 2.9.10.36
+
+- switched `app` to be a function to ensure `env` is available when middleware is loaded
+
 ## 2.9.10.35
 
 - bumped up conman
