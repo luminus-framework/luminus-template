@@ -1,6 +1,6 @@
 ## 2.9.10.37
 
-- bumped up conman version
+- bumped up conman, reagent-utils versions
  
 ## 2.9.10.36
 
