@@ -22,7 +22,7 @@
   [['org.clojure/clojurescript cljs-version :scope "provided"]
    ['reagent "0.5.1"]
    ['reagent-forms "0.5.22"]
-   ['reagent-utils "0.1.7"]
+   ['reagent-utils "0.1.8"]
    ['secretary "1.2.3"]
    ['cljs-ajax "0.5.4"]])
 
