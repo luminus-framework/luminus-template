@@ -33,7 +33,9 @@
 (def app-routes
   (routes<% if service-routes %>
     <<service-routes>><% endif %>
-    (wrap-routes #'home-routes middleware/wrap-csrf)
+    (-> #'home-routes
+        (wrap-routes middleware/wrap-csrf)
+        (wrap-routes middleware/wrap-formats))
     (route/not-found
       (:body
         (error-page {:status 404

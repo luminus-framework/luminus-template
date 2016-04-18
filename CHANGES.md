@@ -1,3 +1,7 @@
+## 2.9.10.38
+
+- removed wrap-formats from global middleware
+
 ## 2.9.10.37
 
 - bumped up conman, reagent-utils versions
