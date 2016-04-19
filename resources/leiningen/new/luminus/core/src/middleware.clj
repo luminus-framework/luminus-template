@@ -1,18 +1,18 @@
 (ns <<project-ns>>.middleware
-  (:require [<<project-ns>>.layout :refer [*app-context* error-page]]
-            [clojure.tools.logging :as log]
+  (:require [clojure.tools.logging :as log]<% if not service %>
+            [<<project-ns>>.layout :refer [*app-context* error-page]]
+            [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
+            [ring.middleware.webjars :refer [wrap-webjars]]
+            [ring.middleware.format :refer [wrap-restful-format]]<% endif %>
             [<<project-ns>>.env :refer [defaults]]
             [<<project-ns>>.config :refer [env]]<% if immutant-session %>
             [ring.middleware.flash :refer [wrap-flash]]
             [immutant.web.middleware :refer [wrap-session]]<% else %>
             [ring-ttl-session.core :refer [ttl-memory-store]]<% endif %>
-            [ring.middleware.webjars :refer [wrap-webjars]]
-            [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
-            [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
-            [ring.middleware.format :refer [wrap-restful-format]]<% if auth-middleware-required %>
+            [ring.middleware.defaults :refer [site-defaults wrap-defaults]]<% if auth-middleware-required %>
             <<auth-middleware-required>><% endif %>)
   (:import [javax.servlet ServletContext]))
-
+<% if not service %>
 (defn wrap-context [handler]
   (fn [request]
     (binding [*app-context*
@@ -54,12 +54,17 @@
       ;; disable wrap-formats for websockets
       ;; since they're not compatible with this middleware
       ((if (:websocket? request) handler wrapped) request))))
-<% if auth-middleware-required %>
+<% endif %><% if auth-middleware-required %><% if not service %>
 (defn on-error [request response]
   (error-page
     {:status 403
      :title (str "Access to " (:uri request) " is not authorized")}))
-
+<% else %>
+(defn on-error [request response]
+  {:status 403
+   :headers {}
+   :body (str "Access to " (:uri request) " is not authorized")})
+<% endif %>
 (defn wrap-restricted [handler]
   (restrict handler {:handler authenticated?
                      :on-error on-error}))
@@ -78,8 +83,7 @@
 <% endif %>
 (defn wrap-base [handler]
   (-> ((:middleware defaults) handler)<% if auth-middleware-required %>
-      wrap-auth<% endif %>
-      wrap-webjars<% if immutant-session %>
+      wrap-auth<% endif %><% if immutant-session %>
       wrap-flash
       (wrap-session {:cookie-attrs {:http-only true}})
       (wrap-defaults
@@ -89,6 +93,7 @@
       (wrap-defaults
         (-> site-defaults
             (assoc-in [:security :anti-forgery] false)
-            (assoc-in  [:session :store] (ttl-memory-store (* 60 30)))))<% endif %>
+            (assoc-in  [:session :store] (ttl-memory-store (* 60 30)))))<% endif %><% if not service %>
+      wrap-webjars
       wrap-context
-      wrap-internal-error))
+      wrap-internal-error<% endif %>))

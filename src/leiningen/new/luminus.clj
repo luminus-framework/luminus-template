@@ -19,7 +19,8 @@
             [leiningen.new.site :refer [site-features]]
             [leiningen.new.war :refer [war-features]]
             [leiningen.new.kibit :refer [kibit-features]]
-            [leiningen.new.log4j :refer [log4j-features]]))
+            [leiningen.new.log4j :refer [log4j-features]]
+            [leiningen.new.service :refer [service-features]]))
 
 (defn resource [r]
   (->> r (str "leiningen/new/luminus/core/resources/") (io/resource)))
@@ -79,6 +80,7 @@
   (main/info "Generating a Luminus project.")
   (let [[assets options]
         (-> [core-assets options]
+            service-features
             auth-features
             db-features
             cucumber-features
@@ -135,7 +137,7 @@
                              "+cljs" "+auth" "+site"
                              "+cucumber" "+sassc"
                              "+swagger" "+war"
-                             "+kibit"}
+                             "+kibit" "+service"}
         options {:name              (project-name name)
                  :selmer-renderer   render-template
                  :min-lein-version  "2.0.0"

@@ -1,15 +1,14 @@
 (ns <<project-ns>>.handler
-  (:require [compojure.core :refer [routes wrap-routes]]
+  (:require [compojure.core :refer [routes wrap-routes]]<% if not service %>
             [<<project-ns>>.layout :refer [error-page]]
-            [<<project-ns>>.routes.home :refer [home-routes]]<% if service-required %>
+            [<<project-ns>>.routes.home :refer [home-routes]]<% endif %><% if service-required %>
             <<service-required>><% endif %>
             [compojure.route :as route]
             [<<project-ns>>.middleware :as middleware]<% if war %>
             [clojure.tools.logging :as log]
             [<<project-ns>>.config :refer [env]]
             [<<project-ns>>.env :refer [defaults]]
-            [mount.core :as mount]
-            [luminus.logger :as logger]<% endif %>))
+            [mount.core :as mount]<% endif %>))
 <% if war %>
 (defn init
   "init will be called once when
@@ -32,13 +31,14 @@
 <% endif %>
 (def app-routes
   (routes<% if service-routes %>
-    <<service-routes>><% endif %>
+    <<service-routes>><% endif %><% if not service %>
     (-> #'home-routes
         (wrap-routes middleware/wrap-csrf)
-        (wrap-routes middleware/wrap-formats))
-    (route/not-found
+        (wrap-routes middleware/wrap-formats))<% endif %>
+    (route/not-found<% if service %>
+      "page not found"<% else %>
       (:body
         (error-page {:status 404
-                     :title "page not found"})))))
+                     :title "page not found"}))<% endif %>)))
 
 (defn app [] (middleware/wrap-base #'app-routes))
