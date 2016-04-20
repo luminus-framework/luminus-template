@@ -10,8 +10,8 @@
             [immutant.web.middleware :refer [wrap-session]]<% else %>
             [ring-ttl-session.core :refer [ttl-memory-store]]<% endif %>
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]<% if auth-middleware-required %>
-            <<auth-middleware-required>><% endif %>)
-  (:import [javax.servlet ServletContext]))
+            <<auth-middleware-required>><% endif %>)<% if not service %>
+  (:import [javax.servlet ServletContext])<% endif %>)
 <% if not service %>
 (defn wrap-context [handler]
   (fn [request]

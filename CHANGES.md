@@ -1,11 +1,14 @@
 ## 2.9.10.38
 
 - removed wrap-formats from global middleware
+- added +service profile
+- updated font-awesome
+- simplified Swagger example code
 
 ## 2.9.10.37
 
 - bumped up conman, reagent-utils versions
- 
+
 ## 2.9.10.36
 
 - switched `app` to be a function to ensure `env` is available when middleware is loaded
@@ -41,7 +44,7 @@
 ## 2.9.10.28
 
 - updated dependencies, latest `conman` release supports setting `doc` meta for generated functions
- 
+
 ## 2.9.10.27
 
 - ClojureScript cleanup
@@ -64,7 +67,7 @@
 
 ## 2.9.10.19
 
-- enables the Figwheel REPL via this [PR](https://github.com/luminus-framework/luminus-template/pull/213), it's now possible to start and stop the figwheel compiler from the `user` namespace by running `start-fw` and `stop-fw` respectively. The ClojureScript REPL is start by running `cljs`. 
+- enables the Figwheel REPL via this [PR](https://github.com/luminus-framework/luminus-template/pull/213), it's now possible to start and stop the figwheel compiler from the `user` namespace by running `start-fw` and `stop-fw` respectively. The ClojureScript REPL is start by running `cljs`.
 
 ## 2.9.10.18
 
@@ -86,18 +89,18 @@
 - war profile defaults to putting the core namespace in the dev source path
 - war profile sets up mock JNDI in the core namespace
 - war profile puts HTTP server dependency under the dev profile
- 
+
 ## 2.9.9.7
 
 - switched from using Yesql to [HugSQL](http://www.hugsql.org/), see documentation for syntactic differences for SQL queries
-- as a result of moving to HugSQL, [conman](https://github.com/luminus-framework/conman) no longer requires an atom to hold the connection 
+- as a result of moving to HugSQL, [conman](https://github.com/luminus-framework/conman) no longer requires an atom to hold the connection
 
 ## 2.9.9.2
 
 - updated to use a single `src` source path. The sources are found under `src/clj`, `src/cljc`, and `src/cljs` respectively.
 - updated to latest compojure-api, see [official changelog](https://github.com/metosin/compojure-api/blob/master/CHANGELOG.md) for the syntactic changes
 - updated to use cljs-ajax interceptors to provide default `Accept` and `x-csrf-token` headers
-- updated to automatically generate ClojureScript test scaffolding when the `+cljs` flag is used 
+- updated to automatically generate ClojureScript test scaffolding when the `+cljs` flag is used
 
 ## 2.9.9.0
 
@@ -130,5 +133,5 @@
 - moved out HTTP/nREPL servers into plugins
 
 ## 2.9.8.79
- 
+
 - switched to using log4j as the default logger
