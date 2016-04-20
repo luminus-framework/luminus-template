@@ -1,10 +1,10 @@
 (ns <<project-ns>>.middleware
-  (:require [clojure.tools.logging :as log]<% if not service %>
+  (:require [<<project-ns>>.env :refer [defaults]]<% if not service %>
+            [clojure.tools.logging :as log]
             [<<project-ns>>.layout :refer [*app-context* error-page]]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
             [ring.middleware.webjars :refer [wrap-webjars]]
             [ring.middleware.format :refer [wrap-restful-format]]<% endif %>
-            [<<project-ns>>.env :refer [defaults]]
             [<<project-ns>>.config :refer [env]]<% if immutant-session %>
             [ring.middleware.flash :refer [wrap-flash]]
             [immutant.web.middleware :refer [wrap-session]]<% else %>
