@@ -1,3 +1,7 @@
+## 2.9.10.40
+
+- fixes for +service profile
+
 ## 2.9.10.38
 
 - removed wrap-formats from global middleware
