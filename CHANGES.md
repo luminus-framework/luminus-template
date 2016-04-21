@@ -1,3 +1,7 @@
+## 2.9.10.41
+
+- rolled back conman to v0.4.9 
+
 ## 2.9.10.40
 
 - fixes for +service profile
