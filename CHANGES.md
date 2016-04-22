@@ -1,6 +1,10 @@
+## 2.9.10.42
+
+- fixed default tests to match the new template
+
 ## 2.9.10.41
 
-- rolled back conman to v0.4.9 
+- rolled back conman to v0.4.9
 
 ## 2.9.10.40
 
