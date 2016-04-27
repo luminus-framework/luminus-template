@@ -4,11 +4,15 @@
             [<<project-ns>>.routes.home :refer [home-routes]]<% endif %><% if service-required %>
             <<service-required>><% endif %>
             [compojure.route :as route]
+            [<<project-ns>>.env :refer [defaults]]
+            [mount.core :as mount]
             [<<project-ns>>.middleware :as middleware]<% if war %>
             [clojure.tools.logging :as log]
-            [<<project-ns>>.config :refer [env]]
-            [<<project-ns>>.env :refer [defaults]]
-            [mount.core :as mount]<% endif %>))
+            [<<project-ns>>.config :refer [env]]<% endif %>))
+
+(mount/defstate init-app
+                :start ((or (:init defaults) identity))
+                :stop  ((or (:stop defaults) identity)))
 <% if war %>
 (defn init
   "init will be called once when
@@ -17,8 +21,7 @@
    put any initialization code here"
   []
   (doseq [component (:started (mount/start))]
-    (log/info component "started"))
-  ((:init defaults)))
+    (log/info component "started")))
 
 (defn destroy
   "destroy will be called when your application
@@ -41,4 +44,5 @@
         (error-page {:status 404
                      :title "page not found"}))<% endif %>)))
 
-(defn app [] (middleware/wrap-base #'app-routes))
+
+(<% if war %>def app<% else %>defn app []<% endif %> (middleware/wrap-base #'app-routes))

@@ -6,7 +6,6 @@
             [<<project-ns>>.config :refer [env]]
             [clojure.tools.cli :refer [parse-opts]]
             [clojure.tools.logging :as log]<% if not war %>
-            [<<project-ns>>.env :refer [defaults]]
             [luminus.logger :as logger]<% endif %>
             [mount.core :as mount])
   (:gen-class))
@@ -33,6 +32,7 @@
                 :stop
                 (when repl-server
                   (repl/stop repl-server)))
+
 <% if war %>
 (defn init-jndi []
   (System/setProperty "java.naming.factory.initial"
@@ -61,7 +61,6 @@
                         :started)]
     (log/info component "started"))
   (logger/init (:log-config env))
-  ((:init defaults))
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app)))
 <% endif %>
 (defn -main [& args]

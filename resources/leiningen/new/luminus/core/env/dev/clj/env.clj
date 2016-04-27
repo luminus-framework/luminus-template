@@ -8,4 +8,7 @@
    (fn []
      (parser/cache-off!)
      (log/info "\n-=[<<name>> started successfully using the development profile]=-"))
+   :stop
+   (fn []
+     (log/info "\n-=[<<name>> has shutdown successfully]=-"))
    :middleware wrap-dev})

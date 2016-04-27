@@ -1,3 +1,8 @@
+## 2.9.10.43
+
+- updated init/stop initialization states to use `defstate`
+- switched to latest clojure.java.jdbc/HugSQL 
+
 ## 2.9.10.42
 
 - fixed default tests to match the new template
