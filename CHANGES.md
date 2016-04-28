@@ -1,3 +1,7 @@
+## 2.9.10.44
+
+- bumped up migratus
+
 ## 2.9.10.43
 
 - updated init/stop initialization states to use `defstate`
