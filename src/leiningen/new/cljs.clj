@@ -14,7 +14,7 @@
    ["resources/templates/home.html" "cljs/templates/home.html"]
    ["resources/templates/error.html" "core/resources/templates/error.html"]])
 
-(def cljs-version "1.8.40")
+(def cljs-version "1.8.51")
 
 (def figwheel-version "0.5.2")
 
