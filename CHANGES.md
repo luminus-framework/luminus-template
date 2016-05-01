@@ -1,3 +1,8 @@
+## 2.9.10.45
+
+- bumped up markdown-clj
+- fixed `+war` profile
+
 ## 2.9.10.44
 
 - bumped up migratus

@@ -74,6 +74,27 @@
       (update-in [:plugins] (partial indent plugin-indent))
       (update-in [:dev-plugins] (partial indent dev-dependency-indent))))
 
+(def core-dependencies
+  [['org.clojure/clojure "1.8.0"]
+   ['selmer "1.0.4"]
+   ['markdown-clj "0.9.89"]
+   ['ring-middleware-format "0.7.0"]
+   ['metosin/ring-http-response "0.6.5"]
+   ['bouncer "1.0.0"]
+   ['org.webjars/bootstrap "4.0.0-alpha.2"]
+   ['org.webjars/font-awesome "4.6.1"]
+   ['org.webjars.bower/tether "1.1.1"]
+   ['org.webjars/jquery "2.2.2"]
+   ['org.clojure/tools.logging "0.3.1"]
+   ['compojure "1.5.0"]
+   ['ring-webjars "0.1.1"]
+   ['ring/ring-defaults "0.2.0"]
+   ['luminus/ring-ttl-session "0.3.1"]
+   ['mount "0.1.10"]
+   ['cprop "0.1.7"]
+   ['org.clojure/tools.cli "0.3.3"]
+   ['luminus-nrepl "0.1.4"]])
+
 (defn generate-project
   "Create a new Luminus project"
   [options]
@@ -139,6 +160,7 @@
                              "+swagger" "+war"
                              "+kibit" "+service"}
         options {:name              (project-name name)
+                 :dependencies      core-dependencies
                  :selmer-renderer   render-template
                  :min-lein-version  "2.0.0"
                  :project-ns        (sanitize-ns name)

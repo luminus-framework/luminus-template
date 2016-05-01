@@ -23,6 +23,10 @@
          (assoc
            :war true
            :uberwar-options (indent root-indent (ring-options options)))
+         (update :dependencies (fn [dependencies]
+                                 (if (some #{['luminus/ring-ttl-session "0.3.1"]} dependencies)
+                                   dependencies
+                                   (conj dependencies ['luminus/ring-ttl-session "0.3.1"]))))
          (append-options :dependencies [['ring/ring-servlet "1.4.0"]])
          (append-options :dev-dependencies [['directory-naming/naming-java "0.8"]])
          (append-options :plugins [['lein-uberwar "0.2.0"]]))]

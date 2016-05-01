@@ -92,6 +92,7 @@
   (if (some #{"+cljs"} (:features options))
     [(into (remove-conflicting-assets assets ".html") cljs-assets)
      (-> options
+         (update :dependencies #(remove #{['org.webjars/jquery "2.2.2"]} %))
          (append-options :dependencies cljs-dependencies)
          (append-options :plugins cljs-plugins)
          (append-options :source-paths source-paths)

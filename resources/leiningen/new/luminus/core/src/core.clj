@@ -19,7 +19,7 @@
                 :start
                 (http/start
                   (-> env
-                      (assoc :handler (handler/app))
+                      (assoc :handler <% if war %>handler/app<% else %>(handler/app)<% endif %>)
                       (update :port #(or (-> env :options :port) %))))
                 :stop
                 (http/stop http-server))
