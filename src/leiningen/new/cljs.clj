@@ -32,7 +32,7 @@
   ["target/cljsbuild"])
 
 (def cljs-plugins
-  [['lein-cljsbuild "1.1.1"]])
+  [['lein-cljsbuild "1.1.3"]])
 
 (def cljs-dev-plugins
   [['lein-figwheel figwheel-version]
