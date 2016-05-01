@@ -14,14 +14,13 @@
    ["resources/templates/home.html" "cljs/templates/home.html"]
    ["resources/templates/error.html" "core/resources/templates/error.html"]])
 
-(def cljs-version "1.8.40")
+(def cljs-version "1.8.51")
 
 (def figwheel-version "0.5.2")
 
 (def cljs-dependencies
   [['org.clojure/clojurescript cljs-version :scope "provided"]
-   ['reagent "0.5.1"]
-   ['reagent-forms "0.5.22"]
+   ['reagent "0.6.0-SNAPSHOT"]
    ['reagent-utils "0.1.8"]
    ['secretary "1.2.3"]
    ['cljs-ajax "0.5.4"]])

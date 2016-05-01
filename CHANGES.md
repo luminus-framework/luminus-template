@@ -1,3 +1,7 @@
+## 2.9.10.46
+
+- bumped up dependencies
+
 ## 2.9.10.45
 
 - bumped up markdown-clj

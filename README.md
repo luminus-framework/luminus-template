@@ -39,6 +39,7 @@ However, if you would like to attach further functionality to your template you 
 * `+cucumber` adds support for browser based UI testing with [Cucumber][cucumber] and [clj-webdriver][clj-webdriver]
 * `+swagger` adds support for [Swagger-UI](https://github.com/swagger-api/swagger-ui) using the [compojure-api](https://github.com/metosin/compojure-api) library
 * `+sassc` adds support for [SASS/SCSS](http://sass-lang.com/) files using [SassC](http://github.com/sass/sassc) command line compiler
+* `+service` removes static assets and the layout, adds Swagger support
 
 To add a profile simply pass it as an argument after your application name, e.g.:
 
