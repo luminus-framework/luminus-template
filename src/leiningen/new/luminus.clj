@@ -92,7 +92,7 @@
    ['luminus/ring-ttl-session "0.3.1"]
    ['mount "0.1.10"]
    ['cprop "0.1.7"]
-   ['org.clojure/tools.cli "0.3.3"]
+   ['org.clojure/tools.cli "0.3.4"]
    ['luminus-nrepl "0.1.4"]])
 
 (defn generate-project
