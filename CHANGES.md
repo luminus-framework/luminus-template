@@ -1,3 +1,7 @@
+## 2.9.10.48
+
+- updated migratus/conman
+
 ## 2.9.10.47
 
 - bumped up Reagent, clojure.tools.cli
@@ -18,7 +22,7 @@
 ## 2.9.10.43
 
 - updated init/stop initialization states to use `defstate`
-- switched to latest clojure.java.jdbc/HugSQL 
+- switched to latest clojure.java.jdbc/HugSQL
 
 ## 2.9.10.42
 
