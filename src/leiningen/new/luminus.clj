@@ -82,9 +82,9 @@
    ['metosin/ring-http-response "0.6.5"]
    ['bouncer "1.0.0"]
    ['org.webjars/bootstrap "4.0.0-alpha.2"]
-   ['org.webjars/font-awesome "4.6.1"]
-   ['org.webjars.bower/tether "1.3.1"]
-   ['org.webjars/jquery "2.2.2"]
+   ['org.webjars/font-awesome "4.6.2"]
+   ['org.webjars.bower/tether "1.3.2"]
+   ['org.webjars/jquery "2.2.3"]
    ['org.clojure/tools.logging "0.3.1"]
    ['compojure "1.5.0"]
    ['ring-webjars "0.1.1"]
@@ -92,7 +92,7 @@
    ['luminus/ring-ttl-session "0.3.1"]
    ['mount "0.1.10"]
    ['cprop "0.1.7"]
-   ['org.clojure/tools.cli "0.3.4"]
+   ['org.clojure/tools.cli "0.3.5"]
    ['luminus-nrepl "0.1.4"]])
 
 (defn generate-project

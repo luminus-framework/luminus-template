@@ -1,3 +1,7 @@
+## 2.9.10.49
+
+- bumped up migratus, conman
+
 ## 2.9.10.48
 
 - updated migratus/conman
