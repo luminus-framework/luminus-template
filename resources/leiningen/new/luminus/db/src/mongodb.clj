@@ -5,9 +5,12 @@
               [mount.core :refer [defstate]]
               [<<project-ns>>.config :refer [env]]))
 
+(defstate db*
+  :start (-> env :database-url mg/connect-via-uri)
+  :stop (-> db* :conn mg/disconnect))
+
 (defstate db
-          :start (-> env :database-url mg/connect-via-uri :db)
-          :stop (mg/disconnect db))
+  :start (:db db*))
 
 (defn create-user [user]
   (mc/insert db "users" user))
