@@ -32,7 +32,10 @@
                 :stop
                 (when repl-server
                   (repl/stop repl-server)))
-
+<% if not war %>
+(mount/defstate log
+                :start (logger/init (:log-config env)))
+<% endif %>
 <% if war %>
 (defn init-jndi []
   (System/setProperty "java.naming.factory.initial"
@@ -60,7 +63,6 @@
                         mount/start-with-args
                         :started)]
     (log/info component "started"))
-  (logger/init (:log-config env))
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app)))
 <% endif %>
 (defn -main [& args]

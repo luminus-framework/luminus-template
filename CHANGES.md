@@ -1,3 +1,8 @@
+## 2.9.10.50
+
+- bumped up alpeh/jetty dependencies
+- switched logger to use `defstate`
+
 ## 2.9.10.49
 
 - bumped up migratus, conman

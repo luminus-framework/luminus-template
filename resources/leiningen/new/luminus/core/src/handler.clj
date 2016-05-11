@@ -7,6 +7,7 @@
             [<<project-ns>>.env :refer [defaults]]
             [mount.core :as mount]
             [<<project-ns>>.middleware :as middleware]<% if war %>
+            [luminus.logger :as logger]
             [clojure.tools.logging :as log]
             [<<project-ns>>.config :refer [env]]<% endif %>))
 
@@ -14,6 +15,9 @@
                 :start ((or (:init defaults) identity))
                 :stop  ((or (:stop defaults) identity)))
 <% if war %>
+(mount/defstate log
+                :start (logger/init (:log-config env)))
+
 (defn init
   "init will be called once when
    app is deployed as a servlet on
