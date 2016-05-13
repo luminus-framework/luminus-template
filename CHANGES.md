@@ -1,5 +1,6 @@
 ## 2.9.10.50
 
+- bumped up to latest clojure.java.jdbc
 - bumped up alpeh/jetty dependencies
 - switched logger to use `defstate`
 
