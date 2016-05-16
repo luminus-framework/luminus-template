@@ -10,8 +10,8 @@
     (some #{"+sqlite"} features) :sqlite))
 
 (defn db-dependencies [options]
-  [['luminus-migrations "0.1.5"]
-   ['conman "0.5.5"]
+  [['luminus-migrations "0.1.6"]
+   ['conman "0.5.6"]
    ({:postgres ['org.postgresql/postgresql "9.4-1206-jdbc4"]
      :mysql    ['mysql/mysql-connector-java "5.1.6"]
      :h2       ['com.h2database/h2 "1.4.191"]
