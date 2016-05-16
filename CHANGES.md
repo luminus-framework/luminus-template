@@ -1,5 +1,9 @@
 ## 2.9.10.51
 
+- fix for hikari-cp usage in conman
+
+## 2.9.10.51
+
 - fix for conman
 
 ## 2.9.10.50
