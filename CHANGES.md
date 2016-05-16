@@ -1,3 +1,7 @@
+## 2.9.10.51
+
+- fix for conman
+
 ## 2.9.10.50
 
 - bumped up to latest clojure.java.jdbc
