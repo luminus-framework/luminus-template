@@ -36,7 +36,8 @@
   (shutdown-agents)
   (log/info "<<name>> has shutdown!"))
 <% endif %>
-(def app-routes
+(mount/defstate app-routes
+  :start
   (routes<% if service-routes %>
     <<service-routes>><% endif %><% if not service %>
     (-> #'home-routes

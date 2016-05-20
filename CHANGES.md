@@ -1,3 +1,7 @@
+## 2.9.10.53
+
+- switched routes to be a state
+
 ## 2.9.10.51
 
 - fix for hikari-cp usage in conman
