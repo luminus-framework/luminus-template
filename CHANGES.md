@@ -1,6 +1,7 @@
 ## 2.9.10.53
 
 - switched routes to be a state
+- updated conman verison
 
 ## 2.9.10.51
 
