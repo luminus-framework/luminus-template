@@ -1,7 +1,8 @@
 ## 2.9.10.53
 
-- switched routes to be a state
 - updated conman verison
+- `+war` profile tests fix
+- `+datomic` profile for Datomic support
 
 ## 2.9.10.51
 

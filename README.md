@@ -31,6 +31,7 @@ However, if you would like to attach further functionality to your template you 
 * `+postgres` adds db.core namespace and add [PostreSQL database][pg] dependencies
 * `+mysql` adds db.core namespace and add [MySQL/MariaDB database][my] dependencies
 * `+mongodb` adds support for [MongoDB][mongo] using the [Monger][monger] library
+* `+datomic` adds support for the [Datomic](http://www.datomic.com/) database
 
 ### misc
 

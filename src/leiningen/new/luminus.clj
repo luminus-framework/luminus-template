@@ -151,7 +151,7 @@
   [name & feature-params]
   (let [min-version "2.5.2"
         supported-features #{;;databases
-                             "+sqlite" "+h2" "+postgres" "+mysql" "+mongodb"
+                             "+sqlite" "+h2" "+postgres" "+mysql" "+mongodb" "+datomic"
                              ;;servers
                              "+aleph" "+jetty" "+http-kit"
                              ;;misc
