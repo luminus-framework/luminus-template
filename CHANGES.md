@@ -1,3 +1,8 @@
+## 2.9.10.54
+
+- bumped up figwheel
+
+
 ## 2.9.10.53
 
 - updated conman verison
