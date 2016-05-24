@@ -1,6 +1,6 @@
 ## 2.9.10.54
 
-- bumped up figwheel
+- bumped up figwheel, cljs-ajax
 
 
 ## 2.9.10.53
