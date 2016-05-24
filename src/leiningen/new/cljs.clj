@@ -23,7 +23,7 @@
    ['reagent "0.6.0-alpha2"]
    ['reagent-utils "0.1.8"]
    ['secretary "1.2.3"]
-   ['cljs-ajax "0.5.4"]])
+   ['cljs-ajax "0.5.5"]])
 
 (def source-paths
   ["src/cljc"])
