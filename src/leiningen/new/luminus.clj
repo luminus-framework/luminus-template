@@ -91,7 +91,7 @@
    ['ring/ring-defaults "0.2.0"]
    ['luminus/ring-ttl-session "0.3.1"]
    ['mount "0.1.10"]
-   ['cprop "0.1.7"]
+   ['cprop "0.1.8"]
    ['org.clojure/tools.cli "0.3.5"]
    ['luminus-nrepl "0.1.4"]])
 
