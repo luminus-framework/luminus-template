@@ -1,6 +1,6 @@
 ## 2.9.10.54
 
-- bumped up figwheel, cljs-ajax
+- bumped up figwheel, cljs-ajax, compojure-api
 
 
 ## 2.9.10.53
