@@ -1,3 +1,7 @@
+## 2.9.10.55
+
+- bumped up luminus-migrations
+
 ## 2.9.10.54
 
 - bumped up figwheel, cljs-ajax, compojure-api
