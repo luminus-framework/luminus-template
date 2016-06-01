@@ -82,7 +82,7 @@
    ['metosin/ring-http-response "0.6.5"]
    ['bouncer "1.0.0"]
    ['org.webjars/bootstrap "4.0.0-alpha.2"]
-   ['org.webjars/font-awesome "4.6.2"]
+   ['org.webjars/font-awesome "4.6.3"]
    ['org.webjars.bower/tether "1.3.2"]
    ['org.webjars/jquery "2.2.4"]
    ['org.clojure/tools.logging "0.3.1"]

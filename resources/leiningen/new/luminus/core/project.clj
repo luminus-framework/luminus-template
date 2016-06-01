@@ -30,8 +30,8 @@
   :target-path "target/%s/"
   :profiles
   {:uberjar {:omit-source true
-             <% if cljs-uberjar %>
-             <<cljs-uberjar>><% endif %>
+             <% if cljs-uberjar-prep %>
+             <<cljs-uberjar-prep>><% endif %>
              :aot :all
              :uberjar-name "<<name>>.jar"
              :source-paths ["env/prod/clj"]
@@ -46,10 +46,9 @@
                                  <<dev-dependencies>><% endif %>]
                   :plugins      [[com.jakemccrary/lein-test-refresh "0.14.0"]<% if dev-plugins %>
                                  <<dev-plugins>><% endif %>]
-                  <% if cljs-dev %>
-                  <<cljs-dev>><% endif %>
                   <% if figwheel %>:figwheel
-                  <<figwheel>><% endif %><% if cljs-test %>:doo <<cljs-test>><% endif %>
+                  <<figwheel>><% endif %><% if cljs-test %>
+                  :doo <<cljs-test>><% endif %>
                   :source-paths ["env/dev/clj" "test/clj"]
                   :resource-paths ["env/dev/resources"]
                   :repl-options {:init-ns user<% if figwheel %>

@@ -2,6 +2,7 @@
 
 - bumped up luminus-migrations
 - bumped up Aleph, fix for Aleph to join when running in uberjar
+- removed cljs profiles
 
 ## 2.9.10.54
 

@@ -14,7 +14,7 @@
    ["resources/templates/home.html" "cljs/templates/home.html"]
    ["resources/templates/error.html" "core/resources/templates/error.html"]])
 
-(def cljs-version "1.8.51")
+(def cljs-version "1.9.14")
 
 (def figwheel-version "0.5.3-2")
 
@@ -48,41 +48,41 @@
    ['lein-doo "0.1.6"]
    ['com.cemerick/piggieback "0.2.2-SNAPSHOT"]])
 
-(def cljs-build
-  {:builds {:app {:source-paths ["src/cljc" "src/cljs"]
-                  :compiler     {:output-to    "target/cljsbuild/public/js/app.js"
-                                 :output-dir   "target/cljsbuild/public/js/out"
-                                 :externs      ["react/externs/react.js"]
-                                 :pretty-print true}}}})
-
-(def cljs-uberjar
-  {:prep-tasks ["compile" ["cljsbuild" "once"]]
-   :cljsbuild  {:builds {:app
-                         {:source-paths ["env/prod/cljs"]
-                          :compiler     {:optimizations :advanced
-                                         :pretty-print  false
-                                         :closure-warnings
-                                                        {:externs-validation :off
-                                                         :non-standard-jsdoc :off}}}}}})
-
-(defn cljs-dev [{:keys [project-ns]}]
-  {:cljsbuild {:builds
-               {:app
-                {:source-paths ["env/dev/cljs"]
-                 :compiler     {:main       (str project-ns ".app")
-                                :asset-path "/js/out"
-                                :optimizations :none
-                                :source-map true}}
-                :test {:source-paths ["src/cljc" "src/cljs" "test/cljs"]
-                       :compiler {:output-to "target/test.js"
-                                  :main (str project-ns ".doo-runner")
-                                  :optimizations :whitespace
-                                  :pretty-print true}}}}})
+(defn cljs-builds [{:keys [project-ns]}]
+  {:builds
+   {:app
+    {:source-paths ["src/cljc" "src/cljs" "env/dev/cljs"]
+     :figwheel     true
+     :compiler
+                   {:main          (str project-ns ".app")
+                    :asset-path    "/js/out"
+                    :output-to     "target/cljsbuild/public/js/app.js"
+                    :output-dir    "target/cljsbuild/public/js/out"
+                    :optimizations :none
+                    :source-map    true
+                    :pretty-print  true}}
+    :test
+    {:source-paths ["src/cljc" "src/cljs" "test/cljs"]
+     :compiler
+                   {:output-to     "target/test.js"
+                    :main          (str project-ns ".doo-runner")
+                    :optimizations :whitespace
+                    :pretty-print  true}}
+    :min
+    {:source-paths ["src/cljc" "src/cljs" "env/prod/cljs"]
+     :compiler
+                   {:output-to     "target/cljsbuild/public/js/app.js"
+                    :output-dir    "target/uberjar"
+                    :externs       ["react/externs/react.js"]
+                    :optimizations :advanced
+                    :pretty-print  false
+                    :closure-warnings
+                                   {:externs-validation :off :non-standard-jsdoc :off}}}}})
 
 (def cljs-test
   {:build "test"})
 
-(defn figwheel [{:keys [project-ns]}]
+(def figwheel
   {:http-server-root "public"
    :nrepl-port       7002
    :css-dirs         ["resources/public/css"]})
@@ -101,9 +101,8 @@
          (update-in [:clean-targets] (fnil into []) clean-targets)
          (assoc
            :cljs true
-           :cljs-build (indent root-indent cljs-build)
+           :cljs-build (indent root-indent (cljs-builds options))
            :cljs-test cljs-test
-           :figwheel (indent dev-indent (figwheel options))
-           :cljs-dev (unwrap-map (indent dev-indent (cljs-dev options)))
-           :cljs-uberjar (unwrap-map (indent uberjar-indent cljs-uberjar))))]
+           :figwheel (indent dev-indent figwheel)
+           :cljs-uberjar-prep ":prep-tasks [\"compile\" [\"cljsbuild\" \"once\" \"min\"]]"))]
     state))
