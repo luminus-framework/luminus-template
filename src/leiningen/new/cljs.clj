@@ -46,6 +46,7 @@
 (def cljs-dev-dependencies
   [['lein-figwheel figwheel-version]
    ['lein-doo "0.1.6"]
+   ['binaryage/devtools "0.6.1"]
    ['com.cemerick/piggieback "0.2.2-SNAPSHOT"]])
 
 (defn cljs-builds [{:keys [project-ns]}]

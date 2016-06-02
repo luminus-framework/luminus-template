@@ -1,5 +1,9 @@
 ## 2.9.10.56
 
+- added cljs-devtools support
+
+## 2.9.10.56
+
 - removed cljs profiles
 
 ## 2.9.10.55
