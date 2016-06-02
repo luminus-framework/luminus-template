@@ -11,7 +11,7 @@
   :jvm-opts ["-server" "-Dconf=.lein-env"]<% if resource-paths %>
   :source-paths <<source-paths>>
   :resource-paths <<resource-paths>><% endif %>
-
+  :target-path "target/%s/"
   :main <<project-ns>>.core<% if migrations %>
   :migratus <<migrations>><% endif %>
 
@@ -26,8 +26,10 @@
   :clean-targets ^{:protect false}
   <<clean-targets>><% endif %><% if cljs-build %>
   :cljsbuild
-  <<cljs-build>><% endif %>
-  :target-path "target/%s/"
+  <<cljs-build>>
+  :figwheel
+  <<figwheel>><% endif %>
+
   :profiles
   {:uberjar {:omit-source true
              <% if cljs-uberjar-prep %>
@@ -36,8 +38,10 @@
              :uberjar-name "<<name>>.jar"
              :source-paths ["env/prod/clj"]
              :resource-paths ["env/prod/resources"]}
+
    :dev           [:project/dev :profiles/dev]
    :test          [:project/test :profiles/test]
+
    :project/dev  {:dependencies [[prone "1.1.1"]
                                  [ring/ring-mock "0.3.0"]
                                  [ring/ring-devel "1.4.0"]<%if war %>
@@ -46,8 +50,7 @@
                                  <<dev-dependencies>><% endif %>]
                   :plugins      [[com.jakemccrary/lein-test-refresh "0.14.0"]<% if dev-plugins %>
                                  <<dev-plugins>><% endif %>]
-                  <% if figwheel %>:figwheel
-                  <<figwheel>><% endif %><% if cljs-test %>
+                  <% if cljs-test %>
                   :doo <<cljs-test>><% endif %>
                   :source-paths ["env/dev/clj" "test/clj"]
                   :resource-paths ["env/dev/resources"]

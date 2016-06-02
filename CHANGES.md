@@ -1,4 +1,8 @@
-## 2.9.10.56
+## 2.9.10.58
+
+- moved figwheel config to top level
+
+## 2.9.10.57
 
 - added cljs-devtools support
 

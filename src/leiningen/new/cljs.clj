@@ -104,6 +104,6 @@
            :cljs true
            :cljs-build (indent root-indent (cljs-builds options))
            :cljs-test cljs-test
-           :figwheel (indent dev-indent figwheel)
+           :figwheel (indent root-indent figwheel)
            :cljs-uberjar-prep ":prep-tasks [\"compile\" [\"cljsbuild\" \"once\" \"min\"]]"))]
     state))
