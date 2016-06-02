@@ -90,10 +90,10 @@
         (-> site-defaults
             (assoc-in [:security :anti-forgery] false)
             (dissoc :session)))<% else %>
+      wrap-webjars
       (wrap-defaults
         (-> site-defaults
             (assoc-in [:security :anti-forgery] false)
             (assoc-in  [:session :store] (ttl-memory-store (* 60 30)))))<% endif %><% if not service %>
-      wrap-webjars
       wrap-context
       wrap-internal-error<% endif %>))
