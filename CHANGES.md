@@ -1,3 +1,7 @@
+## 2.9.10.60
+
+- bumped up cljs to 1.9.36
+- fix for regression in 2.9.10.59 for the `+service` profile
 ## 2.9.10.59
 
 - fix for `wrap-webjars` mime type inference
