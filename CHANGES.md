@@ -1,3 +1,7 @@
+## 2.9.10.59
+
+- fix for `wrap-webjars` mime type inference
+
 ## 2.9.10.58
 
 - moved figwheel config to top level
