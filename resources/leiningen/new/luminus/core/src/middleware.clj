@@ -83,8 +83,8 @@
 <% endif %>
 (defn wrap-base [handler]
   (-> ((:middleware defaults) handler)<% if auth-middleware-required %>
-      wrap-auth<% endif %>
-      wrap-webjars<% if immutant-session %>
+      wrap-auth<% endif %><% if not service %>
+      wrap-webjars<% endif %><% if immutant-session %>
       wrap-flash
       (wrap-session {:cookie-attrs {:http-only true}})
       (wrap-defaults
