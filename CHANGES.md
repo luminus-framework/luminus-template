@@ -1,3 +1,8 @@
+## 2.9.10.61
+
+- added [lein-immutant](https://github.com/immutant/lein-immutant) as the default plugin for the Immutant profile,
+  this allows seamless deployment to Wildfly and running as standalone
+
 ## 2.9.10.60
 
 - bumped up cljs to 1.9.36
