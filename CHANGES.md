@@ -1,3 +1,7 @@
+## 2.9.10.63
+
+- updated to Reagent 0.6.0-rc
+
 ## 2.9.10.62
 
 - updated ring-defaults/ring-devel
