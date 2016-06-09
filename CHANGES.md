@@ -1,3 +1,8 @@
+## 2.9.10.62
+
+- updated ring-defaults/ring-devel
+- updated migratus
+
 ## 2.9.10.61
 
 - added [lein-immutant](https://github.com/immutant/lein-immutant) as the default plugin for the Immutant profile,
