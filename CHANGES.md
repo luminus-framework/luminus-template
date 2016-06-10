@@ -1,3 +1,7 @@
+## 2.9.10.63
+
+- rolled back Figwheel, snapshot versions can be unstable
+
 ## 2.9.10.62
 
 - updated ring-defaults/ring-devel
