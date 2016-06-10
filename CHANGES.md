@@ -1,6 +1,10 @@
-## 2.9.10.63
+## 2.9.10.64
 
 - rolled back Figwheel, snapshot versions can be unstable
+
+## 2.9.10.63
+
+- updated to Reagent 0.6.0-rc
 
 ## 2.9.10.62
 
