@@ -1,6 +1,7 @@
 ## 2.9.10.65
 
 - bumped up luminus-migrations, now supports an options map same as migratus
+- bumped up Figwheel to 0.5.4
 
 ## 2.9.10.64
 
