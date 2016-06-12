@@ -70,7 +70,7 @@
     (some #{"migrate" "rollback"} args)
     (do
       (mount/start #'<<project-ns>>.config/env)
-      (migrations/migrate args (env :database-url))
+      (migrations/migrate args (select-keys env [:database-url]))
       (System/exit 0))
     :else
     (start-app args)))
