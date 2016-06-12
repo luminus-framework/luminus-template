@@ -16,7 +16,7 @@
 
 (def cljs-version "1.9.36")
 
-(def figwheel-version "0.5.4-1")
+(def figwheel-version "0.5.4-2")
 
 (def cljs-dependencies
   [['org.clojure/clojurescript cljs-version :scope "provided"]
