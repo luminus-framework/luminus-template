@@ -16,7 +16,7 @@
 
 (def cljs-version "1.9.36")
 
-(def figwheel-version "0.5.4")
+(def figwheel-version "0.5.4-1")
 
 (def cljs-dependencies
   [['org.clojure/clojurescript cljs-version :scope "provided"]
@@ -35,8 +35,8 @@
   [['lein-cljsbuild "1.1.3"]])
 
 (def cljs-dev-plugins
-  [['lein-figwheel figwheel-version]
-   ['lein-doo "0.1.6"]
+  [['lein-doo "0.1.6"]
+   ['lein-figwheel figwheel-version]
    ['org.clojure/clojurescript cljs-version]])
 
 (def clean-targets [:target-path
@@ -44,9 +44,9 @@
                     [:cljsbuild :builds :app :compiler :output-to]])
 
 (def cljs-dev-dependencies
-  [['lein-figwheel figwheel-version]
-   ['lein-doo "0.1.6"]
+  [['doo "0.1.6"]
    ['binaryage/devtools "0.6.1"]
+   ['figwheel-sidecar figwheel-version]
    ['com.cemerick/piggieback "0.2.2-SNAPSHOT"]])
 
 (defn cljs-builds [{:keys [project-ns]}]
@@ -92,7 +92,9 @@
   (if (some #{"+cljs"} (:features options))
     [(into (remove-conflicting-assets assets ".html") cljs-assets)
      (-> options
-         (update :dependencies #(remove #{['org.webjars/jquery "2.2.2"]} %))
+         (update :dependencies
+                 #(remove (fn [[artifact]]
+                            (= artifact 'org.webjars/jquery)) %))
          (append-options :dependencies cljs-dependencies)
          (append-options :plugins cljs-plugins)
          (append-options :source-paths source-paths)
