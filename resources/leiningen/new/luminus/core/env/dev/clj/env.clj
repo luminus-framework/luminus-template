@@ -10,5 +10,5 @@
      (log/info "\n-=[<<name>> started successfully using the development profile]=-"))
    :stop
    (fn []
-     (log/info "\n-=[<<name>> has shutdown successfully]=-"))
+     (log/info "\n-=[<<name>> has shut down successfully]=-"))
    :middleware wrap-dev})

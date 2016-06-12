@@ -34,7 +34,7 @@
   (doseq [component (:stopped (mount/stop))]
     (log/info component "stopped"))
   (shutdown-agents)
-  (log/info "<<name>> has shutdown!"))
+  (log/info "<<name>> has shut down!"))
 <% endif %>
 (def app-routes
   (routes<% if service-routes %>
