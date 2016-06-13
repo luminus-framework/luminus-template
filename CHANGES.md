@@ -1,6 +1,7 @@
 ## 2.9.10.67
 
 - cleaned up figwheel middleware
+- bumped up migratus/luminus-migrations
 
 ## 2.9.10.66
 
