@@ -1,6 +1,7 @@
 ## 2.9.10.66
 
 - bumped up Figwheel to 0.5.4-2
+- bumped up cljs-dev-tools to 0.7.0
 
 ## 2.9.10.65
 
