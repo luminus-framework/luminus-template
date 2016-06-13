@@ -86,7 +86,8 @@
 (def figwheel
   {:http-server-root "public"
    :nrepl-port       7002
-   :css-dirs         ["resources/public/css"]})
+   :css-dirs         ["resources/public/css"]
+   :nrepl-middleware ['cemerick.piggieback/wrap-cljs-repl]})
 
 (defn cljs-features [[assets options :as state]]
   (if (some #{"+cljs"} (:features options))

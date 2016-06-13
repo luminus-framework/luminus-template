@@ -55,9 +55,7 @@
                   :doo <<cljs-test>><% endif %>
                   :source-paths ["env/dev/clj" "test/clj"]
                   :resource-paths ["env/dev/resources"]
-                  :repl-options {:init-ns user<% if figwheel %>
-                                 :nrepl-middleware
-                                 [cemerick.piggieback/wrap-cljs-repl]<% endif %>}
+                  :repl-options {:init-ns user}
                   :injections [(require 'pjstadig.humane-test-output)
                                (pjstadig.humane-test-output/activate!)]}
    :project/test {:resource-paths ["env/dev/resources" "env/test/resources"]}
