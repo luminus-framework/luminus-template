@@ -3,5 +3,5 @@ Feature: Cukes
 
   Scenario: Index Page
     Given I am at the "homepage"
-    Then I should see "Welcome to {{name}}"
+    Then I should see "Welcome to <<name>>"
 
