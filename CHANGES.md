@@ -1,3 +1,7 @@
+## 2.9.10.68
+
+- fixed tests generated for the db profile to match latest luminus-migrations
+
 ## 2.9.10.67
 
 - cleaned up figwheel middleware
