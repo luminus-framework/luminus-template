@@ -106,6 +106,11 @@
   (set-parameter [v ^PreparedStatement stmt ^long idx]
     (.setTimestamp stmt idx (Timestamp. (.getTime v)))))
 
+(defn to-pg-json [value]
+      (doto (PGobject.)
+            (.setType "jsonb")
+            (.setValue (generate-string value))))
+
 (extend-type clojure.lang.IPersistentVector
   jdbc/ISQLParameter
   (set-parameter [v ^java.sql.PreparedStatement stmt ^long idx]
@@ -114,12 +119,7 @@
           type-name (.getParameterTypeName meta idx)]
       (if-let [elem-type (when (= (first type-name) \_) (apply str (rest type-name)))]
         (.setObject stmt idx (.createArrayOf conn elem-type (to-array v)))
-        (.setObject stmt idx v)))))
-
-(defn to-pg-json [value]
-  (doto (PGobject.)
-    (.setType "jsonb")
-    (.setValue (generate-string value))))
+        (.setObject stmt idx (to-pg-json v))))))
 
 (extend-protocol jdbc/ISQLValue
   IPersistentMap

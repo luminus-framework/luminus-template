@@ -41,6 +41,9 @@ However, if you would like to attach further functionality to your template you 
 * `+swagger` adds support for [Swagger-UI](https://github.com/swagger-api/swagger-ui) using the [compojure-api](https://github.com/metosin/compojure-api) library
 * `+sassc` adds support for [SASS/SCSS](http://sass-lang.com/) files using [SassC](http://github.com/sass/sassc) command line compiler
 * `+service` removes static assets and the layout, adds Swagger support
+* `+war` adds support of building WAR archives for deployment to servers such as Apache Tomcat (should NOT be used for [Immutant apps running on WildFly][immutant])
+* `+site` creates template for site using the specified database (H2 by default) and ClojureScript
+*  `+kibit` add [lein-kibit](https://github.com/jonase/kibit) plugin
 
 To add a profile simply pass it as an argument after your application name, e.g.:
 
@@ -82,7 +85,7 @@ The memory and CPU usage can be inspected by running either `jconsole` or `jvisu
 
 ## License
 
-Copyright © 2015 Dmitri Sotnikov
+Copyright © 2016 Dmitri Sotnikov
 
 Distributed under the [MIT License](http://opensource.org/licenses/MIT).
 
@@ -100,3 +103,4 @@ Distributed under the [MIT License](http://opensource.org/licenses/MIT).
 [clj-webdriver]: <https://github.com/semperos/clj-webdriver>
 [mongo]: <http://www.mongodb.com>
 [monger]: <http://clojuremongodb.info>
+[immutant]: <http://www.luminusweb.net/docs/deployment.md#deploying_to_wildfly>
