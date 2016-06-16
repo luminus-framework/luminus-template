@@ -1,3 +1,8 @@
+## 2.9.10.69
+
+- fix for JSON serialization in Postgres
+- updated to Figwheel 0.5.4-3
+
 ## 2.9.10.68
 
 - fixed tests generated for the db profile to match latest luminus-migrations
