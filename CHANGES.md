@@ -1,3 +1,7 @@
+## 2.9.10.70
+
+- added Dockerfile and Capstan configs
+
 ## 2.9.10.69
 
 - fix for JSON serialization in Postgres

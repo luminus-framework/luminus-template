@@ -30,6 +30,8 @@
    ["project.clj" "core/project.clj"]
    ["profiles.clj" "core/profiles.clj"]
    ["Procfile" "core/Procfile"]
+   ["Dockerfile" "core/Dockerfile"]
+   ["Capstanfile" "core/Capstanfile"]
    ["README.md" "core/README.md"]
    ["env/prod/resources/config.edn" "core/env/prod/resources/config.edn"]
    ["env/dev/resources/config.edn" "core/env/dev/resources/config.edn"]
