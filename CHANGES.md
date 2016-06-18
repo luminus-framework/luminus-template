@@ -1,6 +1,7 @@
 ## 2.9.10.70
 
 - added Dockerfile and Capstan configs
+- bumped up reagent-utils to 0.1.9
 
 ## 2.9.10.69
 
