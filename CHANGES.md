@@ -2,6 +2,7 @@
 
 - added Dockerfile and Capstan configs
 - bumped up reagent-utils to 0.1.9
+- bumped up ClojureScript to 1.9.76
 
 ## 2.9.10.69
 
