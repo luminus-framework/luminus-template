@@ -1,6 +1,7 @@
 ## 2.9.10.71
 
 - bumped up Compojure
+- bumped down ClojureScript to 1.9.36 due to [transit-cljs warning](https://github.com/cognitect/transit-cljs/issues/26)
 
 ## 2.9.10.70
 
