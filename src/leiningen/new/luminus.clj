@@ -88,7 +88,7 @@
    ['org.webjars.bower/tether "1.3.2"]
    ['org.webjars/jquery "2.2.4"]
    ['org.clojure/tools.logging "0.3.1"]
-   ['compojure "1.5.0"]
+   ['compojure "1.5.1"]
    ['ring-webjars "0.1.1"]
    ['ring/ring-defaults "0.2.1"]
    ['luminus/ring-ttl-session "0.3.1"]

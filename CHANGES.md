@@ -1,3 +1,7 @@
+## 2.9.10.71
+
+- bumped up Compojure
+
 ## 2.9.10.70
 
 - added Dockerfile and Capstan configs
