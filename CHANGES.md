@@ -1,3 +1,7 @@
+## 2.9.10.73
+
+- bumped up Selmer to 1.0.6
+
 ## 2.9.10.72
 
 - bumped up cljs-ajax to 0.5.7
