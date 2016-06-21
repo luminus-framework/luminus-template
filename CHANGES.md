@@ -1,3 +1,8 @@
+## 2.9.10.72
+
+- bumped up cljs-ajax to 0.5.7
+- bumped up ClojureScript to 1.9.76
+
 ## 2.9.10.71
 
 - bumped up Compojure
