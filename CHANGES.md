@@ -1,3 +1,7 @@
+## 2.9.10.74
+
+- ClojureScript to 1.9.89
+
 ## 2.9.10.73
 
 - Selmer to 1.0.6
