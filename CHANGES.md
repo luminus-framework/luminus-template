@@ -1,6 +1,11 @@
 ## 2.9.10.73
 
-- bumped up Selmer to 1.0.6
+- Selmer to 1.0.6
+- cljs-ajax to 0.5.8
+- ClojureScript to 1.9.88
+- binaryage/devtools 0.7.2
+- metosin/ring-http-response 0.7.0
+- metosin/compojure-api 1.1.3
 
 ## 2.9.10.72
 

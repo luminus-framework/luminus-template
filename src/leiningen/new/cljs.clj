@@ -14,7 +14,7 @@
    ["resources/templates/home.html" "cljs/templates/home.html"]
    ["resources/templates/error.html" "core/resources/templates/error.html"]])
 
-(def cljs-version "1.9.76")
+(def cljs-version "1.9.88")
 
 (def figwheel-version "0.5.4-3")
 
@@ -23,7 +23,7 @@
    ['reagent "0.6.0-rc"]
    ['reagent-utils "0.1.9"]
    ['secretary "1.2.3"]
-   ['cljs-ajax "0.5.7"]])
+   ['cljs-ajax "0.5.8"]])
 
 (def source-paths
   ["src/cljc"])
@@ -45,7 +45,7 @@
 
 (def cljs-dev-dependencies
   [['doo "0.1.6"]
-   ['binaryage/devtools "0.7.0"]
+   ['binaryage/devtools "0.7.2"]
    ['figwheel-sidecar figwheel-version]
    ['com.cemerick/piggieback "0.2.2-SNAPSHOT"]])
 
