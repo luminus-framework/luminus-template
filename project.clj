@@ -1,4 +1,4 @@
-(defproject luminus/lein-template "2.9.10.73"
+(defproject luminus/lein-template "2.9.10.74"
   :description "a template for creating Luminus applications"
   :url "https://github.com/yogthos/luminus-template"
   :license {:name "MIT License"
