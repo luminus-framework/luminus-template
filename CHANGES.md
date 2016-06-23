@@ -1,6 +1,7 @@
 ## 2.9.10.74
 
-- ClojureScript to 1.9.89
+- ClojureScript to 1.9.92
+- Figwheel to 0.5.4.-4
 
 ## 2.9.10.73
 
