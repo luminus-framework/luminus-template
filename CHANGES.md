@@ -1,3 +1,10 @@
+## 2.9.10.75
+
+- updated migratus/luminus migrations
+- updated cljs/figwheel
+- updated Selmer
+- updated metosin/ring-http-response
+
 ## 2.9.10.74
 
 - ClojureScript to 1.9.92

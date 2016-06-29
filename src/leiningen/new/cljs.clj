@@ -14,9 +14,9 @@
    ["resources/templates/home.html" "cljs/templates/home.html"]
    ["resources/templates/error.html" "core/resources/templates/error.html"]])
 
-(def cljs-version "1.9.92")
+(def cljs-version "1.9.93")
 
-(def figwheel-version "0.5.4-4")
+(def figwheel-version "0.5.4-5")
 
 (def cljs-dependencies
   [['org.clojure/clojurescript cljs-version :scope "provided"]
