@@ -1,3 +1,7 @@
+## 2.9.10.76
+
+- updated migratus-lein
+
 ## 2.9.10.75
 
 - updated migratus/luminus migrations

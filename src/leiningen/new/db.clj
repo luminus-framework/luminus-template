@@ -75,7 +75,7 @@
    (let [embedded-db? (some #{(name db)} ["h2" "sqlite"])]
      (-> options
          (append-options :dependencies (db-dependencies options))
-         (append-options :plugins [['migratus-lein "0.3.8"]])
+         (append-options :plugins [['migratus-lein "0.3.9"]])
          (assoc
            :relational-db true
            :db-connection (not embedded-db?)
