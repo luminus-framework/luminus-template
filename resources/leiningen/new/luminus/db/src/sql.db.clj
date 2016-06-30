@@ -45,20 +45,12 @@
 <% endifequal %><% ifequal db-type "postgres" %>
 (defstate ^:dynamic *db*
           :start (conman/connect!
-                   {:init-size  1
-                    :min-idle   1
-                    :max-idle   4
-                    :max-active 32
-                    :jdbc-url   (env :database-url)})
+                   {:jdbc-url   (env :database-url)})
           :stop (conman/disconnect! *db*))
 <% endifequal %><% ifequal db-type "mysql" %>
 (defstate ^:dynamic *db*
           :start (conman/connect!
-                   {:init-size  1
-                    :min-idle   1
-                    :max-idle   4
-                    :max-active 32
-                    :jdbc-url   (env :database-url)})
+                   {:jdbc-url   (env :database-url)})
           :stop (conman/disconnect! *db*))
 <% endifequal %>
 (conman/bind-connection *db* "sql/queries.sql")
