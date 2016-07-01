@@ -1,5 +1,6 @@
 ## 2.9.10.76
 
+- bumped up luminus-immutant for Immutant 2.1.5 release
 - updated migratus-lein
 
 ## 2.9.10.75
