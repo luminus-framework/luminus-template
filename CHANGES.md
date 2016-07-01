@@ -1,7 +1,7 @@
 ## 2.9.10.76
 
-- bumped up luminus-immutant for Immutant 2.1.5 release
 - updated migratus-lein
+- updated log4j
 - removed default config in db config, uses hikari-cp defaults instead
 
 ## 2.9.10.75
