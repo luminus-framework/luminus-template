@@ -1,3 +1,7 @@
+## 2.9.10.78
+
+- bumped up luminus-migrations to 0.2.4
+
 ## 2.9.10.77
 
 - switched to log4j2
