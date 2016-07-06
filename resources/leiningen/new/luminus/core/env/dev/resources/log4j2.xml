@@ -17,27 +17,19 @@
     <Loggers>
         <Logger name="org.xnio.nio" level="warn">
             <AppenderRef ref="Console"/>
-        </Logger>
-        <% if relational-db %>
+        </Logger><% if relational-db %>
         <Logger name="com.zaxxer.hikari" level="warn">
             <AppenderRef ref="Console"/>
-        </Logger>
-        <% endif %>
-        <% if cucumber-feature-paths %>
+        </Logger><% endif %><% if cucumber-feature-paths %>
         <Logger name="com.mchange" level="warn">
             <AppenderRef ref="Console"/>
-        </Logger>
-        <% endif %>
-        <% ifequal server "jetty" %>
+        </Logger><% endif %><% ifequal server "jetty" %>
         <Logger name="org.eclipse.jetty" level="warn">
             <AppenderRef ref="Console"/>
-        </Logger>
-        <% endifequal %>
-        <% ifequal server "aleph" %>
+        </Logger><% endifequal %><% ifequal server "aleph" %>
         <Logger name="io.netty" level="warn">
             <AppenderRef ref="Console"/>
-        </Logger>
-        <% endifequal %>
+        </Logger><% endifequal %>
         <Root level="debug">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="File"/>
