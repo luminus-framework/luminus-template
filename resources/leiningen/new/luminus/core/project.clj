@@ -8,7 +8,9 @@
 
   :min-lein-version "<<min-lein-version>>"
 
-  :jvm-opts ["-server" "-Dconf=.lein-env"]<% if resource-paths %>
+  :jvm-opts ["-server"
+             "-Dconf=.lein-env"
+             "-Dlog4j.configurationFile=env/dev/resources/log4j2.xml"]<% if resource-paths %>
   :source-paths <<source-paths>>
   :resource-paths <<resource-paths>><% endif %>
   :target-path "target/%s/"

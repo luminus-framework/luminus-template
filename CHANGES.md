@@ -1,3 +1,8 @@
+## 2.9.10.77
+
+- switched to log4j2
+- updated to latest Immutant
+
 ## 2.9.10.76
 
 - updated migratus-lein

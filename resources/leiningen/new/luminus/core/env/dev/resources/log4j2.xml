@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration name="XmlConfig">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d][%p][%c] %m%n"/>
+        </Console>
+        <RollingFile name="File"
+                     fileName="./log/<<name>>.log"
+                     filePattern="./log/<<name>>-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="[%d][%p][%c] %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="org.xnio.nio" level="warn">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <% if relational-db %>
+        <Logger name="com.zaxxer.hikari" level="warn">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <% endif %>
+        <% if cucumber-feature-paths %>
+        <Logger name="com.mchange" level="warn">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <% endif %>
+        <% ifequal server "jetty" %>
+        <Logger name="org.eclipse.jetty" level="warn">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <% endifequal %>
+        <% ifequal server "aleph" %>
+        <Logger name="io.netty" level="warn">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <% endifequal %>
+        <Root level="debug">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Root>
+    </Loggers>
+</Configuration>

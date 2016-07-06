@@ -4,7 +4,6 @@
 (def cucumber-assets
   [["test/clj/{{sanitized}}/browser.clj" "cucumber/src/browser.clj"]
    ["test/clj/features/step_definitions/home_page_steps.clj" "cucumber/src/home_page_steps.clj"]
-   ["resources/log4j.properties" "cucumber/resources/log4j.properties"]
    ["test/clj/features/index_page.feature" "cucumber/resources/index_page.feature"]])
 
 (defn cucumber-features [[assets options :as state]]

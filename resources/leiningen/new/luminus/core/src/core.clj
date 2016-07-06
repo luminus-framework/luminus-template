@@ -5,8 +5,7 @@
             [luminus-migrations.core :as migrations]<% endif %>
             [<<project-ns>>.config :refer [env]]
             [clojure.tools.cli :refer [parse-opts]]
-            [clojure.tools.logging :as log]<% if not war %>
-            [luminus.logger :as logger]<% endif %>
+            [clojure.tools.logging :as log]
             [mount.core :as mount])
   (:gen-class))
 
@@ -32,10 +31,7 @@
                 :stop
                 (when repl-server
                   (repl/stop repl-server)))
-<% if not war %>
-(mount/defstate log
-                :start (logger/init (:log-config env)))
-<% endif %>
+
 <% if war %>
 (defn init-jndi []
   (System/setProperty "java.naming.factory.initial"
