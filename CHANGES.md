@@ -1,6 +1,7 @@
 ## 2.9.10.78
 
-- bumped up luminus-migrations to 0.2.4
+- switched to use logback
+- bumped up luminus-migrations to 0.2.5
 
 ## 2.9.10.77
 

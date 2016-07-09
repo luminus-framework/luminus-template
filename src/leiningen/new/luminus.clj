@@ -19,7 +19,7 @@
             [leiningen.new.site :refer [site-features]]
             [leiningen.new.war :refer [war-features]]
             [leiningen.new.kibit :refer [kibit-features]]
-            [leiningen.new.log4j :refer [log4j-features]]
+            [leiningen.new.logback :refer [logback-features]]
             [leiningen.new.service :refer [service-features]]))
 
 (defn resource [r]
@@ -116,7 +116,7 @@
             immutant-features
             sassc-features
             kibit-features
-            log4j-features
+            logback-features
             war-features)]
     (render-assets (init-render) assets (format-options options))))
 
@@ -134,7 +134,7 @@
 (defn set-default-features [options]
   (-> options
       (set-feature "+immutant" #{"+jetty" "+aleph" "+http-kit"})
-      (set-feature "+log4j" #{})))
+      (set-feature "+logback" #{})))
 
 (defn parse-version [v]
   (map #(Integer/parseInt %)
