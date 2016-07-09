@@ -2,6 +2,7 @@
 
 - switched to use logback
 - bumped up luminus-migrations to 0.2.5
+- bumped up Figwheel to 0.5.4-7
 
 ## 2.9.10.77
 
