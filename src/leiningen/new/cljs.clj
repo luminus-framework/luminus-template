@@ -35,7 +35,7 @@
   [['lein-cljsbuild "1.1.3"]])
 
 (def cljs-dev-plugins
-  [['lein-doo "0.1.6"]
+  [['lein-doo "0.1.7"]
    ['lein-figwheel figwheel-version]
    ['org.clojure/clojurescript cljs-version]])
 

@@ -1,3 +1,9 @@
+## 2.9.10.79
+
+- http-kit 2.2.0
+- lein-doo 0.1.7
+- compojure-api 1.1.4
+
 ## 2.9.10.78
 
 - switched to use logback
