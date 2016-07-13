@@ -49,36 +49,43 @@
    ['figwheel-sidecar figwheel-version]
    ['com.cemerick/piggieback "0.2.2-SNAPSHOT"]])
 
-(defn cljs-builds [{:keys [project-ns]}]
+(def uberjar-cljsbuild
+  {:builds
+   {:app
+    {:source-paths ["src/cljc" "src/cljs" "env/prod/cljs"]
+     :compiler
+     {:output-to     "target/cljsbuild/public/js/app.js"
+      :output-dir    "target/cljsbuild/public/js/out"
+      :source-map    "target/cljsbuild/public/js/app.js.map"
+      :externs       ["react/externs/react.js"]
+      :optimizations :advanced
+      :pretty-print  false
+      :closure-warnings
+      {:externs-validation :off :non-standard-jsdoc :off}}}}})
+
+(defn dev-cljsbuild [{:keys [project-ns]}]
   {:builds
    {:app
     {:source-paths ["src/cljc" "src/cljs" "env/dev/cljs"]
      :figwheel     true
      :compiler
-                   {:main          (str project-ns ".app")
-                    :asset-path    "/js/out"
-                    :output-to     "target/cljsbuild/public/js/app.js"
-                    :output-dir    "target/cljsbuild/public/js/out"
-                    :optimizations :none
-                    :source-map    true
-                    :pretty-print  true}}
-    :test
+     {:main          (str project-ns ".app")
+      :asset-path    "/js/out"
+      :output-to     "target/cljsbuild/public/js/app.js"
+      :output-dir    "target/cljsbuild/public/js/out"
+      :optimizations :none
+      :source-map    true
+      :pretty-print  true}}}})
+
+(defn test-cljsbuild [{:keys [project-ns]}]
+  {:builds
+   {:test
     {:source-paths ["src/cljc" "src/cljs" "test/cljs"]
      :compiler
-                   {:output-to     "target/test.js"
-                    :main          (str project-ns ".doo-runner")
-                    :optimizations :whitespace
-                    :pretty-print  true}}
-    :min
-    {:source-paths ["src/cljc" "src/cljs" "env/prod/cljs"]
-     :compiler
-                   {:output-to     "target/cljsbuild/public/js/app.js"
-                    :output-dir    "target/uberjar"
-                    :externs       ["react/externs/react.js"]
-                    :optimizations :advanced
-                    :pretty-print  false
-                    :closure-warnings
-                                   {:externs-validation :off :non-standard-jsdoc :off}}}}})
+     {:output-to     "target/test.js"
+      :main          (str project-ns ".doo-runner")
+      :optimizations :whitespace
+      :pretty-print  true}}}})
 
 (def cljs-test
   {:build "test"})
@@ -105,8 +112,10 @@
          (update-in [:clean-targets] (fnil into []) clean-targets)
          (assoc
            :cljs true
-           :cljs-build (indent root-indent (cljs-builds options))
+           :dev-cljsbuild (indent dev-indent (dev-cljsbuild options))
+           :test-cljsbuild (indent dev-indent (test-cljsbuild options))
+           :uberjar-cljsbuild (indent root-indent uberjar-cljsbuild)
            :cljs-test cljs-test
            :figwheel (indent root-indent figwheel)
-           :cljs-uberjar-prep ":prep-tasks [\"compile\" [\"cljsbuild\" \"once\" \"min\"]]"))]
+           :cljs-uberjar-prep ":prep-tasks [\"compile\" [\"cljsbuild\" \"once\" \"app\"]]"))]
     state))

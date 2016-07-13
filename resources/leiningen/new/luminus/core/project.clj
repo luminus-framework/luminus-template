@@ -24,17 +24,16 @@
   :uberwar
   <<uberwar-options>><% endif %><% if clean-targets %>
   :clean-targets ^{:protect false}
-  <<clean-targets>><% endif %><% if cljs-build %>
-
-  :cljsbuild
-  <<cljs-build>>
+  <<clean-targets>><% endif %><% if cljs %>
   :figwheel
   <<figwheel>><% endif %>
 
   :profiles
-  {:uberjar {:omit-source true
-             <% if cljs-uberjar-prep %>
-             <<cljs-uberjar-prep>><% endif %>
+  {:uberjar {:omit-source true<% if cljs %>
+             <<cljs-uberjar-prep>>
+             :cljsbuild
+             <<uberjar-cljsbuild>>
+             <% endif %>
              :aot :all
              :uberjar-name "<<name>>.jar"
              :source-paths ["env/prod/clj"]
@@ -50,7 +49,10 @@
                                  [pjstadig/humane-test-output "0.8.0"]<% if dev-dependencies %>
                                  <<dev-dependencies>><% endif %>]
                   :plugins      [[com.jakemccrary/lein-test-refresh "0.14.0"]<% if dev-plugins %>
-                                 <<dev-plugins>><% endif %>]
+                                 <<dev-plugins>><% endif %>]<% if cljs %>
+                  :cljsbuild
+                  <<dev-cljsbuild>>
+                  <% endif %>
                   <% if cljs-test %>
                   :doo <<cljs-test>><% endif %>
                   :source-paths ["env/dev/clj" "test/clj"]
@@ -58,6 +60,9 @@
                   :repl-options {:init-ns user}
                   :injections [(require 'pjstadig.humane-test-output)
                                (pjstadig.humane-test-output/activate!)]}
-   :project/test {:resource-paths ["env/dev/resources" "env/test/resources"]}
+   :project/test {:resource-paths ["env/dev/resources" "env/test/resources"]<% if cljs %>
+                  :cljsbuild
+                  <<test-cljsbuild>>
+                  <% endif %>}
    :profiles/dev {}
    :profiles/test {}})
