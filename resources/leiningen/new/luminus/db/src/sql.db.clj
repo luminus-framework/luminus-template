@@ -55,7 +55,7 @@
 <% endifequal %>
 (conman/bind-connection *db* "sql/queries.sql")
 <% ifequal db-type "mysql" %>
-(defn to-date [sql-date]
+(defn to-date [^java.sql.Date sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))
 
 (extend-protocol jdbc/IResultSetReadColumn
@@ -70,7 +70,7 @@
   (set-parameter [v ^PreparedStatement stmt idx]
     (.setTimestamp stmt idx (java.sql.Timestamp. (.getTime v)))))
 <% endifequal %><% ifequal db-type "postgres" %>
-(defn to-date [sql-date]
+(defn to-date [^java.sql.Date sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))
 
 (extend-protocol jdbc/IResultSetReadColumn
