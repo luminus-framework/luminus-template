@@ -1,4 +1,9 @@
+## 2.9.10.81
+
+- removed source maps from default uberjar config
+
 ## 2.9.10.80
+
 - split cljsbuild into separate profiles
 - lein-doo 0.1.7
 - tether 1.3.3

@@ -51,12 +51,10 @@
 
 (def uberjar-cljsbuild
   {:builds
-   {:app
+   {:min
     {:source-paths ["src/cljc" "src/cljs" "env/prod/cljs"]
      :compiler
      {:output-to     "target/cljsbuild/public/js/app.js"
-      :output-dir    "target/cljsbuild/public/js/out"
-      :source-map    "target/cljsbuild/public/js/app.js.map"
       :externs       ["react/externs/react.js"]
       :optimizations :advanced
       :pretty-print  false
@@ -66,15 +64,14 @@
 (defn dev-cljsbuild [{:keys [project-ns]}]
   {:builds
    {:app
-    {:source-paths ["src/cljc" "src/cljs" "env/dev/cljs"]
-     :figwheel     true
+    {:source-paths ["src/cljs" "src/cljc" "env/dev/cljs"]
      :compiler
      {:main          (str project-ns ".app")
       :asset-path    "/js/out"
       :output-to     "target/cljsbuild/public/js/app.js"
       :output-dir    "target/cljsbuild/public/js/out"
-      :optimizations :none
       :source-map    true
+      :optimizations :none
       :pretty-print  true}}}})
 
 (defn test-cljsbuild [{:keys [project-ns]}]
@@ -114,8 +111,8 @@
            :cljs true
            :dev-cljsbuild (indent dev-indent (dev-cljsbuild options))
            :test-cljsbuild (indent dev-indent (test-cljsbuild options))
-           :uberjar-cljsbuild (indent root-indent uberjar-cljsbuild)
+           :uberjar-cljsbuild (indent uberjar-indent uberjar-cljsbuild)
            :cljs-test cljs-test
            :figwheel (indent root-indent figwheel)
-           :cljs-uberjar-prep ":prep-tasks [\"compile\" [\"cljsbuild\" \"once\" \"app\"]]"))]
+           :cljs-uberjar-prep ":prep-tasks [\"compile\" [\"cljsbuild\" \"once\" \"min\"]]"))]
     state))
