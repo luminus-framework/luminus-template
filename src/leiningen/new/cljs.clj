@@ -44,7 +44,7 @@
                     [:cljsbuild :builds :app :compiler :output-to]])
 
 (def cljs-dev-dependencies
-  [['doo "0.1.6"]
+  [['doo "0.1.7"]
    ['binaryage/devtools "0.7.2"]
    ['figwheel-sidecar figwheel-version]
    ['com.cemerick/piggieback "0.2.2-SNAPSHOT"]])
