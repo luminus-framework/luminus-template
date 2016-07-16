@@ -1,5 +1,8 @@
 ## 2.9.10.80
 - split cljsbuild into separate profiles
+- lein-doo 0.1.7
+- tether 1.3.3
+
 ## 2.9.10.79
 
 - http-kit 2.2.0
