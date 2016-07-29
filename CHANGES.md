@@ -1,4 +1,4 @@
-## 2.9.10.81
+## 2.9.10.82
 
 - migratus 0.8.26
 - luminus-migrations 0.2.6
