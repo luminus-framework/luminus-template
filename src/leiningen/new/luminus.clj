@@ -86,7 +86,7 @@
    ['org.webjars/bootstrap "4.0.0-alpha.2"]
    ['org.webjars/font-awesome "4.6.3"]
    ['org.webjars.bower/tether "1.3.3"]
-   ['org.webjars/jquery "2.2.4"]
+   ['org.webjars/jquery "3.0.0"]
    ['org.clojure/tools.logging "0.3.1"]
    ['compojure "1.5.1"]
    ['ring-webjars "0.1.1"]

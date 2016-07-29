@@ -1,5 +1,13 @@
 ## 2.9.10.81
 
+- migratus 0.8.26
+- luminus-migrations 0.2.6
+- Postgres JDBC driver 9.4.1209
+- jQuery 3.0.0
+- compojure-api 1.1.5
+
+## 2.9.10.81
+
 - removed source maps from default uberjar config
 
 ## 2.9.10.80
