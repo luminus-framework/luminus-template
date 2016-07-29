@@ -21,7 +21,7 @@
 (def cljs-dependencies
   [['org.clojure/clojurescript cljs-version :scope "provided"]
    ['reagent "0.6.0-rc"]
-   ['reagent-utils "0.1.9"]
+   ['reagent-utils "0.2.0"]
    ['secretary "1.2.3"]
    ['cljs-ajax "0.5.8"]])
 
