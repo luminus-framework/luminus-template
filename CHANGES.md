@@ -1,6 +1,7 @@
 ## 2.9.10.83
 
 - reagent-utils 0.2.0
+- Cider profile
 
 ## 2.9.10.82
 
