@@ -3,7 +3,8 @@
             [luminus.repl-server :as repl]
             [luminus.http-server :as http]<% if relational-db %>
             [luminus-migrations.core :as migrations]<% endif %>
-            [<<project-ns>>.config :refer [env]]
+            [<<project-ns>>.config :refer [env]]<% if cider %>
+            [cider.nrepl :refer [cider-nrepl-handler]]<% endif %>
             [clojure.tools.cli :refer [parse-opts]]
             [clojure.tools.logging :as log]
             [mount.core :as mount])
@@ -27,7 +28,7 @@
                 repl-server
                 :start
                 (when-let [nrepl-port (env :nrepl-port)]
-                  (repl/start {:port nrepl-port}))
+                  (repl/start {:port nrepl-port<% if cider %> :handler cider-nrepl-handler<% endif %>}))
                 :stop
                 (when repl-server
                   (repl/stop repl-server)))

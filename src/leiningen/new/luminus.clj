@@ -158,7 +158,7 @@
                              "+aleph" "+jetty" "+http-kit"
                              ;;misc
                              "+cljs" "+auth" "+site"
-                             "+cucumber" "+sassc"
+                             "+cucumber" "+sassc" "+cider"
                              "+swagger" "+war"
                              "+kibit" "+service"}
         options {:name              (project-name name)
