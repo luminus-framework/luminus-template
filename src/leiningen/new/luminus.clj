@@ -7,6 +7,7 @@
             [leiningen.core.main :as main]
             [leiningen.new.common :refer :all]
             [leiningen.new.auth :refer [auth-features]]
+            [leiningen.new.cider :refer [cider-features]]
             [leiningen.new.db :refer [db-features]]
             [leiningen.new.cljs :refer [cljs-features]]
             [leiningen.new.cucumber :refer [cucumber-features]]
@@ -105,6 +106,7 @@
         (-> [core-assets options]
             service-features
             auth-features
+            cider-features
             db-features
             cucumber-features
             site-features

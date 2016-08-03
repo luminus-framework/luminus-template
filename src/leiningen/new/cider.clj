@@ -5,5 +5,6 @@
   (if (some #{"+cider"} (:features options))
     [assets
      (-> options
+         (assoc :cider true)
          (append-options :dev-plugins [['cider/cider-nrepl "0.14.0-SNAPSHOT"]]))]
     state))
