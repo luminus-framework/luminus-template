@@ -2,6 +2,7 @@
 
 - reagent-utils 0.2.0
 - Cider profile
+- binaryage/devtools 0.8.0
 
 ## 2.9.10.82
 
