@@ -1,5 +1,9 @@
 ## 2.9.10.83
 
+- moved cider to dependencies
+
+## 2.9.10.83
+
 - reagent-utils 0.2.0
 - Cider profile
 - binaryage/devtools 0.8.0
