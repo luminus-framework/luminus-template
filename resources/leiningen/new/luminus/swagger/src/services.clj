@@ -1,14 +1,17 @@
 (ns <<project-ns>>.routes.services
   (:require [ring.util.http-response :refer :all]
             [compojure.api.sweet :refer :all]
+            [<<project-ns>>.config :refer [env]]
             [schema.core :as s]))
 
 (defapi service-routes
-  {:swagger {:ui "/swagger-ui"
-             :spec "/swagger.json"
-             :data {:info {:version "1.0.0"
-                           :title "Sample API"
-                           :description "Sample Services"}}}}
+  (when (:dev env)
+    {:swagger {:ui "/swagger-ui"
+               :spec "/swagger.json"
+               :data {:info {:version "1.0.0"
+                             :title "Sample API"
+                             :description "Sample Services"}}}})
+
   (context "/api" []
     :tags ["thingie"]
 
