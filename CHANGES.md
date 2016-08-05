@@ -1,4 +1,8 @@
-## 2.9.10.83
+## 2.9.10.85
+
+- fixed default route order for the `+swagger` profile
+
+## 2.9.10.84
 
 - moved cider to dependencies
 

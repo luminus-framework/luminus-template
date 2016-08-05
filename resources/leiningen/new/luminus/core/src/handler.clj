@@ -33,11 +33,11 @@
   (log/info "<<name>> has shut down!"))
 <% endif %>
 (def app-routes
-  (routes<% if service-routes %>
-    <<service-routes>><% endif %><% if not service %>
+  (routes<% if not service %>
     (-> #'home-routes
         (wrap-routes middleware/wrap-csrf)
-        (wrap-routes middleware/wrap-formats))<% endif %>
+        (wrap-routes middleware/wrap-formats))<% endif %><% if service-routes %>
+    <<service-routes>><% endif %>
     (route/not-found<% if service %>
       "page not found"<% else %>
       (:body
