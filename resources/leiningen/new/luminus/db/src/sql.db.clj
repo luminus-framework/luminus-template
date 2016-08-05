@@ -26,33 +26,11 @@
   (:import [java.sql
             BatchUpdateException
             PreparedStatement])<% endifequal %>)
-<% ifequal db-type "sqlite"%>
+
 (defstate ^:dynamic *db*
-          :start (conman/connect!
-                   {:datasource
-                    (doto (org.sqlite.SQLiteDataSource.)
-                          (.setUrl (env :database-url)))})
-          :stop (conman/disconnect! *db*))
-<% endifequal %><% ifequal db-type "h2"%>
-(defstate ^:dynamic *db*
-          :start (conman/connect!
-                   {:datasource
-                    (doto (org.h2.jdbcx.JdbcDataSource.)
-                          (.setURL (env :database-url))
-                          (.setUser "")
-                          (.setPassword ""))})
-          :stop (conman/disconnect! *db*))
-<% endifequal %><% ifequal db-type "postgres" %>
-(defstate ^:dynamic *db*
-          :start (conman/connect!
-                   {:jdbc-url (env :database-url)})
-          :stop (conman/disconnect! *db*))
-<% endifequal %><% ifequal db-type "mysql" %>
-(defstate ^:dynamic *db*
-          :start (conman/connect!
-                   {:jdbc-url (env :database-url)})
-          :stop (conman/disconnect! *db*))
-<% endifequal %>
+           :start (conman/connect! {:jdbc-url (env :database-url)})
+           :stop (conman/disconnect! *db*))
+
 (conman/bind-connection *db* "sql/queries.sql")
 <% ifequal db-type "mysql" %>
 (defn to-date [^java.sql.Date sql-date]

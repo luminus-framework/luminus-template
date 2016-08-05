@@ -1,3 +1,7 @@
+## 2.9.10.86
+
+- updated to latest conman
+
 ## 2.9.10.85
 
 - fixed default route order for the `+swagger` profile
