@@ -1,6 +1,13 @@
+## 2.9.10.87
+
+- conman 0.6.0
+- devtools 0.8.1
+- bootstrap 4.0.0-alpha.3
+- compojure-api 1.1.6
+
 ## 2.9.10.86
 
-- updated to latest conman
+- updated to conman 0.5.9
 
 ## 2.9.10.85
 
