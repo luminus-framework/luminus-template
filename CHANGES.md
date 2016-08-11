@@ -2,6 +2,7 @@
 
 - Cider middleware in Figwheel config when using `+cider`
 - ClojureScript 1.9.183
+- humane-test-output 0.8.1
  
 ## 2.9.10.87
 
