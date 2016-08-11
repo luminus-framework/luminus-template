@@ -1,3 +1,7 @@
+## 2.9.10.89
+
+- added content type for docs 
+
 ## 2.9.10.88
 
 - Cider middleware in Figwheel config when using `+cider`
