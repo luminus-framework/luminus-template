@@ -1,3 +1,8 @@
+## 2.9.10.88
+
+- Cider middleware in Figwheel config when using `+cider`
+- ClojureScript 1.9.183
+ 
 ## 2.9.10.87
 
 - conman 0.6.0
