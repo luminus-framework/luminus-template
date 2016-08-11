@@ -87,11 +87,13 @@
 (def cljs-test
   {:build "test"})
 
-(def figwheel
-  {:http-server-root "public"
-   :nrepl-port       7002
-   :css-dirs         ["resources/public/css"]
-   :nrepl-middleware ['cemerick.piggieback/wrap-cljs-repl]})
+(defn figwheel [{:keys [features]}]
+  (let [cider? (some #{"+cider"} features)]
+    {:http-server-root "public"
+     :nrepl-port       7002
+     :css-dirs         ["resources/public/css"]
+     :nrepl-middleware `[cemerick.piggieback/wrap-cljs-repl
+                         ~@(when cider? ['cider.nrepl/cider-middleware])]}))
 
 (defn cljs-features [[assets options :as state]]
   (if (some #{"+cljs"} (:features options))
@@ -113,6 +115,6 @@
            :test-cljsbuild (indent dev-indent (test-cljsbuild options))
            :uberjar-cljsbuild (indent uberjar-indent uberjar-cljsbuild)
            :cljs-test cljs-test
-           :figwheel (indent root-indent figwheel)
+           :figwheel (indent root-indent (figwheel options))
            :cljs-uberjar-prep ":prep-tasks [\"compile\" [\"cljsbuild\" \"once\" \"min\"]]"))]
     state))
