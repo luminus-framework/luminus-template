@@ -1,3 +1,7 @@
+## 2.9.10.90
+
+- ClojureScript 1.9.198
+
 ## 2.9.10.89
 
 - added content type for docs 
