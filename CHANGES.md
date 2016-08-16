@@ -1,17 +1,21 @@
+## 2.9.10.91
+
+- ClojureScript 1.9.211
+
 ## 2.9.10.90
 
 - ClojureScript 1.9.198
 
 ## 2.9.10.89
 
-- added content type for docs 
+- added content type for docs
 
 ## 2.9.10.88
 
 - Cider middleware in Figwheel config when using `+cider`
 - ClojureScript 1.9.183
 - humane-test-output 0.8.1
- 
+
 ## 2.9.10.87
 
 - conman 0.6.0
