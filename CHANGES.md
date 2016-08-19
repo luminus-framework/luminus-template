@@ -1,6 +1,8 @@
 ## 2.9.10.92
 
 - ClojureScript 1.9.225
+- re-frame 0.8.0
+- cprop 0.1.9
 
 ## 2.9.10.92
 
