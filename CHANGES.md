@@ -1,5 +1,9 @@
 ## 2.9.10.92
 
+- ClojureScript 1.9.225
+
+## 2.9.10.92
+
 added `+re-frame` profile
 
 ## 2.9.10.91
