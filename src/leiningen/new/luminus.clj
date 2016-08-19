@@ -10,6 +10,7 @@
             [leiningen.new.cider :refer [cider-features]]
             [leiningen.new.db :refer [db-features]]
             [leiningen.new.cljs :refer [cljs-features]]
+            [leiningen.new.re-frame :refer [re-frame-features]]
             [leiningen.new.cucumber :refer [cucumber-features]]
             [leiningen.new.aleph :refer [aleph-features]]
             [leiningen.new.jetty :refer [jetty-features]]
@@ -111,6 +112,7 @@
             cucumber-features
             site-features
             cljs-features
+            re-frame-features
             swagger-features
             aleph-features
             jetty-features
@@ -138,6 +140,16 @@
       (set-feature "+immutant" #{"+jetty" "+aleph" "+http-kit"})
       (set-feature "+logback" #{})))
 
+(defn set-feature-dependency [options feature dependencies]
+  (let [features (-> options :features set)]
+    (if (features feature)
+      (update-in options [:features] into dependencies)
+      options)))
+
+(defn set-dependent-features [options]
+  (-> options
+      (set-feature-dependency "+re-frame" #{"+cljs"})))
+
 (defn parse-version [v]
   (map #(Integer/parseInt %)
        (clojure.string/split v #"\.")))
@@ -159,7 +171,7 @@
                              ;;servers
                              "+aleph" "+jetty" "+http-kit"
                              ;;misc
-                             "+cljs" "+auth" "+site"
+                             "+cljs" "+re-frame" "+auth" "+site"
                              "+cucumber" "+sassc" "+cider"
                              "+swagger" "+war"
                              "+kibit" "+service"}
@@ -193,4 +205,4 @@
       (main/info "Could not create project because a directory named" name "already exists!")
 
       :else
-      (-> options set-default-features generate-project))))
+      (-> options set-default-features set-dependent-features generate-project))))

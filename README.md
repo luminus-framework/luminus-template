@@ -36,7 +36,8 @@ However, if you would like to attach further functionality to your template you 
 ### misc
 
 * `+auth` adds [Buddy](https://github.com/funcool/buddy) dependency and authentication middleware
-* `+cljs` adds [ClojureScript][cljs] support to the project along with an example
+* `+cljs` adds [ClojureScript][cljs] support with [Reagent](https://reagent-project.github.io/) to the project along with an example
+* `+re-frame` adds [ClojureScript][cljs] support with [re-frame](https://github.com/Day8/re-frame) to the project along with an example
 * `+cucumber` adds support for browser based UI testing with [Cucumber][cucumber] and [clj-webdriver][clj-webdriver]
 * `+swagger` adds support for [Swagger-UI](https://github.com/swagger-api/swagger-ui) using the [compojure-api](https://github.com/metosin/compojure-api) library
 * `+sassc` adds support for [SASS/SCSS](http://sass-lang.com/) files using [SassC](http://github.com/sass/sassc) command line compiler
