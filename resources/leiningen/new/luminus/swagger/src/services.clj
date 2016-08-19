@@ -1,14 +1,37 @@
 (ns <<project-ns>>.routes.services
   (:require [ring.util.http-response :refer :all]
             [compojure.api.sweet :refer :all]
-            [schema.core :as s]))
+            [schema.core :as s]<% if auth %>
+            [compojure.api.meta :refer [restructure-param]]
+            [buddy.auth.accessrules :refer [restrict]]
+            [buddy.auth :refer [authenticated?]]<% endif %>))
+<% if auth %>
+(defn access-error [_ _]
+  (unauthorized {:error "unauthorized"}))
 
+(defn wrap-restricted [handler rule]
+  (restrict handler {:handler  rule
+                     :on-error access-error}))
+
+(defmethod restructure-param :auth-rules
+  [_ rule acc]
+  (update-in acc [:middleware] conj [wrap-restricted rule]))
+
+(defmethod restructure-param :current-user
+  [_ binding acc]
+  (update-in acc [:letks] into [binding `(:identity ~'+compojure-api-request+)]))
+<% endif %>
 (defapi service-routes
   {:swagger {:ui "/swagger-ui"
              :spec "/swagger.json"
              :data {:info {:version "1.0.0"
                            :title "Sample API"
                            :description "Sample Services"}}}}
+  <% if auth %>
+  (GET "/authenticated" []
+       :auth-rules authenticated?
+       :current-user user
+       (ok {:user user}))<% endif %>
   (context "/api" []
     :tags ["thingie"]
 

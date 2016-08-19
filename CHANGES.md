@@ -1,4 +1,8 @@
-## 2.9.10.92
+## 2.9.10.94
+
+- added compojure-api authentication boilerplate for the +auth profile
+
+## 2.9.10.93
 
 - ClojureScript 1.9.225
 - re-frame 0.8.0
