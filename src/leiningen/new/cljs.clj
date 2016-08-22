@@ -32,7 +32,7 @@
   ["target/cljsbuild"])
 
 (def cljs-plugins
-  [['lein-cljsbuild "1.1.3"]])
+  [['lein-cljsbuild "1.1.4"]])
 
 (def cljs-dev-plugins
   [['lein-doo "0.1.7"]

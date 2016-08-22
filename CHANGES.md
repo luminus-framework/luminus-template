@@ -1,3 +1,7 @@
+## 2.9.10.95
+
+- lein-cljsbuild 1.1.4
+
 ## 2.9.10.94
 
 - added compojure-api authentication boilerplate for the +auth profile
