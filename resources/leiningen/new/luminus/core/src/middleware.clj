@@ -64,7 +64,7 @@
   {:status 403
    :headers {}
    :body (str "Access to " (:uri request) " is not authorized")})
-<% endif %>
+<% endif %><% if not service %>
 (defn wrap-restricted [handler]
   (restrict handler {:handler authenticated?
                      :on-error on-error}))
@@ -76,11 +76,27 @@
 
 (defn wrap-auth [handler]
   (let [backend (session-backend)]
-    (-> handler
-        wrap-identity
+    (-> handler 
+        wrap-identity 
         (wrap-authentication backend)
         (wrap-authorization backend))))
-<% endif %>
+<% else %>
+(def secret (random-bytes 32))
+
+(def auth-backend (jwe-backend {:secret secret
+                                :options {:alg :a256kw :enc :a128gcm}}))
+
+(defn token [username]
+  (let [claims {:user (keyword username)
+		:exp (plus (now) (minutes 60))}]
+  (encrypt claims secret {:alg :a256kw :enc :a128gcm})))
+
+(defn wrap-auth [handler]
+  (let [backend auth-backend]
+    (-> handler               
+        (wrap-authentication backend)
+        (wrap-authorization backend))))
+<% endif %><% endif %>
 (defn wrap-base [handler]
   (-> ((:middleware defaults) handler)<% if auth-middleware-required %>
       wrap-auth<% endif %><% if not service %>

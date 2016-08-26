@@ -7,6 +7,7 @@
             [leiningen.core.main :as main]
             [leiningen.new.common :refer :all]
             [leiningen.new.auth :refer [auth-features]]
+            [leiningen.new.auth-jwe :refer [auth-jwe-features]]
             [leiningen.new.cider :refer [cider-features]]
             [leiningen.new.db :refer [db-features]]
             [leiningen.new.cljs :refer [cljs-features]]
@@ -107,6 +108,7 @@
         (-> [core-assets options]
             service-features
             auth-features
+            auth-jwe-features
             cider-features
             db-features
             cucumber-features
@@ -148,6 +150,7 @@
 
 (defn set-dependent-features [options]
   (-> options
+      (set-feature-dependency "+auth-jwe" #{"+service"})
       (set-feature-dependency "+re-frame" #{"+cljs"})))
 
 (defn parse-version [v]
@@ -171,7 +174,7 @@
                              ;;servers
                              "+aleph" "+jetty" "+http-kit"
                              ;;misc
-                             "+cljs" "+re-frame" "+auth" "+site"
+                             "+cljs" "+re-frame" "+auth" "+auth-jwe" "+site"
                              "+cucumber" "+sassc" "+cider"
                              "+swagger" "+war"
                              "+kibit" "+service"}
