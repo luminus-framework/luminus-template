@@ -62,7 +62,7 @@
 (defn add-datomic [[assets options]]
   [(into assets datomic-files)
    (-> options
-       (append-options :dependencies [['com.datomic/datomic-free "0.9.5359"
+       (append-options :dependencies [['com.datomic/datomic-free "0.9.5394"
                                        :exclusions ['org.slf4j/log4j-over-slf4j
                                                     'org.slf4j/slf4j-nop]]])
        (assoc
