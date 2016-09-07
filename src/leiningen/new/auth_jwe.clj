@@ -6,7 +6,7 @@
     [assets
      (-> options
          (append-options :dependencies [['clj-time "0.8.0"]])
-         (append-formatted :auth-middleware-required
+         (append-formatted :auth-jwe
                             [['buddy.auth.backends.token :refer ['jwe-backend]]
                             ['buddy.sign.jwt :refer ['encrypt]]
                             ['buddy.core.nonce :refer ['random-bytes]]  
