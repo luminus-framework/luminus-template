@@ -150,7 +150,7 @@
 
 (defn set-dependent-features [options]
   (-> options
-      (set-feature-dependency "+auth-jwe" #{"+service"})
+      (set-feature-dependency "+auth-jwe" #{"+auth"})
       (set-feature-dependency "+re-frame" #{"+cljs"})))
 
 (defn parse-version [v]
