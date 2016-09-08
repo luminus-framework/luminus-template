@@ -7,6 +7,7 @@
             [leiningen.core.main :as main]
             [leiningen.new.common :refer :all]
             [leiningen.new.auth :refer [auth-features]]
+            [leiningen.new.auth-base :refer [auth-base-features]]
             [leiningen.new.auth-jwe :refer [auth-jwe-features]]
             [leiningen.new.cider :refer [cider-features]]
             [leiningen.new.db :refer [db-features]]
@@ -107,6 +108,7 @@
   (let [[assets options]
         (-> [core-assets options]
             service-features
+            auth-base-features
             auth-features
             auth-jwe-features
             cider-features
@@ -150,7 +152,8 @@
 
 (defn set-dependent-features [options]
   (-> options
-      (set-feature-dependency "+auth-jwe" #{"+auth"})
+      (set-feature-dependency "+auth" #{"+auth-base"})
+      (set-feature-dependency "+auth-jwe" #{"+auth-base"})
       (set-feature-dependency "+re-frame" #{"+cljs"})))
 
 (defn parse-version [v]
