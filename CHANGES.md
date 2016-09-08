@@ -2,6 +2,10 @@
 
  - +auth-jwe profile
  - datomic 0.9.5394
+ - compojure-api 1.1.8
+ - clojurescript 1.9.229
+ - buddy 1.1.0
+ - figwheel-sidecar 0.5.7
 
 ## 2.9.10.95
 
