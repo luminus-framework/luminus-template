@@ -73,9 +73,10 @@
 
 (def secret (random-bytes 32))
 
-(def token-backend (jwe-backend {:secret secret
-                                :options {:alg :a256kw
-                                          :enc :a128gcm}}))
+(def token-backend
+  (jwe-backend {:secret secret
+                :options {:alg :a256kw
+                          :enc :a128gcm}}))
 
 (defn token [username]
   (let [claims {:user (keyword username)

@@ -1,3 +1,8 @@
+## 2.9.10.96
+
+ - +auth-jwe profile
+ - datomic 0.9.5394
+
 ## 2.9.10.95
 
 - lein-cljsbuild 1.1.4
