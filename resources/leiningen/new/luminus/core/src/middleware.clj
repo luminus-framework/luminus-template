@@ -10,7 +10,9 @@
             [immutant.web.middleware :refer [wrap-session]]<% else %>
             [ring-ttl-session.core :refer [ttl-memory-store]]<% endif %>
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]<% if auth-middleware-required %>
-            <<auth-middleware-required>><% endif %>)<% if not service %>
+            <<auth-middleware-required>><% if auth-session %>
+            <<auth-session>><% endif %><% if auth-jwe %>
+            <<auth-jwe>><% endif %><% endif %>)<% if not service %>
   (:import [javax.servlet ServletContext])<% endif %>)
 <% if not service %>
 (defn wrap-context [handler]
@@ -64,26 +66,14 @@
   {:status 403
    :headers {}
    :body (str "Access to " (:uri request) " is not authorized")})
-<% endif %><% if not service %>
+<% endif %>
 (defn wrap-restricted [handler]
   (restrict handler {:handler authenticated?
-                     :on-error on-error}))
+                     :on-error on-error}))<% if auth-jwe %>
 
-(defn wrap-identity [handler]
-  (fn [request]
-    (binding [*identity* (get-in request [:session :identity])]
-      (handler request))))
-
-(defn wrap-auth [handler]
-  (let [backend (session-backend)]
-    (-> handler
-        wrap-identity
-        (wrap-authentication backend)
-        (wrap-authorization backend))))
-<% else %>
 (def secret (random-bytes 32))
 
-(def auth-backend (jwe-backend {:secret secret
+(def token-backend (jwe-backend {:secret secret
                                 :options {:alg :a256kw
                                           :enc :a128gcm}}))
 
@@ -91,13 +81,20 @@
   (let [claims {:user (keyword username)
                 :exp (plus (now) (minutes 60))}]
     (encrypt claims secret {:alg :a256kw :enc :a128gcm})))
+<% endif %><% if auth-session %>
 
+(defn wrap-identity [handler]
+  (fn [request]
+    (binding [*identity* (get-in request [:session :identity])]
+      (handler request))))
+<% endif %>
 (defn wrap-auth [handler]
-  (let [backend auth-backend]
-    (-> handler
+  (let [backend <% if auth-jwe %>token-backend<% endif %><% if auth-session %>(session-backend)<% endif %>]
+    (-> handler<% if auth-session %>
+        wrap-identity<% endif %>
         (wrap-authentication backend)
         (wrap-authorization backend))))
-<% endif %><% endif %>
+<% endif %>
 (defn wrap-base [handler]
   (-> ((:middleware defaults) handler)<% if auth-middleware-required %>
       wrap-auth<% endif %><% if not service %>
