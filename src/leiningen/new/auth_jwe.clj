@@ -5,7 +5,7 @@
   (if (some #{"+auth-jwe"} (:features options))
     [assets
      (-> options
-         (append-options :dependencies [['clj-time "0.8.0"]])
+         (append-options :dependencies [['clj-time "0.12.0"]])
          (append-formatted :auth-jwe
                             [['buddy.auth.backends.token :refer ['jwe-backend]]
                             ['buddy.sign.jwt :refer ['encrypt]]
