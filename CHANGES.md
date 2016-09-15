@@ -1,3 +1,7 @@
+## 2.9.10.98
+
+- Reagent 0.6.0
+
 ## 2.9.10.97
 
  - clj-time 0.12.0 for the +atuh-jwe profile
