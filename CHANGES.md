@@ -1,3 +1,8 @@
+## 2.9.10.99
+
+- luminus-aleph 0.1.5
+- binaryage/devtools 0.8.2
+
 ## 2.9.10.98
 
 - Reagent 0.6.0

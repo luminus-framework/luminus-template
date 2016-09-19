@@ -45,7 +45,7 @@
 
 (def cljs-dev-dependencies
   [['doo "0.1.7"]
-   ['binaryage/devtools "0.8.1"]
+   ['binaryage/devtools "0.8.2"]
    ['figwheel-sidecar figwheel-version]
    ['com.cemerick/piggieback "0.2.2-SNAPSHOT"]])
 
