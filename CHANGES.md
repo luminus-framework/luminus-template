@@ -1,3 +1,7 @@
+## 2.9.11.00
+
+- added log suppression org.apache.http by default
+
 ## 2.9.10.99
 
 - luminus-aleph 0.1.5
