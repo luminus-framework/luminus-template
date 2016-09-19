@@ -16,6 +16,9 @@
             <pattern>%date{ISO8601} [%thread] %-5level %logger{36} - %msg %n</pattern>
         </encoder>
     </appender>
+    <logger name="org.apache.http" level="warn">
+        <AppenderRef ref="FILE"/>
+    </logger>
     <logger name="org.xnio.nio" level="warn">
         <AppenderRef ref="FILE"/>
     </logger><% if relational-db %>
