@@ -1,3 +1,8 @@
+## 2.9.11.01
+
+- luminus-migrations 0.2.7
+- migratus-lein 0.8.31
+
 ## 2.9.11.00
 
 - conman 0.6.1
