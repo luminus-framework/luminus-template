@@ -12,11 +12,12 @@
   (:import goog.History))
 
 (defn nav-link [uri title page collapsed?]
-  (let [selected-page (rf/subscribe [:page])] [:li.nav-item
-   {:class (when (= page @selected-page) "active")}
-   [:a.nav-link
-    {:href uri
-     :on-click #(reset! collapsed? true)} title]]))
+  (let [selected-page (rf/subscribe [:page])]
+    [:li.nav-item
+     {:class (when (= page @selected-page) "active")}
+     [:a.nav-link
+      {:href uri
+       :on-click #(reset! collapsed? true)} title]]))
 
 (defn navbar []
   (r/with-let [collapsed? (r/atom true)]
