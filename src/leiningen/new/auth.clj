@@ -5,6 +5,7 @@
   (if (some #{"+auth"} (:features options))
     [assets
      (-> options
+         (assoc :oauth true)
          (append-formatted :auth-session
                            [['buddy.auth.backends.session :refer ['session-backend]]
                             [(symbol (str (:project-ns options) ".layout")) :refer ['*identity*]]]
