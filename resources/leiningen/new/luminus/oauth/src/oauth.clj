@@ -1,31 +1,22 @@
 (ns <<project-ns>>.oauth
-  (:require [oauth.client :as oauth]
-            [config.core :refer [env]]
+  (:require [<<project-ns>>.config :refer [env]]
+            [oauth.client :as oauth]
+            [mount.core :refer [defstate]]
             [clojure.tools.logging :as log]))
 
-;;Twitter used as an example, replace these URIs with the OAuth provider of your choice
-
-(def request-token-uri
-  "https://api.twitter.com/oauth/request_token")
-
-(def access-token-uri
-  "https://api.twitter.com/oauth/access_token")
-
-(def authorize-uri
-  "https://api.twitter.com/oauth/authenticate")
-
-(def consumer
-  (oauth/make-consumer (env :oauth-consumer-key)
-                       (env :oauth-consumer-secret)
-                       request-token-uri
-                       access-token-uri
-                       authorize-uri
-                       :hmac-sha1))
+(defstate consumer
+  :start (oauth/make-consumer
+           (env :oauth-consumer-key)
+           (env :oauth-consumer-secret)
+           (env :request-token-uri)
+           (env :access-token-uri)
+           (env :authorize-uri)
+           :hmac-sha1))
 
 (defn oauth-callback-uri
   "Generates the oauth request callback URI"
   [{:keys [headers]}]
-  (str (or (headers "x-forwarded-proto") "http") "://" (headers "host") "/oauth/twitter-callback"))
+  (str (headers "x-forwarded-proto") "://" (headers "host") "/oauth/twitter-callback"))
 
 (defn fetch-request-token
   "Fetches a request token."

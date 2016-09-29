@@ -1,7 +1,11 @@
+## 2.9.11.03
+
+- +oauth profile
+
 ## 2.9.11.02
- 
+
 - updated to only set default headers for local URIs in cljs-ajax
-- removed Accept header as cljs-ajax [default behavior](https://github.com/JulianBirch/cljs-ajax/issues/130) was fixed 
+- removed Accept header as cljs-ajax [default behavior](https://github.com/JulianBirch/cljs-ajax/issues/130) was fixed
 
 ## 2.9.11.01
 
