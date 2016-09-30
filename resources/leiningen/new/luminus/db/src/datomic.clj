@@ -42,7 +42,7 @@
                       :user/email      email}]))
 
 (defn find-user [conn id]
-  (let [orders (d/q '[:find ?e :in $ ?id
+  (let [user (d/q '[:find ?e :in $ ?id
                       :where [?e :user/id ?id]]
                     (d/db conn) id)]
     (touch conn user)))
