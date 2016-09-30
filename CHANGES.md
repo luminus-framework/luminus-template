@@ -1,3 +1,37 @@
+## 2.9.11.03
+
+- +oauth profile
+
+## 2.9.11.02
+
+- updated to only set default headers for local URIs in cljs-ajax
+- removed Accept header as cljs-ajax [default behavior](https://github.com/JulianBirch/cljs-ajax/issues/130) was fixed
+
+## 2.9.11.01
+
+- luminus-migrations 0.2.7
+- migratus-lein 0.8.31
+
+## 2.9.11.00
+
+- conman 0.6.1
+
+## 2.9.10.99
+
+- luminus-aleph 0.1.5
+- binaryage/devtools 0.8.2
+- added log suppression org.apache.http by default
+- selmer 1.0.9
+
+## 2.9.10.98
+
+- Reagent 0.6.0
+- prone 1.1.2
+
+## 2.9.10.97
+
+ - clj-time 0.12.0 for the +atuh-jwe profile
+
 ## 2.9.10.96
 
  - +auth-jwe profile

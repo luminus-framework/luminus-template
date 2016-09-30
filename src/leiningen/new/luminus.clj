@@ -24,7 +24,8 @@
             [leiningen.new.war :refer [war-features]]
             [leiningen.new.kibit :refer [kibit-features]]
             [leiningen.new.logback :refer [logback-features]]
-            [leiningen.new.service :refer [service-features]]))
+            [leiningen.new.service :refer [service-features]]
+            [leiningen.new.oauth :refer [oauth-features]]))
 
 (defn resource [r]
   (->> r (str "leiningen/new/luminus/core/resources/") (io/resource)))
@@ -82,7 +83,7 @@
 
 (def core-dependencies
   [['org.clojure/clojure "1.8.0"]
-   ['selmer "1.0.7"]
+   ['selmer "1.0.9"]
    ['markdown-clj "0.9.89"]
    ['ring-middleware-format "0.7.0"]
    ['metosin/ring-http-response "0.8.0"]
@@ -125,6 +126,7 @@
             sassc-features
             kibit-features
             logback-features
+            oauth-features
             war-features)]
     (render-assets (init-render) assets (format-options options))))
 
@@ -178,7 +180,7 @@
                              "+aleph" "+jetty" "+http-kit"
                              ;;misc
                              "+cljs" "+re-frame" "+auth" "+auth-jwe" "+site"
-                             "+cucumber" "+sassc" "+cider"
+                             "+cucumber" "+sassc" "+cider" "+oauth"
                              "+swagger" "+war"
                              "+kibit" "+service"}
         options {:name              (project-name name)

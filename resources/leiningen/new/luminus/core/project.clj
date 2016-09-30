@@ -42,7 +42,7 @@
    :dev           [:project/dev :profiles/dev]
    :test          [:project/test :profiles/test]
 
-   :project/dev  {:dependencies [[prone "1.1.1"]
+   :project/dev  {:dependencies [[prone "1.1.2"]
                                  [ring/ring-mock "0.3.0"]
                                  [ring/ring-devel "1.5.0"]<%if war %>
                                  <<dev-http-server-dependencies>><% endif %>
