@@ -1,6 +1,7 @@
 ## 2.9.11.03
 
 - +oauth profile
+- fixed typo in the datomic profile
 
 ## 2.9.11.02
 
