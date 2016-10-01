@@ -1,3 +1,10 @@
+## 2.9.11.04
+
+- added `:project/dev` to `:test` profile
+- org.webjars.bower/tether 1.3.7
+- org.postgresql/postgresql 9.4.1211
+- figwheel 0.5.8
+
 ## 2.9.11.03
 
 - +oauth profile

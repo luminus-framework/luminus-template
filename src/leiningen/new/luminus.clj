@@ -90,7 +90,7 @@
    ['bouncer "1.0.0"]
    ['org.webjars/bootstrap "4.0.0-alpha.3"]
    ['org.webjars/font-awesome "4.6.3"]
-   ['org.webjars.bower/tether "1.3.3"]
+   ['org.webjars.bower/tether "1.3.7"]
    ['org.webjars/jquery "3.0.0"]
    ['org.clojure/tools.logging "0.3.1"]
    ['compojure "1.5.1"]
