@@ -1,3 +1,7 @@
+## 2.9.11.05
+
+- split up cljs/reagent profiles
+
 ## 2.9.11.04
 
 - added `:project/dev` to `:test` profile
