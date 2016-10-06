@@ -159,7 +159,7 @@
       (set-feature-dependency "+auth" #{"+auth-base"})
       (set-feature-dependency "+auth-jwe" #{"+auth-base"})
       (set-feature-dependency "+reagent" #{"+cljs"})
-      (set-feature-dependency "+re-frame" #{"+reagent"})))
+      (set-feature-dependency "+re-frame" #{"+cljs" "+reagent"})))
 
 (defn parse-version [v]
   (map #(Integer/parseInt %)
