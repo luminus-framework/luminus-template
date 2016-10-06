@@ -12,6 +12,7 @@
             [leiningen.new.cider :refer [cider-features]]
             [leiningen.new.db :refer [db-features]]
             [leiningen.new.cljs :refer [cljs-features]]
+            [leiningen.new.reagent :refer [reagent-features]]
             [leiningen.new.re-frame :refer [re-frame-features]]
             [leiningen.new.cucumber :refer [cucumber-features]]
             [leiningen.new.aleph :refer [aleph-features]]
@@ -117,6 +118,7 @@
             cucumber-features
             site-features
             cljs-features
+            reagent-features
             re-frame-features
             swagger-features
             aleph-features
@@ -156,7 +158,8 @@
   (-> options
       (set-feature-dependency "+auth" #{"+auth-base"})
       (set-feature-dependency "+auth-jwe" #{"+auth-base"})
-      (set-feature-dependency "+re-frame" #{"+cljs"})))
+      (set-feature-dependency "+reagent" #{"+cljs"})
+      (set-feature-dependency "+re-frame" #{"+reagent"})))
 
 (defn parse-version [v]
   (map #(Integer/parseInt %)
@@ -179,7 +182,7 @@
                              ;;servers
                              "+aleph" "+jetty" "+http-kit"
                              ;;misc
-                             "+cljs" "+re-frame" "+auth" "+auth-jwe" "+site"
+                             "+cljs" "+reagent" "+re-frame" "+auth" "+auth-jwe" "+site"
                              "+cucumber" "+sassc" "+cider" "+oauth"
                              "+swagger" "+war"
                              "+kibit" "+service"}
