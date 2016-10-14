@@ -1,3 +1,9 @@
+## 2.9.11.06
+
+- bouncer 1.1.0
+- Selmer 1.10.0
+- markdown-clj 0.9.90
+
 ## 2.9.11.05
 
 - split up cljs/reagent profiles

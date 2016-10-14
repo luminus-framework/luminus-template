@@ -84,11 +84,11 @@
 
 (def core-dependencies
   [['org.clojure/clojure "1.8.0"]
-   ['selmer "1.0.9"]
-   ['markdown-clj "0.9.89"]
+   ['selmer "1.10.0"]
+   ['markdown-clj "0.9.90"]
    ['ring-middleware-format "0.7.0"]
    ['metosin/ring-http-response "0.8.0"]
-   ['bouncer "1.0.0"]
+   ['bouncer "1.1.0"]
    ['org.webjars/bootstrap "4.0.0-alpha.3"]
    ['org.webjars/font-awesome "4.6.3"]
    ['org.webjars.bower/tether "1.3.7"]
