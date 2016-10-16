@@ -3,8 +3,7 @@
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
 
-  :dependencies [<<dependencies>>
-                 <<http-server-dependencies>>]
+  :dependencies [<<dependencies>>]
 
   :min-lein-version "<<min-lein-version>>"
 

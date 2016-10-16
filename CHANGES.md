@@ -3,6 +3,9 @@
 - bouncer 1.1.0
 - Selmer 1.10.0
 - markdown-clj 0.9.90
+- jquery 3.1.1
+- luminus-migrations 0.8.32
+- dependencies are now sorted alphabetically
 
 ## 2.9.11.05
 

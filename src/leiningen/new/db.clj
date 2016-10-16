@@ -11,8 +11,8 @@
     (some #{"+sqlite"} features) :sqlite))
 
 (defn db-dependencies [options]
-  [['luminus-migrations "0.2.7"]
-   ['conman "0.6.1"]
+  [['luminus-migrations "0.2.8"]
+   ['conman "0.6.2"]
    ({:postgres ['org.postgresql/postgresql "9.4.1211"]
      :mysql    ['mysql/mysql-connector-java "5.1.6"]
      :h2       ['com.h2database/h2 "1.4.192"]
@@ -20,9 +20,9 @@
      (select-db options))])
 
 (defn db-url [{:keys [sanitized] :as options} suffix]
-  ({:postgres (str "jdbc:postgresql://localhost/" sanitized "_" suffix
+  ({:postgres (str "postgresql://localhost/" sanitized "_" suffix
                    "?user=db_user_name_here&password=db_user_password_here")
-    :mysql    (str "jdbc:mysql://localhost:3306/" sanitized "_" suffix
+    :mysql    (str "mysql://localhost:3306/" sanitized "_" suffix
                    "?user=db_user_name_here&password=db_user_password_here")
     :h2       (str "jdbc:h2:./" sanitized "_" suffix ".db")
     :sqlite   (str "jdbc:sqlite:" sanitized "_" suffix ".db")
@@ -75,7 +75,7 @@
    (let [embedded-db? (some #{(name db)} ["h2" "sqlite"])]
      (-> options
          (append-options :dependencies (db-dependencies options))
-         (append-options :plugins [['migratus-lein "0.4.2"]])
+         (append-options :plugins [['migratus-lein "0.4.3"]])
          (assoc
            :relational-db true
            :db-connection (not embedded-db?)

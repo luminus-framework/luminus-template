@@ -73,12 +73,19 @@
    ;; tests
    ["test/clj/{{sanitized}}/test/handler.clj" "core/test/handler.clj"]])
 
-(defn format-options [options]
+(defn sort-deps [deps]
+  (sort-by (fn [dep] (str dep)) deps))
+
+(defn format-options [{:keys [http-server-dependencies] :as options}]
   (-> options
-      (update-in [:dependencies] (partial indent dependency-indent))
+      (dissoc :http-server-dependencies)
+      (update-in [:dependencies] #(->> %
+                                       (into http-server-dependencies)
+                                       (sort-deps)
+                                       (indent dependency-indent)))
       (update-in [:http-server-dependencies] (partial indent dependency-indent))
       (update-in [:dev-http-server-dependencies] (partial indent dev-dependency-indent))
-      (update-in [:dev-dependencies] (partial indent dev-dependency-indent))
+      (update-in [:dev-dependencies] #(->> % (sort-deps) (indent dev-dependency-indent)))
       (update-in [:plugins] (partial indent plugin-indent))
       (update-in [:dev-plugins] (partial indent dev-dependency-indent))))
 
@@ -88,11 +95,11 @@
    ['markdown-clj "0.9.90"]
    ['ring-middleware-format "0.7.0"]
    ['metosin/ring-http-response "0.8.0"]
-   ['bouncer "1.1.0"]
+   ['bouncer "1.0.0"]
    ['org.webjars/bootstrap "4.0.0-alpha.3"]
    ['org.webjars/font-awesome "4.6.3"]
    ['org.webjars.bower/tether "1.3.7"]
-   ['org.webjars/jquery "3.0.0"]
+   ['org.webjars/jquery "3.1.1"]
    ['org.clojure/tools.logging "0.3.1"]
    ['compojure "1.5.1"]
    ['ring-webjars "0.1.1"]
