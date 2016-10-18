@@ -21,7 +21,7 @@
 
 (defn navbar []
   (r/with-let [collapsed? (r/atom true)]
-    [:nav.navbar.navbar-light.bg-faded
+    [:nav.navbar.navbar-dark
      [:button.navbar-toggler.hidden-sm-up
       {:on-click #(swap! collapsed? not)} "☰"]
      [:div.collapse.navbar-toggleable-xs
@@ -39,15 +39,14 @@
 
 (defn home-page []
   [:div.container
-   [:div.jumbotron
-    [:h1 "Welcome to <<name>>"]
-    [:p "Time to start building your site!"]
-    [:p [:a.btn.btn-primary.btn-lg {:href "http://luminusweb.net"} "Learn more »"]]]
+   [:div.row>div.col-sm-12
+    [:h2.alert.alert-success "Congratulations, your "
+     [:a.alert-link {:href "http://luminusweb.net"} "Luminus"]
+     " site is ready!"]]
    (when-let [docs @(rf/subscribe [:docs])]
-     [:div.row
-      [:div.col-md-12
-       [:div {:dangerouslySetInnerHTML
-              {:__html (md->html docs)}}]]])])
+     [:div.row>div.col-sm-12
+      [:div {:dangerouslySetInnerHTML
+             {:__html (md->html docs)}}]])])
 
 (def pages
   {:home #'home-page

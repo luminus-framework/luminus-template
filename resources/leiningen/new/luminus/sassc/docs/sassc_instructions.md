@@ -1,13 +1,13 @@
 <div class="bs-callout bs-callout-danger">
 
-### SassC libsass command-line compiler is required
+#### SassC libsass command-line compiler is required
 
 You must have the SassC command-line compiler installed to use this feature.
 
 Please follow the instructions at: <a href="http://github.com/sass/sassc">http://github.com/sass/sassc</a>
 to install the compiler for your platform.
 
-### Usage
+#### Usage
 Compile your files once:
 ```
 $ lein sassc once
@@ -24,7 +24,7 @@ To recompile when any changes are made:
 $ lein auto sassc once
 ```
 
-### Hooks
+#### Hooks
 The following hooks are supported by lein-sassc:
 ```
 $ lein compile

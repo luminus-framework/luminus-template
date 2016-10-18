@@ -1,3 +1,7 @@
+## 2.9.11.07
+
+- updated the template page for new projects
+ 
 ## 2.9.11.06
 
 - bouncer 1.1.0
