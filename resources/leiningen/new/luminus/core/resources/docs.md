@@ -63,8 +63,33 @@ The HTML templates are written using [Selmer](https://github.com/yogthos/Selmer)
 </div>
 ```
 
-The `home-page` function 
+<a class="btn btn-primary" href="http://www.luminusweb.net/docs/html_templating.md">learn more about HTML templating »</a>
+
 <% endif %>
+
+#### Organizing the routes
+
+The routes are aggregated and wrapped with middleware in the `<<project-ns>>.handler` namespace:
+
+```
+(def app-routes
+  (routes
+    (-> #'home-routes
+        (wrap-routes middleware/wrap-csrf)
+        (wrap-routes middleware/wrap-formats))
+    (route/not-found
+      (:body
+        (error-page {:status 404
+                     :title "page not found"})))))
+```
+
+The `app-routes` definition groups all the routes in the application into a single handler.
+A default route group is added to handle the `404` case.
+
+<a class="btn btn-primary" href="http://www.luminusweb.net/docs/routes.md">learn more about routing »</a>
+
+The `home-routes` are wrapped with two middleware functions. The first enables CSRF protection.
+The second takes care of serializing and deserializing various encoding formats, such as JSON.
 
 #### Managing your middleware
 
@@ -75,6 +100,8 @@ already defined here. The middleware is assembled in the `wrap-base` function.
 
 Middleware used for development is placed in the `<<project-ns>>.dev-middleware` namespace found in
 the `env/dev/clj/` source path.
+
+<a class="btn btn-primary" href="http://www.luminusweb.net/docs/middleware.md">learn more about middleware »</a>
 
 <<db-docs>>
 <<sassc-docs>>

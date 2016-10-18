@@ -8,4 +8,6 @@ If you haven't already, then please follow the steps below to configure your dat
 * Let `mount` know to start the database connection by `require`-ing `<<project-ns>>.db.core` in some other namespace.
 * Restart the application.
 
+<a class="btn btn-primary" href="http://www.luminusweb.net/docs/database.md">learn more about database access »</a>
+
 </div>

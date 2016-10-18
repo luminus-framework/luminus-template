@@ -1,5 +1,9 @@
 ## 2.9.11.07
 
+- improved documentation in the generated template
+
+## 2.9.11.07
+
 - updated the template page for new projects
  
 ## 2.9.11.06
