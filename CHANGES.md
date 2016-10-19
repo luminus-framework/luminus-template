@@ -1,3 +1,7 @@
+## 2.9.11.10
+
+- ClojureScript 1.9.293
+
 ## 2.9.11.09
 
 - consolidated docs
@@ -9,7 +13,7 @@
 ## 2.9.11.07
 
 - updated the template page for new projects
- 
+
 ## 2.9.11.06
 
 - bouncer 1.1.0
