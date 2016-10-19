@@ -1,4 +1,8 @@
-## 2.9.11.07
+## 2.9.11.09
+
+- consolidated docs
+
+## 2.9.11.08
 
 - improved documentation in the generated template
 
