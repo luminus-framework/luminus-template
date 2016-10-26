@@ -1,3 +1,9 @@
+## 2.9.11.11
+
+- split out dev/test resources
+- metosin/compojure-api 1.1.9
+- org.webjars/bootstrap 4.0.0-alpha.5
+
 ## 2.9.11.10
 
 - ClojureScript 1.9.293

@@ -3,6 +3,7 @@
 
 (def logback-assets
   [["env/dev/resources/logback.xml" "core/env/dev/resources/logback.xml"]
+   ["env/test/resources/logback.xml" "core/env/dev/resources/logback.xml"]
    ["env/prod/resources/logback.xml" "core/env/prod/resources/logback.xml"]])
 
 (def logback-dependencies

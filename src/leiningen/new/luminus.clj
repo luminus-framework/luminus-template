@@ -41,7 +41,8 @@
    ["README.md" "core/README.md"]
    ["env/prod/resources/config.edn" "core/env/prod/resources/config.edn"]
    ["env/dev/resources/config.edn" "core/env/dev/resources/config.edn"]
-   ["env/test/resources/config.edn" "core/env/test/resources/config.edn"]
+   ["env/test/resources/config.edn" "core/env/dev/resources/config.edn"]
+
 
    ;; config namespaces
    ["env/dev/clj/{{sanitized}}/env.clj" "core/env/dev/clj/env.clj"]
@@ -96,7 +97,7 @@
    ['ring-middleware-format "0.7.0"]
    ['metosin/ring-http-response "0.8.0"]
    ['bouncer "1.0.0"]
-   ['org.webjars/bootstrap "4.0.0-alpha.3"]
+   ['org.webjars/bootstrap "4.0.0-alpha.5"]
    ['org.webjars/font-awesome "4.6.3"]
    ['org.webjars.bower/tether "1.3.7"]
    ['org.webjars/jquery "3.1.1"]

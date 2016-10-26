@@ -59,7 +59,7 @@
                   :repl-options {:init-ns user}
                   :injections [(require 'pjstadig.humane-test-output)
                                (pjstadig.humane-test-output/activate!)]}
-   :project/test {:resource-paths ["env/dev/resources" "env/test/resources"]<% if cljs %>
+   :project/test {:resource-paths ["env/test/resources"]<% if cljs %>
                   :cljsbuild
                   <<test-cljsbuild>>
                   <% endif %>}
