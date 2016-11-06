@@ -77,7 +77,7 @@
 ;; -------------------------
 ;; Initialize app
 (defn fetch-docs! []
-  (GET (str js/context "/docs") {:handler #(rf/dispatch [:set-docs %])}))
+  (GET "/docs" {:handler #(rf/dispatch [:set-docs %])}))
 
 (defn mount-components []
   (r/render [#'page] (.getElementById js/document "app")))

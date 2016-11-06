@@ -1,3 +1,7 @@
+## 2.9.11.13
+
+- fixed typo in fetching docs for the reagent/re-frame templates
+ 
 ## 2.9.11.12
 
 - org.postgresql/postgresql 9.4.1212
