@@ -13,7 +13,7 @@
 (defn db-dependencies [options]
   [['luminus-migrations "0.2.8"]
    ['conman "0.6.2"]
-   ({:postgres ['org.postgresql/postgresql "9.4.1211"]
+   ({:postgres ['org.postgresql/postgresql "9.4.1212"]
      :mysql    ['mysql/mysql-connector-java "5.1.6"]
      :h2       ['com.h2database/h2 "1.4.192"]
      :sqlite   ['org.xerial/sqlite-jdbc "3.8.11.2"]}

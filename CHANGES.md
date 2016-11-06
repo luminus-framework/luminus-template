@@ -1,3 +1,8 @@
+## 2.9.11.12
+
+- org.postgresql/postgresql 9.4.1212
+- luminus-migrations 0.2.9
+
 ## 2.9.11.11
 
 - split out dev/test resources
