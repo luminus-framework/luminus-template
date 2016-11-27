@@ -1,3 +1,13 @@
+## 2.9.11.14
+
+- binaryage/devtools 0.8.3
+- buddy 1.2.0
+- cider/cider-nrepl 0.15.0-SNAPSHOT
+- markdown-clj 0.9.91
+- org.webjars/font-awesome 4.7.0
+- prone 1.1.4
+
+
 ## 2.9.11.13
 
 - fixed typo in fetching docs for the reagent/re-frame templates
