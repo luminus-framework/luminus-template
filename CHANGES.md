@@ -1,3 +1,7 @@
+## 2.9.11.17
+
+- re-frame 0.9.0
+
 ## 2.9.11.16
 
 - rollback to re-frame 0.8.0
