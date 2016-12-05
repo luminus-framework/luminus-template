@@ -80,6 +80,7 @@
   (GET "/docs" {:handler #(rf/dispatch [:set-docs %])}))
 
 (defn mount-components []
+  (rf/clear-subscription-cache!)
   (r/render [#'page] (.getElementById js/document "app")))
 
 (defn init! []
