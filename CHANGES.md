@@ -1,6 +1,7 @@
 ## 2.9.11.15
 
 - Selmer 1.10.1
+- re-frame 0.9.0
 
 ## 2.9.11.14
 
@@ -15,7 +16,7 @@
 ## 2.9.11.13
 
 - fixed typo in fetching docs for the reagent/re-frame templates
- 
+
 ## 2.9.11.12
 
 - org.postgresql/postgresql 9.4.1212
