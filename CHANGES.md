@@ -3,6 +3,8 @@
 - Selmer 1.10.2
 - re-frame 0.9.0
 
+The HTTP server is no longer stopped and started by the `(start)`/`(stop)` helpers in the REPL since it's marked as `^{:on-reload :noop}`, this does not work with `wrap-reload` middleware.
+
 ## 2.9.11.16
 
 - rollback to re-frame 0.8.0
