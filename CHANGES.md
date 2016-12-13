@@ -1,7 +1,11 @@
+## 2.9.11.18
+
+- re-frame 0.9.0
+
 ## 2.9.11.17
 
 - Selmer 1.10.2
-- re-frame 0.9.0
+- removed `*identity*` key from the `+auth` profile, the identity in the session should be used instead
 
 The HTTP server is no longer stopped and started by the `(start)`/`(stop)` helpers in the REPL since it's marked as `^{:on-reload :noop}`, this does not work with `wrap-reload` middleware.
 

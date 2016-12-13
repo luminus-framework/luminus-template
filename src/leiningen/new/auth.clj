@@ -6,7 +6,6 @@
     [assets
      (-> options
          (append-formatted :auth-session
-                           [['buddy.auth.backends.session :refer ['session-backend]]
-                            [(symbol (str (:project-ns options) ".layout")) :refer ['*identity*]]]
+                           [['buddy.auth.backends.session :refer ['session-backend]]]
                            plugin-indent))]
     state))

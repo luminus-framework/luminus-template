@@ -10,7 +10,7 @@
    ".html"])
 
 (def conflicting-features
-  #{"+auth" "+cljs" "+site"})
+  #{"+cljs" "+site"})
 
 (def required-features
   ["+swagger"])

@@ -81,18 +81,11 @@
 (defn token [username]
   (let [claims {:user (keyword username)
                 :exp (plus (now) (minutes 60))}]
-    (encrypt claims secret {:alg :a256kw :enc :a128gcm})))
-<% endif %><% if auth-session %>
+    (encrypt claims secret {:alg :a256kw :enc :a128gcm})))<% endif %>
 
-(defn wrap-identity [handler]
-  (fn [request]
-    (binding [*identity* (get-in request [:session :identity])]
-      (handler request))))
-<% endif %>
 (defn wrap-auth [handler]
   (let [backend <% if auth-jwe %>token-backend<% endif %><% if auth-session %>(session-backend)<% endif %>]
-    (-> handler<% if auth-session %>
-        wrap-identity<% endif %>
+    (-> handler
         (wrap-authentication backend)
         (wrap-authorization backend))))
 <% endif %>
