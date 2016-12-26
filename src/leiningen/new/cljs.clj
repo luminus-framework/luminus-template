@@ -6,9 +6,9 @@
    ["src/cljc/{{sanitized}}/validation.cljc" "cljs/src/cljc/validation.cljc"]
    ["test/cljs/{{sanitized}}/doo_runner.cljs" "cljs/test/cljs/doo_runner.cljs"]
    ["test/cljs/{{sanitized}}/core_test.cljs" "cljs/test/cljs/core_test.cljs"]
-   ["env/dev/cljs/{{sanitized}}/dev.cljs" "cljs/env/dev/cljs/app.cljs"]
+   ["env/dev/cljs/{{sanitized}}/app.cljs" "cljs/env/dev/cljs/app.cljs"]
    ["env/dev/clj/{{sanitized}}/figwheel.clj" "cljs/env/dev/clj/figwheel.clj"]
-   ["env/prod/cljs/{{sanitized}}/prod.cljs" "cljs/env/prod/cljs/app.cljs"]
+   ["env/prod/cljs/{{sanitized}}/app.cljs" "cljs/env/prod/cljs/app.cljs"]
    ["resources/templates/home.html" "cljs/templates/home.html"]
    ["resources/templates/error.html" "core/resources/templates/error.html"]])
 
@@ -43,17 +43,19 @@
    ['figwheel-sidecar figwheel-version]
    ['com.cemerick/piggieback "0.2.2-SNAPSHOT"]])
 
-(def uberjar-cljsbuild
+(defn uberjar-cljsbuild [features]
   {:builds
    {:min
     {:source-paths ["src/cljc" "src/cljs" "env/prod/cljs"]
      :compiler
-     {:output-to     "target/cljsbuild/public/js/app.js"
-      :externs       ["react/externs/react.js"]
-      :optimizations :advanced
-      :pretty-print  false
-      :closure-warnings
-      {:externs-validation :off :non-standard-jsdoc :off}}}}})
+     (merge
+       {:output-to "target/cljsbuild/public/js/app.js"
+       :optimizations :advanced
+       :pretty-print false
+       :closure-warnings
+       {:externs-validation :off :non-standard-jsdoc :off}}
+       (when (some #{"+reagent" "+re-frame"} features)
+         {:externs ["react/externs/react.js"]}))}}})
 
 (defn dev-cljsbuild [{:keys [project-ns]}]
   {:builds
@@ -107,7 +109,7 @@
            :cljs true
            :dev-cljsbuild (indent dev-indent (dev-cljsbuild options))
            :test-cljsbuild (indent dev-indent (test-cljsbuild options))
-           :uberjar-cljsbuild (indent uberjar-indent uberjar-cljsbuild)
+           :uberjar-cljsbuild (indent uberjar-indent (uberjar-cljsbuild (:features options)))
            :cljs-test cljs-test
            :figwheel (indent root-indent (figwheel options))
            :cljs-uberjar-prep ":prep-tasks [\"compile\" [\"cljsbuild\" \"once\" \"min\"]]"))]

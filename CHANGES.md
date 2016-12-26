@@ -1,6 +1,9 @@
 ## 2.9.11.19
 
 - selmer 1.10.3
+- renamed `env/dev/cljs/dev.cljs to `env/dev/cljs/app.cljs`
+- renamed `env/prod/cljs/prod.cljs to `env/prod/cljs/app.cljs`
+- updated `+cljs` profile to remove unused externs, and fixed the `init!` function to work in uberjar
 
 ## 2.9.11.18
 

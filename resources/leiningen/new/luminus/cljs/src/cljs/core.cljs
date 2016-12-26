@@ -1,6 +1,7 @@
 (ns <<project-ns>>.core)
 
 (defn init! []
-  (-> (.getElementById js/document "app")
-      (.-innerHTML)
-      (set! "Welcome to <<name>>")))
+  (let [content (js/document.getElementById "app")]
+    (while (.hasChildNodes content)
+      (.removeChild content (.-lastChild content)))
+    (.appendChild content (js/document.createTextNode "Welcome to <<name>>"))))
