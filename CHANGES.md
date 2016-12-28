@@ -1,3 +1,11 @@
+## 2.9.11.20
+
+- lein-test-refresh 0.18.1
+- luminus-migrations 0.2.9
+- mount 0.1.11
+- re-frame 0.9.1
+- org.xerial/sqlite-jdbc 3.15.1
+
 ## 2.9.11.19
 
 - selmer 1.10.3
