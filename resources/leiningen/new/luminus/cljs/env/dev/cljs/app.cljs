@@ -1,4 +1,4 @@
-(ns ^:figwheel-no-load <<project-ns>>.app
+(ns<% if not hoplon %> ^:figwheel-no-load<% endif %> <<project-ns>>.app
   (:require [<<project-ns>>.core :as core]
             [devtools.core :as devtools]
             [figwheel.client :as figwheel :include-macros true]))

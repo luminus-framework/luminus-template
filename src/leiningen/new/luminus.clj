@@ -12,6 +12,7 @@
             [leiningen.new.cider :refer [cider-features]]
             [leiningen.new.db :refer [db-features]]
             [leiningen.new.cljs :refer [cljs-features]]
+            [leiningen.new.hoplon :refer [hoplon-features]]
             [leiningen.new.reagent :refer [reagent-features]]
             [leiningen.new.re-frame :refer [re-frame-features]]
             [leiningen.new.cucumber :refer [cucumber-features]]
@@ -126,6 +127,7 @@
             cucumber-features
             site-features
             cljs-features
+            hoplon-features
             reagent-features
             re-frame-features
             swagger-features
@@ -166,6 +168,7 @@
   (-> options
       (set-feature-dependency "+auth" #{"+auth-base"})
       (set-feature-dependency "+auth-jwe" #{"+auth-base"})
+      (set-feature-dependency "+hoplon" #{"+cljs"})
       (set-feature-dependency "+reagent" #{"+cljs"})
       (set-feature-dependency "+re-frame" #{"+cljs" "+reagent"})))
 
@@ -190,7 +193,7 @@
                              ;;servers
                              "+aleph" "+jetty" "+http-kit"
                              ;;misc
-                             "+cljs" "+reagent" "+re-frame" "+auth" "+auth-jwe" "+site"
+                             "+cljs" "+hoplon" "+reagent" "+re-frame" "+auth" "+auth-jwe" "+site"
                              "+cucumber" "+sassc" "+cider" "+oauth"
                              "+swagger" "+war"
                              "+kibit" "+service"}
