@@ -1,3 +1,7 @@
+## 2.9.11.22
+
+- improved Hoplon profile
+
 ## 2.9.11.21
 
 - added `+hoplon` profile

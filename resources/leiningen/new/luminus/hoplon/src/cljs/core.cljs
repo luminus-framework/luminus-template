@@ -19,28 +19,29 @@
 
 (defonce docs (cell nil))
 
-(defn nav-link [uri title page selected-page collapsed?]
-  (h/li :class (cell= (if (= selected-page page)
-                        "nav-item active"
-                        "nav-item"))
+(defn nav-link [uri title page expanded?]
+  (h/li :class (cell= {:active (= page selected-page)
+                       :nav-item true})
     (h/a :class "nav-link"
          :href uri
-         :click #(reset! collapsed? true)
+         :click #(do
+                   (reset! expanded? false)
+                   (secretary/dispatch! uri))
          title)))
 
-(defn navbar [selected-page]
-  (let [collapsed? (cell true)]
+(defn navbar []
+  (let [expanded? (cell false)]
     (h/nav :class "navbar navbar-dark bg-primary"
-           (h/button :class "navbar-toggler hidden-sm-up"
-                     :click #(swap! collapsed? not)
-                     "☰")
-           (h/div :class (cell= (if collapsed?
-                                  "collapse navbar-toggleable-xs"
-                                  "collapse navbar-toggleable-xs in"))
-            (h/a :class "navbar-brand" :href "/" "<<name>>")
-            (h/ul {:class "nav navbar-nav"}
-              (nav-link "#/" "Home" :home selected-page collapsed?)
-              (nav-link "#/about" "About" :about selected-page collapsed?))))))
+      (h/button :class "navbar-toggler hidden-sm-up"
+                :click #(swap! expanded? not)
+                "☰")
+      (h/div :class (cell= {:collapse true
+                            :navbar-toggleable-xs true
+                            :in expanded?})
+       (h/a :class "navbar-brand" :href "/" "<<name>>")
+       (h/ul {:class "nav navbar-nav"}
+         (nav-link "#/" "Home" :home expanded?)
+         (nav-link "#/about" "About" :about expanded?))))))
 
 (defn about []
   (h/div :class "container"
@@ -54,11 +55,11 @@
 
 (h/defelem page []
   (h/div :id "app"
-         (navbar selected-page)
-         (cell=
-          (case selected-page
-            :home (home)
-            :about (about)))))
+    (navbar)
+    (cell=
+     (case selected-page
+       :home (home)
+       :about (about)))))
 
 ;; -------------------------
 ;; Routes
