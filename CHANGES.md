@@ -1,3 +1,7 @@
+## 2.9.11.21
+
+- added `+hoplon` profile
+
 ## 2.9.11.20
 
 - lein-test-refresh 0.18.1
