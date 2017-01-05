@@ -1,3 +1,7 @@
+## 2.9.11.23
+
+- selmer 1.10.5
+
 ## 2.9.11.22
 
 - improved Hoplon profile

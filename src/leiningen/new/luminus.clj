@@ -93,7 +93,7 @@
 
 (def core-dependencies
   [['org.clojure/clojure "1.8.0"]
-   ['selmer "1.10.3"]
+   ['selmer "1.10.5"]
    ['markdown-clj "0.9.91"]
    ['ring-middleware-format "0.7.0"]
    ['metosin/ring-http-response "0.8.0"]
