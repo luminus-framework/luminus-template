@@ -1,3 +1,7 @@
+## 2.9.11.24
+
+- added an explicit Ring dependency (1.5.1)
+
 ## 2.9.11.23
 
 - selmer 1.10.5
