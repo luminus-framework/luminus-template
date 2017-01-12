@@ -39,6 +39,7 @@ However, if you would like to attach further functionality to your template you 
 * `+auth-jwe` adds [Buddy](https://github.com/funcool/buddy) dependency with the [JWE](https://jwcrypto.readthedocs.io/en/stable/jwe.html) backend
 * `+oauth` adds [OAuth](https://github.com/mattrepl/clj-oauth) dependency
 * `+cljs` adds [ClojureScript][cljs] support to the project
+* `+hoplon` adds [ClojureScript][cljs] support with [Hoplon](https://github.com/hoplon/hoplon) to the project
 * `+reagent` adds [ClojureScript][cljs] support with [Reagent](https://reagent-project.github.io/) to the project along with an example
 * `+re-frame` adds [ClojureScript][cljs] support with [re-frame](https://github.com/Day8/re-frame) to the project along with an example
 * `+cucumber` adds support for browser based UI testing with [Cucumber][cucumber] and [clj-webdriver][clj-webdriver]
