@@ -1,3 +1,7 @@
+## 2.9.11.25
+
+- Immutant 2.1.6
+
 ## 2.9.11.24
 
 - added an explicit Ring dependency (1.5.1)
