@@ -1,3 +1,7 @@
+## 2.9.11.26
+
+- rolled back to org.webjars/bootstrap 4.0.0-alpha.5
+
 ## 2.9.11.25
 
 - immutant 2.1.6

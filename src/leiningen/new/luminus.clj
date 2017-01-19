@@ -100,7 +100,7 @@
    ['ring-middleware-format "0.7.0"]
    ['metosin/ring-http-response "0.8.1"]
    ['bouncer "1.0.0"]
-   ['org.webjars/bootstrap "4.0.0-alpha.6"]
+   ['org.webjars/bootstrap "4.0.0-alpha.5"]
    ['org.webjars/font-awesome "4.7.0"]
    ['org.webjars.bower/tether "1.4.0"]
    ['org.webjars/jquery "3.1.1"]
