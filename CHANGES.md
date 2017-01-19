@@ -1,3 +1,7 @@
+## 2.9.11.27
+
+- conman 0.6.3
+
 ## 2.9.11.26
 
 - rolled back to org.webjars/bootstrap 4.0.0-alpha.5
