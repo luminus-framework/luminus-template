@@ -1,6 +1,14 @@
 ## 2.9.11.25
 
-- Immutant 2.1.6
+- immutant 2.1.6
+- compojure 1.5.2
+- cprop 0.1.10
+- metosin/compojure-api 1.1.10
+- metosin/ring-http-response 0.8.1
+- org.webjars.bower/tether 1.4.0
+- org.webjars/bootstrap 4.0.0-alpha.6
+- ring/ring-defaults 0.2.2
+- ring/ring-devel 1.5.1
 
 ## 2.9.11.24
 

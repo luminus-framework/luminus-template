@@ -66,14 +66,16 @@
    ["resources/templates/error.html" "core/resources/templates/error.html"]
 
    ;; public resources, example URL: /css/screen.css
-   ["resources/public/favicon.ico"  (resource "site/favicon.ico")]
    ["resources/public/css/screen.css" "core/resources/css/screen.css"]
    ["resources/docs/docs.md" "core/resources/docs.md"]
    "resources/public/js"
-   "resources/public/img"
 
    ;; tests
    ["test/clj/{{sanitized}}/test/handler.clj" "core/test/handler.clj"]])
+
+(def binary-assets
+  [["resources/public/favicon.ico" "core/resources/favicon.ico"]
+   ["resources/public/img/warning_clojure.png" "core/resources/img/warning_clojure.png"]])
 
 (defn sort-deps [deps]
   (sort-by (fn [dep] (str dep)) deps))
@@ -96,20 +98,20 @@
    ['selmer "1.10.5"]
    ['markdown-clj "0.9.91"]
    ['ring-middleware-format "0.7.0"]
-   ['metosin/ring-http-response "0.8.0"]
+   ['metosin/ring-http-response "0.8.1"]
    ['bouncer "1.0.0"]
-   ['org.webjars/bootstrap "4.0.0-alpha.5"]
+   ['org.webjars/bootstrap "4.0.0-alpha.6"]
    ['org.webjars/font-awesome "4.7.0"]
-   ['org.webjars.bower/tether "1.3.7"]
+   ['org.webjars.bower/tether "1.4.0"]
    ['org.webjars/jquery "3.1.1"]
    ['org.clojure/tools.logging "0.3.1"]
-   ['compojure "1.5.1"]
+   ['compojure "1.5.2"]
    ['ring/ring-core "1.5.1"]
    ['ring-webjars "0.1.1"]
-   ['ring/ring-defaults "0.2.1"]
+   ['ring/ring-defaults "0.2.2"]
    ['luminus/ring-ttl-session "0.3.1"]
    ['mount "0.1.11"]
-   ['cprop "0.1.9"]
+   ['cprop "0.1.10"]
    ['org.clojure/tools.cli "0.3.5"]
    ['luminus-nrepl "0.1.4"]])
 
@@ -141,7 +143,7 @@
             logback-features
             oauth-features
             war-features)]
-    (render-assets (init-render) assets (format-options options))))
+    (render-assets assets binary-assets (format-options options))))
 
 (defn format-features [features]
   (apply str (interpose ", " features)))

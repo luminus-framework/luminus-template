@@ -47,7 +47,7 @@
   (h/div :class "container"
     (h/div :class "row"
       (h/div :class "col-md-12"
-             "this is the story of <<name>>... work in progress"))))
+        (h/img :src (str js/context "/img/warning_clojure.png"))))))
 
 (defn home []
   (h/div :class "container"

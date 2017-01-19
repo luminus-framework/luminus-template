@@ -35,7 +35,7 @@
   [:div.container
    [:div.row
     [:div.col-md-12
-     "this is the story of <<name>>... work in progress"]]])
+     [:img {:src (str js/context "/img/warning_clojure.png")}]]]])
 
 (defn home-page []
   [:div.container

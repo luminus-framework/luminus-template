@@ -1,7 +1,7 @@
 (ns leiningen.new.common
   (:require
     [selmer.parser :as selmer]
-    [leiningen.new.templates :refer [renderer ->files]]
+    [leiningen.new.templates :refer [renderer raw-resourcer ->files]]
     [clojure.pprint :refer [code-dispatch pprint with-pprint-dispatch]]))
 
 (def dependency-indent 17)
@@ -11,14 +11,15 @@
 (def dev-indent 18)
 (def uberjar-indent 13)
 (def require-indent 13)
-
+(def template-name "luminus")
 (defn render-template [template options]
   (selmer/render
     (str "<% safe %>" template "<% endsafe %>")
     options
     {:tag-open \< :tag-close \> :filter-open \< :filter-close \>}))
 
-(defn init-render [] (renderer "luminus" render-template))
+(defn init-render []
+  (renderer template-name render-template))
 
 (defn slurp-resource [path]
   (-> (str "leiningen/new/luminus/" path)
@@ -31,8 +32,13 @@
     (let [[target source] asset]
       [target (render source options)])))
 
-(defn render-assets [render assets options]
-  (apply ->files options (map (partial render-asset render options) assets)))
+(defn render-assets [assets binary-assets options]
+  (let [render (init-render)
+        raw    (raw-resourcer template-name)]
+    (apply ->files options
+           (into
+             (map (partial render-asset render options) assets)
+             (map (fn [[target source]] [target (raw source)]) binary-assets)))))
 
 (defn pprint-code [code]
   (-> (pprint code)
