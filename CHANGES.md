@@ -1,6 +1,11 @@
+## 2.9.11.29
+
+- ClojureScript 1.9.456
+- binaryage/devtools 0.9.0
+
 ## 2.9.11.28
 
-- markdown-clj 0.9.92 
+- markdown-clj 0.9.92
 
 ## 2.9.11.27
 

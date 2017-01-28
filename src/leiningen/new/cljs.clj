@@ -12,7 +12,7 @@
    ["resources/templates/home.html" "cljs/templates/home.html"]
    ["resources/templates/error.html" "core/resources/templates/error.html"]])
 
-(def cljs-version "1.9.293")
+(def cljs-version "1.9.456")
 
 (def figwheel-version "0.5.8")
 
@@ -39,7 +39,7 @@
 
 (def cljs-dev-dependencies
   [['doo "0.1.7"]
-   ['binaryage/devtools "0.8.3"]
+   ['binaryage/devtools "0.9.0"]
    ['figwheel-sidecar figwheel-version]
    ['com.cemerick/piggieback "0.2.2-SNAPSHOT"]])
 
