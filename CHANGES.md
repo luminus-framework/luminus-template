@@ -1,3 +1,7 @@
+## 2.9.11.30
+
+- fix for the selenium profile
+
 ## 2.9.11.29
 
 - ClojureScript 1.9.456
