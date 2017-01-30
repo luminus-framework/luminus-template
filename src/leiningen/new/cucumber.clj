@@ -14,9 +14,10 @@
          (append-options :dev-dependencies [['org.clojure/core.cache "0.6.3"]
                                             ['org.apache.httpcomponents/httpcore "4.4"]
                                             ['clj-webdriver/clj-webdriver "0.7.2"]
-                                            (if (some #{"+auth"} (:features options))
+                                            (if (some #{"+auth" "+auth-jwe"} (:features options))
                                               ['org.seleniumhq.selenium/selenium-server "2.48.2"
-                                               :exclusions ['org.bouncycastle/bcprov-jdk15on]]
+                                               :exclusions ['org.bouncycastle/bcprov-jdk15on
+                                                            'org.bouncycastle/bcpkix-jdk15on]]
                                               ['org.seleniumhq.selenium/selenium-server "2.48.2"])])
          (assoc :cucumber-feature-paths (pprint-code ["test/clj/features"])))]
     state))
