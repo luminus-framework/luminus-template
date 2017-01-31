@@ -1,3 +1,7 @@
+## 2.9.11.31
+
+- markdown-clj 0.9.93
+
 ## 2.9.11.30
 
 - fix for the selenium profile
