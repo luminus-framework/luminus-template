@@ -95,9 +95,9 @@
 
 (def core-dependencies
   [['org.clojure/clojure "1.8.0"]
-   ['selmer "1.10.5"]
+   ['selmer "1.10.6"]
    ['markdown-clj "0.9.94"]
-   ['ring-middleware-format "0.7.0"]
+   ['ring-middleware-format "0.7.2"]
    ['metosin/ring-http-response "0.8.1"]
    ['bouncer "1.0.0"]
    ['org.webjars/bootstrap "4.0.0-alpha.5"]

@@ -6,7 +6,7 @@
     [assets
      (-> options
          (assoc :auth true)
-         (append-options :dependencies [['buddy "1.2.0"]])
+         (append-options :dependencies [['buddy "1.3.0"]])
          (append-formatted :auth-middleware-required
                            [['buddy.auth.middleware :refer ['wrap-authentication 'wrap-authorization]]
                             ['buddy.auth.accessrules :refer ['restrict]]

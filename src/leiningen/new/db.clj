@@ -14,9 +14,9 @@
   [['luminus-migrations "0.2.9"]
    ['conman "0.6.3"]
    ({:postgres ['org.postgresql/postgresql "9.4.1212"]
-     :mysql    ['mysql/mysql-connector-java "5.1.6"]
-     :h2       ['com.h2database/h2 "1.4.192"]
-     :sqlite   ['org.xerial/sqlite-jdbc "3.15.1"]}
+     :mysql    ['mysql/mysql-connector-java "6.0.5"]
+     :h2       ['com.h2database/h2 "1.4.193"]
+     :sqlite   ['org.xerial/sqlite-jdbc "3.16.1"]}
      (select-db options))])
 
 (defn db-url [{:keys [sanitized] :as options} suffix]

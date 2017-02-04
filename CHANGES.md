@@ -1,6 +1,13 @@
 ## 2.9.11.31
 
 - markdown-clj 0.9.94
+- lein-figwheel 0.5.9
+- buddy 1.3.0
+- h2 1.4.193
+- mysql/mysql-connector-java 6.0.5
+- org.xerial/sqlite-jdbc 3.16.1
+- ring-middleware-format 0.7.2
+- selmer 1.10.6
 
 ## 2.9.11.30
 
