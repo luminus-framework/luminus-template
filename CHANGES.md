@@ -1,3 +1,7 @@
+## 2.9.11.33
+
+- ClojureScript 1.9.473
+
 ## 2.9.11.32
 
 - ring-defaults 0.2.3
