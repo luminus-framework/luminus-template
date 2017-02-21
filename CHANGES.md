@@ -1,3 +1,8 @@
+## 2.9.11.33
+
+- markdown-clj 0.9.95
+- re-frame 0.9.2
+
 ## 2.9.11.32
 
 - ring-defaults 0.2.3
