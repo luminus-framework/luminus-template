@@ -9,6 +9,7 @@
 
   :jvm-opts ["-server" "-Dconf=.lein-env"]<% if resource-paths %>
   :source-paths <<source-paths>>
+  :test-paths ["test/clj"]
   :resource-paths <<resource-paths>><% endif %>
   :target-path "target/%s/"
   :main <<project-ns>>.core<% if migrations %>
@@ -54,7 +55,7 @@
                   <% endif %>
                   <% if cljs-test %>
                   :doo <<cljs-test>><% endif %>
-                  :source-paths ["env/dev/clj" "test/clj"]
+                  :source-paths ["env/dev/clj"]
                   :resource-paths ["env/dev/resources"]
                   :repl-options {:init-ns user}
                   :injections [(require 'pjstadig.humane-test-output)
