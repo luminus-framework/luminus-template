@@ -1,3 +1,7 @@
+## 2.9.11.35
+
+- markdown-clj 0.9.97
+
 ## 2.9.11.34
 
 - use `:test-paths` for test sources
