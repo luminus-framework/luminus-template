@@ -1,6 +1,8 @@
 ## 2.9.11.35
 
+- luminus-migrations 0.3.0
 - markdown-clj 0.9.97
+- migratus-lein 0.4.4
 
 ## 2.9.11.34
 
