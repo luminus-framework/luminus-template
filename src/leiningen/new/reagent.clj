@@ -14,5 +14,7 @@
 (defn reagent-features [[assets options :as state]]
   (if (some #{"+reagent"} (:features options))
     [(into (remove-conflicting-assets assets "core.cljs") reagent-assets)
-     (append-options options :dependencies reagent-dependencies)]
+     (-> options
+         (assoc :reagent true)
+         (append-options :dependencies reagent-dependencies))]
     state))
