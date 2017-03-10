@@ -1,6 +1,8 @@
 ## 2.9.11.35
 
 - reagent 0.6.1
+- ClojureScript 1.9.495
+- lein-cljsbuild 1.1.5
 
 ## 2.9.11.35
 

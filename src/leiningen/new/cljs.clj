@@ -12,7 +12,7 @@
    ["resources/templates/home.html" "cljs/templates/home.html"]
    ["resources/templates/error.html" "core/resources/templates/error.html"]])
 
-(def cljs-version "1.9.473")
+(def cljs-version "1.9.495")
 
 (def figwheel-version "0.5.9")
 
@@ -26,7 +26,7 @@
   ["target/cljsbuild"])
 
 (def cljs-plugins
-  [['lein-cljsbuild "1.1.4"]])
+  [['lein-cljsbuild "1.1.5"]])
 
 (def cljs-dev-plugins
   [['lein-doo "0.1.7"]
