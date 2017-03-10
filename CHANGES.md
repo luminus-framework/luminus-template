@@ -3,6 +3,7 @@
 - reagent 0.6.1
 - ClojureScript 1.9.495
 - lein-cljsbuild 1.1.5
+- switched from using bouncer to struct as the default validation library
 
 ## 2.9.11.35
 
