@@ -1,5 +1,9 @@
 ## 2.9.11.35
 
+- reagent 0.6.1
+
+## 2.9.11.35
+
 - fix for the +cljs profile
 - luminus-migrations 0.3.0
 - markdown-clj 0.9.97
