@@ -1,6 +1,7 @@
 ## 2.9.11.36
 
 - markdown-clj 0.9.98
+- ring/ring-core 1.6.0-RC1
 
 ## 2.9.11.35
 
