@@ -12,7 +12,7 @@
   :test-paths ["test/clj"]
   :resource-paths <<resource-paths>><% endif %>
   :target-path "target/%s/"
-  :main <<project-ns>>.core<% if migrations %>
+  :main ^:skip-aot <<project-ns>>.core<% if migrations %>
   :migratus <<migrations>><% endif %>
 
   :plugins [[lein-cprop "1.0.1"]<% if plugins %>
