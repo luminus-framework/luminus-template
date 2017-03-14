@@ -1,11 +1,23 @@
-## 2.9.11.36
+## 2.9.11.38
+
+- ^:skip-aot for main to avoid unnecessary AOT
+- binaryage/devtools 0.9.2
+- metosin/ring-http-response 0.8.2
+- org.postgresql/postgresql 42.0.0
+- reagent-utils 0.2.1
+
+
+## 2.9.11.37
 
 - markdown-clj 0.9.98
 - ring/ring-core 1.6.0-RC1
 
-## 2.9.11.35
+## 2.9.11.36
 
 - reagent 0.6.1
+
+## 2.9.11.35
+
 - ClojureScript 1.9.495
 - lein-cljsbuild 1.1.5
 - switched from using bouncer to struct as the default validation library
