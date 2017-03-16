@@ -6,7 +6,6 @@
 - org.postgresql/postgresql 42.0.0
 - reagent-utils 0.2.1
 
-
 ## 2.9.11.37
 
 - markdown-clj 0.9.98
