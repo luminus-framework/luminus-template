@@ -4,7 +4,7 @@
             [<<project-ns>>.layout :refer [*app-context* error-page]]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
             [ring.middleware.webjars :refer [wrap-webjars]]
-            [ring.middleware.format :refer [wrap-restful-format]]<% endif %>
+            [muuntaja.middleware :refer [wrap-format wrap-params]]<% endif %>
             [<<project-ns>>.config :refer [env]]<% if immutant-session %>
             [ring.middleware.flash :refer [wrap-flash]]
             [immutant.web.middleware :refer [wrap-session]]<% else %>
@@ -49,9 +49,7 @@
         :title "Invalid anti-forgery token"})}))
 
 (defn wrap-formats [handler]
-  (let [wrapped (wrap-restful-format
-                  handler
-                  {:formats [:json-kw :transit-json :transit-msgpack]})]
+  (let [wrapped (-> handler wrap-params wrap-format)]
     (fn [request]
       ;; disable wrap-formats for websockets
       ;; since they're not compatible with this middleware

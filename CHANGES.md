@@ -1,3 +1,7 @@
+## 2.9.11.39
+
+- switched from ring-middleware-format to metosin/muuntaja as the default
+
 ## 2.9.11.38
 
 - ^:skip-aot for main to avoid unnecessary AOT
