@@ -1,5 +1,6 @@
 ## 2.9.11.39
 
+- selmer 1.10.7
 - switched from ring-middleware-format to metosin/muuntaja as the default
 
 ## 2.9.11.38
