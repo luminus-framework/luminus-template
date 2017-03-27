@@ -53,7 +53,7 @@
 (defn add-mongo [[assets options]]
   [(into assets mongo-files)
    (-> options
-       (append-options :dependencies [['com.novemberain/monger "3.0.0-rc2"]])
+       (append-options :dependencies [['com.novemberain/monger "3.1.0"]])
        (assoc
          :db-connection true
          :db-docs ((:selmer-renderer options) (slurp-resource "db/docs/mongo_instructions.md") options))
