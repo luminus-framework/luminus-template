@@ -1,5 +1,6 @@
 ## 2.9.11.39
 
+- monger com.novemberain/monger 3.1.0
 - selmer 1.10.7
 - switched from ring-middleware-format to metosin/muuntaja as the default
 
