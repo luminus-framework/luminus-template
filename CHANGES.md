@@ -1,3 +1,7 @@
+## 2.9.11.40
+
+- luminus/ring-ttl-session 0.3.2
+
 ## 2.9.11.39
 
 - monger com.novemberain/monger 3.1.0

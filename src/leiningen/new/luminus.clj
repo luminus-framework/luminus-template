@@ -109,7 +109,7 @@
    ['ring/ring-core "1.6.0-RC1"]
    ['ring-webjars "0.1.1"]
    ['ring/ring-defaults "0.2.3"]
-   ['luminus/ring-ttl-session "0.3.1"]
+   ['luminus/ring-ttl-session "0.3.2"]
    ['mount "0.1.11"]
    ['cprop "0.1.10"]
    ['org.clojure/tools.cli "0.3.5"]
