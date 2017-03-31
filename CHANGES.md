@@ -1,6 +1,7 @@
 ## 2.9.11.40
 
 - luminus/ring-ttl-session 0.3.2
+- metosin/muuntaja 0.2.0
 
 ## 2.9.11.39
 
