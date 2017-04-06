@@ -1,3 +1,7 @@
+## 2.9.11.42
+
+-com.jakemccrary/lein-test-refresh 0.19.0
+
 ## 2.9.11.41
 
 - luminus/ring-ttl-session 0.3.2
