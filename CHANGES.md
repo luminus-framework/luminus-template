@@ -1,6 +1,7 @@
 ## 2.9.11.42
 
--com.jakemccrary/lein-test-refresh 0.19.0
+- com.jakemccrary/lein-test-refresh 0.19.0
+- ring/ring-core 1.6.0-RC2
 
 ## 2.9.11.41
 
