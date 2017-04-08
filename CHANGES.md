@@ -1,5 +1,9 @@
 ## 2.9.11.42
 
+- added the HTTP server state when calling `(start)` and `(stop)` functions.
+
+## 2.9.11.42
+
 - com.jakemccrary/lein-test-refresh 0.19.0
 - ring/ring-core 1.6.0-RC2
 
