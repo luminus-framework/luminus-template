@@ -1,4 +1,8 @@
-## 2.9.11.42
+## 2.9.11.44
+
+- cljs-ajax 0.5.9
+
+## 2.9.11.43
 
 - added the HTTP server state when calling `(start)` and `(stop)` functions.
 

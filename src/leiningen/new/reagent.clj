@@ -9,7 +9,7 @@
   [['reagent "0.6.1"]
    ['reagent-utils "0.2.1"]
    ['secretary "1.2.3"]
-   ['cljs-ajax "0.5.8"]])
+   ['cljs-ajax "0.5.9"]])
 
 (defn reagent-features [[assets options :as state]]
   (if (some #{"+reagent"} (:features options))
