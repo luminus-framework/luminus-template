@@ -1,3 +1,10 @@
+## 2.9.11.45
+
+- datomic-free 0.9.5561
+- markdown-clj 0.9.99
+- ClojureScript 1.9.521
+- binaryage/devtools 0.9.3
+- figwheel 0.5.10
 ## 2.9.11.44
 
 - ClojureScript 1.9.518
