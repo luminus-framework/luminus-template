@@ -3,6 +3,8 @@
 - moved Figwheel reload config to project.clj
 - binaryage/devtools 0.9.4
 - markdown-clj 0.9.99
+- Ring 1.6.0-RC3
+
 ## 2.9.11.45
 
 - datomic-free 0.9.5561
