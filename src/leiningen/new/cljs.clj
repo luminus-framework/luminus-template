@@ -39,7 +39,7 @@
 
 (def cljs-dev-dependencies
   [['doo "0.1.7"]
-   ['binaryage/devtools "0.9.3"]
+   ['binaryage/devtools "0.9.4"]
    ['figwheel-sidecar figwheel-version]
    ['com.cemerick/piggieback "0.2.2-SNAPSHOT"]])
 
@@ -61,6 +61,7 @@
   {:builds
    {:app
     {:source-paths ["src/cljs" "src/cljc" "env/dev/cljs"]
+     :figwheel {:on-jsload (str project-ns ".core/mount-components")}
      :compiler
      {:main          (str project-ns ".app")
       :asset-path    "/js/out"

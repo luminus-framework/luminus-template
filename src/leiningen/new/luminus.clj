@@ -96,7 +96,7 @@
 (def core-dependencies
   [['org.clojure/clojure "1.8.0"]
    ['selmer "1.10.7"]
-   ['markdown-clj "0.9.98"]
+   ['markdown-clj "0.9.99"]
    ['metosin/muuntaja "0.2.1"]
    ['metosin/ring-http-response "0.8.2"]
    ['funcool/struct "1.0.0"]
