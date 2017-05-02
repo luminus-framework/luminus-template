@@ -1,3 +1,7 @@
+## 2.9.11.48
+
+- Ring 1.6.0
+
 ## 2.9.11.47
 
 - moved Figwheel reload config to project.clj
