@@ -1,3 +1,7 @@
+## 2.9.11.50
+
+- Compojure 1.6.0
+
 ## 2.9.11.49
 
 - luminus-migrations 0.3.1

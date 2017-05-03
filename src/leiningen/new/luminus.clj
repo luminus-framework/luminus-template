@@ -105,7 +105,7 @@
    ['org.webjars.bower/tether "1.4.0"]
    ['org.webjars/jquery "3.1.1"]
    ['org.clojure/tools.logging "0.3.1"]
-   ['compojure "1.5.2"]
+   ['compojure "1.6.0"]
    ['ring/ring-core "1.6.0"]
    ['ring-webjars "0.1.1"]
    ['ring/ring-defaults "0.2.3"]
