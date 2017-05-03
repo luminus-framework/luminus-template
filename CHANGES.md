@@ -1,3 +1,8 @@
+## 2.9.11.51
+
+- luminus-migrations 0.3.1
+- migratus-lein 0.4.5
+
 ## 2.9.11.50
 
 - Compojure 1.6.0
