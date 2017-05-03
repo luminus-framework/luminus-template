@@ -1,3 +1,8 @@
+## 2.9.11.49
+
+- luminus-migrations 0.3.1
+- migratus-lein 0.4.5
+
 ## 2.9.11.48
 
 - Ring 1.6.0
