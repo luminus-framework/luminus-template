@@ -108,7 +108,7 @@
    ['compojure "1.6.0"]
    ['ring/ring-core "1.6.0"]
    ['ring-webjars "0.1.1"]
-   ['ring/ring-defaults "0.2.3"]
+   ['ring/ring-defaults "0.3.0"]
    ['luminus/ring-ttl-session "0.3.2"]
    ['mount "0.1.11"]
    ['cprop "0.1.10"]
