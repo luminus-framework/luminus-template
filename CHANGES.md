@@ -1,3 +1,8 @@
+## 2.9.11.53
+
+- luminus-migrations 0.3.3
+- migratus-lein 0.4.7
+
 ## 2.9.11.52
 
 - ring-defaults 0.3.0
