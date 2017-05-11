@@ -1,3 +1,8 @@
+## 2.9.11.54
+
+- cljs-ajax 0.6.0
+- updated to use clj-time by default
+
 ## 2.9.11.53
 
 - luminus-migrations 0.3.3

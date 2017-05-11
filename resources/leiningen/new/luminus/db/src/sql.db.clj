@@ -1,10 +1,12 @@
 (ns <<project-ns>>.db.core<% if embedded-db %>
   (:require
+    [clj-time.jdbc]
     [conman.core :as conman]
     [mount.core :refer [defstate]]
     [<<project-ns>>.config :refer [env]])<% endif %><% ifequal db-type "postgres" %>
   (:require
     [cheshire.core :refer [generate-string parse-string]]
+    [clj-time.jdbc]
     [clojure.java.jdbc :as jdbc]
     [conman.core :as conman]
     [<<project-ns>>.config :refer [env]]
@@ -15,10 +17,9 @@
            clojure.lang.IPersistentVector
            [java.sql
             BatchUpdateException
-            Date
-            Timestamp
             PreparedStatement])<% endifequal %><% ifequal db-type "mysql" %>
   (:require
+    [clj-time.jdbc]
     [clojure.java.jdbc :as jdbc]
     [conman.core :as conman]
     [<<project-ns>>.config :refer [env]]
@@ -33,31 +34,8 @@
 
 (conman/bind-connection *db* "sql/queries.sql")
 <% ifequal db-type "mysql" %>
-(defn to-date [^java.sql.Date sql-date]
-  (-> sql-date (.getTime) (java.util.Date.)))
-
-(extend-protocol jdbc/IResultSetReadColumn
-  java.sql.Date
-  (result-set-read-column [v _ _] (to-date v))
-
-  java.sql.Timestamp
-  (result-set-read-column [v _ _] (to-date v)))
-
-(extend-type java.util.Date
-  jdbc/ISQLParameter
-  (set-parameter [v ^PreparedStatement stmt idx]
-    (.setTimestamp stmt idx (java.sql.Timestamp. (.getTime v)))))
 <% endifequal %><% ifequal db-type "postgres" %>
-(defn to-date [^java.sql.Date sql-date]
-  (-> sql-date (.getTime) (java.util.Date.)))
-
 (extend-protocol jdbc/IResultSetReadColumn
-  Date
-  (result-set-read-column [v _ _] (to-date v))
-
-  Timestamp
-  (result-set-read-column [v _ _] (to-date v))
-
   Array
   (result-set-read-column [v _ _] (vec (.getArray v)))
 
@@ -70,11 +48,6 @@
         "jsonb" (parse-string value true)
         "citext" (str value)
         value))))
-
-(extend-type java.util.Date
-  jdbc/ISQLParameter
-  (set-parameter [v ^PreparedStatement stmt ^long idx]
-    (.setTimestamp stmt idx (Timestamp. (.getTime v)))))
 
 (defn to-pg-json [value]
       (doto (PGobject.)
