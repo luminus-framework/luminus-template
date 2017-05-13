@@ -1,5 +1,6 @@
 ## 2.9.11.54
 
+- ClojureScript 1.9.542
 - cljs-ajax 0.6.0
 - updated to use clj-time by default
 
