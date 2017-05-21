@@ -1,3 +1,7 @@
+## 2.9.11.56
+
+- removed duplicate clj-time dependency
+
 ## 2.9.11.55
 
 - conman 0.6.4
