@@ -1,3 +1,7 @@
+## 2.9.11.58
+
+- luminus-migrations 0.3.5
+
 ## 2.9.11.57
 
 - luminus-migrations 0.3.4
