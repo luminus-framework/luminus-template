@@ -1,3 +1,7 @@
+## 2.9.11.57
+
+- luminus-migrations 0.3.4
+
 ## 2.9.11.56
 
 - removed duplicate clj-time dependency
