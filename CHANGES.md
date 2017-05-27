@@ -1,5 +1,6 @@
 ## 2.9.11.58
 
+- ClojureScript 1.9.562
 - metosin/ring-http-response 0.9.0
 - ring-webjars 0.2.0
 - ring/ring-core 1.6.1
