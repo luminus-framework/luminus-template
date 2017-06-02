@@ -12,5 +12,5 @@
     [(into (remove-conflicting-assets assets "core.cljs") re-frame-assets)
      (-> options
          (assoc :re-frame true)
-         (append-options :dependencies [['re-frame "0.9.2"]]))]
+         (append-options :dependencies [['re-frame "0.9.4"]]))]
     state))

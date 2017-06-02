@@ -1,3 +1,9 @@
+## 2.9.11.59
+
+- pjstadig/humane-test-output 0.8.2
+- reagent 0.6.2
+- re-frame 0.9.4
+
 ## 2.9.11.58
 
 - ClojureScript 1.9.562
