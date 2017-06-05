@@ -14,5 +14,6 @@
                 (indent require-indent
                         [[(symbol (str (:project-ns options) ".routes.oauth")) :refer ['oauth-routes]]])
                 :oauth-routes
-                (indent dev-indent ["#'oauth-routes"])))]
+                (indent dev-indent ["#'oauth-routes"])
+                :oauth true))]
     state))
