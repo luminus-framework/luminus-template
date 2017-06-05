@@ -1,3 +1,7 @@
+## 2.9.11.60
+
+- [PR 291](https://github.com/luminus-framework/luminus-template/pull/291) - :oauth key in options generated when using +oauth profile
+
 ## 2.9.11.59
 
 - pjstadig/humane-test-output 0.8.2
