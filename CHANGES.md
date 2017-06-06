@@ -1,3 +1,7 @@
+## 2.9.11.61
+
+- org.clojure/tools.logging 0.4.0
+
 ## 2.9.11.60
 
 - [PR 291](https://github.com/luminus-framework/luminus-template/pull/291) - :oauth key in options generated when using +oauth profile

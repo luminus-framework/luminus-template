@@ -105,7 +105,7 @@
    ['org.webjars/font-awesome "4.7.0"]
    ['org.webjars.bower/tether "1.4.0"]
    ['org.webjars/jquery "3.1.1"]
-   ['org.clojure/tools.logging "0.3.1"]
+   ['org.clojure/tools.logging "0.4.0"]
    ['compojure "1.6.0"]
    ['ring/ring-core "1.6.1"]
    ['ring-webjars "0.2.0"]
