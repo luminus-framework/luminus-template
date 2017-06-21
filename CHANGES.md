@@ -1,3 +1,7 @@
+## 2.9.11.62
+
+- removed dependency on lein-cprop for reading profiles, fixes [issue 292](https://github.com/luminus-framework/luminus-template/issues/292)
+
 ## 2.9.11.61
 
 - org.clojure/tools.logging 0.4.0

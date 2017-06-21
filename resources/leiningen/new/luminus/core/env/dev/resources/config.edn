@@ -1,4 +1,4 @@
-{:dev true<% if oauth %>
+{:env :dev<% if oauth %>
  ;;Twitter used as an example, replace these URIs with the OAuth provider of your choice
  :request-token-uri "https://api.twitter.com/oauth/request_token"
  :access-token-uri "https://api.twitter.com/oauth/access_token"
