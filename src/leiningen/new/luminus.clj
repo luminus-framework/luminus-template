@@ -98,7 +98,7 @@
    ['selmer "1.10.7"]
    ['clj-time "0.13.0"]
    ['markdown-clj "0.9.99"]
-   ['metosin/muuntaja "0.2.1"]
+   ['metosin/muuntaja "0.3.1"]
    ['metosin/ring-http-response "0.9.0"]
    ['funcool/struct "1.0.0"]
    ['org.webjars/bootstrap "4.0.0-alpha.5"]

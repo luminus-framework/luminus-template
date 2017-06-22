@@ -41,7 +41,7 @@
   [['doo "0.1.7"]
    ['binaryage/devtools "0.9.4"]
    ['figwheel-sidecar figwheel-version]
-   ['com.cemerick/piggieback "0.2.2-SNAPSHOT"]])
+   ['com.cemerick/piggieback "0.2.2"]])
 
 (defn uberjar-cljsbuild [features]
   {:builds

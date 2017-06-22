@@ -1,3 +1,9 @@
+## 2.9.11.62
+
+- updated to only include org.webjars/webjars-locator-jboss-vfs when using `+war` flag
+- metosin/muuntaja 0.3.1
+- com.cemerick/piggieback 0.2.2
+
 ## 2.9.11.61
 
 - org.clojure/tools.logging 0.4.0
