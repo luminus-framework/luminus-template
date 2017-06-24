@@ -1,3 +1,7 @@
+## 2.9.11.63
+
+- luminus-migrations 0.3.7 - with support for using an init SQL script for initializing the database
+
 ## 2.9.11.62
 
 - removed dependency on lein-cprop for reading profiles, fixes [issue 292](https://github.com/luminus-framework/luminus-template/issues/292)
