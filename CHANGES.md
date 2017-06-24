@@ -1,6 +1,6 @@
 ## 2.9.11.63
 
-- luminus-migrations 0.3.7 - with support for using an init SQL script for initializing the database
+- luminus-migrations 0.3.8 - with support for using an init SQL script for initializing the database
 
 ## 2.9.11.62
 
