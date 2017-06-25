@@ -62,8 +62,20 @@
     (log/info component "started"))
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app)))
 <% endif %>
+
+<% if relational-db %>
+(defn remove-db-name [url]
+  (when url
+    (clojure.string/replace url #"(\/\/.*\/)(.*)(\?)" "$1$3")))
+<% endif %>
+
 (defn -main [& args]
   <% if relational-db %>(cond
+    (some #{"init"} args)
+    (do
+      (mount/start #'fcc-tracker.config/env)
+      (migrations/init {:db (remove-db-name (:database-url env))})
+      (System/exit 0))
     (some #{"migrate" "rollback"} args)
     (do
       (mount/start #'<<project-ns>>.config/env)
