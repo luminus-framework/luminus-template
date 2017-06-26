@@ -64,6 +64,11 @@
 <% endif %>
 (defn -main [& args]
   <% if relational-db %>(cond
+    (some #{"init"} args)
+    (do
+      (mount/start #'fcc-tracker.config/env)
+      (migrations/init (select-keys env [:database-url]))
+      (System/exit 0))
     (some #{"migrate" "rollback"} args)
     (do
       (mount/start #'<<project-ns>>.config/env)
