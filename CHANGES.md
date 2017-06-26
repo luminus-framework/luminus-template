@@ -1,6 +1,7 @@
 ## 2.9.11.63
 
-- luminus-migrations 0.3.8 - with support for using an init SQL script for initializing the database
+- luminus-migrations 0.3.9 - with support for using an init SQL script for initializing the database
+- added `init` command line option for initializing migrations via [pr 293](https://github.com/luminus-framework/luminus-template/pull/293)
 
 ## 2.9.11.62
 
