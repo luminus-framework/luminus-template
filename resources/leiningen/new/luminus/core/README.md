@@ -1,10 +1,6 @@
 # <<name>>
 
-<<<<<<< HEAD
 generated using Luminus version "2.9.11.65"
-=======
-generated using Luminus version "2.9.11.63"
->>>>>>> f0fc96b6d0c0c30fa29397e79cea1108a2e18957
 
 FIXME
 
