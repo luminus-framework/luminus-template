@@ -1,6 +1,9 @@
 (ns <<project-ns>>.env
   (:require [clojure.tools.logging :as log]))
 
+(defn from-profiles []
+  {})
+
 (def defaults
   {:init
    (fn []

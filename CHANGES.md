@@ -12,6 +12,12 @@
 - updated to only include org.webjars/webjars-locator-jboss-vfs when using `+war` flag
 - metosin/muuntaja 0.3.1
 - com.cemerick/piggieback 0.2.2
+- luminus-migrations 0.3.9 - with support for using an init SQL script for initializing the database
+- added `init` command line option for initializing migrations via [pr 293](https://github.com/luminus-framework/luminus-template/pull/293)
+
+## 2.9.11.62
+
+- removed dependency on lein-cprop for reading profiles, fixes [issue 292](https://github.com/luminus-framework/luminus-template/issues/292)
 
 ## 2.9.11.61
 

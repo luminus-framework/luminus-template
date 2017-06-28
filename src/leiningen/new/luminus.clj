@@ -42,7 +42,7 @@
    ["README.md" "core/README.md"]
    ["env/prod/resources/config.edn" "core/env/prod/resources/config.edn"]
    ["env/dev/resources/config.edn" "core/env/dev/resources/config.edn"]
-   ["env/test/resources/config.edn" "core/env/dev/resources/config.edn"]
+   ["env/test/resources/config.edn" "core/env/test/resources/config.edn"]
 
 
    ;; config namespaces
