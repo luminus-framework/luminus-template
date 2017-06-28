@@ -1,6 +1,6 @@
 ## 2.9.11.65
 
-fixed 2.9.11.64 release
+fixed typo
 
 ## 2.9.11.64
 
