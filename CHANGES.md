@@ -1,3 +1,7 @@
+## 2.9.11.67
+
+- ClojureScript 1.9.671
+
 ## 2.9.11.66
 
 fixed typo
