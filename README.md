@@ -35,6 +35,7 @@ However, if you would like to attach further functionality to your template you 
 
 ### misc
 
+* `+boot` causes the project to run with [Boot](https://github.com/boot-clj/boot) instead of [Leiningen](https://github.com/technomancy/leiningen/)
 * `+auth` adds [Buddy](https://github.com/funcool/buddy) dependency and authentication middleware
 * `+auth-jwe` adds [Buddy](https://github.com/funcool/buddy) dependency with the [JWE](https://jwcrypto.readthedocs.io/en/stable/jwe.html) backend
 * `+oauth` adds [OAuth](https://github.com/mattrepl/clj-oauth) dependency
@@ -67,6 +68,10 @@ To build as a executable [Java ARchive (JAR)][jar] standalone, run the following
 
 ```bash
 lein uberjar
+```
+Or if using the +boot profile:
+```bash
+boot uberjar
 ```
 
 To run the resulting standalone executable `.jar` file, do as you would with any other:

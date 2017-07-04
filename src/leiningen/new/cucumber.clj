@@ -8,16 +8,20 @@
 
 (defn cucumber-features [[assets options :as state]]
   (if (some #{"+cucumber"} (:features options))
-    [(into assets cucumber-assets)
-     (-> options
-         (append-options :plugins [['org.clojars.punkisdead/lein-cucumber "1.0.5"]])
-         (append-options :dev-dependencies [['org.clojure/core.cache "0.6.3"]
-                                            ['org.apache.httpcomponents/httpcore "4.4"]
-                                            ['clj-webdriver/clj-webdriver "0.7.2"]
-                                            (if (some #{"+auth" "+auth-jwe"} (:features options))
-                                              ['org.seleniumhq.selenium/selenium-server "2.48.2"
-                                               :exclusions ['org.bouncycastle/bcprov-jdk15on
-                                                            'org.bouncycastle/bcpkix-jdk15on]]
-                                              ['org.seleniumhq.selenium/selenium-server "2.48.2"])])
-         (assoc :cucumber-feature-paths (pprint-code ["test/clj/features"])))]
+    (do
+      (if (some #{"+boot"} (:features options))
+        (throw
+         (IllegalArgumentException. "+cucumber and +boot may not be used together.")))
+      [(into assets cucumber-assets)
+       (-> options
+           (append-options :plugins [['org.clojars.punkisdead/lein-cucumber "1.0.5"]])
+           (append-options :dev-dependencies [['org.clojure/core.cache "0.6.3"]
+                                              ['org.apache.httpcomponents/httpcore "4.4"]
+                                              ['clj-webdriver/clj-webdriver "0.7.2"]
+                                              (if (some #{"+auth" "+auth-jwe"} (:features options))
+                                                ['org.seleniumhq.selenium/selenium-server "2.48.2"
+                                                 :exclusions ['org.bouncycastle/bcprov-jdk15on
+                                                              'org.bouncycastle/bcpkix-jdk15on]]
+                                                ['org.seleniumhq.selenium/selenium-server "2.48.2"])])
+           (assoc :cucumber-feature-paths (pprint-code ["test/clj/features"])))])
     state))
