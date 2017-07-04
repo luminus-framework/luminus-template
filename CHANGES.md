@@ -1,3 +1,9 @@
+## 2.9.11.68
+
+- Figwheel 0.5.11
+- ring-mock 0.3.1
+- Selmer 1.0.8
+
 ## 2.9.11.67
 
 - ClojureScript 1.9.671

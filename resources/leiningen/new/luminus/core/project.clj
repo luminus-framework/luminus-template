@@ -43,7 +43,7 @@
    :test          [:project/dev :project/test :profiles/test]
 
    :project/dev  {:dependencies [[prone "1.1.4"]
-                                 [ring/ring-mock "0.3.0"]
+                                 [ring/ring-mock "0.3.1"]
                                  [ring/ring-devel "1.6.1"]<%if war %>
                                  <<dev-http-server-dependencies>><% endif %>
                                  [pjstadig/humane-test-output "0.8.2"]<% if dev-dependencies %>
