@@ -1,3 +1,8 @@
+## 2.9.11.69
+
+- conman 0.6.7 (improved error messages)
+- org.postgresql/postgresql 42.1.1
+
 ## 2.9.11.68
 
 - Figwheel 0.5.11
