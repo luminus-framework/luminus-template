@@ -1,6 +1,11 @@
 ## 2.9.11.70
 
+- clj-time 0.14.0
+- org.webjars/jquery 3.2.1
+- ring/ring-core 1.6.2
+- ring/ring-devel 1.6.2
 - selmer 1.10.9
+- added a default Joda time transit encoder in middleware
 
 ## 2.9.11.69
 

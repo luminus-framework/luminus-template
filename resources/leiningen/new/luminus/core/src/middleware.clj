@@ -1,9 +1,12 @@
 (ns <<project-ns>>.middleware
   (:require [<<project-ns>>.env :refer [defaults]]<% if not service %>
+            [cognitect.transit :as transit]
             [clojure.tools.logging :as log]
             [<<project-ns>>.layout :refer [*app-context* error-page]]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
             [ring.middleware.webjars :refer [wrap-webjars]]
+            [muuntaja.core :as muuntaja]
+            [muuntaja.format.transit :as transit-format]
             [muuntaja.middleware :refer [wrap-format wrap-params]]<% endif %>
             [<<project-ns>>.config :refer [env]]<% if immutant-session %>
             [ring.middleware.flash :refer [wrap-flash]]
@@ -13,7 +16,8 @@
             <<auth-middleware-required>><% if auth-session %>
             <<auth-session>><% endif %><% if auth-jwe %>
             <<auth-jwe>><% endif %><% endif %>)<% if not service %>
-  (:import [javax.servlet ServletContext])<% endif %>)
+  (:import [javax.servlet ServletContext]
+           [org.joda.time ReadableInstant])<% endif %>)
 <% if not service %>
 (defn wrap-context [handler]
   (fn [request]
@@ -48,8 +52,27 @@
        {:status 403
         :title "Invalid anti-forgery token"})}))
 
+(def joda-time-writer
+  (transit/write-handler
+    (constantly "m")
+    (fn [v] (-> ^ReadableInstant v .getMillis))
+    (fn [v] (-> ^ReadableInstant v .getMillis .toString))))
+
+(def restful-format-options
+  (update
+    muuntaja/default-options
+    :formats
+    merge
+    {"application/transit+json"
+     {:decoder [(partial transit-format/make-transit-decoder :json)]
+      :encoder [#(transit-format/make-transit-encoder
+                   :json
+                   (merge
+                     %
+                     {:handlers {org.joda.time.DateTime joda-time-writer}}))]}}))
+
 (defn wrap-formats [handler]
-  (let [wrapped (-> handler wrap-params wrap-format)]
+  (let [wrapped (-> handler wrap-params (wrap-format restful-format-options))]
     (fn [request]
       ;; disable wrap-formats for websockets
       ;; since they're not compatible with this middleware
