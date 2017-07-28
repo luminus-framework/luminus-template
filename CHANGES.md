@@ -8,6 +8,10 @@
 
 ## 2.9.11.70
 
+- metosin/muuntaja 0.3.2 with a fix for [issue 300](https://github.com/luminus-framework/luminus-template/issues/300#issuecomment-317746859)
+
+## 2.9.11.70
+
 - clj-time 0.14.0
 - org.webjars/jquery 3.2.1
 - ring/ring-core 1.6.2
