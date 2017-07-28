@@ -95,10 +95,10 @@
 
 (def core-dependencies
   [['org.clojure/clojure "1.8.0"]
-   ['selmer "1.10.9"]
+   ['selmer "1.11.0"]
    ['clj-time "0.14.0"]
    ['markdown-clj "0.9.99"]
-   ['metosin/muuntaja "0.3.1"]
+   ['metosin/muuntaja "0.3.2"]
    ['metosin/ring-http-response "0.9.0"]
    ['funcool/struct "1.0.0"]
    ['org.webjars/bootstrap "4.0.0-alpha.5"]
@@ -109,7 +109,7 @@
    ['compojure "1.6.0"]
    ['ring/ring-core "1.6.2"]
    ['ring-webjars "0.2.0"]
-   ['ring/ring-defaults "0.3.0"]
+   ['ring/ring-defaults "0.3.1"]
    ['luminus/ring-ttl-session "0.3.2"]
    ['mount "0.1.11"]
    ['cprop "0.1.10"]
