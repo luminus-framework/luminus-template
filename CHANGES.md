@@ -1,7 +1,6 @@
 ## 2.9.11.71
 
 - ClojureScript 1.9.854
-- metosin/muuntaja 0.3.2
 - org.postgresql/postgresql 42.1.3
 - ring/ring-defaults 0.3.1
 - selmer 1.11.0
