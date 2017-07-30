@@ -1,11 +1,15 @@
-## 2.9.11.71
+## 2.9.11.73
+
+- fix to pass the init-script key to luminus-migrations by default
+
+## 2.9.11.72
 
 - ClojureScript 1.9.854
 - org.postgresql/postgresql 42.1.3
 - ring/ring-defaults 0.3.1
 - selmer 1.11.0
 
-## 2.9.11.70
+## 2.9.11.71
 
 - metosin/muuntaja 0.3.2 with a fix for [issue 300](https://github.com/luminus-framework/luminus-template/issues/300#issuecomment-317746859)
 

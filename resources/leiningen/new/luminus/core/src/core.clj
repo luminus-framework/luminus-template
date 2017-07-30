@@ -67,7 +67,7 @@
     (some #{"init"} args)
     (do
       (mount/start #'<<project-ns>>.config/env)
-      (migrations/init (select-keys env [:database-url]))
+      (migrations/init (select-keys env [:database-url :init-script]))
       (System/exit 0))
     (some #{"migrate" "rollback"} args)
     (do
