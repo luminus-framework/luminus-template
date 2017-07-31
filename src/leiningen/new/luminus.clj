@@ -6,6 +6,8 @@
             [leiningen.core.main :refer [leiningen-version]]
             [leiningen.core.main :as main]
             [leiningen.new.common :refer :all]
+            [leiningen.new.lein :refer [lein-features]]
+            [leiningen.new.boot :refer [boot-features]]
             [leiningen.new.auth :refer [auth-features]]
             [leiningen.new.auth-base :refer [auth-base-features]]
             [leiningen.new.auth-jwe :refer [auth-jwe-features]]
@@ -34,7 +36,6 @@
 
 (def core-assets
   [[".gitignore" "core/gitignore"]
-   ["project.clj" "core/project.clj"]
    ["profiles.clj" "core/profiles.clj"]
    ["Procfile" "core/Procfile"]
    ["Dockerfile" "core/Dockerfile"]
@@ -80,18 +81,22 @@
 (defn sort-deps [deps]
   (sort-by (fn [dep] (str dep)) deps))
 
-(defn format-options [{:keys [http-server-dependencies] :as options}]
-  (-> options
-      (dissoc :http-server-dependencies)
-      (update-in [:dependencies] #(->> %
-                                       (into http-server-dependencies)
-                                       (sort-deps)
-                                       (indent dependency-indent)))
-      (update-in [:http-server-dependencies] (partial indent dependency-indent))
-      (update-in [:dev-http-server-dependencies] (partial indent dev-dependency-indent))
-      (update-in [:dev-dependencies] #(->> % (sort-deps) (indent dev-dependency-indent)))
-      (update-in [:plugins] (partial indent plugin-indent))
-      (update-in [:dev-plugins] (partial indent dev-dependency-indent))))
+(defn format-options [{:keys [http-server-dependencies features] :as options}]
+  (let [boot? (some #{"+boot"} features)
+        dev-indent (if-not boot?
+                     dev-dependency-indent
+                     boot-dev-dependency-indent)]
+    (-> options
+        (dissoc :http-server-dependencies)
+        (update-in [:dependencies] #(->> %
+                                         (into http-server-dependencies)
+                                         (sort-deps)
+                                         (indent dependency-indent)))
+        (update-in [:http-server-dependencies] (partial indent dependency-indent))
+        (update-in [:dev-http-server-dependencies] (partial indent dev-indent))
+        (update-in [:dev-dependencies] #(->> % (sort-deps) (indent dev-indent)))
+        (update-in [:plugins] (partial indent plugin-indent))
+        (update-in [:dev-plugins] (partial indent dev-dependency-indent)))))
 
 (def core-dependencies
   [['org.clojure/clojure "1.8.0"]
@@ -122,6 +127,8 @@
   (main/info "Generating a Luminus project.")
   (let [[assets options]
         (-> [core-assets options]
+            lein-features
+            boot-features
             service-features
             auth-base-features
             auth-features
@@ -160,7 +167,8 @@
 (defn set-default-features [options]
   (-> options
       (set-feature "+immutant" #{"+jetty" "+aleph" "+http-kit"})
-      (set-feature "+logback" #{})))
+      (set-feature "+logback" #{})
+      (set-feature "+lein" #{"+boot"})))
 
 (defn set-feature-dependency [options feature dependencies]
   (let [features (-> options :features set)]
@@ -200,7 +208,8 @@
                              "+cljs" "+hoplon" "+reagent" "+re-frame" "+auth" "+auth-jwe" "+site"
                              "+cucumber" "+sassc" "+cider" "+oauth"
                              "+swagger" "+war"
-                             "+kibit" "+service"}
+                             "+kibit" "+service"
+                             "+boot"}
         options {:name              (project-name name)
                  :dependencies      core-dependencies
                  :selmer-renderer   render-template

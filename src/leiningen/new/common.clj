@@ -6,6 +6,7 @@
 
 (def dependency-indent 17)
 (def dev-dependency-indent 33)
+(def boot-dev-dependency-indent 30)
 (def plugin-indent 12)
 (def root-indent 2)
 (def dev-indent 18)
