@@ -1,6 +1,6 @@
 # <<name>>
 
-generated using Luminus version "2.9.11.73"
+generated using Luminus version "2.9.11.74"
 
 FIXME
 
@@ -18,7 +18,6 @@ To start a web server for the application, run:
 <% else %>
     boot run
 <% endif %>
-
 ## License
 
 Copyright © <<year>> FIXME

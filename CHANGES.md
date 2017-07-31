@@ -1,3 +1,7 @@
+## 2.9.11.74
+
+- `+boot` profile via [PR 302](https://github.com/luminus-framework/luminus-template/pull/302)
+
 ## 2.9.11.73
 
 - fix to pass the init-script key to luminus-migrations by default
