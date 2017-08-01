@@ -1,0 +1,2 @@
+{:require [<<sanitized>>.core]
+ :compiler-options <<dev-cljs.compiler>>}
