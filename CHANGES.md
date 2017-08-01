@@ -1,3 +1,7 @@
+## 2.9.11.75
+
+- fix for the missing file in `+boot` profile
+
 ## 2.9.11.74
 
 - `+boot` profile via [PR 302](https://github.com/luminus-framework/luminus-template/pull/302)
