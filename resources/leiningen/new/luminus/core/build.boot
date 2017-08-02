@@ -68,7 +68,7 @@
   (require '[powerlaces.boot-figreload :refer [reload]])
   (let [reload (resolve 'powerlaces.boot-figreload/reload)]
     (comp
-     (reload {:client-opts {:debug true}})
+     (reload :client-opts {:debug true})
      (cljs-repl)
      (cljs)
      (start-server)
