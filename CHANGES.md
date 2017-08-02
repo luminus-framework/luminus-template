@@ -1,3 +1,7 @@
+## 2.9.11.76
+
+- fix for cljs tests
+
 ## 2.9.11.75
 
 - fix for the missing file in `+boot` profile
