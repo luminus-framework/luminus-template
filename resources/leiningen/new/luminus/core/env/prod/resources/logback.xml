@@ -16,24 +16,20 @@
             <pattern>%date{ISO8601} [%thread] %-5level %logger{36} - %msg %n</pattern>
         </encoder>
     </appender>
-    <logger name="org.apache.http" level="warn">
-        <appender-ref ref="FILE"/>
-    </logger>
-    <logger name="org.xnio.nio" level="warn">
-        <appender-ref ref="FILE"/>
-    </logger><% if relational-db %>
-    <logger name="com.zaxxer.hikari" level="warn">
-        <appender-ref ref="FILE"/>
-    </logger><% endif %><% if cucumber-feature-paths %>
-    <logger name="com.mchange" level="warn">
-        <appender-ref ref="FILE"/>
-    </logger><% endif %><% ifequal server "jetty" %>
-    <logger name="org.eclipse.jetty" level="warn">
-        <appender-ref ref="FILE"/>
-    </logger><% endifequal %><% ifequal server "aleph" %>
-    <logger name="io.netty" level="warn">
-        <appender-ref ref="FILE"/>
-    </logger><% endifequal %>
+    <logger name="org.apache.http" level="warn"></logger>
+    <logger name="org.xnio.nio" level="warn"></logger>
+    <% if relational-db %>
+    <logger name="com.zaxxer.hikari" level="warn"></logger>
+    <% endif %>
+    <% if cucumber-feature-paths %>
+    <logger name="com.mchange" level="warn"></logger>
+    <% endif %>
+    <% ifequal server "jetty" %>
+    <logger name="org.eclipse.jetty" level="warn"></logger>
+    <% endifequal %>
+    <% ifequal server "aleph" %>
+    <logger name="io.netty" level="warn"></logger>
+    <% endifequal %>
     <root level="INFO">
         <appender-ref ref="FILE" />
     </root>
