@@ -1,3 +1,7 @@
+## 2.9.11.77
+
+- fix for logback config via [PR 308](https://github.com/luminus-framework/luminus-template/pull/308)
+
 ## 2.9.11.76
 
 - fix for cljs tests
