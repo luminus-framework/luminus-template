@@ -56,6 +56,7 @@
        (append-options :dependencies [['com.novemberain/monger "3.1.0" :exclusions ['com.google.guava/guava]]
                                       ['com.google.guava/guava "20.0"]])
        (assoc
+         :mongodb true
          :db-connection true
          :db-docs ((:selmer-renderer options) (slurp-resource "db/docs/mongo_instructions.md") options))
        (merge (db-profiles options)))])
@@ -68,6 +69,7 @@
                                                     'org.slf4j/slf4j-nop]]
                                       ['com.google.guava/guava "21.0"]])
        (assoc
+         :datomic true
          :db-connection true
          :db-docs ((:selmer-renderer options) (slurp-resource "db/docs/datomic_instructions.md") options))
        (merge (db-profiles options)))])
@@ -94,7 +96,7 @@
 (defn db-features [state]
   (if-let [db (select-db (second state))]
     (cond
-      (= :mongo db)   (add-mongo state)
+      (= :mongo db) (add-mongo state)
       (= :datomic db) (add-datomic state)
-      :else           (add-relational-db db state))
+      :else (add-relational-db db state))
     state))

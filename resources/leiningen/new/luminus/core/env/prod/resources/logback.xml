@@ -18,6 +18,7 @@
     </appender>
     <logger name="org.apache.http" level="warn" />
     <logger name="org.xnio.nio" level="warn" />
+    <% if mongodb %><logger name="org.mongodb.driver.cluster" level="warn" /><% endif %>
     <% if relational-db %><logger name="com.zaxxer.hikari" level="warn"/><% endif %>
     <% if cucumber-feature-paths %><logger name="com.mchange" level="warn"/><% endif %>
     <% ifequal server "jetty" %><logger name="org.eclipse.jetty" level="warn" /><% endifequal %>
