@@ -1,6 +1,9 @@
 ## 2.9.11.78
 
 - added mongodb config for logback
+- cprop 0.1.11
+- figwheel-sidecar 0.5.12
+- metosin/compojure-api 1.1.11
 
 ## 2.9.11.77
 
