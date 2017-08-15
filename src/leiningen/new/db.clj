@@ -11,12 +11,12 @@
     (some #{"+sqlite"} features) :sqlite))
 
 (defn db-dependencies [options]
-  [['luminus-migrations "0.3.9"]
+  [['luminus-migrations "0.4.0"]
    ['conman "0.6.7"]
    ({:postgres ['org.postgresql/postgresql "42.1.3"]
      :mysql    ['mysql/mysql-connector-java "6.0.5"]
-     :h2       ['com.h2database/h2 "1.4.193"]
-     :sqlite   ['org.xerial/sqlite-jdbc "3.16.1"]}
+     :h2       ['com.h2database/h2 "1.4.196"]
+     :sqlite   ['org.xerial/sqlite-jdbc "3.20.0"]}
      (select-db options))])
 
 (defn db-url [{:keys [sanitized] :as options} suffix]
@@ -79,7 +79,7 @@
    (let [embedded-db? (some #{(name db)} ["h2" "sqlite"])]
      (-> options
          (append-options :dependencies (db-dependencies options))
-         (append-options :plugins [['migratus-lein "0.4.9"]])
+         (append-options :plugins [['migratus-lein "0.5.1"]])
          (assoc
            :relational-db true
            :db-connection (not embedded-db?)

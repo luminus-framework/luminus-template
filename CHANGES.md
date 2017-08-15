@@ -1,3 +1,9 @@
+## 2.9.11.79
+
+- luminus-migrations 0.4.0 with a [fix for init-schema! Migratus](https://github.com/yogthos/migratus/pull/119)
+- com.h2database/h2 1.4.196
+- org.xerial/sqlite-jdbc 3.20.0
+
 ## 2.9.11.78
 
 - added mongodb config for logback
