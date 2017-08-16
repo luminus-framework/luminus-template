@@ -96,7 +96,6 @@ The memory and CPU usage can be inspected by running either `jconsole` or `jvisu
 
 ## Other Templates
 
-* [luminus](https://github.com/luminus-framework/luminus-template)
 * [pedestal](https://github.com/pedestal/pedestal)
 * [re-frame-template](https://github.com/Day8/re-frame-template)
 * [reagent-figwheel](https://github.com/gadfly361/reagent-figwheel)
