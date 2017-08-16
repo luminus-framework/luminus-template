@@ -94,6 +94,17 @@ ab -c 10 -n 1000 http://127.0.0.1:3000/
 
 The memory and CPU usage can be inspected by running either `jconsole` or `jvisualvm` and attaching them to a running Luminus server.
 
+## Other Templates
+
+* [pedestal](https://github.com/pedestal/pedestal)
+* [re-frame-template](https://github.com/Day8/re-frame-template)
+* [reagent-figwheel](https://github.com/gadfly361/reagent-figwheel)
+* [reagent-seed](https://github.com/gadfly361/reagent-seed)
+* [vase](https://github.com/cognitect-labs/vase)
+
+
+There is also a public [comparison chart](https://goo.gl/ZZH8fm) of the common templates.
+
 ## License
 
 Copyright © 2016 Dmitri Sotnikov
