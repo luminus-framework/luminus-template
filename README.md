@@ -96,10 +96,14 @@ The memory and CPU usage can be inspected by running either `jconsole` or `jvisu
 
 ## Other Templates
 
+* [chestnut](https://github.com/plexus/chestnut)
+* [duct](https://github.com/duct-framework/duct)
 * [pedestal](https://github.com/pedestal/pedestal)
+* [reagent-template](https://github.com/reagent-project/reagent-template)
 * [re-frame-template](https://github.com/Day8/re-frame-template)
 * [reagent-figwheel](https://github.com/gadfly361/reagent-figwheel)
 * [reagent-seed](https://github.com/gadfly361/reagent-seed)
+* [untangled](https://github.com/untangled-web/untangled-template)
 * [vase](https://github.com/cognitect-labs/vase)
 
 
