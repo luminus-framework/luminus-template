@@ -16,7 +16,7 @@
 (def boot-cljs-assets
   [["src/app.cljs.edn" "cljs/src/app.cljs.edn"]])
 
-(def cljs-version "1.9.854")
+(def cljs-version "1.9.908")
 
 (def figwheel-version "0.5.12")
 

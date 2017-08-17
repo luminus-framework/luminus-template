@@ -1,3 +1,7 @@
+## 2.9.11.80
+
+- ClojureScript 1.9.908
+
 ## 2.9.11.79
 
 - luminus-migrations 0.4.0 with a [fix for init-schema! Migratus](https://github.com/yogthos/migratus/pull/119)
