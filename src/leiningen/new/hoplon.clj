@@ -6,8 +6,8 @@
    ["src/cljs/{{sanitized}}/ajax.cljs" "hoplon/src/cljs/ajax.cljs"]])
 
 (def hoplon-dependencies
-  [['hoplon "6.0.0-alpha17"]
-   ['cljsjs/jquery "2.2.4-0"]
+  [['hoplon "7.0.3"]
+   ['cljsjs/jquery "3.2.1-0"]
    ['secretary "1.2.3"]
    ['cljs-ajax "0.6.0"]])
 
