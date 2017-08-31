@@ -11,7 +11,8 @@
     (some #{"+sqlite"} features) :sqlite))
 
 (defn db-dependencies [options]
-  [['luminus-migrations "0.4.0"]
+  [['luminus-migrations "0.4.1"]
+   ['org.clojure/java.jdbc "0.7.1"]
    ['conman "0.6.8"]
    ({:postgres ['org.postgresql/postgresql "42.1.3"]
      :mysql    ['mysql/mysql-connector-java "6.0.5"]
@@ -79,7 +80,7 @@
    (let [embedded-db? (some #{(name db)} ["h2" "sqlite"])]
      (-> options
          (append-options :dependencies (db-dependencies options))
-         (append-options :plugins [['migratus-lein "0.5.1"]])
+         (append-options :plugins [['migratus-lein "0.5.2"]])
          (assoc
            :relational-db true
            :db-connection (not embedded-db?)

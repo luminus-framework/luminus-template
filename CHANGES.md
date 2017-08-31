@@ -1,3 +1,9 @@
+## 2.9.11.86
+
+- migratus 1.0.0
+- luminus-migrations 0.4.1
+- explicitly require clojure.java.jdbc 0.7.1
+
 ## 2.9.11.85
 
 - re-frame 0.10.1
