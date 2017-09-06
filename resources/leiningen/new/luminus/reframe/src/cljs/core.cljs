@@ -7,8 +7,7 @@
             [markdown.core :refer [md->html]]
             [ajax.core :refer [GET POST]]
             [<<project-ns>>.ajax :refer [load-interceptors!]]
-            [<<project-ns>>.handlers]
-            [<<project-ns>>.subscriptions])
+            [<<project-ns>>.events])
   (:import goog.History))
 
 (defn nav-link [uri title page collapsed?]

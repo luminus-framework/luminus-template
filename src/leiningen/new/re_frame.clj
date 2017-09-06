@@ -4,8 +4,7 @@
 (def re-frame-assets
   [["src/cljs/{{sanitized}}/core.cljs" "reframe/src/cljs/core.cljs"]
    ["src/cljs/{{sanitized}}/db.cljs" "reframe/src/cljs/db.cljs"]
-   ["src/cljs/{{sanitized}}/handlers.cljs" "reframe/src/cljs/handlers.cljs"]
-   ["src/cljs/{{sanitized}}/subscriptions.cljs" "reframe/src/cljs/subscriptions.cljs"]])
+   ["src/cljs/{{sanitized}}/events.cljs" "reframe/src/cljs/events.cljs"]])
 
 (defn re-frame-features [[assets options :as state]]
   (if (some #{"+re-frame"} (:features options))

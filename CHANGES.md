@@ -1,3 +1,9 @@
+## 2.9.11.88
+
+- refactored re-frame profile to use a single `events` namespace for re-frame dispatchers and subscriptions
+- funcool/struct 1.1.0
+- markdown-clj 1.0.1
+
 ## 2.9.11.87
 
 - cljs-ajax 0.7.2
