@@ -1,6 +1,7 @@
 ## 2.9.11.89
 
 - luminus-migrations 0.4.2
+- slemer 1.11.1
 
 ## 2.9.11.88
 
