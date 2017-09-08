@@ -1,3 +1,7 @@
+## 2.9.11.89
+
+- luminus-migrations 0.4.2
+
 ## 2.9.11.88
 
 - refactored re-frame profile to use a single `events` namespace for re-frame dispatchers and subscriptions

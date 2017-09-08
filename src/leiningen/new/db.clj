@@ -11,7 +11,7 @@
     (some #{"+sqlite"} features) :sqlite))
 
 (defn db-dependencies [options]
-  [['luminus-migrations "0.4.1"]
+  [['luminus-migrations "0.4.2"]
    ['org.clojure/java.jdbc "0.7.1"]
    ['conman "0.6.8"]
    ({:postgres ['org.postgresql/postgresql "42.1.3"]
