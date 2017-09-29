@@ -1,3 +1,7 @@
+## 2.9.11.90
+
+- helper migrate/rollback function in user namespace for relational dbs
+
 ## 2.9.11.89
 
 - luminus-migrations 0.4.2

@@ -1,6 +1,7 @@
 (ns user
   (:require <% if relational-db %>[luminus-migrations.core :as migrations]
-            <% endif %>[mount.core :as mount]<% if figwheel %>
+            [<<project-ns>>.config :refer [env]]<% endif %>
+            [mount.core :as mount]<% if figwheel %>
             [<<project-ns>>.figwheel :refer [start-fw stop-fw cljs]]<% endif %>
             <<project-ns>>.core))
 
