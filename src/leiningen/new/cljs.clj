@@ -18,7 +18,9 @@
 
 (def cljs-version "1.9.908")
 
-(def figwheel-version "0.5.13")
+(def figwheel-version "0.5.14")
+
+(def doo-version "0.1.8")
 
 (def cljs-dependencies
   [['org.clojure/clojurescript cljs-version :scope "provided"]])
@@ -34,7 +36,7 @@
   [['lein-cljsbuild "1.1.5"]])
 
 (def cljs-dev-plugins
-  [['lein-doo "0.1.7"]
+  [['lein-doo doo-version]
    ['lein-figwheel figwheel-version]
    ['org.clojure/clojurescript cljs-version]])
 
@@ -43,7 +45,7 @@
                     [:cljsbuild :builds :app :compiler :output-to]])
 
 (def cljs-dev-dependencies
-  [['doo "0.1.7"]
+  [['doo doo-version]
    ['binaryage/devtools "0.9.4"]
    ['figwheel-sidecar figwheel-version]
    ['com.cemerick/piggieback "0.2.2"]])

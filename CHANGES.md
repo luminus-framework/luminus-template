@@ -1,3 +1,10 @@
+## 2.9.11.91
+
+- fix for using timestamp in migrations tables for the sql template
+- buddy 2.0.0
+- doo 0.1.8
+- figwheel 0.5.14
+
 ## 2.9.11.90
 
 - helper migrate/rollback function in user namespace for relational dbs
