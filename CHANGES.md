@@ -1,3 +1,7 @@
+## 2.9.11.92
+
+- conman 0.6.9
+
 ## 2.9.11.91
 
 - fix for using timestamp in migrations tables for the sql template
