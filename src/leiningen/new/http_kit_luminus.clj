@@ -1,4 +1,4 @@
-(ns leiningen.new.http-kit
+(ns leiningen.new.http-kit-luminus
   (:require [leiningen.new.common :refer :all]))
 
 (defn http-kit-features [[assets options :as state]]

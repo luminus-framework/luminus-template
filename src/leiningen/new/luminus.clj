@@ -20,7 +20,7 @@
             [leiningen.new.cucumber :refer [cucumber-features]]
             [leiningen.new.aleph :refer [aleph-features]]
             [leiningen.new.jetty :refer [jetty-features]]
-            [leiningen.new.http-kit :refer [http-kit-features]]
+            [leiningen.new.http-kit-luminus :refer [http-kit-features]]
             [leiningen.new.immutant :refer [immutant-features]]
             [leiningen.new.swagger :refer [swagger-features]]
             [leiningen.new.sassc :refer [sassc-features]]

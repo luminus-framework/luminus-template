@@ -1,3 +1,10 @@
+## 2.9.11.93
+
+- ch.qos.logback/logback-classic "1.2.3
+- re-frame 0.10.2
+- binaryage/devtools 0.9.7
+- renamed http-kit namespace to avoid [collision with the HTTP Kit template](https://github.com/luminus-framework/luminus-template/issues/318)
+
 ## 2.9.11.92
 
 - conman 0.6.9
