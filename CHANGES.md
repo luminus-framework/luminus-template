@@ -1,3 +1,7 @@
+## 2.9.11.94
+
+- clojurescript 1.9.946
+
 ## 2.9.11.93
 
 - ch.qos.logback/logback-classic "1.2.3
