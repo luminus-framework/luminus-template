@@ -23,6 +23,7 @@
             [leiningen.new.http-kit-luminus :refer [http-kit-features]]
             [leiningen.new.immutant :refer [immutant-features]]
             [leiningen.new.swagger :refer [swagger-features]]
+            [leiningen.new.lacinia :refer [lacinia-features]]
             [leiningen.new.sassc :refer [sassc-features]]
             [leiningen.new.site :refer [site-features]]
             [leiningen.new.war :refer [war-features]]
@@ -142,6 +143,7 @@
             reagent-features
             re-frame-features
             swagger-features
+            lacinia-features
             aleph-features
             jetty-features
             http-kit-features
@@ -207,7 +209,7 @@
                              ;;misc
                              "+cljs" "+hoplon" "+reagent" "+re-frame" "+auth" "+auth-jwe" "+site"
                              "+cucumber" "+sassc" "+cider" "+oauth"
-                             "+swagger" "+war"
+                             "+swagger" "+war" "+lacinia"
                              "+kibit" "+service"
                              "+boot"}
         options {:name              (project-name name)
