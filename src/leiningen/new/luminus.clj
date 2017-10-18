@@ -209,7 +209,7 @@
                              ;;misc
                              "+cljs" "+hoplon" "+reagent" "+re-frame" "+auth" "+auth-jwe" "+site"
                              "+cucumber" "+sassc" "+cider" "+oauth"
-                             "+swagger" "+war" "+lacinia"
+                             "+swagger" "+war" "+graphql"
                              "+kibit" "+service"
                              "+boot"}
         options {:name              (project-name name)

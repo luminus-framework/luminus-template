@@ -1,9 +1,9 @@
 (ns <<project-ns>>.routes.services
   (:require [com.walmartlabs.lacinia.util :refer [attach-resolvers]]
-            [com.walmartlabs.lacinia.schema :as schema :refer [compile]]
-            [com.walmartlabs.lacinia :as lacinia :refer [execute]]
+            [com.walmartlabs.lacinia.schema :as schema]
+            [com.walmartlabs.lacinia :as lacinia]
             [clojure.data.json :as json]
-            [clojure.edn :as edn] 
+            [clojure.edn :as edn]
             [ring.util.http-response :refer :all]
             [compojure.api.sweet :refer :all]<% if auth %>
             [compojure.api.meta :refer [restructure-param]]
@@ -39,10 +39,10 @@
            (first data)))
 
 (def compiled-schema
-  (-> "resources/schema.edn"
+  (-> "resources/graphql/schema.edn"
       slurp
       edn/read-string
-      (attach-resolvers {:get-hero get-hero 
+      (attach-resolvers {:get-hero get-hero
                          :get-droid (constantly {})})
       schema/compile))
 
@@ -57,12 +57,11 @@
     (-> (lacinia/execute compiled-schema formatted vars context)
         (json/write-str))))
 
-(defapi service-routes
- <% if auth %>
+(defapi service-routes<% if auth %>
   (GET "/authenticated" []
        :auth-rules authenticated?
        :current-user user
-       (ok {:user user}))<% endif %>
-                        
+       (ok {:user user}))
+  <% endif %>
   (POST "/api" [query]
       (ok (execute-request query))))

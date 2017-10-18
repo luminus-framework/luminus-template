@@ -14,7 +14,7 @@
 
 (def lacinia-assets
   [["src/clj/{{sanitized}}/routes/services.clj" "lacinia/src/services.clj"]
-   ["resources/schema.edn" "lacinia/resources/schema.edn"]])
+   ["resources/graphql/schema.edn" "lacinia/resources/schema.edn"]])
 
 (def lacinia-dependencies
   [['metosin/compojure-api "1.1.11"]
@@ -32,7 +32,7 @@
   (reduce #(remove-conflicting-assets %1 %2) assets conflicting-assets))
 
 (defn lacinia-features [[assets options :as state]]
-  (if (some #{"+lacinia"} (:features options))
+  (if (some #{"+graphql"} (:features options))
     (do
       (when-let [conflicts (not-empty (clojure.set/intersection conflicting-features (:features options)))]
         (println "ignoring conflicting features" (clojure.string/join ", " conflicts)))
