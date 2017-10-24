@@ -1,3 +1,9 @@
+## 2.9.11.97
+
+- luminus-immutant 0.2.4 with Immutant 2.1.9
+- luminus-jetty 0.1.5 with cc.qbits/jet 0.7.11
+- luminus-http-kit 0.1.5
+
 ## 2.9.11.96
 
 - added default Joda Time JSON encoder for Muuntaja
