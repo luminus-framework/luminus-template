@@ -1,3 +1,9 @@
+## 2.9.11.96
+
+- added default Joda Time JSON encoder for Muuntaja
+- conman 0.7.0
+- removed explicit clojure.java.jdbc dependency (part of conman)
+
 ## 2.9.11.95
 
 - `+graphql` profile using Lacinia via [PR 322](https://github.com/luminus-framework/luminus-template/pull/322)

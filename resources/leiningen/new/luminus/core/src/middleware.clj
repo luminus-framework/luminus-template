@@ -1,11 +1,13 @@
 (ns <<project-ns>>.middleware
   (:require [<<project-ns>>.env :refer [defaults]]<% if not service %>
+            [cheshire.generate :as cheshire]
             [cognitect.transit :as transit]
             [clojure.tools.logging :as log]
             [<<project-ns>>.layout :refer [*app-context* error-page]]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
             [ring.middleware.webjars :refer [wrap-webjars]]
             [muuntaja.core :as muuntaja]
+            [muuntaja.format.json :refer [json-format]]
             [muuntaja.format.transit :as transit-format]
             [muuntaja.middleware :refer [wrap-format wrap-params]]<% endif %>
             [<<project-ns>>.config :refer [env]]<% if immutant-session %>
@@ -58,12 +60,20 @@
     (fn [v] (-> ^ReadableInstant v .getMillis))
     (fn [v] (-> ^ReadableInstant v .getMillis .toString))))
 
+(cheshire/add-encoder
+  org.joda.time.DateTime
+  (fn [c jsonGenerator]
+    (.writeString jsonGenerator (-> ^ReadableInstant c .getMillis .toString))))
+
 (def restful-format-options
   (update
     muuntaja/default-options
     :formats
     merge
-    {"application/transit+json"
+    {"application/json"
+     json-format
+
+     "application/transit+json"
      {:decoder [(partial transit-format/make-transit-decoder :json)]
       :encoder [#(transit-format/make-transit-encoder
                    :json
