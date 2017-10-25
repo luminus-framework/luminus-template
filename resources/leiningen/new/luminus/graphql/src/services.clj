@@ -51,10 +51,9 @@
      (str "query { hero(id: \"1000\") { name appears_in }}")))
 
 (defn execute-request [query]
-    (let [formatted (format-params query)
-          vars nil
+    (let [vars nil
           context nil]
-    (-> (lacinia/execute compiled-schema formatted vars context)
+    (-> (lacinia/execute compiled-schema query vars context)
         (json/write-str))))
 
 (defapi service-routes<% if auth %>
@@ -63,5 +62,5 @@
        :current-user user
        (ok {:user user}))
   <% endif %>
-  (POST "/api" [query]
-      (ok (execute-request query))))
+  (POST "/api" [:as {body :body}]
+      (ok (execute-request (slurp body)))))
