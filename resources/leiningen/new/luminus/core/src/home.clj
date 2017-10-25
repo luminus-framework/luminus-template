@@ -9,7 +9,8 @@
 
 (defroutes home-routes
   (GET "/" []
-       (home-page))
+       (home-page))<% if  graphql  %>
+  (GET "/graphiql" [] (layout/render "graphiql.html"))<% endif %>
   (GET "/docs" []
        (-> (response/ok (-> "docs/docs.md" io/resource slurp))
            (response/header "Content-Type" "text/plain; charset=utf-8"))))
