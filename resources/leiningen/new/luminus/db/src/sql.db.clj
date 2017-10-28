@@ -17,7 +17,9 @@
            clojure.lang.IPersistentVector
            [java.sql
             BatchUpdateException
-            PreparedStatement])<% endifequal %><% ifequal db-type "mysql" %>
+            Date
+            PreparedStatement
+            Timestamp])<% endifequal %><% ifequal db-type "mysql" %>
   (:require
     [clj-time.jdbc]
     [clojure.java.jdbc :as jdbc]
@@ -35,9 +37,18 @@
 (conman/bind-connection *db* "sql/queries.sql")
 <% ifequal db-type "mysql" %>
 <% endifequal %><% ifequal db-type "postgres" %>
+(defn to-date [sql-date]
+  (-> sql-date (.getTime) (java.util.Date.)))
+
 (extend-protocol jdbc/IResultSetReadColumn
   Array
   (result-set-read-column [v _ _] (vec (.getArray v)))
+
+  Date
+  (result-set-read-column [v _ _] (to-date v))
+
+  Timestamp
+  (result-set-read-column [v _ _] (to-date v))
 
   PGobject
   (result-set-read-column [pgobj _metadata _index]
