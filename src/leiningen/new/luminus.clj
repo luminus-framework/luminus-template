@@ -113,7 +113,7 @@
    ['org.webjars/jquery "3.2.1"]
    ['org.clojure/tools.logging "0.4.0"]
    ['compojure "1.6.0"]
-   ['ring/ring-core "1.6.2"]
+   ['ring/ring-core "1.6.3"]
    ['ring-webjars "0.2.0"]
    ['ring/ring-defaults "0.3.1"]
    ['luminus/ring-ttl-session "0.3.2"]
