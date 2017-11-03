@@ -54,31 +54,40 @@
 
    ;; core namespaces
    ["env/dev/clj/user.clj" "core/env/dev/clj/user.clj"]
-   ["src/clj/{{sanitized}}/core.clj" "core/src/core.clj"]
-   ["src/clj/{{sanitized}}/config.clj" "core/src/config.clj"]
-   ["src/clj/{{sanitized}}/handler.clj" "core/src/handler.clj"]
-   ["src/clj/{{sanitized}}/routes/home.clj" "core/src/home.clj"]
-   ["src/clj/{{sanitized}}/layout.clj" "core/src/layout.clj"]
-   ["src/clj/{{sanitized}}/middleware.clj" "core/src/middleware.clj"]
+   ["{{backend-path}}/{{sanitized}}/core.clj" "core/src/core.clj"]
+   ["{{backend-path}}/{{sanitized}}/config.clj" "core/src/config.clj"]
+   ["{{backend-path}}/{{sanitized}}/handler.clj" "core/src/handler.clj"]
+   ["{{backend-path}}/{{sanitized}}/routes/home.clj" "core/src/home.clj"]
+   ["{{backend-path}}/{{sanitized}}/layout.clj" "core/src/layout.clj"]
+   ["{{backend-path}}/{{sanitized}}/middleware.clj" "core/src/middleware.clj"]
 
    ;;HTML templates
-   ["resources/templates/base.html" "core/resources/templates/base.html"]
-   ["resources/templates/home.html" "core/resources/templates/home.html"]
-   ["resources/templates/about.html" "core/resources/templates/about.html"]
-   ["resources/templates/error.html" "core/resources/templates/error.html"]
+   ["{{resource-path}}/templates/base.html" "core/resources/templates/base.html"]
+   ["{{resource-path}}/templates/home.html" "core/resources/templates/home.html"]
+   ["{{resource-path}}/templates/about.html" "core/resources/templates/about.html"]
+   ["{{resource-path}}/templates/error.html" "core/resources/templates/error.html"]
 
    ;; public resources, example URL: /css/screen.css
-   ["resources/public/css/screen.css" "core/resources/css/screen.css"]
-   ["resources/docs/docs.md" "core/resources/docs.md"]
-   "resources/public/js"
+   ["{{resource-path}}/public/css/screen.css" "core/resources/css/screen.css"]
+   ["{{resource-path}}/docs/docs.md" "core/resources/docs.md"]
+   "{{resource-path}}/public/js"
 
    ;; tests
-   ["test/clj/{{sanitized}}/test/handler.clj" "core/test/handler.clj"]])
+   ["{{backend-test-path}}/{{sanitized}}/test/handler.clj" "core/test/handler.clj"]])
 
 (def binary-assets
-  [["resources/public/favicon.ico" "core/resources/favicon.ico"]
-   ["resources/public/img/warning_clojure.png" "core/resources/img/warning_clojure.png"]])
+  [["{{resource-path}}/public/favicon.ico" "core/resources/favicon.ico"]
+   ["{{resource-path}}/public/img/warning_clojure.png" "core/resources/img/warning_clojure.png"]])
 
+(def project-relative-paths
+  {:default       {:backend "src/clj"
+                   :backend-test "test/clj"
+                   :client "src/cljs"
+                   :client-test "test/cljs"
+                   :resource-path "resources"
+                   :cljc-path "src/cljc"
+                   :db     "src/clj"}})
+   
 (defn sort-deps [deps]
   (sort-by (fn [dep] (str dep)) deps))
 
@@ -198,6 +207,9 @@
       (and (= x1 x2) (< y1 y2))
       (and (= x1 x2) (= y1 y2) (< z1 z2)))))
 
+(defn get-relative-path-profile [feature-params]
+  (:default project-relative-paths))
+
 (defn luminus
   "Create a new Luminus project"
   [name & feature-params]
@@ -210,18 +222,29 @@
                              "+cljs" "+hoplon" "+reagent" "+re-frame" "+auth" "+auth-jwe" "+site"
                              "+cucumber" "+sassc" "+cider" "+oauth"
                              "+swagger" "+war" "+graphql"
-                             "+kibit" "+service"
+                             "+kibit" "+service" 
                              "+boot"}
+        {:keys [backend backend-test 
+                client client-test
+                db cljc-path
+                resource-path]}     (get-relative-path-profile feature-params)
         options {:name              (project-name name)
                  :dependencies      core-dependencies
                  :selmer-renderer   render-template
                  :min-lein-version  "2.0.0"
                  :project-ns        (sanitize-ns name)
                  :sanitized         (name-to-path name)
+                 :backend-path      backend
+                 :backend-test-path backend-test
+                 :client-path       client 
+                 :client-test-path  client-test 
+                 :db-path           db
+                 :cljc-path         cljc-path 
+                 :resource-path     resource-path
                  :year              (year)
                  :features          (set feature-params)
-                 :source-paths      ["src/clj"]
-                 :resource-paths    ["resources"]}
+                 :source-paths      [backend]
+                 :resource-paths    [resource-path]}
         unsupported (-> (set feature-params)
                         (clojure.set/difference supported-features)
                         (not-empty))]

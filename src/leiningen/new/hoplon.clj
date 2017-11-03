@@ -2,8 +2,8 @@
   (:require [leiningen.new.common :refer :all]))
 
 (def hoplon-assets
-  [["src/cljs/{{sanitized}}/core.cljs" "hoplon/src/cljs/core.cljs"]
-   ["src/cljs/{{sanitized}}/ajax.cljs" "hoplon/src/cljs/ajax.cljs"]])
+  [["{{client-path}}/{{sanitized}}/core.cljs" "hoplon/src/cljs/core.cljs"]
+   ["{{client-path}}/{{sanitized}}/ajax.cljs" "hoplon/src/cljs/ajax.cljs"]])
 
 (def hoplon-dependencies
   [['hoplon "7.0.3"]

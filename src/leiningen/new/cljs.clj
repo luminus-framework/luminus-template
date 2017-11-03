@@ -3,15 +3,15 @@
             [clojure.string :refer [join]]))
 
 (def cljs-assets
-  [["src/cljs/{{sanitized}}/core.cljs" "cljs/src/cljs/core.cljs"]
-   ["src/cljc/{{sanitized}}/validation.cljc" "cljs/src/cljc/validation.cljc"]
-   ["test/cljs/{{sanitized}}/doo_runner.cljs" "cljs/test/cljs/doo_runner.cljs"]
-   ["test/cljs/{{sanitized}}/core_test.cljs" "cljs/test/cljs/core_test.cljs"]
+  [["{{client-path}}/{{sanitized}}/core.cljs" "cljs/src/cljs/core.cljs"]
+   ["{{cljc-path}}/{{sanitized}}/validation.cljc" "cljs/src/cljc/validation.cljc"]
+   ["{{client-test-path}}/{{sanitized}}/doo_runner.cljs" "cljs/test/cljs/doo_runner.cljs"]
+   ["{{client-test-path}}/{{sanitized}}/core_test.cljs" "cljs/test/cljs/core_test.cljs"]
    ["env/dev/cljs/{{sanitized}}/app.cljs" "cljs/env/dev/cljs/app.cljs"]
    ["env/dev/clj/{{sanitized}}/figwheel.clj" "cljs/env/dev/clj/figwheel.clj"]
    ["env/prod/cljs/{{sanitized}}/app.cljs" "cljs/env/prod/cljs/app.cljs"]
-   ["resources/templates/home.html" "cljs/templates/home.html"]
-   ["resources/templates/error.html" "core/resources/templates/error.html"]])
+   ["{{resource-path}}/templates/home.html" "cljs/templates/home.html"]
+   ["{{resource-path}}/templates/error.html" "core/resources/templates/error.html"]])
 
 (def boot-cljs-assets
   [["src/app.cljs.edn" "cljs/src/app.cljs.edn"]])
@@ -26,7 +26,7 @@
   [['org.clojure/clojurescript cljs-version :scope "provided"]])
 
 (def source-paths
-  ["src/cljc"])
+  ["{{cljc-path}}"])
 ;;NOTE: under boot, src/cljs is also added to source-paths (see boot-cljs-features)
 
 (def resource-paths
@@ -55,10 +55,10 @@
     ""
     "target/cljsbuild/"))
 
-(defn uberjar-cljsbuild [features]
+(defn uberjar-cljsbuild [{:keys [features client-path cljc-path]}]
   {:builds
    {:min
-    {:source-paths ["src/cljc" "src/cljs" "env/prod/cljs"]
+    {:source-paths [cljc-path client-path "env/prod/cljs"]
      :compiler
      (merge
        {:output-to (str (get-output-dir features) "public/js/app.js")
@@ -69,10 +69,10 @@
        (when (some #{"+reagent" "+re-frame"} features)
          {:externs ["react/externs/react.js"]}))}}})
 
-(defn dev-cljsbuild [{:keys [project-ns features]}]
+(defn dev-cljsbuild [{:keys [project-ns features client-path cljc-path]}]
   {:builds
    {:app
-    {:source-paths ["src/cljs" "src/cljc" "env/dev/cljs"]
+    {:source-paths [client-path cljc-path "env/dev/cljs"]
      :figwheel {:on-jsload (str project-ns ".core/mount-components")}
      :compiler
      {:main          (str project-ns ".app")
@@ -83,10 +83,10 @@
       :optimizations :none
       :pretty-print  true}}}})
 
-(defn test-cljsbuild [{:keys [project-ns]}]
+(defn test-cljsbuild [{:keys [project-ns client-path cljc-path client-test-path]}]
   {:builds
    {:test
-    {:source-paths ["src/cljc" "src/cljs" "test/cljs"]
+    {:source-paths [cljc-path client-path client-test-path]
      :compiler
      {:output-to     "target/test.js"
       :main          (str project-ns ".doo-runner")
@@ -110,7 +110,7 @@
        (assoc
         :dev-cljsbuild (indent dev-indent (dev-cljsbuild options))
         :test-cljsbuild (indent dev-indent (test-cljsbuild options))
-        :uberjar-cljsbuild (indent uberjar-indent (uberjar-cljsbuild (:features options)))
+        :uberjar-cljsbuild (indent uberjar-indent (uberjar-cljsbuild options))
         :cljs-test cljs-test
         :figwheel (indent root-indent (figwheel options))
         :cljs-uberjar-prep ":prep-tasks [\"compile\" [\"cljsbuild\" \"once\" \"min\"]]")
@@ -120,7 +120,7 @@
 ;; Options for boot
 
 (def boot-cljs-assets
-  [["src/cljs/app.cljs.edn" "cljs/src/cljs/app.cljs.edn"]])
+  [["{{client-path}}/app.cljs.edn" "cljs/src/cljs/app.cljs.edn"]])
 
 (def cljs-boot-plugins '[[adzerk/boot-cljs "2.1.0-SNAPSHOT" :scope "test"]
                          [crisptrutski/boot-cljs-test "0.3.2-SNAPSHOT" :scope "test"]
@@ -149,7 +149,7 @@
    (-> options
        (append-options :dependencies cljs-boot-plugins)
        (append-options :dev-dependencies cljs-boot-dev-plugins)
-       (append-options :source-paths (conj source-paths "src/cljs"))
+       (append-options :source-paths (conj source-paths (:client-path options)))
        (assoc :dev-cljs (dev-cljs options)))])
 
 (defn cljs-features [[assets options :as state]]

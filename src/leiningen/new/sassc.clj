@@ -4,18 +4,18 @@
 ;;On boot this can be run with the "sass" task.
 
 (def sassc-assets
-  [["resources/scss/screen.scss" "sassc/resources/scss/screen.scss"]])
+  [["{{resource-path}}/scss/screen.scss" "sassc/resources/scss/screen.scss"]])
 
 (def sassc-config
   {:sassc
-   [{:src         "resources/scss/screen.scss"
-     :output-to   "resources/public/css/screen.css"
+   [{:src         "{{resource-path}}/scss/screen.scss"
+     :output-to   "{{resource-path}}/public/css/screen.css"
      :style       "nested"
-     :import-path "resources/scss"}]})
+     :import-path "{{resource-path}}/scss"}]})
 
 (def sassc-auto-config
   {:auto {"sassc" {:file-pattern  #"\.(scss|sass)$"
-                   :paths ["resources/scss"]}}})
+                   :paths ["{{resource-path}}/scss"]}}})
 
 (def sass-plugins
   [['lein-sassc "0.10.4"]

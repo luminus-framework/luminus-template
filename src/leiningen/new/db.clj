@@ -34,21 +34,21 @@
   (let [timestamp (.format
                     (java.text.SimpleDateFormat. "yyyyMMddHHmmss")
                     (java.util.Date.))]
-    [["src/clj/{{sanitized}}/db/core.clj" "db/src/sql.db.clj"]
-     ["resources/sql/queries.sql" "db/sql/queries.sql"]
-     ["test/clj/{{sanitized}}/test/db/core.clj" "db/test/db/core.clj"]
-     [(str "resources/migrations/" timestamp "-add-users-table.up.sql") "db/migrations/add-users-table.up.sql"]
-     [(str "resources/migrations/" timestamp "-add-users-table.down.sql") "db/migrations/add-users-table.down.sql"]]))
+    [["{{db-path}}/{{sanitized}}/db/core.clj" "db/src/sql.db.clj"]
+     ["{{resource-path}}/sql/queries.sql" "db/sql/queries.sql"]
+     ["{{backend-test-path}}/{{sanitized}}/test/db/core.clj" "db/test/db/core.clj"]
+     [(str "{{resource-path}}/migrations/" timestamp "-add-users-table.up.sql") "db/migrations/add-users-table.up.sql"]
+     [(str "{{resource-path}}/migrations/" timestamp "-add-users-table.down.sql") "db/migrations/add-users-table.down.sql"]]))
 
 (defn db-profiles [options]
   {:database-profile-dev  (str :database-url " \"" (db-url options "dev") "\"")
    :database-profile-test (str :database-url " \"" (db-url options "test") "\"")})
 
 (def mongo-files
-  [["src/clj/{{sanitized}}/db/core.clj" "db/src/mongodb.clj"]])
+  [["{{db-path}}/{{sanitized}}/db/core.clj" "db/src/mongodb.clj"]])
 
 (def datomic-files
-  [["src/clj/{{sanitized}}/db/core.clj" "db/src/datomic.clj"]])
+  [["{{db-path}}/{{sanitized}}/db/core.clj" "db/src/datomic.clj"]])
 
 (defn add-mongo [[assets options]]
   [(into assets mongo-files)

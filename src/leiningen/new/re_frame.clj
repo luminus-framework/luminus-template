@@ -2,9 +2,9 @@
   (:require [leiningen.new.common :refer :all]))
 
 (def re-frame-assets
-  [["src/cljs/{{sanitized}}/core.cljs" "reframe/src/cljs/core.cljs"]
-   ["src/cljs/{{sanitized}}/db.cljs" "reframe/src/cljs/db.cljs"]
-   ["src/cljs/{{sanitized}}/events.cljs" "reframe/src/cljs/events.cljs"]])
+  [["{{client-path}}/{{sanitized}}/core.cljs" "reframe/src/cljs/core.cljs"]
+   ["{{client-path}}/{{sanitized}}/db.cljs" "reframe/src/cljs/db.cljs"]
+   ["{{client-path}}/{{sanitized}}/events.cljs" "reframe/src/cljs/events.cljs"]])
 
 (defn re-frame-features [[assets options :as state]]
   (if (some #{"+re-frame"} (:features options))

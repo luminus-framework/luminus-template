@@ -8,9 +8,9 @@
   #{"+swagger"})
 
 (def graphql-assets
-  [["src/clj/{{sanitized}}/routes/services.clj" "graphql/src/services.clj"]
-   ["resources/templates/graphiql.html" "graphql/resources/graphiql.html"]
-   ["resources/graphql/schema.edn" "graphql/resources/schema.edn"]])
+  [["{{backend-path}}/{{sanitized}}/routes/services.clj" "graphql/src/services.clj"]
+   ["{{resource-path}}/templates/graphiql.html" "graphql/resources/graphiql.html"]
+   ["{{resource-path}}/graphql/schema.edn" "graphql/resources/schema.edn"]])
 
 (def graphql-dependencies
   [['metosin/compojure-api "1.1.11"]
