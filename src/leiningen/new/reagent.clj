@@ -2,8 +2,8 @@
   (:require [leiningen.new.common :refer :all]))
 
 (def reagent-assets
-  [["src/cljs/{{sanitized}}/core.cljs" "reagent/src/cljs/core.cljs"]
-   ["src/cljs/{{sanitized}}/ajax.cljs" "reagent/src/cljs/ajax.cljs"]])
+  [["{{client-path}}/{{sanitized}}/core.cljs" "reagent/src/cljs/core.cljs"]
+   ["{{client-path}}/{{sanitized}}/ajax.cljs" "reagent/src/cljs/ajax.cljs"]])
 
 (def reagent-dependencies
   [['reagent "0.7.0"]

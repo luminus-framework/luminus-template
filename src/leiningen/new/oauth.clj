@@ -2,8 +2,8 @@
   (:require [leiningen.new.common :refer :all]))
 
 (def oauth-assets
-  [["src/clj/{{sanitized}}/oauth.clj" "oauth/src/oauth.clj"]
-   ["src/clj/{{sanitized}}/routes/oauth.clj" "oauth/src/routes.clj"]])
+  [["{{backend-path}}/{{sanitized}}/oauth.clj" "oauth/src/oauth.clj"]
+   ["{{backend-path}}/{{sanitized}}/routes/oauth.clj" "oauth/src/routes.clj"]])
 
 (defn oauth-features [[assets options :as state]]
   (if (some #{"+oauth"} (:features options))

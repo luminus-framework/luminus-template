@@ -2,7 +2,7 @@
   (:require [leiningen.new.common :refer :all]))
 
 (def swagger-assets
-  [["src/clj/{{sanitized}}/routes/services.clj" "swagger/src/services.clj"]])
+  [["{{backend-path}}/{{sanitized}}/routes/services.clj" "swagger/src/services.clj"]])
 
 (def swagger-dependencies
   [['metosin/compojure-api "1.1.11"]])
