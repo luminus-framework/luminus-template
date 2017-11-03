@@ -110,7 +110,7 @@
 
 (def core-dependencies
   [['org.clojure/clojure "1.8.0"]
-   ['selmer "1.11.1"]
+   ['selmer "1.11.2"]
    ['clj-time "0.14.0"]
    ['markdown-clj "1.0.1"]
    ['metosin/muuntaja "0.3.2"]
@@ -122,7 +122,7 @@
    ['org.webjars/jquery "3.2.1"]
    ['org.clojure/tools.logging "0.4.0"]
    ['compojure "1.6.0"]
-   ['ring/ring-core "1.6.2"]
+   ['ring/ring-core "1.6.3"]
    ['ring-webjars "0.2.0"]
    ['ring/ring-defaults "0.3.1"]
    ['luminus/ring-ttl-session "0.3.2"]

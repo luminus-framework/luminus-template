@@ -1,3 +1,18 @@
+## 2.9.12.00
+
+- ring/ring-core 1.6.3
+
+## 2.9.11.99
+
+- conman 0.7.1
+- org.postgresql/postgresql 42.1.4
+- selmer 1.11.2
+
+## 2.9.11.98
+
+- graphql example client
+- immutant dev log config
+
 ## 2.9.11.97
 
 - luminus-immutant 0.2.4 with Immutant 2.1.9
