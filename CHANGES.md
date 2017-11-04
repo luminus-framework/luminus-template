@@ -1,3 +1,7 @@
+## 2.9.12.01
+
+- support for relative path
+
 ## 2.9.12.00
 
 - ring/ring-core 1.6.3
