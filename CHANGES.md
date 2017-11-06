@@ -1,6 +1,7 @@
 ## 2.9.12.01
 
 - support for relative path
+- added explicit org.clojure/tools.reader 1.1.0 dependency for cljs to address a [change in cljs 1.9.946](https://groups.google.com/forum/#!topic/clojure/dSrlFNdfIFE)
 
 ## 2.9.12.00
 

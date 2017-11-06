@@ -23,7 +23,9 @@
 (def doo-version "0.1.8")
 
 (def cljs-dependencies
-  [['org.clojure/clojurescript cljs-version :scope "provided"]])
+  [['org.clojure/clojurescript cljs-version :scope "provided"]
+   ;;workaround for cljs 1.9.946
+   ['org.clojure/tools.reader "1.1.0"]])
 
 (def source-paths
   ["{{cljc-path}}"])
