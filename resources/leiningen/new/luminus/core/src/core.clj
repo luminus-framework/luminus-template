@@ -20,6 +20,7 @@
                 (http/start
                   (-> env
                       (assoc :handler <% if war %>handler/app<% else %>(handler/app)<% endif %>)
+                      (update :io-threads #(or % (* 2 (.availableProcessors (Runtime/getRuntime)))))
                       (update :port #(or (-> env :options :port) %))))
                 :stop
                 (http/stop http-server))

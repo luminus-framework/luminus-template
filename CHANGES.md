@@ -1,3 +1,7 @@
+## 2.9.12.02
+
+- set default Immutant IO threads to be 2x processors
+
 ## 2.9.12.01
 
 - support for relative path
