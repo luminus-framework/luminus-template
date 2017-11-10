@@ -48,9 +48,9 @@
   task."
   []
   (require '<<project-ns>>.core)
-  (let [m (resolve '<<project-ns>>.core/-main)]
+  (let [start-app (resolve '<<project-ns>>.core/start-app)]
     (with-pass-thru _
-      (m))))
+      (start-app nil))))
 
 (deftask run
   "Starts the server and causes it to wait."
@@ -68,11 +68,12 @@
   (require '[powerlaces.boot-figreload :refer [reload]])
   (let [reload (resolve 'powerlaces.boot-figreload/reload)]
     (comp
-     (reload :client-opts {:debug true})
-     (cljs-repl)
-     (cljs)
      (start-server)
-     (wait))))
+     (watch)
+     (cljs-repl)
+     (reload :client-opts {:debug true})
+     (speak)
+     (cljs))))
 
 (deftask run-cljs-tests
   "Runs the doo tests for ClojureScript."
