@@ -80,19 +80,21 @@
    ["{{resource-path}}/public/img/warning_clojure.png" "core/resources/img/warning_clojure.png"]])
 
 (def project-relative-paths
-  {:default       {:backend "src/clj"
-                   :backend-test "test/clj"
-                   :client "src/cljs"
-                   :client-test "test/cljs"
-                   :resource-path "resources"
-                   :cljc-path "src/cljc"
-                   :db     "src/clj"}})
-   
+  {:backend-path      "src/clj"
+   :backend-test-path "test/clj"
+   :client-path       "src/cljs"
+   :client-test-path  "test/cljs"
+   :resource-path     "resources"
+   :cljc-path         "src/cljc"
+   :db-path           "src/clj"
+   :source-paths      ["src/clj"]
+   :resource-paths    ["resources"]})
+
 (defn sort-deps [deps]
   (sort-by (fn [dep] (str dep)) deps))
 
 (defn format-options [{:keys [http-server-dependencies features] :as options}]
-  (let [boot? (some #{"+boot"} features)
+  (let [boot?      (some #{"+boot"} features)
         dev-indent (if-not boot?
                      dev-dependency-indent
                      boot-dev-dependency-indent)]
@@ -110,7 +112,7 @@
 
 (def core-dependencies
   [['org.clojure/clojure "1.8.0"]
-   ['selmer "1.11.2"]
+   ['selmer "1.11.3"]
    ['clj-time "0.14.0"]
    ['markdown-clj "1.0.1"]
    ['metosin/muuntaja "0.3.2"]
@@ -207,13 +209,10 @@
       (and (= x1 x2) (< y1 y2))
       (and (= x1 x2) (= y1 y2) (< z1 z2)))))
 
-(defn get-relative-path-profile [feature-params]
-  (:default project-relative-paths))
-
 (defn luminus
   "Create a new Luminus project"
   [name & feature-params]
-  (let [min-version "2.5.2"
+  (let [min-version        "2.5.2"
         supported-features #{;;databases
                              "+sqlite" "+h2" "+postgres" "+mysql" "+mongodb" "+datomic"
                              ;;servers
@@ -222,32 +221,21 @@
                              "+cljs" "+hoplon" "+reagent" "+re-frame" "+auth" "+auth-jwe" "+site"
                              "+cucumber" "+sassc" "+cider" "+oauth"
                              "+swagger" "+war" "+graphql"
-                             "+kibit" "+service" 
+                             "+kibit" "+service"
                              "+boot"}
-        {:keys [backend backend-test 
-                client client-test
-                db cljc-path
-                resource-path]}     (get-relative-path-profile feature-params)
-        options {:name              (project-name name)
-                 :dependencies      core-dependencies
-                 :selmer-renderer   render-template
-                 :min-lein-version  "2.0.0"
-                 :project-ns        (sanitize-ns name)
-                 :sanitized         (name-to-path name)
-                 :backend-path      backend
-                 :backend-test-path backend-test
-                 :client-path       client 
-                 :client-test-path  client-test 
-                 :db-path           db
-                 :cljc-path         cljc-path 
-                 :resource-path     resource-path
-                 :year              (year)
-                 :features          (set feature-params)
-                 :source-paths      [backend]
-                 :resource-paths    [resource-path]}
-        unsupported (-> (set feature-params)
-                        (clojure.set/difference supported-features)
-                        (not-empty))]
+        options            (merge
+                             project-relative-paths
+                             {:name             (project-name name)
+                              :dependencies     core-dependencies
+                              :selmer-renderer  render-template
+                              :min-lein-version "2.0.0"
+                              :project-ns       (sanitize-ns name)
+                              :sanitized        (name-to-path name)
+                              :year             (year)
+                              :features         (set feature-params)})
+        unsupported        (-> (set feature-params)
+                               (clojure.set/difference supported-features)
+                               (not-empty))]
     (cond
       (version-before? min-version)
       (main/info "Leiningen version" min-version "or higher is required, found " (leiningen-version)

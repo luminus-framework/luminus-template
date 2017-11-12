@@ -1,3 +1,8 @@
+## 2.9.12.03
+
+- fixes for relative resource path
+- selmer 1.11.3
+
 ## 2.9.12.02
 
 - set default Immutant IO threads to be 2x processors

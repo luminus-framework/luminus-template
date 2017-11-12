@@ -13,9 +13,6 @@
    ["{{resource-path}}/templates/home.html" "cljs/templates/home.html"]
    ["{{resource-path}}/templates/error.html" "core/resources/templates/error.html"]])
 
-(def boot-cljs-assets
-  [["src/app.cljs.edn" "cljs/src/app.cljs.edn"]])
-
 (def cljs-version "1.9.946")
 
 (def figwheel-version "0.5.14")
@@ -27,8 +24,6 @@
    ;;workaround for cljs 1.9.946
    ['org.clojure/tools.reader "1.1.0"]])
 
-(def source-paths
-  ["{{cljc-path}}"])
 ;;NOTE: under boot, src/cljs is also added to source-paths (see boot-cljs-features)
 
 (def resource-paths
@@ -116,13 +111,13 @@
         :cljs-test cljs-test
         :figwheel (indent root-indent (figwheel options))
         :cljs-uberjar-prep ":prep-tasks [\"compile\" [\"cljsbuild\" \"once\" \"min\"]]")
-       (append-options :source-paths source-paths)
+       (append-options :source-paths [(:cljc-path options)])
        (append-options :resource-paths resource-paths))])
 
 ;; Options for boot
 
-(def boot-cljs-assets
-  [["{{client-path}}/app.cljs.edn" "cljs/src/cljs/app.cljs.edn"]])
+(defn boot-cljs-assets [{:keys [client-path]}]
+  [[(str client-path "/app.cljs.edn") "cljs/src/cljs/app.cljs.edn"]])
 
 (def cljs-boot-plugins '[[adzerk/boot-cljs "2.1.0-SNAPSHOT" :scope "test"]
                          [crisptrutski/boot-cljs-test "0.3.2-SNAPSHOT" :scope "test"]
@@ -147,11 +142,11 @@
             :compiler (get-in test-map [:builds :test :compiler])}}))
 
 (defn cljs-boot-features [[assets options :as state]]
-  [(into assets boot-cljs-assets)
+  [(into assets (boot-cljs-assets options))
    (-> options
        (append-options :dependencies cljs-boot-plugins)
        (append-options :dev-dependencies cljs-boot-dev-plugins)
-       (append-options :source-paths (conj source-paths (:client-path options)))
+       (append-options :source-paths (conj [(:cljc-path options)] (:client-path options)))
        (assoc :dev-cljs (dev-cljs options)))])
 
 (defn cljs-features [[assets options :as state]]

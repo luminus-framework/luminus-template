@@ -3,7 +3,7 @@
 
 (def cucumber-assets
   [["{{backend-test-path}}/{{sanitized}}/browser.clj" "cucumber/src/browser.clj"]
-   ["{{backedn-test-path}}/features/step_definitions/home_page_steps.clj" "cucumber/src/home_page_steps.clj"]
+   ["{{backend-test-path}}/features/step_definitions/home_page_steps.clj" "cucumber/src/home_page_steps.clj"]
    ["{{backend-test-path}}/features/index_page.feature" "cucumber/resources/index_page.feature"]])
 
 (defn cucumber-features [[assets options :as state]]
@@ -23,5 +23,5 @@
                                                  :exclusions ['org.bouncycastle/bcprov-jdk15on
                                                               'org.bouncycastle/bcpkix-jdk15on]]
                                                 ['org.seleniumhq.selenium/selenium-server "2.48.2"])])
-           (assoc :cucumber-feature-paths (pprint-code ["{{backend-test-path}}/features"])))])
+           (assoc :cucumber-feature-paths (pprint-code [(str (:backend-test-path options) "/features")])))])
     state))
