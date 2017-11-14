@@ -1,3 +1,7 @@
+## 2.9.12.04
+
+- conman 0.7.2
+
 ## 2.9.12.03
 
 - fixes for relative resource path
