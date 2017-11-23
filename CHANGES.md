@@ -3,6 +3,7 @@
 - conman 0.7.4
 - luminus-migrations 0.4.3
 - migratus-lein 0.5.3
+- metosin/muuntaja 0.4.1
 
 ## 2.9.12.03
 
