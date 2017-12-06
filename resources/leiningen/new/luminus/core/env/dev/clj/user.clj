@@ -20,5 +20,8 @@
 
 (defn rollback []
   (migrations/migrate ["rollback"] (select-keys env [:database-url])))
+
+(defn create-migration [name]
+  (migrations/create name (select-keys env [:database-url])))
 <% endif %>
 
