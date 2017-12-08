@@ -1,3 +1,7 @@
+## 2.9.12.06
+
+- Clojure 1.9.0
+
 ## 2.9.12.05
 
 - [improved error logging](https://github.com/luminus-framework/luminus-template/pull/334)

@@ -111,7 +111,7 @@
         (update-in [:dev-plugins] (partial indent dev-dependency-indent)))))
 
 (def core-dependencies
-  [['org.clojure/clojure "1.8.0"]
+  [['org.clojure/clojure "1.9.0"]
    ['selmer "1.11.3"]
    ['clj-time "0.14.2"]
    ['markdown-clj "1.0.1"]
