@@ -22,7 +22,7 @@
 (def cljs-dependencies
   [['org.clojure/clojurescript cljs-version :scope "provided"]
    ;;workaround for cljs 1.9.946
-   ['org.clojure/tools.reader "1.1.0"]])
+   ['org.clojure/tools.reader "1.1.1"]])
 
 ;;NOTE: under boot, src/cljs is also added to source-paths (see boot-cljs-features)
 
@@ -43,7 +43,7 @@
 
 (def cljs-dev-dependencies
   [['doo doo-version]
-   ['binaryage/devtools "0.9.7"]
+   ['binaryage/devtools "0.9.8"]
    ['figwheel-sidecar figwheel-version]
    ['com.cemerick/piggieback "0.2.2"]])
 
@@ -72,13 +72,16 @@
     {:source-paths [client-path cljc-path "env/dev/cljs"]
      :figwheel {:on-jsload (str project-ns ".core/mount-components")}
      :compiler
-     {:main          (str project-ns ".app")
-      :asset-path    "/js/out"
-      :output-to     (str (get-output-dir features) "public/js/app.js")
-      :output-dir    (str (get-output-dir features) "public/js/out")
-      :source-map    true
-      :optimizations :none
-      :pretty-print  true}}}})
+     (merge
+       {:main          (str project-ns ".app")
+        :asset-path    "/js/out"
+        :output-to     (str (get-output-dir features) "public/js/app.js")
+        :output-dir    (str (get-output-dir features) "public/js/out")
+        :source-map    true
+        :optimizations :none
+        :pretty-print  true}
+       (when (some #{"+re-frame"} features)
+         {:preloads ['re-frisk.preload]}))}}})
 
 (defn test-cljsbuild [{:keys [project-ns client-path cljc-path client-test-path]}]
   {:builds

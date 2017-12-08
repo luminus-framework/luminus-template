@@ -1,3 +1,14 @@
+## 2.9.12.05
+
+- [improved error logging](https://github.com/luminus-framework/luminus-template/pull/334)
+- [added create-migration helper function in user-ns](https://github.com/luminus-framework/luminus-template/commit/96b33200519108bd32005d1ee7709a28d500ea9d)
+- [AWS Beanstalk compatible Procfile](https://github.com/luminus-framework/luminus-template/commit/7afc9752c88d8676e549d6ae45ca6a6ea47fac1a)
+- added re-frisk for re-frame profile
+- clj-time 0.14.2
+- org.clojure/tools.reader 1.1.1
+- ring/ring-mock 0.3.2
+- binaryage/devtools "0.9.8
+
 ## 2.9.12.04
 
 - conman 0.7.4

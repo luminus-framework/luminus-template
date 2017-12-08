@@ -113,7 +113,7 @@
 (def core-dependencies
   [['org.clojure/clojure "1.8.0"]
    ['selmer "1.11.3"]
-   ['clj-time "0.14.0"]
+   ['clj-time "0.14.2"]
    ['markdown-clj "1.0.1"]
    ['metosin/muuntaja "0.4.1"]
    ['metosin/ring-http-response "0.9.0"]
