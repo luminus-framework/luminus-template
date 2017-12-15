@@ -11,7 +11,7 @@
     (some #{"+sqlite"} features) :sqlite))
 
 (defn db-dependencies [options]
-  [['luminus-migrations "0.4.3"]
+  [['luminus-migrations "0.4.4"]
    ['conman "0.7.4"]
    ({:postgres ['org.postgresql/postgresql "42.1.4"]
      :mysql    ['mysql/mysql-connector-java "6.0.5"]

@@ -1,3 +1,7 @@
+## 2.9.12.07
+
+luminus-migrations 0.4.4
+
 ## 2.9.12.06
 
 - Clojure 1.9.0
