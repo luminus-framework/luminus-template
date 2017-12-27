@@ -1,3 +1,8 @@
+## 2.9.12.10
+
+- luminus-migrations 0.4.5
+- migratus-lein 0.5.4
+
 ## 2.9.12.09
 
 - cider/cider-nrepl 0.15.1
