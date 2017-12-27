@@ -1,3 +1,7 @@
+## 2.9.12.09
+
+- cider/cider-nrepl 0.15.1
+
 ## 2.9.12.08
 
 - updated luminus-jetty to 0.1.6 to include core.async explicitly for issue [336](https://github.com/luminus-framework/luminus-template/issues/336#issuecomment-353763773)
