@@ -6,5 +6,5 @@
     [assets
      (-> options
          (assoc :cider true)
-         (append-options :dependencies [['cider/cider-nrepl "0.15.0-SNAPSHOT"]]))]
+         (append-options :dependencies [['cider/cider-nrepl "0.15.1"]]))]
     state))
