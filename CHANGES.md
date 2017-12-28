@@ -1,3 +1,7 @@
+## 2.9.12.11
+
+- hoplon 7.1.0
+
 ## 2.9.12.10
 
 - luminus-migrations 0.4.5
