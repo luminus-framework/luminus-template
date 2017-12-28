@@ -1,3 +1,7 @@
+## 2.9.12.12
+
+- fix for the `+scss` profile [issue 340](https://github.com/luminus-framework/luminus-template/issues/340)
+
 ## 2.9.12.11
 
 - hoplon 7.1.0
