@@ -3,19 +3,19 @@
 
 ;;On boot this can be run with the "sass" task.
 
-(def sassc-assets
-  [["{{resource-path}}/scss/screen.scss" "sassc/resources/scss/screen.scss"]])
+(defn sassc-assets [{:keys [resource-path]}]
+  [[(str resource-path "/scss/screen.scss") "sassc/resources/scss/screen.scss"]])
 
-(def sassc-config
+(defn sassc-config [{:keys [resource-path]}]
   {:sassc
-   [{:src         "{{resource-path}}/scss/screen.scss"
-     :output-to   "{{resource-path}}/public/css/screen.css"
+   [{:src         (str resource-path "/scss/screen.scss")
+     :output-to   (str resource-path "/public/css/screen.css")
      :style       "nested"
-     :import-path "{{resource-path}}/scss"}]})
+     :import-path (str resource-path "/scss")}]})
 
-(def sassc-auto-config
+(defn sassc-auto-config [{:keys [resource-path]}]
   {:auto {"sassc" {:file-pattern  #"\.(scss|sass)$"
-                   :paths ["{{resource-path}}/scss"]}}})
+                   :paths [(str resource-path "/scss")]}}})
 
 (def sass-plugins
   [['lein-sassc "0.10.4"]
@@ -28,7 +28,7 @@
   (if (some #{"+sassc"} (:features options))
     (let [boot? (some #{"+boot"} (:features options))
           plugin-key (if boot? :dependencies :plugins)]
-      [(into assets sassc-assets)
+      [(into assets (sassc-assets options))
        (-> options
            (append-options plugin-key (if boot?
                                         boot-sass-plugins
@@ -37,6 +37,6 @@
            (assoc :sassc-docs ((:selmer-renderer options)
                                (slurp-resource "sassc/docs/sassc_instructions.md")
                                options))
-           (assoc :sassc-config-params (unwrap-map (indent root-indent sassc-config)))
-           (assoc :sassc-auto-config (unwrap-map (indent root-indent sassc-auto-config))))])
+           (assoc :sassc-config-params (unwrap-map (indent root-indent (sassc-config options))))
+           (assoc :sassc-auto-config (unwrap-map (indent root-indent (sassc-auto-config options)))))])
     state))
