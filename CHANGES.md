@@ -1,3 +1,7 @@
+## 2.9.12.13
+
+- conman 0.7.5
+
 ## 2.9.12.12
 
 - fix for the `+scss` profile [issue 340](https://github.com/luminus-framework/luminus-template/issues/340)
