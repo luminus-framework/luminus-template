@@ -76,6 +76,5 @@
       (migrations/migrate args (select-keys env [:database-url]))
       (System/exit 0))
     :else
-    (start-app args))
-  <% else %>(start-app args)<% endif %><% if boot %>
-  @(promise))<% else %>)<% endif %>
+    (start-app args)))
+  <% else %>(start-app args))<% endif %>
