@@ -1,6 +1,11 @@
 ## 2.9.12.13
 
+- bootstrap 4.0.0-beta.3
 - conman 0.7.5
+- org.webjars.bower/tether 1.4.3
+- org.webjars/font-awesome 5.0.2
+- navbar cleanup
+- [migratus support for boot](https://github.com/luminus-framework/luminus-template/pull/341)
 
 ## 2.9.12.12
 

@@ -91,7 +91,7 @@
    :resource-paths    ["resources"]})
 
 (defn sort-deps [deps]
-  (sort-by (fn [dep] (str dep)) deps))
+  (sort-by (fn [[dep]] (str dep)) deps))
 
 (defn format-options [{:keys [http-server-dependencies features] :as options}]
   (let [boot?      (some #{"+boot"} features)
@@ -118,9 +118,9 @@
    ['metosin/muuntaja "0.4.1"]
    ['metosin/ring-http-response "0.9.0"]
    ['funcool/struct "1.1.0"]
-   ['org.webjars/bootstrap "4.0.0-alpha.5"]
-   ['org.webjars/font-awesome "4.7.0"]
-   ['org.webjars.bower/tether "1.4.0"]
+   ['org.webjars/bootstrap "4.0.0-beta.3"]
+   ['org.webjars/font-awesome "5.0.2"]
+   ['org.webjars.bower/tether "1.4.3"]
    ['org.webjars/jquery "3.2.1"]
    ['org.clojure/tools.logging "0.4.0"]
    ['compojure "1.6.0"]
@@ -132,6 +132,15 @@
    ['cprop "0.1.11"]
    ['org.clojure/tools.cli "0.3.5"]
    ['luminus-nrepl "0.1.4"]])
+
+(def core-dev-dependencies
+  [['prone "1.1.4"]
+   ['ring/ring-mock "0.3.2"]
+   ['ring/ring-devel "1.6.3"]
+   ['pjstadig/humane-test-output "0.8.3"]])
+
+(def core-dev-plugins
+  [['com.jakemccrary/lein-test-refresh "0.19.0"]])
 
 (defn generate-project
   "Create a new Luminus project"
@@ -227,6 +236,8 @@
                              project-relative-paths
                              {:name             (project-name name)
                               :dependencies     core-dependencies
+                              :dev-dependencies core-dev-dependencies
+                              :dev-plugins      core-dev-plugins
                               :selmer-renderer  render-template
                               :min-lein-version "2.0.0"
                               :project-ns       (sanitize-ns name)

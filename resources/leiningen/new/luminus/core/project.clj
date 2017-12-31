@@ -42,14 +42,8 @@
    :dev           [:project/dev :profiles/dev]
    :test          [:project/dev :project/test :profiles/test]
 
-   :project/dev  {:dependencies [[prone "1.1.4"]
-                                 [ring/ring-mock "0.3.2"]
-                                 [ring/ring-devel "1.6.3"]<%if war %>
-                                 <<dev-http-server-dependencies>><% endif %>
-                                 [pjstadig/humane-test-output "0.8.3"]<% if dev-dependencies %>
-                                 <<dev-dependencies>><% endif %>]
-                  :plugins      [[com.jakemccrary/lein-test-refresh "0.19.0"]<% if dev-plugins %>
-                                 <<dev-plugins>><% endif %>]<% if cljs %>
+   :project/dev  {:dependencies [<<dev-dependencies>>]
+                  :plugins      [<<dev-plugins>>]<% if cljs %>
                   :cljsbuild
                   <<dev-cljsbuild>>
                   <% endif %>

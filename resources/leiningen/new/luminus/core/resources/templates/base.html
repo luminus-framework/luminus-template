@@ -7,21 +7,21 @@
 
     <!-- styles -->
     {% style "/assets/bootstrap/css/bootstrap.min.css" %}
-    {% style "/assets/font-awesome/css/font-awesome.min.css" %}
+    {% style "/assets/font-awesome/web-fonts-with-css/css/fontawesome-all.min.css" %}
 
     {% style "/css/screen.css" %}
   </head>
   <body>
       <!-- navbar -->
-      <nav class="navbar navbar-dark bg-primary" role="navigation">
+      <nav class="navbar navbar-dark bg-primary navbar-expand-md" role="navigation">
           <button class="navbar-toggler hidden-sm-up"
                   type="button"
                   data-toggle="collapse"
                   data-target="#collapsing-navbar">
               &#9776;
           </button>
-          <div class="collapse navbar-toggleable-xs" id="collapsing-navbar">
-              <a class="navbar-brand" href="{{servlet-context}}/"><<name>></a>
+          <a class="navbar-brand" href="{{servlet-context}}/"><<name>></a>
+          <div class="collapse navbar-collapse" id="collapsing-navbar">
               <ul class="nav navbar-nav">
                   <li class="nav-item">
                       <a href="{{servlet-context}}/"
@@ -46,6 +46,7 @@
 
     <!-- scripts -->
     {% script "/assets/jquery/jquery.min.js" %}
+    {% script "/assets/font-awesome/svg-with-js/js/fontawesome.min.js" %}
     {% script "/assets/tether/dist/js/tether.min.js" %}
     {% script "/assets/bootstrap/js/bootstrap.min.js" %}
 

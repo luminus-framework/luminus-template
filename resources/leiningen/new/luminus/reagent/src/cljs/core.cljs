@@ -9,25 +9,23 @@
             [ajax.core :refer [GET POST]])
   (:import goog.History))
 
-(defn nav-link [uri title page collapsed?]
+(defn nav-link [uri title page]
   [:li.nav-item
    {:class (when (= page (session/get :page)) "active")}
-   [:a.nav-link
-    {:href uri
-     :on-click #(reset! collapsed? true)} title]])
+   [:a.nav-link {:href uri} title]])
 
 (defn navbar []
-  (let [collapsed? (r/atom true)]
-    (fn []
-      [:nav.navbar.navbar-dark.bg-primary
-       [:button.navbar-toggler.hidden-sm-up
-        {:on-click #(swap! collapsed? not)} "☰"]
-       [:div.collapse.navbar-toggleable-xs
-        (when-not @collapsed? {:class "in"})
-        [:a.navbar-brand {:href "#/"} "<<name>>"]
-        [:ul.nav.navbar-nav
-         [nav-link "#/" "Home" :home collapsed?]
-         [nav-link "#/about" "About" :about collapsed?]]]])))
+  [:nav.navbar.navbar-dark.bg-primary.navbar-expand-md
+   {:role "navigation"}
+   [:button.navbar-toggler.hidden-sm-up
+    {:type "button"
+     :data-toggle "collapse"
+     :data-target "#collapsing-navbar"} "☰"]
+   [:a.navbar-brand {:href "#/"} "<<name>>"]
+   [:div#collapsing-navbar.collapse.navbar-collapse
+    [:ul.nav.navbar-nav.mr-auto
+     [nav-link "#/" "Home" :home]
+     [nav-link "#/about" "About" :about]]]])
 
 (defn about-page []
   [:div.container
