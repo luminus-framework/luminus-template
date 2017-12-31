@@ -130,7 +130,6 @@
   '[[crisptrutski/boot-cljs-test "0.3.2-SNAPSHOT" :scope "test"]
     [powerlaces/boot-figreload "0.1.1-SNAPSHOT" :scope "test"]
     [org.clojure/clojurescript cljs-version :scope "test"]
-    [pandeiro/boot-http "0.7.6" :scope "test"]
     [weasel "0.7.0" :scope "test"]
     [org.clojure/tools.nrepl "0.2.12" :scope "test"]])
 

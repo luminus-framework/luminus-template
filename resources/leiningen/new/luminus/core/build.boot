@@ -2,6 +2,9 @@
  :dependencies '[<<dependencies>>]<% if resource-paths %>
  :source-paths <<source-paths>>
  :resource-paths <<resource-paths>><% endif %>)
+
+(require '[adzerk.boot-test :refer [test]]
+         '[luminus.boot-cprop :refer [cprop]])
 <% if cljs %>
 (require '[adzerk.boot-cljs :refer [cljs]]
          '[adzerk.boot-cljs-repl :refer [cljs-repl]])
@@ -24,7 +27,7 @@
   (require 'pjstadig.humane-test-output)
   (let [pja (resolve 'pjstadig.humane-test-output/activate!)]
     (pja))
-  identity)
+  (cprop :profile :profiles/dev))
 
 (deftask testing
   "Enables configuration for testing."
@@ -32,14 +35,14 @@
   (dev)
   (set-env! :resource-paths #(conj % "env/test/resources"))<% if cljs %>
   (merge-env! :source-paths <<dev-cljs.test.source-paths>>)<% endif %>
-  identity)
+  (cprop :profile :profiles/test))
 
 (deftask prod
   "Enables configuration for production building."
   []
   (merge-env! :source-paths #{"env/prod/clj"<% if cljs %> "env/prod/cljs"<% endif %>}
               :resource-paths #{"env/prod/resources"})
-  identity)
+  (cprop :profile :profiles/prod))
 
 (deftask start-server
   "Runs the project without building class files.
@@ -56,7 +59,7 @@
   "Starts the server and causes it to wait."
   []
   (comp
-   (start-server)
+   (apply start-server *args*)
    (wait)))
 <% if cljs %>
 (require '[clojure.java.io :as io])
