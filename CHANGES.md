@@ -1,3 +1,7 @@
+## 2.9.12.14
+
+- switched from using `profiles.clj` for local configuration. Instead, `dev-config.edn` and `test-config.edn` are used for dev and test configurations. This addresses issue [292](https://github.com/luminus-framework/luminus-template/issues/292).
+
 ## 2.9.12.13
 
 - bootstrap 4.0.0-beta.3

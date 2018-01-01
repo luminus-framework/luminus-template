@@ -37,7 +37,8 @@
 
 (def core-assets
   [[".gitignore" "core/gitignore"]
-   ["profiles.clj" "core/profiles.clj"]
+   ["dev-config.edn" "core/dev-config.edn"]
+   ["test-config.edn" "core/test-config.edn"]
    ["Procfile" "core/Procfile"]
    ["Dockerfile" "core/Dockerfile"]
    ["Capstanfile" "core/Capstanfile"]

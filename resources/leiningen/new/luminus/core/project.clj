@@ -6,8 +6,7 @@
   :dependencies [<<dependencies>>]
 
   :min-lein-version "<<min-lein-version>>"
-
-  :jvm-opts ["-server" "-Dconf=.lein-env"]<% if resource-paths %>
+  <% if resource-paths %>
   :source-paths <<source-paths>>
   :test-paths ["test/clj"]
   :resource-paths <<resource-paths>><% endif %>
@@ -15,8 +14,7 @@
   :main ^:skip-aot <<project-ns>>.core<% if migrations %>
   :migratus <<migrations>><% endif %>
 
-  :plugins [[lein-cprop "1.0.3"]<% if plugins %>
-            <<plugins>><% endif %>]<% if cucumber-feature-paths %>
+  :plugins [<% if plugins %><<plugins>><% endif %>]<% if cucumber-feature-paths %>
   :cucumber-feature-paths <<cucumber-feature-paths>><% endif %><% if sassc-config-params %>
   <<sassc-config-params>>
   <<sassc-auto-config>>
@@ -42,7 +40,8 @@
    :dev           [:project/dev :profiles/dev]
    :test          [:project/dev :project/test :profiles/test]
 
-   :project/dev  {:dependencies [<<dev-dependencies>>]
+   :project/dev  {:jvm-opts ["-server" "-Dconf=dev-config.edn"]
+                  :dependencies [<<dev-dependencies>>]
                   :plugins      [<<dev-plugins>>]<% if cljs %>
                   :cljsbuild
                   <<dev-cljsbuild>>
@@ -54,7 +53,8 @@
                   :repl-options {:init-ns user}
                   :injections [(require 'pjstadig.humane-test-output)
                                (pjstadig.humane-test-output/activate!)]}
-   :project/test {:resource-paths ["env/test/resources"]<% if cljs %>
+   :project/test {:jvm-opts ["-server" "-Dconf=test-config.edn"]
+                  :resource-paths ["env/test/resources"]<% if cljs %>
                   :cljsbuild
                   <<test-cljsbuild>>
                   <% endif %>}
