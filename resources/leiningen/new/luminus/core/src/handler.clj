@@ -12,8 +12,8 @@
             [<<project-ns>>.config :refer [env]]<% endif %>))
 
 (mount/defstate init-app
-                :start ((or (:init defaults) identity))
-                :stop  ((or (:stop defaults) identity)))
+  :start ((or (:init defaults) identity))
+  :stop  ((or (:stop defaults) identity)))
 <% if war %>
 (defn init
   "init will be called once when
@@ -46,5 +46,5 @@
         (error-page {:status 404
                      :title "page not found"}))<% endif %>)))
 
-
-(<% if war %>def app<% else %>defn app []<% endif %> (middleware/wrap-base #'app-routes))
+(mount/defstate app
+  :start (middleware/wrap-base app-routes))

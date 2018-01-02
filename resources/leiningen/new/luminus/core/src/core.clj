@@ -14,25 +14,23 @@
   [["-p" "--port PORT" "Port number"
     :parse-fn #(Integer/parseInt %)]])
 
-(mount/defstate ^{:on-reload :noop}
-                http-server
-                :start
-                (http/start
-                  (-> env
-                      (assoc :handler <% if war %>handler/app<% else %>(handler/app)<% endif %>)
-                      (update :io-threads #(or % (* 2 (.availableProcessors (Runtime/getRuntime)))))
-                      (update :port #(or (-> env :options :port) %))))
-                :stop
-                (http/stop http-server))
+(mount/defstate ^{:on-reload :noop} http-server
+  :start
+  (http/start
+    (-> env
+        (assoc  :handler #'handler/app)
+        (update :io-threads #(or % (* 2 (.availableProcessors (Runtime/getRuntime)))))
+        (update :port #(or (-> env :options :port) %))))
+  :stop
+  (http/stop http-server))
 
-(mount/defstate ^{:on-reload :noop}
-                repl-server
-                :start
-                (when-let [nrepl-port (env :nrepl-port)]
-                  (repl/start {:port nrepl-port<% if cider %> :handler cider-nrepl-handler<% endif %>}))
-                :stop
-                (when repl-server
-                  (repl/stop repl-server)))
+(mount/defstate ^{:on-reload :noop} repl-server
+  :start
+  (when-let [nrepl-port (env :nrepl-port)]
+    (repl/start {:port nrepl-port<% if cider %> :handler cider-nrepl-handler<% endif %>}))
+  :stop
+  (when repl-server
+    (repl/stop repl-server)))
 
 <% if war %>
 (defn init-jndi []

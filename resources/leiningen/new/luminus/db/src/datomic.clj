@@ -4,8 +4,8 @@
             [<<project-ns>>.config :refer [env]]))
 
 (defstate conn
-          :start (-> env :database-url d/connect)
-          :stop (-> conn .release))
+  :start (-> env :database-url d/connect)
+  :stop (-> conn .release))
 
 (defn create-schema []
   (let [schema [{:db/ident              :user/id
