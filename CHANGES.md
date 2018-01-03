@@ -1,3 +1,8 @@
+## 2.9.12.16
+
+- consolidated `app-routes` and `app` definitions in the handler.
+- ring/ring-servlet 1.6.3
+
 ## 2.9.12.15
 
 - switched handler/app to be a defstate to facilitate middleware reloading

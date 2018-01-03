@@ -74,18 +74,20 @@ The HTML templates are written using [Selmer](https://github.com/yogthos/Selmer)
 The routes are aggregated and wrapped with middleware in the `<<project-ns>>.handler` namespace:
 
 ```
-(def app-routes
-  (routes
-    (-> #'home-routes
-        (wrap-routes middleware/wrap-csrf)
-        (wrap-routes middleware/wrap-formats))
-    (route/not-found
-      (:body
-        (error-page {:status 404
-                     :title "page not found"})))))
+(defstate app
+  :start
+  (middleware/wrap-base
+    (routes
+      (-> #'home-routes
+          (wrap-routes middleware/wrap-csrf)
+          (wrap-routes middleware/wrap-formats))
+      (route/not-found
+        (:body
+          (error-page {:status 404
+                       :title "page not found"}))))))
 ```
 
-The `app-routes` definition groups all the routes in the application into a single handler.
+The `app` definition groups all the routes in the application into a single handler.
 A default route group is added to handle the `404` case.
 
 <a class="btn btn-primary" href="http://www.luminusweb.net/docs/routes.md">learn more about routing »</a>
