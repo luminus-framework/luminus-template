@@ -1,3 +1,7 @@
+## 2.9.12.17
+
+- Selmer 1.11.4
+
 ## 2.9.12.16
 
 - consolidated `app-routes` and `app` definitions in the handler.
