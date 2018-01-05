@@ -115,7 +115,7 @@
   [['org.clojure/clojure "1.9.0"]
    ['selmer "1.11.4"]
    ['clj-time "0.14.2"]
-   ['markdown-clj "1.0.1"]
+   ['markdown-clj "1.0.2"]
    ['metosin/muuntaja "0.4.1"]
    ['metosin/ring-http-response "0.9.0"]
    ['funcool/struct "1.1.0"]
