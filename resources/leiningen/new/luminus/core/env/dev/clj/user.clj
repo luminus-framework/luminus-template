@@ -3,7 +3,7 @@
             [<<project-ns>>.config :refer [env]]<% endif %>
             [mount.core :as mount]<% if figwheel %>
             [<<project-ns>>.figwheel :refer [start-fw stop-fw cljs]]<% endif %>
-            <<project-ns>>.core))
+            [<<project-ns>>.core :refer [start-app]]))
 
 (defn start []
   (mount/start-without #'<<project-ns>>.core/repl-server))
