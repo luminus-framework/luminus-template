@@ -1,3 +1,11 @@
+## 2.9.12.189
+
+- fixed tests to reflect the `app-routes` change in 2.9.12.16
+-funcool/struct 1.2.0
+- metosin/muuntaja 0.4.2
+- org.xerial/sqlite-jdbc 3.21.0.1
+- selmer 1.11.5
+
 ## 2.9.12.18
 
 - refer `start-app` in the `user` namespace

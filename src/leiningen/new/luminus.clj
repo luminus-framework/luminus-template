@@ -113,12 +113,12 @@
 
 (def core-dependencies
   [['org.clojure/clojure "1.9.0"]
-   ['selmer "1.11.4"]
+   ['selmer "1.11.5"]
    ['clj-time "0.14.2"]
    ['markdown-clj "1.0.2"]
-   ['metosin/muuntaja "0.4.1"]
+   ['metosin/muuntaja "0.4.2"]
    ['metosin/ring-http-response "0.9.0"]
-   ['funcool/struct "1.1.0"]
+   ['funcool/struct "1.2.0"]
    ['org.webjars/bootstrap "4.0.0-beta.3"]
    ['org.webjars/font-awesome "5.0.2"]
    ['org.webjars.bower/tether "1.4.3"]
