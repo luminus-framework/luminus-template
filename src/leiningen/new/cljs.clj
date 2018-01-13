@@ -58,7 +58,9 @@
     {:source-paths [cljc-path client-path "env/prod/cljs"]
      :compiler
      (merge
-       {:output-to (str (get-output-dir features) "public/js/app.js")
+       {:output-dir (str (get-output-dir features) "public/js")
+        :output-to (str (get-output-dir features) "public/js/app.js")
+        :source-map (str (get-output-dir features) "public/js/app.js.map")
        :optimizations :advanced
        :pretty-print false
        :closure-warnings

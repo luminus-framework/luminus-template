@@ -1,4 +1,8 @@
-## 2.9.12.189
+## 2.9.12.20
+
+- enabled source maps for the advanced ClojureScript compilation
+
+## 2.9.12.19
 
 - fixed tests to reflect the `app-routes` change in 2.9.12.16
 -funcool/struct 1.2.0
