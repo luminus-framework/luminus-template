@@ -116,10 +116,10 @@
    ['selmer "1.11.5"]
    ['clj-time "0.14.2"]
    ['markdown-clj "1.0.2"]
-   ['metosin/muuntaja "0.4.2"]
+   ['metosin/muuntaja "0.5.0"]
    ['metosin/ring-http-response "0.9.0"]
    ['funcool/struct "1.2.0"]
-   ['org.webjars/bootstrap "4.0.0-beta.3"]
+   ['org.webjars/bootstrap "4.0.0"]
    ['org.webjars/font-awesome "5.0.2"]
    ['org.webjars.bower/tether "1.4.3"]
    ['org.webjars/jquery "3.2.1"]
@@ -135,7 +135,7 @@
    ['luminus-nrepl "0.1.4"]])
 
 (def core-dev-dependencies
-  [['prone "1.1.4"]
+  [['prone "1.2.0"]
    ['ring/ring-mock "0.3.2"]
    ['ring/ring-devel "1.6.3"]
    ['pjstadig/humane-test-output "0.8.3"]])

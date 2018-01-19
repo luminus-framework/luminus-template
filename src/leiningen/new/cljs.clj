@@ -22,7 +22,7 @@
 (def cljs-dependencies
   [['org.clojure/clojurescript cljs-version :scope "provided"]
    ;;workaround for cljs 1.9.946
-   ['org.clojure/tools.reader "1.1.1"]])
+   ['org.clojure/tools.reader "1.1.2"]])
 
 ;;NOTE: under boot, src/cljs is also added to source-paths (see boot-cljs-features)
 
@@ -43,7 +43,7 @@
 
 (def cljs-dev-dependencies
   [['doo doo-version]
-   ['binaryage/devtools "0.9.8"]
+   ['binaryage/devtools "0.9.9"]
    ['figwheel-sidecar figwheel-version]
    ['com.cemerick/piggieback "0.2.2"]])
 

@@ -1,3 +1,12 @@
+## 2.9.12.21
+
+- binaryage/devtools 0.9.9
+- muuntaja 0.5.0
+- tools.reader 1.1.2
+- org.postgresql/postgresql 42.2.0
+- org.webjars/bootstrap 4.0.0
+- prone 1.2.0
+
 ## 2.9.12.20
 
 - enabled source maps for the advanced ClojureScript compilation
