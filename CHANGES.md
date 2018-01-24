@@ -1,3 +1,7 @@
+## 2.9.12.22
+
+- selmer 1.11.6
+
 ## 2.9.12.21
 
 - binaryage/devtools 0.9.9
