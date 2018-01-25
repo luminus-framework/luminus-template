@@ -1,6 +1,9 @@
 ## 2.9.12.22
 
 - selmer 1.11.6
+- luminus-migrations 0.4.6
+- org.postgresql/postgresql 42.2.1
+- re-frame 0.10.3
 
 ## 2.9.12.21
 

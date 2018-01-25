@@ -22,7 +22,7 @@
 (def cljs-dependencies
   [['org.clojure/clojurescript cljs-version :scope "provided"]
    ;;workaround for cljs 1.9.946
-   ['org.clojure/tools.reader "1.1.2"]])
+   ['org.clojure/tools.reader "1.2.1"]])
 
 ;;NOTE: under boot, src/cljs is also added to source-paths (see boot-cljs-features)
 
