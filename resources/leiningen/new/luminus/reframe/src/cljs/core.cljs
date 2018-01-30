@@ -21,7 +21,8 @@
    [:button.navbar-toggler.hidden-sm-up
     {:type "button"
      :data-toggle "collapse"
-     :data-target "#collapsing-navbar"} "☰"]
+     :data-target "#collapsing-navbar"}
+    [:span.navbar-toggler-icon]]
    [:a.navbar-brand {:href "#/"} "<<name>>"]
    [:div#collapsing-navbar.collapse.navbar-collapse
     [:ul.nav.navbar-nav.mr-auto
