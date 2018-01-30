@@ -1,3 +1,7 @@
+## 2.9.12.23
+
+- cleanup for handling migrations
+
 ## 2.9.12.22
 
 - selmer 1.11.6
