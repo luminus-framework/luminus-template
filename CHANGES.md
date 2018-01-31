@@ -1,3 +1,7 @@
+## 2.9.12.24
+
+- luminus-migrations "0.4.8"
+
 ## 2.9.12.23
 
 - cleanup for handling migrations
