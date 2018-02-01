@@ -1,6 +1,8 @@
 ## 2.9.12.25
 
 - luminus-migrations 0.5.0
+- org.webjars/font-awesome 5.0.6
+- re-frame 0.10.4
 
 ## 2.9.12.24
 

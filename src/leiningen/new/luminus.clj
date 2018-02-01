@@ -120,7 +120,7 @@
    ['metosin/ring-http-response "0.9.0"]
    ['funcool/struct "1.2.0"]
    ['org.webjars/bootstrap "4.0.0"]
-   ['org.webjars/font-awesome "5.0.2"]
+   ['org.webjars/font-awesome "5.0.6"]
    ['org.webjars.bower/tether "1.4.3"]
    ['org.webjars/jquery "3.2.1"]
    ['org.clojure/tools.logging "0.4.0"]
@@ -135,7 +135,7 @@
    ['luminus-nrepl "0.1.4"]])
 
 (def core-dev-dependencies
-  [['prone "1.2.0"]
+  [['prone "1.5.0"]
    ['ring/ring-mock "0.3.2"]
    ['ring/ring-devel "1.6.3"]
    ['pjstadig/humane-test-output "0.8.3"]])
