@@ -1,3 +1,7 @@
+## 2.9.12.26
+
+- selmer 1.11.7
+
 ## 2.9.12.25
 
 - luminus-migrations 0.5.0
