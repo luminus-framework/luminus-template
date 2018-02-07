@@ -15,6 +15,9 @@
   (stop)
   (start))
 <% if relational-db %>
+(defn reset-db []
+  (migrations/migrate ["reset"] {:database-url (:config-database-url env)}))
+
 (defn migrate []
   (migrations/migrate ["migrate"] (select-keys env [:database-url])))
 
