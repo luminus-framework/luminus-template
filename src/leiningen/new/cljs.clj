@@ -83,7 +83,8 @@
         :optimizations :none
         :pretty-print  true}
        (when (some #{"+re-frame"} features)
-         {:preloads ['re-frisk.preload]}))}}})
+         {:closure-defines {"re_frame.trace.trace_enabled_QMARK_" true}
+          :preloads ['day8.re-frame-10x.preload]}))}}})
 
 (defn test-cljsbuild [{:keys [project-ns client-path cljc-path client-test-path]}]
   {:builds

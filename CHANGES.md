@@ -1,3 +1,7 @@
+## 2.9.12.28
+
+- switched from using re-frisk to re-frame-10x
+
 ## 2.9.12.27
 
 - conman 0.7.6
