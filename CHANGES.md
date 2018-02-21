@@ -1,6 +1,10 @@
 ## 2.9.12.27
 
 - conman 0.7.6
+- re-frame 0.10.5
+- mount 0.1.12
+- org.clojure/tools.reader 1.2.2
+- removed reagent-utils from the template
 
 ## 2.9.12.26
 
@@ -43,7 +47,7 @@
 ## 2.9.12.19
 
 - fixed tests to reflect the `app-routes` change in 2.9.12.16
--funcool/struct 1.2.0
+- funcool/struct 1.2.0
 - metosin/muuntaja 0.4.2
 - org.xerial/sqlite-jdbc 3.21.0.1
 - selmer 1.11.5

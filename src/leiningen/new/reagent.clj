@@ -7,7 +7,6 @@
 
 (def reagent-dependencies
   [['reagent "0.7.0"]
-   ['reagent-utils "0.2.1"]
    ['secretary "1.2.3"]
    ['cljs-ajax "0.7.3"]])
 

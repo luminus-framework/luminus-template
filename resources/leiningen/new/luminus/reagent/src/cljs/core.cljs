@@ -1,6 +1,5 @@
 (ns <<project-ns>>.core
   (:require [reagent.core :as r]
-            [reagent.session :as session]
             [secretary.core :as secretary :include-macros true]
             [goog.events :as events]
             [goog.history.EventType :as HistoryEventType]
@@ -9,9 +8,11 @@
             [ajax.core :refer [GET POST]])
   (:import goog.History))
 
+(defonce session (r/atom {:page :home}))
+
 (defn nav-link [uri title page]
   [:li.nav-item
-   {:class (when (= page (session/get :page)) "active")}
+   {:class (when (= page (:page @session)) "active")}
    [:a.nav-link {:href uri} title]])
 
 (defn navbar []
@@ -36,7 +37,7 @@
 
 (defn home-page []
   [:div.container
-   (when-let [docs (session/get :docs)]
+   (when-let [docs (:docs @session)]
      [:div.row>div.col-sm-12
       [:div {:dangerouslySetInnerHTML
              {:__html (md->html docs)}}]])])
@@ -46,17 +47,17 @@
    :about #'about-page})
 
 (defn page []
-  [(pages (session/get :page))])
+  [(pages (:page @session))])
 
 ;; -------------------------
 ;; Routes
 (secretary/set-config! :prefix "#")
 
 (secretary/defroute "/" []
-  (session/put! :page :home))
+  (swap! session assoc :page :home))
 
 (secretary/defroute "/about" []
-  (session/put! :page :about))
+  (swap! session assoc :page :about))
 
 ;; -------------------------
 ;; History
@@ -72,7 +73,7 @@
 ;; -------------------------
 ;; Initialize app
 (defn fetch-docs! []
-  (GET "/docs" {:handler #(session/put! :docs %)}))
+  (GET "/docs" {:handler #(swap! session assoc :docs %)}))
 
 (defn mount-components []
   (r/render [#'navbar] (.getElementById js/document "navbar"))
