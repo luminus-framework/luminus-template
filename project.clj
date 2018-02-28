@@ -6,4 +6,4 @@
   :min-lein-version "2.5.3"
   :eval-in-leiningen true
   :dependencies [[leinjacker "0.4.2"]
-                 [selmer "1.0.3"]])
+                 [selmer "1.11.7"]])
