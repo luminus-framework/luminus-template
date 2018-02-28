@@ -3,6 +3,7 @@
     [selmer.parser :as selmer]
     [leiningen.new.templates :refer [renderer raw-resourcer ->files]]
     [clojure.pprint :refer [code-dispatch pprint with-pprint-dispatch]]
+    [clojure.string :as string]
     [clojure.java.io :as io]))
 
 (def dependency-indent 17)
@@ -33,7 +34,9 @@
   :include
   (fn [args context-map]
     (-> (slurp-resource (first args))
-        (render-template context-map))))
+        (render-template context-map)
+        (string/replace #"^\n+" "")
+        (string/replace #"\n+$" ""))))
 
 (defn render-asset [render options asset]
   (if (string? asset)
