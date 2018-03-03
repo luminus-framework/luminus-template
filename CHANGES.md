@@ -1,3 +1,7 @@
+## 2.9.12.29
+
+- Figwheel 0.5.15
+
 ## 2.9.12.28
 
 - switched from using re-frisk to re-frame-10x
