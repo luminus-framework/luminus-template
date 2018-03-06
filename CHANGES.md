@@ -1,3 +1,7 @@
+## 2.9.12.30
+
+- removed bootstrap-theme.min.css from the error page template
+
 ## 2.9.12.29
 
 - Figwheel 0.5.15
