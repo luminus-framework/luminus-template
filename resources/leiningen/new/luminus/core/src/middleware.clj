@@ -115,7 +115,7 @@
     (encrypt claims secret {:alg :a256kw :enc :a128gcm})))<% endif %>
 
 (defn wrap-auth [handler]
-  (let [backend <% if auth-jwe %>token-backend<% endif %><% if auth-session %>(session-backend)<% endif %>]
+  (let [backend <% if auth-jwe %>token-backend<% else %><% if auth-session %>(session-backend)<% endif %><% endif %>]
     (-> handler
         (wrap-authentication backend)
         (wrap-authorization backend))))

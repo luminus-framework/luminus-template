@@ -1,3 +1,7 @@
+## 2.9.12.31
+
+- fixed conflict between `+auth` and `+auth-jwe` profiles
+
 ## 2.9.12.30
 
 - removed bootstrap-theme.min.css from the error page template
