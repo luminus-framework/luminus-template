@@ -14,7 +14,7 @@
 
 (def graphql-dependencies
   [['metosin/compojure-api "1.1.11"]
-   ['com.walmartlabs/lacinia "0.21.0"]])
+   ['com.walmartlabs/lacinia "0.25.0"]])
 
 (def required-features
   [])

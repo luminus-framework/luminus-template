@@ -1,3 +1,7 @@
+## 2.9.12.32
+
+com.walmartlabs/lacinia 0.25.0
+
 ## 2.9.12.31
 
 - fixed conflict between `+auth` and `+auth-jwe` profiles
