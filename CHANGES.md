@@ -1,3 +1,7 @@
+## 2.9.12.33
+
+- day8.re-frame/re-frame-10x 0.3.0
+
 ## 2.9.12.32
 
 com.walmartlabs/lacinia 0.25.0
