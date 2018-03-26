@@ -5,7 +5,7 @@
   [["{{backend-path}}/{{sanitized}}/routes/services.clj" "swagger/src/services.clj"]])
 
 (def swagger-dependencies
-  [['metosin/compojure-api "1.1.11"]])
+  [['metosin/compojure-api "1.1.12"]])
 
 (defn swagger-features [[assets options :as state]]
   (if (some #{"+swagger"} (:features options))

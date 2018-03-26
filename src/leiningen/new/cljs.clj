@@ -13,16 +13,14 @@
    ["{{resource-path}}/templates/home.html" "cljs/templates/home.html"]
    ["{{resource-path}}/templates/error.html" "core/resources/templates/error.html"]])
 
-(def cljs-version "1.9.946")
+(def cljs-version "1.10.238")
 
 (def figwheel-version "0.5.15")
 
-(def doo-version "0.1.8")
+(def doo-version "0.1.10")
 
 (def cljs-dependencies
-  [['org.clojure/clojurescript cljs-version :scope "provided"]
-   ;;workaround for cljs 1.9.946
-   ['org.clojure/tools.reader "1.2.2"]])
+  [['org.clojure/clojurescript cljs-version :scope "provided"]])
 
 ;;NOTE: under boot, src/cljs is also added to source-paths (see boot-cljs-features)
 

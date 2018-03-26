@@ -4,7 +4,9 @@
             [com.walmartlabs.lacinia :as lacinia]
             [clojure.data.json :as json]
             [clojure.edn :as edn]
+            [clojure.java.io :as io]
             [ring.util.http-response :refer :all]
+            [mount.core :refer [defstate]]
             [compojure.api.sweet :refer :all]<% if auth %>
             [compojure.api.meta :refer [restructure-param]]
             [buddy.auth.accessrules :refer [restrict]]
@@ -38,8 +40,10 @@
                :appears_in ["EMPIRE" "JEDI"]}]]
            (first data)))
 
-(def compiled-schema
-  (-> "resources/graphql/schema.edn"
+(defstate compiled-schema
+  :start
+  (-> "graphql/schema.edn"
+      io/resource
       slurp
       edn/read-string
       (attach-resolvers {:get-hero get-hero

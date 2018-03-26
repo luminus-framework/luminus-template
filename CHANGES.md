@@ -1,6 +1,11 @@
 ## 2.9.12.33
 
+- ClojureScript 1.10.238
 - day8.re-frame/re-frame-10x 0.3.0
+- metosin/compojure-api 1.1.12
+- org.webjars/bootstrap 4.0.0-2
+- doo 0.1.10
+- fix for loading resources in the +graphql profile
 
 ## 2.9.12.32
 
