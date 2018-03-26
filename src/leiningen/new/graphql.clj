@@ -13,7 +13,7 @@
    ["{{resource-path}}/graphql/schema.edn" "graphql/resources/schema.edn"]])
 
 (def graphql-dependencies
-  [['metosin/compojure-api "1.1.11"]
+  [['metosin/compojure-api "1.1.12"]
    ['com.walmartlabs/lacinia "0.25.0"]])
 
 (def required-features

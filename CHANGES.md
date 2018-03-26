@@ -1,3 +1,7 @@
+## 2.9.12.34
+
+- compojure-api 1.1.12 in +graphql profile
+
 ## 2.9.12.33
 
 - ClojureScript 1.10.238
