@@ -16,7 +16,7 @@
 (defn oauth-callback-uri
   "Generates the oauth request callback URI"
   [{:keys [headers]}]
-  (str (headers "x-forwarded-proto") "://" (headers "host") "/oauth/twitter-callback"))
+  (str (headers "x-forwarded-proto") "://" (headers "host") "/oauth/oauth-callback"))
 
 (defn fetch-request-token
   "Fetches a request token."

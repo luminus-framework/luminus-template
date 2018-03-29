@@ -1,3 +1,8 @@
+## 2.9.12.35
+
+- fixed a typo in oauth route declaration
+- clj-oauth 1.5.5
+
 ## 2.9.12.34
 
 - compojure-api 1.1.12 in +graphql profile

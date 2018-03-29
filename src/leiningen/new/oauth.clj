@@ -9,7 +9,7 @@
   (if (some #{"+oauth"} (:features options))
     [(into assets oauth-assets)
      (-> options
-         (append-options :dependencies [['clj-oauth "1.5.4"]])
+         (append-options :dependencies [['clj-oauth "1.5.5"]])
          (assoc :oauth-required
                 (indent require-indent
                         [[(symbol (str (:project-ns options) ".routes.oauth")) :refer ['oauth-routes]]])
