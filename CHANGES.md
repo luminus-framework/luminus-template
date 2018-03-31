@@ -1,3 +1,7 @@
+## 2.9.12.36
+
+- removed boot-cprop from `+boot` profile
+
 ## 2.9.12.35
 
 - fixed a typo in oauth route declaration
