@@ -76,10 +76,16 @@
 
 (defn add-relational-db [db [assets options]]
   [(into assets (relational-db-files options))
-   (let [embedded-db? (some #{(name db)} ["h2" "sqlite"])]
+   (let [embedded-db? (some #{(name db)} ["h2" "sqlite"])
+         boot? (some #{"+boot"} (:features options))]
      (-> options
          (append-options :dependencies (db-dependencies options))
-         (append-options :plugins [['migratus-lein "0.5.4"]])
+         (append-options (if boot?
+                           :dependencies
+                           :plugins)
+                         (if boot?
+                           [['luminus/boot-migratus "1.0.1" :scope "test"]]
+                           [['migratus-lein "0.5.4"]]))
          (assoc
            :relational-db true
            :db-connection (not embedded-db?)
