@@ -27,7 +27,8 @@
   (require 'pjstadig.humane-test-output)
   (let [pja (resolve 'pjstadig.humane-test-output/activate!)]
     (pja))
-  (cprop :profile :profiles/dev))
+  (.. System (getProperties) (setProperty "conf" "dev-config.edn"))
+  identity)
 
 (deftask testing
   "Enables configuration for testing."
@@ -35,14 +36,15 @@
   (dev)
   (set-env! :resource-paths #(conj % "env/test/resources"))<% if cljs %>
   (merge-env! :source-paths <<dev-cljs.test.source-paths>>)<% endif %>
-  (cprop :profile :profiles/test))
+  (.. System (getProperties) (setProperty "conf" "test-config.edn"))
+  identity)
 
 (deftask prod
   "Enables configuration for production building."
   []
   (merge-env! :source-paths #{"env/prod/clj"<% if cljs %> "env/prod/cljs"<% endif %>}
               :resource-paths #{"env/prod/resources"})
-  (cprop :profile :profiles/prod))
+  identity)
 
 (deftask start-server
   "Runs the project without building class files.
