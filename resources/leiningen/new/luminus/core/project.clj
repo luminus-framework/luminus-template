@@ -11,8 +11,7 @@
   :test-paths ["test/clj"]
   :resource-paths <<resource-paths>><% endif %>
   :target-path "target/%s/"
-  :main ^:skip-aot <<project-ns>>.core<% if migrations %>
-  :migratus <<migrations>><% endif %>
+  :main ^:skip-aot <<project-ns>>.core
 
   :plugins [<% if plugins %><<plugins>><% endif %>]<% if cucumber-feature-paths %>
   :cucumber-feature-paths <<cucumber-feature-paths>><% endif %><% if sassc-config-params %>

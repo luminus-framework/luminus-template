@@ -1,3 +1,9 @@
+## 2.9.12.37
+
+- removed `migratus-lein` plugin from the template, migrations should be run from the app,
+  and the `user` namespace provides helper functions for creating and running migrations in
+  development
+
 ## 2.9.12.36
 
 - removed boot-cprop from `+boot` profile

@@ -79,13 +79,11 @@
    (let [embedded-db? (some #{(name db)} ["h2" "sqlite"])]
      (-> options
          (append-options :dependencies (db-dependencies options))
-         (append-options :plugins [['migratus-lein "0.5.4"]])
          (assoc
            :relational-db true
            :db-connection (not embedded-db?)
            :db-type (name db)
            :embedded-db embedded-db?
-           :migrations "{:store :database :db ~(get (System/getenv) \"DATABASE_URL\")}"
            :db-docs ((:selmer-renderer options)
                       (slurp-resource (if (= :h2 db)
                                         "db/docs/h2_instructions.md"
