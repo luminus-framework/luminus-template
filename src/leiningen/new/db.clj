@@ -76,7 +76,8 @@
 
 (defn add-relational-db [db [assets options]]
   [(into assets (relational-db-files options))
-   (let [embedded-db? (some #{(name db)} ["h2" "sqlite"])]
+   (let [embedded-db? (some #{(name db)} ["h2" "sqlite"])
+         boot? (some #{"+boot"} (:features options))]
      (-> options
          (append-options :dependencies (db-dependencies options))
          (assoc

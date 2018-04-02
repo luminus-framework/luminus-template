@@ -2,14 +2,17 @@
  :dependencies '[<<dependencies>>]<% if resource-paths %>
  :source-paths <<source-paths>>
  :resource-paths <<resource-paths>><% endif %>)
-
-(require '[adzerk.boot-test :refer [test]]
-         '[luminus.boot-cprop :refer [cprop]])
+(require '[clojure.java.io :as io]
+         '[clojure.edn :as edn]
+         '[adzerk.boot-test :refer [test]])
 <% if cljs %>
 (require '[adzerk.boot-cljs :refer [cljs]]
          '[adzerk.boot-cljs-repl :refer [cljs-repl]])
 <% endif %><% if sassc-config-params %>
 (require '[deraen.boot-sass :refer [sass]])
+<% endif %>
+<% if migrations %>
+(require '[luminus.boot-migratus :refer [migratus]])
 <% endif %>
 (deftask dev
   "Enables configuration for a development setup."
@@ -23,11 +26,11 @@
                               <<dev-http-server-dependencies>><% endif %>
                               [pjstadig/humane-test-output "0.8.2"]<% if dev-dependencies %>
                               <<dev-dependencies>><% endif %>]))
-  (task-options! repl {:init-ns 'user})
   (require 'pjstadig.humane-test-output)
   (let [pja (resolve 'pjstadig.humane-test-output/activate!)]
     (pja))
-  (cprop :profile :profiles/dev))
+  (.. System (getProperties) (setProperty "conf" "dev-config.edn"))
+  identity)
 
 (deftask testing
   "Enables configuration for testing."
@@ -35,14 +38,15 @@
   (dev)
   (set-env! :resource-paths #(conj % "env/test/resources"))<% if cljs %>
   (merge-env! :source-paths <<dev-cljs.test.source-paths>>)<% endif %>
-  (cprop :profile :profiles/test))
+  (.. System (getProperties) (setProperty "conf" "test-config.edn"))
+  identity)
 
 (deftask prod
   "Enables configuration for production building."
   []
   (merge-env! :source-paths #{"env/prod/clj"<% if cljs %> "env/prod/cljs"<% endif %>}
               :resource-paths #{"env/prod/resources"})
-  (cprop :profile :profiles/prod))
+  identity)
 
 (deftask start-server
   "Runs the project without building class files.
@@ -51,9 +55,9 @@
   task."
   []
   (require '<<project-ns>>.core)
-  (let [start-app (resolve '<<project-ns>>.core/start-app)]
+  (let [-main (resolve '<<project-ns>>.core/-main)]
     (with-pass-thru _
-      (start-app nil))))
+      (apply -main *args*))))
 
 (deftask run
   "Starts the server and causes it to wait."

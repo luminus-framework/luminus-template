@@ -1,8 +1,7 @@
 (ns leiningen.new.boot
   (:require [leiningen.new.common :refer :all]))
 
-(def boot-dependencies '[[adzerk/boot-test "1.2.0" :scope "test"]
-                         #_[luminus/boot-cprop "1.0.0" :scope "test"]])
+(def boot-dependencies '[[adzerk/boot-test "1.2.0" :scope "test"]])
 
 (defn boot-features [[assets options :as state]]
   (if (some #{"+boot"} (:features options))
