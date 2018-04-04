@@ -1,3 +1,7 @@
+## 2.9.12.38
+
+- prone 1.5.1
+
 ## 2.9.12.37
 
 - removed `migratus-lein` plugin from the template, migrations should be run from the app,
