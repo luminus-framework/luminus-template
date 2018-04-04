@@ -1,5 +1,6 @@
 ## 2.9.12.38
 
+- fix for reset-db in the user namespace
 - prone 1.5.1
 
 ## 2.9.12.37
