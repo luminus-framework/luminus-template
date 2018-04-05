@@ -1,3 +1,7 @@
+## 2.9.12.39
+
+- day8.re-frame/re-frame-10x 0.3.1
+
 ## 2.9.12.38
 
 - fix for reset-db in the user namespace
