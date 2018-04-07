@@ -3,6 +3,7 @@
 - add JDK 9 modules for ClojureScript compilation
 - binaryage/devtools 0.9.10
 - day8.re-frame/re-frame-10x 0.3.1
+- font-awesome 5.0.9
 
 ## 2.9.12.38
 
