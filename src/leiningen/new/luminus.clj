@@ -219,6 +219,12 @@
       (and (= x1 x2) (< y1 y2))
       (and (= x1 x2) (= y1 y2) (< z1 z2)))))
 
+(defn jvm-opts []
+  (when (try
+          (> (Double/parseDouble (subs (System/getProperty "java.version") 0 3)) 1.8)
+          (catch Exception _))
+    ["\"--add-modules\"" "\"java.xml.bind\""]))
+
 (defn luminus
   "Create a new Luminus project"
   [name & feature-params]
@@ -244,7 +250,8 @@
                               :project-ns       (sanitize-ns name)
                               :sanitized        (name-to-path name)
                               :year             (year)
-                              :features         (set feature-params)})
+                              :features         (set feature-params)
+                              :opts             (jvm-opts)})
         unsupported        (-> (set feature-params)
                                (clojure.set/difference supported-features)
                                (not-empty))]

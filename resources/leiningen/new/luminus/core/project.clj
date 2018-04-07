@@ -39,7 +39,7 @@
    :dev           [:project/dev :profiles/dev]
    :test          [:project/dev :project/test :profiles/test]
 
-   :project/dev  {:jvm-opts ["-server" "-Dconf=dev-config.edn"]
+   :project/dev  {:jvm-opts ["-Dconf=dev-config.edn"<% for opt in opts %> <<opt>><% endfor %>]
                   :dependencies [<<dev-dependencies>>]
                   :plugins      [<<dev-plugins>>]<% if cljs %>
                   :cljsbuild
@@ -52,7 +52,7 @@
                   :repl-options {:init-ns user}
                   :injections [(require 'pjstadig.humane-test-output)
                                (pjstadig.humane-test-output/activate!)]}
-   :project/test {:jvm-opts ["-server" "-Dconf=test-config.edn"]
+   :project/test {:jvm-opts ["-Dconf=test-config.edn"<% for opt in opts %> <<opt>><% endfor %>]
                   :resource-paths ["env/test/resources"]<% if cljs %>
                   :cljsbuild
                   <<test-cljsbuild>>
