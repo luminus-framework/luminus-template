@@ -1,3 +1,7 @@
+## 2.9.12.41
+
+- updated to reference the `<app>.db.core` namespace in the `user` namespace in order to automatically start the database connection.
+
 ## 2.9.12.40
 
 day8.re-frame/re-frame-10x 0.3.2

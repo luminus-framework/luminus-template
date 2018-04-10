@@ -1,9 +1,10 @@
 (ns user
-  (:require <% if relational-db %>[luminus-migrations.core :as migrations]
-            [<<project-ns>>.config :refer [env]]<% endif %>
+  (:require [<<project-ns>>.config :refer [env]]
             [mount.core :as mount]<% if figwheel %>
             [<<project-ns>>.figwheel :refer [start-fw stop-fw cljs]]<% endif %>
-            [<<project-ns>>.core :refer [start-app]]))
+            [<<project-ns>>.core :refer [start-app]]<% if relational-db %>
+            [luminus-migrations.core :as migrations]
+            [<<project-ns>>.test.db.core]<% endif %>))
 
 (defn start []
   (mount/start-without #'<<project-ns>>.core/repl-server))
