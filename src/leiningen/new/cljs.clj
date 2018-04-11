@@ -115,7 +115,7 @@
         :cljs-test cljs-test
         :figwheel (indent root-indent (figwheel options))
         :cljs-uberjar-prep ":prep-tasks [\"compile\" [\"cljsbuild\" \"once\" \"min\"]]")
-       (append-options :source-paths [(:cljc-path options)])
+       (append-options :source-paths [(:client-path options) (:cljc-path options)])
        (append-options :resource-paths resource-paths))])
 
 ;; Options for boot

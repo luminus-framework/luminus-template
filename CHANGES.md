@@ -1,3 +1,8 @@
+## 2.9.12.42
+
+- added `src/cljs` to global `:source-paths`
+- conman 0.7.8
+
 ## 2.9.12.41
 
 - updated to reference the `<app>.db.core` namespace in the `user` namespace in order to automatically start the database connection.
