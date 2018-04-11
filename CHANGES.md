@@ -2,6 +2,9 @@
 
 - added `src/cljs` to global `:source-paths`
 - conman 0.7.8
+- clj-time 0.14.3
+- org.clojure/tools.cli 0.3.6
+- org.postgresql/postgresql 42.2.2
 
 ## 2.9.12.41
 

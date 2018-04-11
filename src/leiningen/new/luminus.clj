@@ -114,7 +114,7 @@
 (def core-dependencies
   [['org.clojure/clojure "1.9.0"]
    ['selmer "1.11.7"]
-   ['clj-time "0.14.2"]
+   ['clj-time "0.14.3"]
    ['markdown-clj "1.0.2"]
    ['metosin/muuntaja "0.5.0"]
    ['metosin/ring-http-response "0.9.0"]
@@ -131,7 +131,7 @@
    ['luminus/ring-ttl-session "0.3.2"]
    ['mount "0.1.12"]
    ['cprop "0.1.11"]
-   ['org.clojure/tools.cli "0.3.5"]
+   ['org.clojure/tools.cli "0.3.6"]
    ['luminus-nrepl "0.1.4"]])
 
 (def core-dev-dependencies
