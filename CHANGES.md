@@ -1,3 +1,7 @@
+## 2.9.12.43
+
+- fix for requiring the correct db namespace
+
 ## 2.9.12.42
 
 - added `src/cljs` to global `:source-paths`
