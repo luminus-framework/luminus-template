@@ -8,6 +8,7 @@
     [cheshire.core :refer [generate-string parse-string]]
     [clj-time.jdbc]
     [clojure.java.jdbc :as jdbc]
+    [clojure.tools.logging :as log]
     [conman.core :as conman]
     [<<project-ns>>.config :refer [env]]
     [mount.core :refer [defstate]])
@@ -21,17 +22,25 @@
   (:require
     [clj-time.jdbc]
     [clojure.java.jdbc :as jdbc]
+    [clojure.tools.logging :as log]
     [conman.core :as conman]
     [<<project-ns>>.config :refer [env]]
     [mount.core :refer [defstate]])
   (:import [java.sql
             BatchUpdateException
             PreparedStatement])<% endifequal %>)
-
+<% if embedded-db %>
 (defstate ^:dynamic *db*
-  :start (conman/connect! {:jdbc-url (env :database-url)})
+          :start (conman/connect! {:jdbc-url (env :database-url)})
+          :stop (conman/disconnect! *db*))
+<% else %>(defstate ^:dynamic *db*
+  :start (if-let [jdbc-url (env :database-url)]
+           (conman/connect! {:jdbc-url jdbc-url})
+           (do
+             (log/warn "database connection URL was not found, please set :database-url in your config, e.g: dev-config.edn")
+             *db*))
   :stop (conman/disconnect! *db*))
-
+<% endif %>
 (conman/bind-connection *db* "sql/queries.sql")
 <% ifequal db-type "mysql" %>
 <% endifequal %><% ifequal db-type "postgres" %>

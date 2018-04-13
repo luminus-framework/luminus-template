@@ -41,8 +41,13 @@
      [(str "{{resource-path}}/migrations/" timestamp "-add-users-table.down.sql") "db/migrations/add-users-table.down.sql"]]))
 
 (defn db-profiles [options]
-  {:database-profile-dev  (str :database-url " \"" (db-url options "dev") "\"")
-   :database-profile-test (str :database-url " \"" (db-url options "test") "\"")})
+  (merge
+    options
+    (if (:embedded-db options)
+      {:database-profile-dev  (str :database-url " \"" (db-url options "dev") "\"")
+       :database-profile-test (str :database-url " \"" (db-url options "test") "\"")}
+      {:database-profile-dev  (str "; set your dev database connection URL here\n ; " :database-url " \"" (db-url options "dev") "\"\n")
+       :database-profile-test (str "; set your test database connection URL here\n ; " :database-url " \"" (db-url options "test") "\"\n")})))
 
 (def mongo-files
   [["{{db-path}}/{{sanitized}}/db/core.clj" "db/src/mongodb.clj"]])
@@ -77,7 +82,7 @@
 (defn add-relational-db [db [assets options]]
   [(into assets (relational-db-files options))
    (let [embedded-db? (some #{(name db)} ["h2" "sqlite"])
-         boot? (some #{"+boot"} (:features options))]
+         boot?        (some #{"+boot"} (:features options))]
      (-> options
          (append-options :dependencies (db-dependencies options))
          (assoc
@@ -90,7 +95,7 @@
                                         "db/docs/h2_instructions.md"
                                         "db/docs/db_instructions.md"))
                       options))
-         (merge (db-profiles options))))])
+         (db-profiles)))])
 
 (defn db-features [state]
   (if-let [db (select-db (second state))]

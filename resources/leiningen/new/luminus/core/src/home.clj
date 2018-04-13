@@ -1,5 +1,6 @@
 (ns <<project-ns>>.routes.home
-  (:require [<<project-ns>>.layout :as layout]
+  (:require [<<project-ns>>.layout :as layout]<% if relational-db %>
+            [<<project-ns>>.db.core]<% endif %>
             [compojure.core :refer [defroutes GET]]
             [ring.util.http-response :as response]
             [clojure.java.io :as io]))

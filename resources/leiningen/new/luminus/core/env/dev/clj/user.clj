@@ -3,8 +3,7 @@
             [mount.core :as mount]<% if figwheel %>
             [<<project-ns>>.figwheel :refer [start-fw stop-fw cljs]]<% endif %>
             [<<project-ns>>.core :refer [start-app]]<% if relational-db %>
-            [luminus-migrations.core :as migrations]
-            [<<project-ns>>.db.core]<% endif %>))
+            [luminus-migrations.core :as migrations]<% endif %>))
 
 (defn start []
   (mount/start-without #'<<project-ns>>.core/repl-server))

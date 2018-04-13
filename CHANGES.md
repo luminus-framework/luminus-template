@@ -1,3 +1,7 @@
+## 2.9.12.44
+
+- improved DB settings
+
 ## 2.9.12.43
 
 - fix for requiring the correct db namespace
