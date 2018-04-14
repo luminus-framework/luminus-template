@@ -1,3 +1,7 @@
+## 2.9.12.45
+
+- named the referenced db namespace in the home routes namespace
+
 ## 2.9.12.44
 
 - improved DB settings
