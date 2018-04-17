@@ -1,3 +1,7 @@
+## 2.9.12.46
+
+- removed `wrap-context` middleware from the default profile, `+servlet` profile must be used to enable it
+
 ## 2.9.12.45
 
 - named the referenced db namespace in the home routes namespace

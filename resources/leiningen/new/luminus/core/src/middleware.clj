@@ -3,7 +3,7 @@
             [cheshire.generate :as cheshire]
             [cognitect.transit :as transit]
             [clojure.tools.logging :as log]
-            [<<project-ns>>.layout :refer [*app-context* error-page]]
+            [<<project-ns>>.layout :refer [error-page<% if servlet %> *app-context*<% endif %>]]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
             [ring.middleware.webjars :refer [wrap-webjars]]
             [muuntaja.core :as muuntaja]
@@ -20,7 +20,7 @@
             <<auth-jwe>><% endif %><% endif %>)<% if not service %>
   (:import [javax.servlet ServletContext]
            [org.joda.time ReadableInstant])<% endif %>)
-<% if not service %>
+<% if not service %><% if servlet %>
 (defn wrap-context [handler]
   (fn [request]
     (binding [*app-context*
@@ -35,7 +35,7 @@
                 ;; instead
                 (:app-context env))]
       (handler request))))
-
+<% endif %>
 (defn wrap-internal-error [handler]
   (fn [req]
     (try
@@ -133,6 +133,6 @@
       (wrap-defaults
         (-> site-defaults
             (assoc-in [:security :anti-forgery] false)
-            (assoc-in  [:session :store] (ttl-memory-store (* 60 30)))))<% endif %><% if not service %>
-      wrap-context
+            (assoc-in  [:session :store] (ttl-memory-store (* 60 30)))))<% endif %><% if not service %><% if servlet %>
+      wrap-context<% endif %>
       wrap-internal-error<% endif %>))

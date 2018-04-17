@@ -25,6 +25,7 @@
             [leiningen.new.swagger :refer [swagger-features]]
             [leiningen.new.graphql :refer [graphql-features]]
             [leiningen.new.sassc :refer [sassc-features]]
+            [leiningen.new.servlet :refer [servlet-features]]
             [leiningen.new.site :refer [site-features]]
             [leiningen.new.war :refer [war-features]]
             [leiningen.new.kibit :refer [kibit-features]]
@@ -152,6 +153,7 @@
             lein-features
             boot-features
             service-features
+            servlet-features
             auth-base-features
             auth-features
             auth-jwe-features
@@ -237,7 +239,7 @@
                              "+cljs" "+hoplon" "+reagent" "+re-frame" "+auth" "+auth-jwe" "+site"
                              "+cucumber" "+sassc" "+cider" "+oauth"
                              "+swagger" "+war" "+graphql"
-                             "+kibit" "+service"
+                             "+kibit" "+service" "+servlet"
                              "+boot"}
         options            (merge
                              project-relative-paths
