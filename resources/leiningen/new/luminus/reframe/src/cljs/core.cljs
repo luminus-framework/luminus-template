@@ -33,7 +33,7 @@
   [:div.container
    [:div.row
     [:div.col-md-12
-     [:img {:src (str js/context "/img/warning_clojure.png")}]]]])
+     [:img {:src <% if servlet %>(str js/context "/img/warning_clojure.png")<% else %>"/img/warning_clojure.png"<% endif %>}]]]])
 
 (defn home-page []
   [:div.container

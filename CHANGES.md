@@ -1,3 +1,7 @@
+## 2.9.12.47
+
+- removed servlet-context from HTML templates when `+servlet` profile is not selected
+
 ## 2.9.12.46
 
 - removed `wrap-context` middleware from the default profile, `+servlet` profile must be used to enable it

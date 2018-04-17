@@ -47,7 +47,7 @@
   (h/div :class "container"
     (h/div :class "row"
       (h/div :class "col-md-12"
-        (h/img :src (str js/context "/img/warning_clojure.png"))))))
+        (h/img :src <% if servlet %>(str js/context "/img/warning_clojure.png")<% else %>"/img/warning_clojure.png"<% endif %>)))))
 
 (defn home []
   (h/div :class "container"

@@ -39,8 +39,8 @@
     {% script "/assets/tether/dist/js/tether.min.js" %}
     {% script "/assets/bootstrap/js/bootstrap.min.js" %}
 
-    <script type="text/javascript">
-        var context = "{{servlet-context}}";
+    <script type="text/javascript"><% if servlet %>
+        var context = "{{servlet-context}}";<% endif %>
         var csrfToken = "{{csrf-token}}";
     </script>
     {% script "/js/app.js" %}

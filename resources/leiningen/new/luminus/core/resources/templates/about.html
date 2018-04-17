@@ -1,4 +1,4 @@
 {% extends "base.html" %}
 {% block content %}
-  <img src="{{servlet-context}}/img/warning_clojure.png"></img>
+  <img src="<% if servlet %>{{servlet-context}}<% endif %>/img/warning_clojure.png"></img>
 {% endblock %}

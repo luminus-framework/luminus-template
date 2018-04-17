@@ -6,8 +6,8 @@
 
 (defn default-headers [request]
   (if (local-uri? request)
-    (-> request
-        (update :uri #(str js/context %))
+    (-> request<% if servlet %>
+        (update :uri #(str js/context %))<% endif %>
         (update :headers #(merge {"x-csrf-token" js/csrfToken} %)))
     request))
 
