@@ -1,3 +1,7 @@
+## 2.9.12.49
+
+-  added improved error reporting when ``:database-url` is not set
+
 ## 2.9.12.48
 
 - fixed typo in docs

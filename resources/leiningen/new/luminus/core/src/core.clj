@@ -62,15 +62,18 @@
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app)))
 <% endif %>
 (defn -main [& args]
-  <% if relational-db %>(cond
+  <% if relational-db %>(mount/start #'<<project-ns>>.config/env)
+  (cond
+    (nil? (:database-url env))
+    (do
+      (log/error "Database configurtion not found, :database-url environment variable must be set before running")
+      (System/exit 1))
     (some #{"init"} args)
     (do
-      (mount/start #'<<project-ns>>.config/env)
       (migrations/init (select-keys env [:database-url :init-script]))
       (System/exit 0))
     (migrations/migration? args)
     (do
-      (mount/start #'<<project-ns>>.config/env)
       (migrations/migrate args (select-keys env [:database-url]))
       (System/exit 0))
     :else
