@@ -1,3 +1,7 @@
+## 2.9.12.50
+
+- added `restart-db` convenience function in the `user` namespace
+
 ## 2.9.12.49
 
 -  added improved error reporting when ``:database-url` is not set

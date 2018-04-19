@@ -3,6 +3,7 @@
             [mount.core :as mount]<% if figwheel %>
             [<<project-ns>>.figwheel :refer [start-fw stop-fw cljs]]<% endif %>
             [<<project-ns>>.core :refer [start-app]]<% if relational-db %>
+            [conman.core :as conman]
             [luminus-migrations.core :as migrations]<% endif %>))
 
 (defn start []
@@ -15,6 +16,12 @@
   (stop)
   (start))
 <% if relational-db %>
+(defn restart-db []
+  (mount/stop #'<<project-ns>>.db.core/*db*)
+  (mount/start #'<<project-ns>>.db.core/*db*)
+  (binding [*ns* '<<project-ns>>.db.core]
+    (conman/bind-connection <<project-ns>>.db.core/*db* "sql/queries.sql")))
+
 (defn reset-db []
   (migrations/migrate ["reset"] (select-keys env [:database-url])))
 
