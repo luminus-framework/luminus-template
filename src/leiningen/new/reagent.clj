@@ -6,7 +6,7 @@
    ["{{client-path}}/{{sanitized}}/ajax.cljs" "reagent/src/cljs/ajax.cljs"]])
 
 (def reagent-dependencies
-  [['reagent "0.7.0"]
+  [['reagent "0.8.0"]
    ['secretary "1.2.3"]
    ['cljs-ajax "0.7.3"]])
 

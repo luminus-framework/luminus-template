@@ -1,6 +1,7 @@
 ## 2.9.12.50
 
 - added `restart-db` convenience function in the `user` namespace
+- reagent 0.8.0
 
 ## 2.9.12.49
 
