@@ -1,3 +1,11 @@
+## 2.9.12.52
+
+- bootstrap 4.1.0
+- compojure 1.6.1
+- org.webjars/font-awesome 5.0.10
+- day8.re-frame/re-frame-10x 0.3.3
+- prone 1.5.2
+
 ## 2.9.12.51
 
 - http-kit 2.3.0

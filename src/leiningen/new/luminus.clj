@@ -120,12 +120,12 @@
    ['metosin/muuntaja "0.5.0"]
    ['metosin/ring-http-response "0.9.0"]
    ['funcool/struct "1.2.0"]
-   ['org.webjars/bootstrap "4.0.0-2"]
-   ['org.webjars/font-awesome "5.0.9"]
+   ['org.webjars/bootstrap "4.1.0"]
+   ['org.webjars/font-awesome "5.0.10"]
    ['org.webjars.bower/tether "1.4.3"]
    ['org.webjars/jquery "3.2.1"]
    ['org.clojure/tools.logging "0.4.0"]
-   ['compojure "1.6.0"]
+   ['compojure "1.6.1"]
    ['ring/ring-core "1.6.3"]
    ['ring-webjars "0.2.0"]
    ['ring/ring-defaults "0.3.1"]
@@ -136,7 +136,7 @@
    ['luminus-nrepl "0.1.4"]])
 
 (def core-dev-dependencies
-  [['prone "1.5.1"]
+  [['prone "1.5.2"]
    ['ring/ring-mock "0.3.2"]
    ['ring/ring-devel "1.6.3"]
    ['pjstadig/humane-test-output "0.8.3"]])

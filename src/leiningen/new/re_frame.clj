@@ -12,5 +12,5 @@
      (-> options
          (assoc :re-frame true)
          (append-options :dependencies [['re-frame "0.10.5"]])
-         (append-options :dev-dependencies [['day8.re-frame/re-frame-10x "0.3.2"]]))]
+         (append-options :dev-dependencies [['day8.re-frame/re-frame-10x "0.3.3"]]))]
     state))
