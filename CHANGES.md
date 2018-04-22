@@ -1,3 +1,7 @@
+## 2.9.12.51
+
+- http-kit 2.3.0
+
 ## 2.9.12.50
 
 - added `restart-db` convenience function in the `user` namespace
