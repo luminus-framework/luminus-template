@@ -1,3 +1,7 @@
+## 2.9.12.53
+
+- added [expound](https://github.com/bhb/expound) for improved Spec error reporting
+
 ## 2.9.12.52
 
 - bootstrap 4.1.0

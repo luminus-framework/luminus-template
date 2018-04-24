@@ -136,7 +136,8 @@
    ['luminus-nrepl "0.1.4"]])
 
 (def core-dev-dependencies
-  [['prone "1.5.2"]
+  [['expound "0.5.0"]
+   ['prone "1.5.2"]
    ['ring/ring-mock "0.3.2"]
    ['ring/ring-devel "1.6.3"]
    ['pjstadig/humane-test-output "0.8.3"]])
