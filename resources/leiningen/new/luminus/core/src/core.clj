@@ -26,8 +26,10 @@
 
 (mount/defstate ^{:on-reload :noop} repl-server
   :start
-  (when-let [nrepl-port (env :nrepl-port)]
-    (repl/start {:port nrepl-port<% if cider %> :handler cider-nrepl-handler<% endif %>}))
+  (when (env :nrepl-port)
+    (repl/start { :bind (env :nrepl-bind)
+                  :port (env :nrepl-port)
+                  <% if cider %> :handler cider-nrepl-handler<% endif %> }))
   :stop
   (when repl-server
     (repl/stop repl-server)))
