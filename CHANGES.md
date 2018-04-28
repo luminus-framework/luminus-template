@@ -1,3 +1,7 @@
+##  2.9.12.54
+
+- `:nrepl-bind` option via [pr 359](https://github.com/luminus-framework/luminus-template/pull/359/files)
+
 ## 2.9.12.53
 
 - added [expound](https://github.com/bhb/expound) for improved Spec error reporting
