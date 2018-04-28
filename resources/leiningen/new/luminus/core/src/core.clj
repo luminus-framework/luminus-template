@@ -68,7 +68,7 @@
   (cond
     (nil? (:database-url env))
     (do
-      (log/error "Database configurtion not found, :database-url environment variable must be set before running")
+      (log/error "Database configuration not found, :database-url environment variable must be set before running")
       (System/exit 1))
     (some #{"init"} args)
     (do
