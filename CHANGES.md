@@ -1,6 +1,7 @@
 ##  2.9.12.54
 
 - `:nrepl-bind` option via [pr 359](https://github.com/luminus-framework/luminus-template/pull/359/files)
+- `+reitit` profile for the [Reitit](https://metosin.github.io/reitit/) router
 
 ## 2.9.12.53
 
