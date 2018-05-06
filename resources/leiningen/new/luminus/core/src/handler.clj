@@ -1,10 +1,11 @@
 (ns <<project-ns>>.handler
-  (:require [compojure.core :refer [routes wrap-routes]]<% if not service %>
+  (:require <% if not service %>
             [<<project-ns>>.layout :refer [error-page]]
             [<<project-ns>>.routes.home :refer [home-routes]]<% endif %><% if service-required %>
             <<service-required>><% endif %><% if oauth-required %>
             <<oauth-required>><% endif %>
-            [compojure.route :as route]
+            <% if compojure %>[compojure.core :refer [routes wrap-routes]]
+            [compojure.route :as route]<% endif %><% if reitit %>[reitit.ring :as ring]<% endif %>
             [<<project-ns>>.env :refer [defaults]]
             [mount.core :as mount]
             [<<project-ns>>.middleware :as middleware]<% if war %>
@@ -33,5 +34,5 @@
   (shutdown-agents)
   (log/info "<<name>> has shut down!"))
 <% endif %>
-<% include compojure/handler-fragment.clj %>
-<% include reitit/handler-fragment.clj %>
+<% include compojure/src/handler-fragment.clj %>
+<% include reitit/src/handler-fragment.clj %>

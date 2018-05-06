@@ -61,7 +61,6 @@
    ["{{backend-path}}/{{sanitized}}/core.clj" "core/src/core.clj"]
    ["{{backend-path}}/{{sanitized}}/config.clj" "core/src/config.clj"]
    ["{{backend-path}}/{{sanitized}}/handler.clj" "core/src/handler.clj"]
-   ["{{backend-path}}/{{sanitized}}/routes/home.clj" "core/src/home.clj"]
    ["{{backend-path}}/{{sanitized}}/layout.clj" "core/src/layout.clj"]
    ["{{backend-path}}/{{sanitized}}/middleware.clj" "core/src/middleware.clj"]
 

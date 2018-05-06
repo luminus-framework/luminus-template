@@ -1,4 +1,9 @@
-<% if compojure %>
+(ns <<project-ns>>.routes.home
+  (:require [<<project-ns>>.layout :as layout]<% if relational-db %>
+            [<<project-ns>>.db.core :as db]<% endif %>
+            [compojure.core :refer [defroutes GET]]
+            [ring.util.http-response :as response]
+            [clojure.java.io :as io]))
 <% if cljs  %>
 (defn home-page []
   (layout/render "home.html"))
@@ -22,5 +27,4 @@
   (GET "/" [] (home-page))<% if graphql %>
   (GET "/graphiql" [] (layout/render "graphiql.html"))<% endif %>
   (GET "/about" [] (about-page)))
-<% endif %>
 <% endif %>
