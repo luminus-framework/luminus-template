@@ -2,4 +2,12 @@
 ;; The dev-config.edn file is used for local environment variables, such as database credentials.
 ;; This file is listed in .gitignore and will be excluded from version control by Git.
 
-{<% if database-profile-dev %><<database-profile-dev>><% endif %>}
+{:port 3000
+ ;; when :nrepl-port is set the application starts the nREPL server on load
+ :nrepl-port 7000
+ <% if oauth %>
+ ;;Twitter used as an example, replace these URIs with the OAuth provider of your choice
+ :request-token-uri "https://api.twitter.com/oauth/request_token"
+ :access-token-uri "https://api.twitter.com/oauth/access_token"
+ :authorize-uri "https://api.twitter.com/oauth/authenticate"<% endif %>
+ <% if database-profile-dev %><<database-profile-dev>><% endif %>}

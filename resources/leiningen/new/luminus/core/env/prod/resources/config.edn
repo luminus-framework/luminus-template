@@ -1,6 +1,2 @@
-{:production true<% if oauth %>
- ;;Twitter used as an example, replace these URIs with the OAuth provider of your choice
- :request-token-uri "https://api.twitter.com/oauth/request_token"
- :access-token-uri "https://api.twitter.com/oauth/access_token"
- :authorize-uri "https://api.twitter.com/oauth/authenticate"<% endif %>
+{:production true
  :port 3000}
