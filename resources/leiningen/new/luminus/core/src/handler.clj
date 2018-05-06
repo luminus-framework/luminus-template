@@ -3,9 +3,13 @@
             [<<project-ns>>.layout :refer [error-page]]
             [<<project-ns>>.routes.home :refer [home-routes]]<% endif %><% if service-required %>
             <<service-required>><% endif %><% if oauth-required %>
-            <<oauth-required>><% endif %>
-            <% if compojure %>[compojure.core :refer [routes wrap-routes]]
-            [compojure.route :as route]<% endif %><% if reitit %>[reitit.ring :as ring]<% endif %>
+            <<oauth-required>><% endif %><% if compojure %>
+            [compojure.core :refer [routes wrap-routes]]
+            [compojure.route :as route]<% endif %><% if reitit %>
+            [reitit.ring :as ring]
+            [ring.util.http-response :as response]
+            [ring.middleware.content-type :refer [wrap-content-type]]
+            [ring.middleware.webjars :refer [wrap-webjars]]<% endif %>
             [<<project-ns>>.env :refer [defaults]]
             [mount.core :as mount]
             [<<project-ns>>.middleware :as middleware]<% if war %>

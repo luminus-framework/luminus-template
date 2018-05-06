@@ -4,8 +4,8 @@
             [cognitect.transit :as transit]
             [clojure.tools.logging :as log]
             [<<project-ns>>.layout :refer [error-page<% if servlet %> *app-context*<% endif %>]]
-            [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
-            [ring.middleware.webjars :refer [wrap-webjars]]
+            [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]<% if not reitit %>
+            [ring.middleware.webjars :refer [wrap-webjars]]<% endif %>
             [muuntaja.core :as muuntaja]
             [muuntaja.format.json :refer [json-format]]
             [muuntaja.format.transit :as transit-format]
@@ -122,8 +122,8 @@
 <% endif %>
 (defn wrap-base [handler]
   (-> ((:middleware defaults) handler)<% if auth-middleware-required %>
-      wrap-auth<% endif %><% if not service %>
-      wrap-webjars<% endif %><% if immutant-session %>
+      wrap-auth<% endif %><% if not service %><% if not reitit %>
+      wrap-webjars<% endif %><% endif %><% if immutant-session %>
       wrap-flash
       (wrap-session {:cookie-attrs {:http-only true}})
       (wrap-defaults
