@@ -1,6 +1,6 @@
 # <<name>>
 
-generated using Luminus version "2.9.12.53"
+generated using Luminus version "2.9.12.54"
 
 FIXME
 
@@ -14,7 +14,7 @@ You will need [Leiningen][1] 2.0 or above installed.
 
 To start a web server for the application, run:
 <% if not boot %>
-    lein run 
+    lein run
 <% else %>
     boot run
 <% endif %>

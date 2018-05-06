@@ -2,7 +2,9 @@
   (:require
     [selmer.parser :as selmer]
     [leiningen.new.templates :refer [renderer raw-resourcer ->files]]
-    [clojure.pprint :refer [code-dispatch pprint with-pprint-dispatch]]))
+    [clojure.pprint :refer [code-dispatch pprint with-pprint-dispatch]]
+    [clojure.string :as string]
+    [clojure.java.io :as io]))
 
 (def dependency-indent 17)
 (def dev-dependency-indent 33)
@@ -13,6 +15,7 @@
 (def uberjar-indent 13)
 (def require-indent 13)
 (def template-name "luminus")
+
 (defn render-template [template options]
   (selmer/render
     (str "<% safe %>" template "<% endsafe %>")
@@ -24,8 +27,16 @@
 
 (defn slurp-resource [path]
   (-> (str "leiningen/new/luminus/" path)
-      clojure.java.io/resource
+      io/resource
       slurp))
+
+(selmer/add-tag!
+  :include
+  (fn [args context-map]
+    (-> (slurp-resource (first args))
+        (render-template context-map)
+        (string/replace #"^\n+" "")
+        (string/replace #"\n+$" ""))))
 
 (defn render-asset [render options asset]
   (if (string? asset)

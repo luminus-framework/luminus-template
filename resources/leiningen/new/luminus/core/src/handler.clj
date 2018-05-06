@@ -1,10 +1,15 @@
 (ns <<project-ns>>.handler
-  (:require [compojure.core :refer [routes wrap-routes]]<% if not service %>
+  (:require <% if not service %>
             [<<project-ns>>.layout :refer [error-page]]
             [<<project-ns>>.routes.home :refer [home-routes]]<% endif %><% if service-required %>
             <<service-required>><% endif %><% if oauth-required %>
-            <<oauth-required>><% endif %>
-            [compojure.route :as route]
+            <<oauth-required>><% endif %><% if compojure %>
+            [compojure.core :refer [routes wrap-routes]]
+            [compojure.route :as route]<% endif %><% if reitit %>
+            [reitit.ring :as ring]
+            [ring.util.http-response :as response]
+            [ring.middleware.content-type :refer [wrap-content-type]]
+            [ring.middleware.webjars :refer [wrap-webjars]]<% endif %>
             [<<project-ns>>.env :refer [defaults]]
             [mount.core :as mount]
             [<<project-ns>>.middleware :as middleware]<% if war %>
@@ -33,17 +38,5 @@
   (shutdown-agents)
   (log/info "<<name>> has shut down!"))
 <% endif %>
-(mount/defstate app
-  :start
-  (middleware/wrap-base
-    (routes<% if not service %>
-      (-> #'home-routes
-          (wrap-routes middleware/wrap-csrf)
-          (wrap-routes middleware/wrap-formats))<% endif %><% if oauth-routes %>
-          <<oauth-routes>><% endif %><% if service-routes %>
-          <<service-routes>><% endif %>
-      (route/not-found<% if service %>
-        "page not found"<% else %>
-        (:body
-          (error-page {:status 404
-                       :title "page not found"}))<% endif %>))))
+<% include compojure/src/handler-fragment.clj %>
+<% include reitit/src/handler-fragment.clj %>
