@@ -1,5 +1,6 @@
 ##  2.9.12.54
 
+- figwheel 0.5.16
 - `:nrepl-bind` option via [pr 359](https://github.com/luminus-framework/luminus-template/pull/359/files)
 - `+reitit` profile for the [Reitit](https://metosin.github.io/reitit/) router
 - moved port config from `env/dev/resources/config.edn` to `dev-config.edn`
