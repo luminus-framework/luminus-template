@@ -1,3 +1,7 @@
+## 2.9.12.55
+
+- re-frame version change for React 16 compatibility
+
 ##  2.9.12.54
 
 - figwheel 0.5.16
