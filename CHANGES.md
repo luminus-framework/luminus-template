@@ -1,3 +1,7 @@
+## 2.9.12.56
+
+metosin/reitit 0.1.1
+
 ## 2.9.12.55
 
 - re-frame version change for React 16 compatibility
