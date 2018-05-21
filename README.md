@@ -19,6 +19,10 @@ lein new luminus <your project name>
 
 However, if you would like to attach further functionality to your template you can append [profile hints][ph] for these extended features:
 
+### routing
+
+* `+reitit` adds [Reitit](https://metosin.github.io/reitit/) Clojure/Script router support
+
 ### alternative servers
 
 * `+aleph` adds the [Aleph](https://github.com/ztellman/aleph) server
