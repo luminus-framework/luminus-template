@@ -1,3 +1,7 @@
+## 2.9.12.57
+
+fixed a typo in the template
+
 ## 2.9.12.56
 
 metosin/reitit 0.1.1
