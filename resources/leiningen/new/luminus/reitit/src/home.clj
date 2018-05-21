@@ -1,7 +1,7 @@
 (ns <<project-ns>>.routes.home
   (:require [<<project-ns>>.layout :as layout]
             [clojure.java.io :as io]
-            [myapp.middleware :as middleware]
+            [<<project-ns>>.middleware :as middleware]
             [ring.util.http-response :as response]))
 <% if cljs  %>
 (defn home-page [_]
