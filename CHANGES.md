@@ -1,3 +1,14 @@
+## 2.9.12.58
+
+- fixed reitit profile to handle db profiles correctly
+- clj-time 0.14.4
+- org.clojure/tools.cli 0.3.7
+- org.clojure/tools.logging 0.4.1
+- org.webjars/font-awesome 5.0.13
+- org.webjars/jquery 3.3.1-1
+- expound 0.6.0
+- prone 1.6.0
+
 ## 2.9.12.57
 
 fixed a typo in the template
