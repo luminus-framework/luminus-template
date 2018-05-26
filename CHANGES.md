@@ -1,3 +1,7 @@
+## 2.9.12.59
+
+- added db reference in the user namespace
+
 ## 2.9.12.58
 
 - fixed reitit profile to handle db profiles correctly

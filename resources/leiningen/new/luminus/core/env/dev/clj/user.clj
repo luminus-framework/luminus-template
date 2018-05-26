@@ -5,6 +5,7 @@
             [mount.core :as mount]<% if figwheel %>
             [<<project-ns>>.figwheel :refer [start-fw stop-fw cljs]]<% endif %>
             [<<project-ns>>.core :refer [start-app]]<% if relational-db %>
+            [<<project-ns>>.db.core]
             [conman.core :as conman]
             [luminus-migrations.core :as migrations]<% endif %>))
 
