@@ -1,4 +1,14 @@
-<% if reitit %>
+<% if reitit %><% if service %>
+(mount/defstate app
+  :start
+  (ring/ring-handler
+    (service-routes)
+    (middleware/wrap-base
+      (ring/routes
+        (swagger-ui/create-swagger-ui-handler {:path "/" :url "/api/swagger.json"})
+        (ring/create-resource-handler {:path "/"})
+        (wrap-content-type (wrap-webjars (constantly nil)))
+        (ring/create-default-handler)))))<% else %>
 (mount/defstate app
   :start
   (ring/ring-handler
@@ -15,4 +25,4 @@
          (constantly (error-page {:status 405, :title "405 - Not allowed"}))
          :not-acceptable
          (constantly (error-page {:status 406, :title "406 - Not acceptable"}))}))))
-<% endif %>
+<% endif %><% endif %>

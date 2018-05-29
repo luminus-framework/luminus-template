@@ -1,3 +1,7 @@
+## 2.9.12.60
+
+- made `+reitit` profile compatible with `+service`
+  
 ## 2.9.12.59
 
 - added db reference in the user namespace
