@@ -12,7 +12,7 @@
 
 (defn db-dependencies [options]
   [['luminus-migrations "0.5.0"]
-   ['conman "0.7.8"]
+   ['conman "0.7.9"]
    ({:postgres ['org.postgresql/postgresql "42.2.2"]
      :mysql    ['mysql/mysql-connector-java "6.0.5"]
      :h2       ['com.h2database/h2 "1.4.196"]
