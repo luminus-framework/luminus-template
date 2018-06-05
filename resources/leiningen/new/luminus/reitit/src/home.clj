@@ -9,13 +9,15 @@
   (layout/render "home.html"))
 
 (defn home-routes []
-  [["/" {:get {:handler    home-page
-               :middleware [middleware/wrap-csrf
-                            middleware/wrap-formats]}}]<% if graphql %>
-   ["/graphiql" {:get {:handler (fn [_] (layout/render "graphiql.html"))}}]<% endif %>
-   ["/docs" {:get {:handler (fn [_]
-                              (-> (response/ok (-> "docs/docs.md" io/resource slurp))
-                                  (response/header "Content-Type" "text/plain; charset=utf-8")))}}]])
+  [""
+   {:middleware [middleware/wrap-base
+                 middleware/wrap-csrf
+                 middleware/wrap-formats]}
+   ["/" {:get home-page}]<% if graphql %>
+   ["/graphiql" {:get (fn [_] (layout/render "graphiql.html"))}]<% endif %>
+   ["/docs" {:get (fn [_]
+                    (-> (response/ok (-> "docs/docs.md" io/resource slurp))
+                        (response/header "Content-Type" "text/plain; charset=utf-8")))}]])
 <% else %>
 (defn home-page [_]
   (layout/render
@@ -25,10 +27,12 @@
   (layout/render "about.html"))
 
 (defn home-routes []
-  [["/" {:get {:handler    home-page
-               :middleware [middleware/wrap-csrf
-                            middleware/wrap-formats]}}]<% if graphql %>
-   ["/graphiql" {:get {:handler (fn [_] (layout/render "graphiql.html"))}}]
+  [""
+   {:middleware [middleware/wrap-base
+                 middleware/wrap-csrf
+                 middleware/wrap-formats]}
+   ["/" {:get home-page}]<% if graphql %>
+   ["/graphiql" {:get (fn [_] (layout/render "graphiql.html"))}]
    <% endif %>
    ["/about" {:get about-page}]])
 <% endif %>

@@ -13,11 +13,17 @@
   :start
   (ring/ring-handler
     (ring/router
-      (home-routes)
-      {:data {:middleware [middleware/wrap-base]}})
-    (ring/routes
-      (ring/create-resource-handler {:path "/"})
-      (wrap-content-type (wrap-webjars (constantly nil)))
+      [(home-routes)<% if swagger %>
+       (service-routes)<% endif %>])
+    (ring/routes<% if swagger %>
+      (swagger-ui/create-swagger-ui-handler
+        {:path "/swagger-ui"
+         :url "/api/swagger.json"
+         :config {:validator-url nil}})<% endif %>
+      (ring/create-resource-handler
+        {:path "/"})
+      (wrap-content-type
+        (wrap-webjars (constantly nil)))
       (ring/create-default-handler
         {:not-found
          (constantly (error-page {:status 404, :title "404 - Page not found"}))

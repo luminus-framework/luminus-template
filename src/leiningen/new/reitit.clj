@@ -8,6 +8,6 @@
   (if (some #{"+reitit"} (:features options))
     [(into assets reitit-assets)
      (-> options
-         (append-options :dependencies [['metosin/reitit "0.1.1"]])
+         (append-options :dependencies [['metosin/reitit "0.1.2-SNAPSHOT"]])
          (assoc :reitit true))]
     state))

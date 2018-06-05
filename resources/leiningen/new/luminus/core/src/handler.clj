@@ -5,7 +5,7 @@
             <<service-required>><% endif %><% if oauth-required %>
             <<oauth-required>><% endif %><% if compojure %>
             [compojure.core :refer [routes wrap-routes]]
-            [compojure.route :as route]<% endif %><% if reitit %><% if service %>
+            [compojure.route :as route]<% endif %><% if reitit %><% if any service swagger %>
             [reitit.swagger-ui :as swagger-ui]<% endif %>
             [reitit.ring :as ring]
             [ring.util.http-response :as response]

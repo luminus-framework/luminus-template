@@ -123,7 +123,7 @@
    ['funcool/struct "1.2.0"]
    ['org.webjars/bootstrap "4.1.0"]
    ['org.webjars/font-awesome "5.0.13"]
-   ['org.webjars.bower/tether "1.4.3"]
+   ['org.webjars.bower/tether "1.4.4"]
    ['org.webjars/jquery "3.3.1-1"]
    ['org.clojure/tools.logging "0.4.1"]
    ['ring/ring-core "1.6.3"]
@@ -137,7 +137,7 @@
    ['luminus-nrepl "0.1.4"]])
 
 (def core-dev-dependencies
-  [['expound "0.6.0"]
+  [['expound "0.7.0"]
    ['prone "1.6.0"]
    ['ring/ring-mock "0.3.2"]
    ['ring/ring-devel "1.6.3"]

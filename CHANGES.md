@@ -1,3 +1,8 @@
+## 2.9.12.61
+
+- tether 1.4.4
+- expound 0.7.0
+
 ## 2.9.12.60
 
 - made `+reitit` profile compatible with `+service`
