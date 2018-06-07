@@ -58,26 +58,27 @@
 (defn add-mongo [[assets options]]
   [(into assets mongo-files)
    (-> options
-       (append-options :dependencies [['com.novemberain/monger "3.1.0" :exclusions ['com.google.guava/guava]]
-                                      ['com.google.guava/guava "20.0"]])
        (assoc
          :mongodb true
          :db-connection true
          :db-docs ((:selmer-renderer options) (slurp-resource "db/docs/mongo_instructions.md") options))
-       (merge (db-profiles options)))])
+       (merge (db-profiles options))
+       (append-options :dependencies [['com.novemberain/monger "3.1.0" :exclusions ['com.google.guava/guava]]
+                                      ['com.google.guava/guava "20.0"]]))])
 
 (defn add-datomic [[assets options]]
   [(into assets datomic-files)
    (-> options
-       (append-options :dependencies [['com.datomic/datomic-free "0.9.5561"
-                                       :exclusions ['org.slf4j/log4j-over-slf4j
-                                                    'org.slf4j/slf4j-nop]]
-                                      ['com.google.guava/guava "21.0"]])
        (assoc
          :datomic true
          :db-connection true
          :db-docs ((:selmer-renderer options) (slurp-resource "db/docs/datomic_instructions.md") options))
-       (merge (db-profiles options)))])
+       (merge (db-profiles options))
+       (append-options :dependencies [['com.datomic/datomic-free "0.9.5561"
+                                       :exclusions ['org.slf4j/log4j-over-slf4j
+                                                    'org.slf4j/slf4j-nop
+                                                    'com.google.guava/guava]]
+                                      ['com.google.guava/guava "25.1-jre"]]))])
 
 (defn add-relational-db [db [assets options]]
   [(into assets (relational-db-files options))
