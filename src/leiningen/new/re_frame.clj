@@ -3,7 +3,6 @@
 
 (def re-frame-assets
   [["{{client-path}}/{{sanitized}}/core.cljs" "reframe/src/cljs/core.cljs"]
-   ["{{client-path}}/{{sanitized}}/db.cljs" "reframe/src/cljs/db.cljs"]
    ["{{client-path}}/{{sanitized}}/events.cljs" "reframe/src/cljs/events.cljs"]])
 
 (defn re-frame-features [[assets options :as state]]

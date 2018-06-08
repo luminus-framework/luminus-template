@@ -1,11 +1,13 @@
 (ns <<project-ns>>.core
   (:require [reagent.core :as r]
-            [secretary.core :as secretary :include-macros true]
             [goog.events :as events]
             [goog.history.EventType :as HistoryEventType]
             [markdown.core :refer [md->html]]
             [<<project-ns>>.ajax :refer [load-interceptors!]]
-            [ajax.core :refer [GET POST]])
+            [ajax.core :refer [GET POST]]<% if reitit %>
+            [reitit.core :as reitit]
+            [clojure.string :as string]<% else %>
+            [secretary.core :as secretary :include-macros true]<% endif %>)
   (:import goog.History))
 
 (defonce session (r/atom {:page :home}))
@@ -51,6 +53,28 @@
 
 ;; -------------------------
 ;; Routes
+<% if reitit %>
+(def router
+  (reitit/router
+    [["/" :home]
+     ["/about" :about]]))
+
+(defn match-route [uri]
+  (->> (or (not-empty (string/replace uri #"^.*#" "")) "/")
+       (reitit/match-by-path router)
+       :data
+       :name))
+;; -------------------------
+;; History
+;; must be called after routes have been defined
+(defn hook-browser-navigation! []
+  (doto (History.)
+    (events/listen
+      HistoryEventType/NAVIGATE
+      (fn [event]
+        (swap! session assoc :page (match-route (.-token event)))))
+    (.setEnabled true)))
+<% else %>
 (secretary/set-config! :prefix "#")
 
 (secretary/defroute "/" []
@@ -67,9 +91,9 @@
         (events/listen
           HistoryEventType/NAVIGATE
           (fn [event]
-              (secretary/dispatch! (.-token event))))
+            (secretary/dispatch! (.-token event))))
         (.setEnabled true)))
-
+<% endif %>
 ;; -------------------------
 ;; Initialize app
 (defn fetch-docs! []

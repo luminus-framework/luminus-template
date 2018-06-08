@@ -1,3 +1,7 @@
+## 2.9.12.62
+
+- added reitit routing for ClojureScript when `+reitit` profile is used
+
 ## 2.9.12.61
 
 - conman 0.7.9

@@ -1,13 +1,16 @@
 (ns <<project-ns>>.core
   (:require [reagent.core :as r]
             [re-frame.core :as rf]
-            [secretary.core :as secretary]
+
             [goog.events :as events]
             [goog.history.EventType :as HistoryEventType]
             [markdown.core :refer [md->html]]
             [ajax.core :refer [GET POST]]
             [<<project-ns>>.ajax :refer [load-interceptors!]]
-            [<<project-ns>>.events])
+            [<<project-ns>>.events]<% if reitit %>
+            [reitit.core :as reitit]
+            [clojure.string :as string]<% else %>
+            [secretary.core :as secretary]<% endif %>)
   (:import goog.History))
 
 (defn nav-link [uri title page]
@@ -55,13 +58,32 @@
 
 ;; -------------------------
 ;; Routes
+<% if reitit %>
+(def router
+  (reitit/router
+    [["/" :home]
+     ["/about" :about]]))
+
+;; -------------------------
+;; History
+;; must be called after routes have been defined
+(defn hook-browser-navigation! []
+  (doto (History.)
+    (events/listen
+      HistoryEventType/NAVIGATE
+      (fn [event]
+        (let [uri (or (not-empty (string/replace (.-token event) #"^.*#" "")) "/")]
+          (rf/dispatch
+            [:navigate (reitit/match-by-path router uri)]))))
+    (.setEnabled true)))
+<% else %>
 (secretary/set-config! :prefix "#")
 
 (secretary/defroute "/" []
-  (rf/dispatch [:set-active-page :home]))
+  (rf/dispatch [:navigate :home]))
 
 (secretary/defroute "/about" []
-  (rf/dispatch [:set-active-page :about]))
+  (rf/dispatch [:navigate :about]))
 
 ;; -------------------------
 ;; History
@@ -73,7 +95,7 @@
       (fn [event]
         (secretary/dispatch! (.-token event))))
     (.setEnabled true)))
-
+<% endif %>
 ;; -------------------------
 ;; Initialize app
 (defn fetch-docs! []
@@ -84,7 +106,8 @@
   (r/render [#'page] (.getElementById js/document "app")))
 
 (defn init! []
-  (rf/dispatch-sync [:initialize-db])
+  <% if reitit %>(rf/dispatch-sync [:navigate (reitit/match-by-name router :home)])
+  <% else %>(rf/dispatch-sync [:navigate :home])<% endif %>
   (load-interceptors!)
   (fetch-docs!)
   (hook-browser-navigation!)
