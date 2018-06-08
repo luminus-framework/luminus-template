@@ -5,6 +5,7 @@
 - expound 0.7.0
 - funcool/struct 1.3.0
 - reagent 0.8.1
+- reitit 0.1.2
 - ring/ring-defaults 0.3.2
 
 ## 2.9.12.60
