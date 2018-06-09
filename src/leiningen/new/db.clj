@@ -66,24 +66,27 @@
        (append-options :dependencies [['com.novemberain/monger "3.1.0" :exclusions ['com.google.guava/guava]]
                                       ['com.google.guava/guava "20.0"]]))])
 
-(defn add-datomic [[assets options]]
+(defn add-datomic [[assets {:keys [sanitized] :as options}]]
   [(into assets datomic-files)
-   (-> options
-       (assoc
-         :datomic true
-         :db-connection true
-         :db-docs ((:selmer-renderer options) (slurp-resource "db/docs/datomic_instructions.md") options))
-       (merge (db-profiles options))
-       (append-options :dependencies [['com.datomic/datomic-free "0.9.5561"
-                                       :exclusions ['org.slf4j/log4j-over-slf4j
-                                                    'org.slf4j/slf4j-nop
-                                                    'com.google.guava/guava]]
-                                      ['com.google.guava/guava "25.1-jre"]]))])
+   (let [info (str "\n ; alternatively, you can use the datomic mem db for development:"
+                   "\n ; :database-url \"datomic:mem://" sanitized "_datomic_dev\"\n")]
+     (-> options
+         (assoc
+           :datomic true
+           :db-connection true
+           :db-docs ((:selmer-renderer options) (slurp-resource "db/docs/datomic_instructions.md") options))
+         (merge (db-profiles options))
+         (update :database-profile-dev str info)
+         (append-options :dependencies [['com.datomic/datomic-free "0.9.5561"
+                                         :exclusions ['org.slf4j/log4j-over-slf4j
+                                                      'org.slf4j/slf4j-nop
+                                                      'com.google.guava/guava]]
+                                        ['com.google.guava/guava "25.1-jre"]])))])
 
 (defn add-relational-db [db [assets options]]
   [(into assets (relational-db-files options))
    (let [embedded-db? (some #{(name db)} ["h2" "sqlite"])
-         boot?        (some #{"+boot"} (:features options))]
+         boot? (some #{"+boot"} (:features options))]
      (-> options
          (append-options :dependencies (db-dependencies options))
          (assoc
