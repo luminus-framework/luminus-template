@@ -63,7 +63,7 @@
   "Starts the server and causes it to wait."
   []
   (comp
-   (apply start-server *args*)
+   (apply start-server "--" *args*)
    (wait)))
 <% if cljs %>
 (require '[clojure.java.io :as io])
