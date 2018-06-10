@@ -7,4 +7,4 @@
   (-> handler
       wrap-reload
       wrap-error-page
-      wrap-exceptions))
+      (wrap-exceptions {:app-namespaces ['<<project-ns>>]})))
