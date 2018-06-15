@@ -1,3 +1,8 @@
+## 2.9.12.63
+
+- Bootstrap 4.1.1
+- ClojureScript 1.10.312
+
 ## 2.9.12.62
 
 - added reitit routing for ClojureScript when `+reitit` profile is used

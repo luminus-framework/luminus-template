@@ -13,7 +13,7 @@
    ["{{resource-path}}/templates/home.html" "cljs/templates/home.html"]
    ["{{resource-path}}/templates/error.html" "core/resources/templates/error.html"]])
 
-(def cljs-version "1.10.238")
+(def cljs-version "1.10.312")
 
 (def figwheel-version "0.5.16")
 
