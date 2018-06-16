@@ -1,6 +1,7 @@
 (ns <<project-ns>>.routes.services
   (:require [ring.util.http-response :refer :all]
-            [compojure.api.sweet :refer :all]
+            [compojure.api.sweet :refer :all]<% if graphql %>
+            [<<project-ns>>.routes.services.graphql :as graphql]<% endif %>
             [schema.core :as s]<% if auth %>
             [compojure.api.meta :refer [restructure-param]]
             [buddy.auth.accessrules :refer [restrict]]
@@ -34,7 +35,10 @@
        (ok {:user user}))<% endif %>
   (context "/api" []
     :tags ["thingie"]
-
+    <% if graphql %>
+    (POST "/graphql" [:as {body :body}]
+      (ok (graphql/execute-request (slurp body))))
+    <% endif %>
     (GET "/plus" []
       :return       Long
       :query-params [x :- Long, {y :- Long 1}]

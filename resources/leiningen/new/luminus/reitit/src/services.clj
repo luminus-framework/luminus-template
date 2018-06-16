@@ -1,7 +1,8 @@
 (ns <<project-ns>>.routes.services
   (:require [muuntaja.middleware :as muuntaja]
             [reitit.ring.coercion :as rrc]
-            [reitit.swagger :as swagger]
+            [reitit.swagger :as swagger]<% if graphql %>
+            [<<project-ns>>.routes.services.graphql :as graphql]<% endif %>
             [ring.util.http-response :refer :all]
             [ring.middleware.params :as params]))
 
@@ -24,7 +25,7 @@
                           "application/transit+json"}}}
    ["/swagger.json"
     {:get {:no-doc true
-           :handler (swagger/create-swagger-handler)}}]
-
+           :handler (swagger/create-swagger-handler)}}]<% if graphql %>
+   ["/graphql" {:post (fn [req] (ok (graphql/execute-request (-> req :body slurp))))}]<% endif %>
    ["/ping" {:get (constantly (ok {:message "ping"}))}]
    ["/pong" {:post (constantly (ok {:message "pong"}))}]])

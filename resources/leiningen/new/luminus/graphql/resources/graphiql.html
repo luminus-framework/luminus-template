@@ -85,7 +85,7 @@
       // Defines a GraphQL fetcher using the fetch API.
       function graphQLFetcher(graphQLParams) {
         console.log(graphQLParams);
-        return fetch(window.location.origin + '/api' + computeParams(), {
+        return fetch(window.location.origin + '/api/graphql' + computeParams(), {
           method: 'post',
           headers: {
             'Content-Type': 'application/graphql',
@@ -103,7 +103,7 @@
           }
         });
       }
-  
+
       // Render <GraphiQL /> into the body.
       ReactDOM.render(
         React.createElement(GraphiQL, {

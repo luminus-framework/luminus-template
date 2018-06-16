@@ -1,4 +1,4 @@
-(ns <<project-ns>>.routes.services
+(ns <<project-ns>>.routes.services.graphql
   (:require [com.walmartlabs.lacinia.util :refer [attach-resolvers]]
             [com.walmartlabs.lacinia.schema :as schema]
             [com.walmartlabs.lacinia :as lacinia]
@@ -6,28 +6,7 @@
             [clojure.edn :as edn]
             [clojure.java.io :as io]
             [ring.util.http-response :refer :all]
-            [mount.core :refer [defstate]]
-            [compojure.api.sweet :refer :all]<% if auth %>
-            [compojure.api.meta :refer [restructure-param]]
-            [buddy.auth.accessrules :refer [restrict]]
-            [buddy.auth :refer [authenticated?]]<% endif %>))
-
-<% if auth %>
-(defn access-error [_ _]
-  (unauthorized {:error "unauthorized"}))
-
-(defn wrap-restricted [handler rule]
-  (restrict handler {:handler  rule
-                     :on-error access-error}))
-
-(defmethod restructure-param :auth-rules
-  [_ rule acc]
-  (update-in acc [:middleware] conj [wrap-restricted rule]))
-
-(defmethod restructure-param :current-user
-  [_ binding acc]
-  (update-in acc [:letks] into [binding `(:identity ~'+compojure-api-request+)]))
-<% endif %>
+            [mount.core :refer [defstate]]))
 
 (defn get-hero [context args value]
   (let [data  [{:id 1000
@@ -59,12 +38,3 @@
           context nil]
     (-> (lacinia/execute compiled-schema query vars context)
         (json/write-str))))
-
-(defapi service-routes<% if auth %>
-  (GET "/authenticated" []
-       :auth-rules authenticated?
-       :current-user user
-       (ok {:user user}))
-  <% endif %>
-  (POST "/api" [:as {body :body}]
-      (ok (execute-request (slurp body)))))

@@ -1,3 +1,8 @@
+## 2.9.12.64
+
+- com.walmartlabs/lacinia 0.27.0
+- made swagger and graphql profiles compatible
+
 ## 2.9.12.63
 
 - Bootstrap 4.1.1
@@ -20,7 +25,7 @@
 ## 2.9.12.60
 
 - made `+reitit` profile compatible with `+service`
-  
+
 ## 2.9.12.59
 
 - added db reference in the user namespace

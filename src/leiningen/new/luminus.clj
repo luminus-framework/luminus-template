@@ -211,6 +211,7 @@
       (set-feature-dependency "+auth" #{"+auth-base"})
       (set-feature-dependency "+auth-jwe" #{"+auth-base"})
       (set-feature-dependency "+hoplon" #{"+cljs"})
+      (set-feature-dependency "+graphql" #{"+swagger"})
       (set-feature-dependency "+reagent" #{"+cljs"})
       (set-feature-dependency "+re-frame" #{"+cljs" "+reagent"})))
 
