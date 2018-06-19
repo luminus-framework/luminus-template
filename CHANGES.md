@@ -1,3 +1,7 @@
+## 2.9.12.65
+
+- conman 0.8.1
+
 ## 2.9.12.64
 
 - com.walmartlabs/lacinia 0.27.0
