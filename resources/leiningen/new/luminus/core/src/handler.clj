@@ -4,16 +4,16 @@
             [<<project-ns>>.routes.home :refer [home-routes]]<% endif %><% if service-required %>
             <<service-required>><% endif %><% if oauth-required %>
             <<oauth-required>><% endif %><% if compojure %>
-            [compojure.core :refer [routes wrap-routes]]
+            [compojure.core :refer [routes wrap-routes]]<% if compojure %>
+            [ring.util.http-response :as response]
+            [<<project-ns>>.middleware :as middleware]<% endif %>
             [compojure.route :as route]<% endif %><% if reitit %><% if any service swagger %>
             [reitit.swagger-ui :as swagger-ui]<% endif %>
             [reitit.ring :as ring]
-            [ring.util.http-response :as response]
             [ring.middleware.content-type :refer [wrap-content-type]]
             [ring.middleware.webjars :refer [wrap-webjars]]<% endif %>
             [<<project-ns>>.env :refer [defaults]]
-            [mount.core :as mount]
-            [<<project-ns>>.middleware :as middleware]<% if war %>
+            [mount.core :as mount]<% if war %>
             [clojure.tools.logging :as log]
             [<<project-ns>>.config :refer [env]]<% endif %>))
 
