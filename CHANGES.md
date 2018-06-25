@@ -1,7 +1,9 @@
 ## 2.9.12.66
- 
+
 - ClojureScript 1.10.339
 - expound 0.7.1
+- font awesome 5.1.0
+- lacinia 0.28.0
 
 ## 2.9.12.65
 

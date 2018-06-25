@@ -122,7 +122,7 @@
    ['metosin/ring-http-response "0.9.0"]
    ['funcool/struct "1.3.0"]
    ['org.webjars/bootstrap "4.1.1"]
-   ['org.webjars/font-awesome "5.0.13"]
+   ['org.webjars/font-awesome "5.1.0"]
    ['org.webjars.bower/tether "1.4.4"]
    ['org.webjars/jquery "3.3.1-1"]
    ['org.clojure/tools.logging "0.4.1"]

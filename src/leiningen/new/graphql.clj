@@ -7,7 +7,7 @@
    ["{{resource-path}}/graphql/schema.edn" "graphql/resources/schema.edn"]])
 
 (def graphql-dependencies
-  [['com.walmartlabs/lacinia "0.27.0"]])
+  [['com.walmartlabs/lacinia "0.28.0"]])
 
 (defn graphql-features [[assets options :as state]]
   (if (some #{"+graphql"} (:features options))
