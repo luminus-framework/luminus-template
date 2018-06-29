@@ -1,3 +1,7 @@
+## 2.9.12.68
+
+- slemer 1.11.8
+
 ## 2.9.12.67
 
 - added transit as an explicit dependency for cljs

@@ -115,7 +115,7 @@
 
 (def core-dependencies
   [['org.clojure/clojure "1.9.0"]
-   ['selmer "1.11.7"]
+   ['selmer "1.11.8"]
    ['clj-time "0.14.4"]
    ['markdown-clj "1.0.2"]
    ['metosin/muuntaja "0.5.0"]
