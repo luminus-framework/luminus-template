@@ -1,3 +1,7 @@
+## 2.9.12.67
+
+- added transit as an explicit dependency for cljs
+
 ## 2.9.12.66
 
 - ClojureScript 1.10.339
