@@ -1,3 +1,7 @@
+## 2.9.12.69
+
+- fixed to only import servlet for middleware when the profile is selected
+
 ## 2.9.12.68
 
 - slemer 1.11.8
