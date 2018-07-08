@@ -1,3 +1,9 @@
+## 2.9.12.70
+
+- cljs-ajax 0.7.4
+- luminus-migrations 0.5.1
+- metosin/reitit 0.1.3
+
 ## 2.9.12.69
 
 - fixed to only import servlet for middleware when the profile is selected
