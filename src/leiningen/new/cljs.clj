@@ -33,8 +33,7 @@
 
 (def cljs-dev-plugins
   [['lein-doo doo-version]
-   ['lein-figwheel figwheel-version]
-   ['org.clojure/clojurescript cljs-version]])
+   ['lein-figwheel figwheel-version]])
 
 (def clean-targets [:target-path
                     [:cljsbuild :builds :app :compiler :output-dir]

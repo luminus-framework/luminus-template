@@ -16,13 +16,17 @@
 
 (defrecord ReititRouter [routes]
   api/Router
-  (data->url [_ [route-name path-params]] (str (:path (reitit/match-by-name routes route-name path-params))
-                                               (when-some [q (:query-string path-params)] (str "?" q))
-                                               (when-some [h (:hash path-params)] (str "#" h))))
-  (url->data [_ url] (let [[path+query fragment] (string/split url #"#" 2)
-                           [path query] (string/split path+query #"\?" 2)]
-                       (some-> (reitit/match-by-path routes path)
-                               (assoc :query-string query :hash fragment)))))
+
+  (data->url [_ [route-name path-params]]
+    (str (:path (reitit/match-by-name routes route-name path-params))
+         (when-some [q (:query-string path-params)] (str "?" q))
+         (when-some [h (:hash path-params)] (str "#" h))))
+
+  (url->data [_ url]
+    (let [[path+query fragment] (-> url (string/replace #"^/#" "") (string/split #"#" 2))
+          [path query] (string/split path+query #"\?" 2)]
+      (some-> (reitit/match-by-path routes path)
+              (assoc :query-string query :hash fragment)))))
 
 (defn match-route [uri]
   (->> (or (not-empty (string/replace uri #"^.*#" "")) "/")
