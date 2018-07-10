@@ -1,3 +1,7 @@
+## 2.9.12.72
+
+- added +kee-frame profile
+
 ## 2.9.12.71
 
 - fixed font awesome asset loading
