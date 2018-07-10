@@ -19,6 +19,7 @@
             [leiningen.new.hoplon :refer [hoplon-features]]
             [leiningen.new.reagent :refer [reagent-features]]
             [leiningen.new.re-frame :refer [re-frame-features]]
+            [leiningen.new.kee-frame :refer [kee-frame-features]]
             [leiningen.new.cucumber :refer [cucumber-features]]
             [leiningen.new.aleph :refer [aleph-features]]
             [leiningen.new.jetty :refer [jetty-features]]
@@ -169,6 +170,7 @@
             hoplon-features
             reagent-features
             re-frame-features
+            kee-frame-features
             swagger-features
             graphql-features
             aleph-features
@@ -213,7 +215,8 @@
       (set-feature-dependency "+hoplon" #{"+cljs"})
       (set-feature-dependency "+graphql" #{"+swagger"})
       (set-feature-dependency "+reagent" #{"+cljs"})
-      (set-feature-dependency "+re-frame" #{"+cljs" "+reagent"})))
+      (set-feature-dependency "+re-frame" #{"+cljs" "+reagent"})
+      (set-feature-dependency "+kee-frame" #{"+cljs" "+reitit" "+reagent" "+re-frame"})))
 
 (defn parse-version [v]
   (map #(Integer/parseInt %)
@@ -244,7 +247,7 @@
                              ;;servers
                              "+aleph" "+jetty" "+http-kit"
                              ;;misc
-                             "+cljs" "+hoplon" "+reagent" "+re-frame" "+auth" "+auth-jwe" "+site"
+                             "+cljs" "+hoplon" "+reagent" "+re-frame" "+kee-frame" "+auth" "+auth-jwe" "+site"
                              "+cucumber" "+sassc" "+cider" "+oauth"
                              "+swagger" "+war" "+graphql"
                              "+kibit" "+service" "+servlet"

@@ -1,7 +1,6 @@
 (ns <<project-ns>>.core
   (:require [reagent.core :as r]
             [re-frame.core :as rf]
-
             [goog.events :as events]
             [goog.history.EventType :as HistoryEventType]
             [markdown.core :refer [md->html]]
