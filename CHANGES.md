@@ -1,3 +1,7 @@
+## 2.9.12.71
+
+- fixed font awesome asset loading
+
 ## 2.9.12.70
 
 - cljs-ajax 0.7.4
