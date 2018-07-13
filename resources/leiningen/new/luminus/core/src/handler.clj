@@ -8,6 +8,7 @@
             [ring.util.http-response :as response]
             [<<project-ns>>.middleware :as middleware]<% endif %>
             [compojure.route :as route]<% endif %><% if reitit %><% if any service swagger %>
+            [<<project-ns>>.middleware :as middleware]
             [reitit.swagger-ui :as swagger-ui]<% endif %>
             [reitit.ring :as ring]
             [ring.middleware.content-type :refer [wrap-content-type]]

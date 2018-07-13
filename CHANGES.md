@@ -1,3 +1,7 @@
+## 2.9.12.73
+
+- fix missing require in +reitit +service profile combination
+
 ## 2.9.12.72
 
 - added +kee-frame profile

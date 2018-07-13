@@ -2,7 +2,7 @@
 (mount/defstate app
   :start
   (ring/ring-handler
-    (service-routes)
+    (ring/router (service-routes))
     (middleware/wrap-base
       (ring/routes
         (swagger-ui/create-swagger-ui-handler {:path "/" :url "/api/swagger.json"})
