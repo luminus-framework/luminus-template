@@ -3,7 +3,10 @@
   :start
   (middleware/wrap-base
     (ring/ring-handler
-      (ring/router (service-routes))
+      (ring/router
+        [["/" {:get
+               {:handler (constantly {:status 301 :headers {"Location" "/swagger-ui"}})}}]
+         (service-routes)])
       (ring/routes
         (swagger-ui/create-swagger-ui-handler
           {:path   "/swagger-ui"
