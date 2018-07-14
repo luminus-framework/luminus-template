@@ -1,3 +1,7 @@
+## 2.9.12.74
+
+- updated reitit profile to wrap default middleware globally
+
 ## 2.9.12.73
 
 - fix missing require in +reitit +service profile combination

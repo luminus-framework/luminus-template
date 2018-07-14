@@ -10,8 +10,7 @@
 
 (defn home-routes []
   [""
-   {:middleware [middleware/wrap-base
-                 middleware/wrap-csrf
+   {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
    ["/" {:get home-page}]<% if graphql %>
    ["/graphiql" {:get (fn [_] (layout/render "graphiql.html"))}]<% endif %>
@@ -28,8 +27,7 @@
 
 (defn home-routes []
   [""
-   {:middleware [middleware/wrap-base
-                 middleware/wrap-csrf
+   {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
    ["/" {:get home-page}]<% if graphql %>
    ["/graphiql" {:get (fn [_] (layout/render "graphiql.html"))}]

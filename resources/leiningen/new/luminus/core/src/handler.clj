@@ -1,14 +1,12 @@
 (ns <<project-ns>>.handler
-  (:require <% if not service %>
+  (:require [<<project-ns>>.middleware :as middleware]<% if not service %>
             [<<project-ns>>.layout :refer [error-page]]
             [<<project-ns>>.routes.home :refer [home-routes]]<% endif %><% if service-required %>
             <<service-required>><% endif %><% if oauth-required %>
             <<oauth-required>><% endif %><% if compojure %>
             [compojure.core :refer [routes wrap-routes]]<% if compojure %>
-            [ring.util.http-response :as response]
-            [<<project-ns>>.middleware :as middleware]<% endif %>
+            [ring.util.http-response :as response]<% endif %>
             [compojure.route :as route]<% endif %><% if reitit %><% if any service swagger %>
-            [<<project-ns>>.middleware :as middleware]
             [reitit.swagger-ui :as swagger-ui]<% endif %>
             [reitit.ring :as ring]
             [ring.middleware.content-type :refer [wrap-content-type]]
