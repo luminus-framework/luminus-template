@@ -1,3 +1,7 @@
+## 2.9.12.75
+
+- [PR 376](https://github.com/luminus-framework/luminus-template/pull/376) removes explicit cider profile, as it's no longer necessary
+
 ## 2.9.12.74
 
 - updated reitit profile to wrap default middleware globally
