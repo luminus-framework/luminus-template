@@ -13,7 +13,6 @@
             [leiningen.new.auth :refer [auth-features]]
             [leiningen.new.auth-base :refer [auth-base-features]]
             [leiningen.new.auth-jwe :refer [auth-jwe-features]]
-            [leiningen.new.cider :refer [cider-features]]
             [leiningen.new.db :refer [db-features]]
             [leiningen.new.cljs :refer [cljs-features]]
             [leiningen.new.hoplon :refer [hoplon-features]]
@@ -162,7 +161,6 @@
             auth-base-features
             auth-features
             auth-jwe-features
-            cider-features
             db-features
             cucumber-features
             site-features
@@ -248,7 +246,7 @@
                              "+aleph" "+jetty" "+http-kit"
                              ;;misc
                              "+cljs" "+hoplon" "+reagent" "+re-frame" "+kee-frame" "+auth" "+auth-jwe" "+site"
-                             "+cucumber" "+sassc" "+cider" "+oauth"
+                             "+cucumber" "+sassc" "+oauth"
                              "+swagger" "+war" "+graphql"
                              "+kibit" "+service" "+servlet"
                              "+boot"}

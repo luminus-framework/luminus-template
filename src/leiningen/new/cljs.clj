@@ -98,12 +98,10 @@
   {:build "test"})
 
 (defn figwheel [{:keys [features]}]
-  (let [cider? (some #{"+cider"} features)]
-    {:http-server-root "public"
-     :nrepl-port       7002
-     :css-dirs         ["resources/public/css"]
-     :nrepl-middleware `[cemerick.piggieback/wrap-cljs-repl
-                         ~@(when cider? ['cider.nrepl/cider-middleware])]}))
+  {:http-server-root "public"
+   :nrepl-port       7002
+   :css-dirs         ["resources/public/css"]
+   :nrepl-middleware `[cemerick.piggieback/wrap-cljs-repl]} )
 
 (defn cljs-lein-features [[assets options :as state]]
   [assets

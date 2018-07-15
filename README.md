@@ -62,7 +62,6 @@ However, if you would like to attach further functionality to your template you 
 * `+war` adds support of building WAR archives for deployment to servers such as Apache Tomcat (should NOT be used for [Immutant apps running on WildFly][immutant])
 * `+site` creates template for site using the specified database (H2 by default) and ClojureScript
 *  `+kibit` add [lein-kibit](https://github.com/jonase/kibit) plugin
-*  `+cider` adds support for [CIDER](https://github.com/clojure-emacs/cider) using [CIDER nREPL](https://github.com/clojure-emacs/cider-nrepl) plugin
 * `+servlet` adds middleware for handling Servlet context
 
 To add a profile simply pass it as an argument after your application name, e.g.:
