@@ -1,3 +1,7 @@
+## 2.9.12.76
+
+- com.jakemccrary/lein-test-refresh 0.23.0
+
 ## 2.9.12.75
 
 - [PR 376](https://github.com/luminus-framework/luminus-template/pull/376) removes explicit cider profile, as it's no longer necessary
