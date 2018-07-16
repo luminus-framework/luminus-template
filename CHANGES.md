@@ -1,3 +1,7 @@
+## 2.9.12.77
+
+- conman 0.8.2
+
 ## 2.9.12.76
 
 - com.jakemccrary/lein-test-refresh 0.23.0
