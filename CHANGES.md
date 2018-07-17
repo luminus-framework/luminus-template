@@ -1,3 +1,7 @@
+## 2.9.12.78
+
+- luminus-migrations 0.5.2 
+
 ## 2.9.12.77
 
 - conman 0.8.2
