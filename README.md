@@ -110,6 +110,7 @@ The memory and CPU usage can be inspected by running either `jconsole` or `jvisu
 
 * [chestnut](https://github.com/plexus/chestnut)
 * [duct](https://github.com/duct-framework/duct)
+* [fulcro](https://github.com/fulcrologic/fulcro)
 * [pedestal](https://github.com/pedestal/pedestal)
 * [reagent-template](https://github.com/reagent-project/reagent-template)
 * [re-frame-template](https://github.com/Day8/re-frame-template)
