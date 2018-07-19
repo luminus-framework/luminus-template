@@ -25,8 +25,8 @@
    [:a.navbar-brand {:href "#/"} "<<name>>"]
    [:div#collapsing-navbar.collapse.navbar-collapse
     [:ul.nav.navbar-nav.mr-auto
-     [nav-link "#/" "Home" :home]
-     [nav-link "#/about" "About" :about]]]])
+     [nav-link (kf/path-for [:home]) "Home" :home]
+     [nav-link (kf/path-for [:about]) "About" :about]]]])
 
 (defn about-page []
   [:div.container
