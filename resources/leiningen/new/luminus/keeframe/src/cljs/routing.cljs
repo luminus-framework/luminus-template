@@ -18,7 +18,8 @@
   api/Router
 
   (data->url [_ [route-name path-params]]
-    (str (:path (reitit/match-by-name routes route-name path-params))
+    (str "/#" ;; Remove to use urls for Browser history API
+         (:path (reitit/match-by-name routes route-name path-params))
          (when-some [q (:query-string path-params)] (str "?" q))
          (when-some [h (:hash path-params)] (str "#" h))))
 
