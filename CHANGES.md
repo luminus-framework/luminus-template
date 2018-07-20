@@ -1,6 +1,7 @@
 ## 2.9.12.78
 
-- luminus-migrations 0.5.2 
+- luminus-migrations 0.5.2
+- kee-frame routing improvements 
 
 ## 2.9.12.77
 
