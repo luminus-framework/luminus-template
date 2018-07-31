@@ -1,6 +1,6 @@
 (ns <<project-ns>>.core
   (:require [<<project-ns>>.handler :as handler]
-            [luminus.repl-server :as repl]
+            [<<project-ns>>.nrepl :as nrepl]
             [luminus.http-server :as http]<% if relational-db %>
             [luminus-migrations.core :as migrations]<% endif %>
             [<<project-ns>>.config :refer [env]]
@@ -26,11 +26,11 @@
 (mount/defstate ^{:on-reload :noop} repl-server
   :start
   (when (env :nrepl-port)
-    (repl/start { :bind (env :nrepl-bind)
+    (nrepl/start {:bind (env :nrepl-bind)
                   :port (env :nrepl-port)}))
   :stop
   (when repl-server
-    (repl/stop repl-server)))
+    (nrepl/stop repl-server)))
 
 <% if war %>
 (defn init-jndi []

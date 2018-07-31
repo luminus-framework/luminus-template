@@ -1,3 +1,10 @@
+## 2.9.12.79
+
+- switched to use nREPL 0.4.4, removed luminus-nrepl dependency
+- org.postgresql/postgresql 42.2.4
+- org.webjars/bootstrap 4.1.2
+- org.webjars/font-awesome 5.2.0
+
 ## 2.9.12.78
 
 - luminus-migrations 0.5.2

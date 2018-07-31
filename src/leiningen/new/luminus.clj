@@ -59,6 +59,7 @@
    ;; core namespaces
    ["env/dev/clj/user.clj" "core/env/dev/clj/user.clj"]
    ["{{backend-path}}/{{sanitized}}/core.clj" "core/src/core.clj"]
+   ["{{backend-path}}/{{sanitized}}/nrepl.clj" "core/src/nrepl.clj"]
    ["{{backend-path}}/{{sanitized}}/config.clj" "core/src/config.clj"]
    ["{{backend-path}}/{{sanitized}}/handler.clj" "core/src/handler.clj"]
    ["{{backend-path}}/{{sanitized}}/layout.clj" "core/src/layout.clj"]
@@ -121,8 +122,8 @@
    ['metosin/muuntaja "0.5.0"]
    ['metosin/ring-http-response "0.9.0"]
    ['funcool/struct "1.3.0"]
-   ['org.webjars/bootstrap "4.1.1"]
-   ['org.webjars/font-awesome "5.1.0"]
+   ['org.webjars/bootstrap "4.1.2"]
+   ['org.webjars/font-awesome "5.2.0"]
    ['org.webjars.bower/tether "1.4.4"]
    ['org.webjars/jquery "3.3.1-1"]
    ['org.clojure/tools.logging "0.4.1"]
@@ -134,7 +135,7 @@
    ['mount "0.1.12"]
    ['cprop "0.1.11"]
    ['org.clojure/tools.cli "0.3.7"]
-   ['luminus-nrepl "0.1.4"]])
+   ['nrepl "0.4.4"]])
 
 (def core-dev-dependencies
   [['expound "0.7.1"]
