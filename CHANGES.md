@@ -1,3 +1,7 @@
+## 2.9.12.80
+
+- fix for nrepl namespace change [pr 380](https://github.com/luminus-framework/luminus-template/pull/380)
+
 ## 2.9.12.79
 
 - switched to use nREPL 0.4.4, removed luminus-nrepl dependency
