@@ -43,7 +43,7 @@
   [['doo doo-version]
    ['binaryage/devtools "0.9.10"]
    ['figwheel-sidecar figwheel-version]
-   ['com.cemerick/piggieback "0.2.2"]])
+   ['cider/piggieback "0.3.8"]])
 
 (defn get-output-dir [features]
   (if (some #{"+boot"} features)
@@ -101,7 +101,7 @@
   {:http-server-root "public"
    :nrepl-port       7002
    :css-dirs         ["resources/public/css"]
-   :nrepl-middleware `[cemerick.piggieback/wrap-cljs-repl]} )
+   :nrepl-middleware `[cider/wrap-cljs-repl cider.piggieback/wrap-cljs-repl]} )
 
 (defn cljs-lein-features [[assets options :as state]]
   [assets

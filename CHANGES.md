@@ -1,3 +1,7 @@
+## 2.9.12.81
+
+- switched to use cider/piggieback 0.3.8
+
 ## 2.9.12.80
 
 - fix for nrepl namespace change [pr 380](https://github.com/luminus-framework/luminus-template/pull/380)
