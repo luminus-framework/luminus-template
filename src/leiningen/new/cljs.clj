@@ -10,8 +10,8 @@
    ["env/dev/cljs/{{sanitized}}/app.cljs" "cljs/env/dev/cljs/app.cljs"]
    ["env/dev/clj/{{sanitized}}/figwheel.clj" "cljs/env/dev/clj/figwheel.clj"]
    ["env/prod/cljs/{{sanitized}}/app.cljs" "cljs/env/prod/cljs/app.cljs"]
-   ["{{resource-path}}/templates/home.html" "cljs/templates/home.html"]
-   ["{{resource-path}}/templates/error.html" "core/resources/templates/error.html"]])
+   ["{{resource-path}}/html/home.html" "cljs/resources/html/home.html"]
+   ["{{resource-path}}/html/error.html" "core/resources/html/error.html"]])
 
 (def cljs-version "1.10.339")
 

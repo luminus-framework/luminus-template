@@ -66,10 +66,10 @@
    ["{{backend-path}}/{{sanitized}}/middleware.clj" "core/src/middleware.clj"]
 
    ;;HTML templates
-   ["{{resource-path}}/templates/base.html" "core/resources/templates/base.html"]
-   ["{{resource-path}}/templates/home.html" "core/resources/templates/home.html"]
-   ["{{resource-path}}/templates/about.html" "core/resources/templates/about.html"]
-   ["{{resource-path}}/templates/error.html" "core/resources/templates/error.html"]
+   ["{{resource-path}}/html/base.html" "core/resources/html/base.html"]
+   ["{{resource-path}}/html/home.html" "core/resources/html/home.html"]
+   ["{{resource-path}}/html/about.html" "core/resources/html/about.html"]
+   ["{{resource-path}}/html/error.html" "core/resources/html/error.html"]
 
    ;; public resources, example URL: /css/screen.css
    ["{{resource-path}}/public/css/screen.css" "core/resources/css/screen.css"]
@@ -98,7 +98,7 @@
   (sort-by (fn [[dep]] (str dep)) deps))
 
 (defn format-options [{:keys [http-server-dependencies features] :as options}]
-  (let [boot?      (some #{"+boot"} features)
+  (let [boot? (some #{"+boot"} features)
         dev-indent (if-not boot?
                      dev-dependency-indent
                      boot-dev-dependency-indent)]
@@ -122,7 +122,7 @@
    ['metosin/muuntaja "0.5.0"]
    ['metosin/ring-http-response "0.9.0"]
    ['funcool/struct "1.3.0"]
-   ['org.webjars/bootstrap "4.1.2"]
+   ['org.webjars/bootstrap "4.1.3"]
    ['org.webjars/font-awesome "5.2.0"]
    ['org.webjars.bower/tether "1.4.4"]
    ['org.webjars/jquery "3.3.1-1"]
@@ -238,7 +238,7 @@
 (defn luminus
   "Create a new Luminus project"
   [name & feature-params]
-  (let [min-version        "2.5.2"
+  (let [min-version "2.5.2"
         supported-features #{;; routing
                              "+compojure" "+reitit"
                              ;;databases
@@ -251,22 +251,22 @@
                              "+swagger" "+war" "+graphql"
                              "+kibit" "+service" "+servlet"
                              "+boot"}
-        options            (merge
-                             project-relative-paths
-                             {:name             (project-name name)
-                              :dependencies     core-dependencies
-                              :dev-dependencies core-dev-dependencies
-                              :dev-plugins      core-dev-plugins
-                              :selmer-renderer  render-template
-                              :min-lein-version "2.0.0"
-                              :project-ns       (sanitize-ns name)
-                              :sanitized        (name-to-path name)
-                              :year             (year)
-                              :features         (set feature-params)
-                              :opts             (jvm-opts)})
-        unsupported        (-> (set feature-params)
-                               (clojure.set/difference supported-features)
-                               (not-empty))]
+        options (merge
+                  project-relative-paths
+                  {:name             (project-name name)
+                   :dependencies     core-dependencies
+                   :dev-dependencies core-dev-dependencies
+                   :dev-plugins      core-dev-plugins
+                   :selmer-renderer  render-template
+                   :min-lein-version "2.0.0"
+                   :project-ns       (sanitize-ns name)
+                   :sanitized        (name-to-path name)
+                   :year             (year)
+                   :features         (set feature-params)
+                   :opts             (jvm-opts)})
+        unsupported (-> (set feature-params)
+                        (clojure.set/difference supported-features)
+                        (not-empty))]
     (cond
       (version-before? min-version)
       (main/info "Leiningen version" min-version "or higher is required, found " (leiningen-version)

@@ -3,7 +3,7 @@
 
 (def graphql-assets
   [["{{backend-path}}/{{sanitized}}/routes/services/graphql.clj" "graphql/src/graphql.clj"]
-   ["{{resource-path}}/templates/graphiql.html" "graphql/resources/graphiql.html"]
+   ["{{resource-path}}/html/graphiql.html" "graphql/resources/html/graphiql.html"]
    ["{{resource-path}}/graphql/schema.edn" "graphql/resources/schema.edn"]])
 
 (def graphql-dependencies

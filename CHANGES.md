@@ -1,3 +1,8 @@
+## 3.0.0
+
+- renamed resources/templates to resources/html
+- org.webjars/bootstrap 4.1.3
+
 ## 2.9.12.81
 
 - switched to use cider/piggieback 0.3.8
@@ -16,7 +21,7 @@
 ## 2.9.12.78
 
 - luminus-migrations 0.5.2
-- kee-frame routing improvements 
+- kee-frame routing improvements
 
 ## 2.9.12.77
 
