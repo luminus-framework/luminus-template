@@ -1,3 +1,7 @@
+## 3.0.1
+
+- relaxed Lein version check
+
 ## 3.0.0
 
 - renamed resources/templates to resources/html
