@@ -218,8 +218,11 @@
       (set-feature-dependency "+kee-frame" #{"+cljs" "+reitit" "+reagent" "+re-frame"})))
 
 (defn parse-version [v]
-  (map #(Integer/parseInt %)
-       (clojure.string/split v #"\.")))
+  (map #(try (Integer/parseInt %)
+             (catch Exception e
+               (println "Warning: leiningen version not in number format (could just be a snapshot version)")
+               %))
+            (clojure.string/split v #"\.")))
 
 (defn version-before? [v]
   (let [[x1 y1 z1] (parse-version (leiningen-version))
