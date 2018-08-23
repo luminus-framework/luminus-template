@@ -3,7 +3,6 @@
 
 (def kee-frame-assets
   [["{{client-path}}/{{sanitized}}/core.cljs" "keeframe/src/cljs/core.cljs"]
-   ["{{client-path}}/{{sanitized}}/effects.cljs" "keeframe/src/cljs/effects.cljs"]
    ["{{client-path}}/{{sanitized}}/routing.cljs" "keeframe/src/cljs/routing.cljs"]])
 
 (def conflicting-assets
@@ -18,5 +17,5 @@
     [(into (update-assets assets) kee-frame-assets)
      (-> options
          (assoc :kee-frame true)
-         (append-options :dependencies [['kee-frame "0.2.4"]]))]
+         (append-options :dependencies [['kee-frame "0.2.7"]]))]
     state))

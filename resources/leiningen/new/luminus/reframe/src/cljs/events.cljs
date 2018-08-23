@@ -1,42 +1,49 @@
 (ns <<project-ns>>.events
-  (:require [re-frame.core :refer [dispatch reg-event-db reg-sub]]))
+  (:require [re-frame.core :as rf]))
 
 ;;dispatchers
 <% if reitit %>
-(reg-event-db
+(rf/reg-event-db
   :navigate
   (fn [db [_ route]]
     (assoc db :route route)))
 <% else %>
-(reg-event-db
+(rf/reg-event-db
   :navigate
   (fn [db [_ page]]
     (assoc db :page page)))
 <% endif %>
-(reg-event-db
+(rf/reg-event-db
   :set-docs
   (fn [db [_ docs]]
     (assoc db :docs docs)))
 
+(rf/reg-event-fx
+  :fetch-docs
+  (fn [_ _]
+    {:http {:url "/docs"
+            :method :get
+            :success-event [:set-docs]}}))
+
 ;;subscriptions
 <% if reitit %>
-(reg-sub
+(rf/reg-sub
   :route
   (fn [db _]
     (-> db :route)))
 
-(reg-sub
+(rf/reg-sub
   :page
   :<- [:route]
   (fn [route _]
     (-> route :data :name)))
 <% else %>
-(reg-sub
+(rf/reg-sub
   :page
   (fn [db _]
     (:page db)))
 <% endif %>
-(reg-sub
+(rf/reg-sub
   :docs
   (fn [db _]
     (:docs db)))

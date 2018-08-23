@@ -132,7 +132,7 @@
    ['org.webjars/webjars-locator "0.34"]
    ['ring/ring-defaults "0.3.2"]
    ['luminus/ring-ttl-session "0.3.2"]
-   ['mount "0.1.12"]
+   ['mount "0.1.13"]
    ['cprop "0.1.11"]
    ['org.clojure/tools.cli "0.3.7"]
    ['nrepl "0.4.4"]])

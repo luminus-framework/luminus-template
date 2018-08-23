@@ -1,7 +1,22 @@
-(ns <<project-ns>>.effects
-  (:require
-    [ajax.core :as ajax]
-    [re-frame.core :as rf]))
+(ns <<project-ns>>.ajax
+  (:require [ajax.core :as ajax]
+            [re-frame.core :as rf]))
+
+(defn local-uri? [{:keys [uri]}]
+  (not (re-find #"^\w+?://" uri)))
+
+(defn default-headers [request]
+  (if (local-uri? request)
+    (-> request<% if servlet %>
+        (update :uri #(str js/context %))<% endif %>
+        (update :headers #(merge {"x-csrf-token" js/csrfToken} %)))
+    request))
+
+(defn load-interceptors! []
+  (swap! ajax/default-interceptors
+         conj
+         (ajax/to-interceptor {:name "default headers"
+                               :request default-headers})))
 
 (def http-methods
   {:get    ajax/GET
@@ -29,12 +44,4 @@
                               (rf/dispatch (conj error-event error)))}
             ajax-map))))
 
-(def chain-links
-  [{;; Is the effect in the map?
-    :effect-present? (fn [effects] (:http effects))
-    ;;  The dispatch set for this effect in the map returned from the event handler
-    :get-dispatch    (fn [effects]
-                       (get-in effects [:http :success-event]))
-    ;; Framework will call this function to insert inferred dispatch to next handler in chain
-    :set-dispatch    (fn [effects dispatch]
-                       (assoc-in effects [:http :success-event] dispatch))}])
+

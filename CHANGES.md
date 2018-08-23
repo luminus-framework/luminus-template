@@ -1,3 +1,10 @@
+## 3.0.3
+
+- added `:http` effect to re-frame/kee-frame profiles
+- kee-frame 0.2.7
+- com.cognitect/transit-java 0.8.337
+- mount 0.1.13
+
 ## 3.0.2
 
 - selmer 1.12.0

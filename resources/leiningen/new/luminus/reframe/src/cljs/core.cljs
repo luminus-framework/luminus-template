@@ -97,9 +97,6 @@
 <% endif %>
 ;; -------------------------
 ;; Initialize app
-(defn fetch-docs! []
-  (GET "/docs" {:handler #(rf/dispatch [:set-docs %])}))
-
 (defn mount-components []
   (rf/clear-subscription-cache!)
   (r/render [#'page] (.getElementById js/document "app")))
@@ -108,6 +105,6 @@
   <% if reitit %>(rf/dispatch-sync [:navigate (reitit/match-by-name router :home)])
   <% else %>(rf/dispatch-sync [:navigate :home])<% endif %>
   (load-interceptors!)
-  (fetch-docs!)
+  (rf/dispatch [:fetch-docs])
   (hook-browser-navigation!)
   (mount-components))
