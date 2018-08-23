@@ -3,7 +3,7 @@
             [goog.events :as events]
             [goog.history.EventType :as HistoryEventType]
             [markdown.core :refer [md->html]]
-            [<<project-ns>>.ajax :refer [load-interceptors!]]
+            [<<project-ns>>.ajax :as ajax]
             [ajax.core :refer [GET POST]]<% if reitit %>
             [reitit.core :as reitit]
             [clojure.string :as string]<% else %>
@@ -104,7 +104,7 @@
   (r/render [#'page] (.getElementById js/document "app")))
 
 (defn init! []
-  (load-interceptors!)
+  (ajax/load-interceptors!)
   (fetch-docs!)
   (hook-browser-navigation!)
   (mount-components))

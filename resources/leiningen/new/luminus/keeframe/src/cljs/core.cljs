@@ -4,7 +4,7 @@
             [markdown.core :refer [md->html]]
             [reagent.core :as r]
             [re-frame.core :as rf]
-            [<<project-ns>>.ajax :refer [load-interceptors!]]
+            [<<project-ns>>.ajax :as ajax]
             [<<project-ns>>.routing :as routing])
   (:import goog.History))
 
@@ -81,25 +81,15 @@
 
 ;; -------------------------
 ;; Initialize app
-(def chain-links
-  [{;; Is the effect in the map?
-    :effect-present? (fn [effects] (:http effects))
-    ;; The dispatch set for this effect in the map returned from the event handler
-    :get-dispatch    (fn [effects]
-                       (get-in effects [:http :success-event]))
-    ;; Framework will call this function to insert inferred dispatch to next handler in chain
-    :set-dispatch    (fn [effects dispatch]
-                       (assoc-in effects [:http :success-event] dispatch))}])
-
 (defn mount-components []
   (rf/clear-subscription-cache!)
   (r/render [#'root-component] (.getElementById js/document "app")))
 
 (defn init! []
+  (ajax/load-interceptors!)
   (kf/start! {:debug?         true
               :router         (routing/->ReititRouter routing/router)
-              :chain-links    chain-links
+              :chain-links    [ajax/ajax-chain]
               :initial-db     {}
               :root-component [root-component]})
-  (load-interceptors!)
   (routing/hook-browser-navigation!))

@@ -1,3 +1,7 @@
+## 3.0.4
+
+- cleanup for re-frame/kee-frame
+
 ## 3.0.3
 
 - added `:http` effect to re-frame/kee-frame profiles
