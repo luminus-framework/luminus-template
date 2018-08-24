@@ -25,9 +25,10 @@
 
   (url->data [_ url]
     (let [[path+query fragment] (-> url (string/replace #"^/#" "") (string/split #"#" 2))
-          [path query] (string/split path+query #"\?" 2)]
-      (some-> (reitit/match-by-path routes path)
-              (assoc :query-string query :hash fragment)))))
+          [path query] (string/split path+query #"\?" 2)
+          route (reitit/match-by-path routes path)]
+      (rf/dispatch [:nav/route route])
+      (some-> route (assoc :query-string query :hash fragment)))))
 
 (defn match-route [uri]
   (->> (or (not-empty (string/replace uri #"^.*#" "")) "/")
