@@ -8,10 +8,10 @@
             [<<project-ns>>.routing :as routing])
   (:import goog.History))
 
-(defn nav-link [uri title page]
+(defn nav-link [title page]
   [:li.nav-item
    {:class (when (= page @(rf/subscribe [:nav/page])) "active")}
-   [:a.nav-link {:href uri} title]])
+   [:a.nav-link {:href (kf/path-for [page])} title]])
 
 (defn navbar []
   [:nav.navbar.navbar-dark.bg-primary.navbar-expand-md
@@ -24,8 +24,8 @@
    [:a.navbar-brand {:href "#/"} "<<name>>"]
    [:div#collapsing-navbar.collapse.navbar-collapse
     [:ul.nav.navbar-nav.mr-auto
-     [nav-link (kf/path-for [:home]) "Home" :home]
-     [nav-link (kf/path-for [:about]) "About" :about]]]])
+     [nav-link "Home" :home]
+     [nav-link "About" :about]]]])
 
 (defn about-page []
   [:div.container
