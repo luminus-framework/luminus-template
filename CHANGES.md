@@ -1,6 +1,7 @@
 ## 3.0.4
 
 - cleanup for re-frame/kee-frame
+- added baking-soda wrapper for Reactstrap for reagent, re-frame, and kee-frame profiles
 
 ## 3.0.3
 

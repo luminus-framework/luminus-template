@@ -1,5 +1,6 @@
 (ns <<project-ns>>.core
   (:require [ajax.core :refer [GET POST]]
+            [baking-soda.core :as b]
             [kee-frame.core :as kf]
             [markdown.core :refer [md->html]]
             [reagent.core :as r]
@@ -9,23 +10,23 @@
   (:import goog.History))
 
 (defn nav-link [title page]
-  [:li.nav-item
-   {:class (when (= page @(rf/subscribe [:nav/page])) "active")}
-   [:a.nav-link {:href (kf/path-for [page])} title]])
+  [b/NavItem
+   [b/NavLink
+    {:href   (kf/path-for [page])
+     :active (= page @(rf/subscribe [:nav/page]))}
+    title]])
 
 (defn navbar []
-  [:nav.navbar.navbar-dark.bg-primary.navbar-expand-md
-   {:role "navigation"}
-   [:button.navbar-toggler.hidden-sm-up
-    {:type "button"
-     :data-toggle "collapse"
-     :data-target "#collapsing-navbar"}
-    [:span.navbar-toggler-icon]]
-   [:a.navbar-brand {:href "#/"} "<<name>>"]
-   [:div#collapsing-navbar.collapse.navbar-collapse
-    [:ul.nav.navbar-nav.mr-auto
-     [nav-link "Home" :home]
-     [nav-link "About" :about]]]])
+  (r/with-let [expanded? (r/atom true)]
+    [b/Navbar {:color "dark"
+               :class-name "navbar-dark bg-primary"
+               :expand "md"}
+     [b/NavbarBrand {:href "/"} "<<name>>"]
+     [b/NavbarToggler {:on-click #(swap! expanded? not)}]
+     [b/Collapse {:is-open @expanded? :navbar true}
+      [b/Nav {:class-name "mr-auto" :navbar true}
+       [nav-link "Home" :home]
+       [nav-link "About" :about]]]]))
 
 (defn about-page []
   [:div.container

@@ -8,7 +8,12 @@
 (def reagent-dependencies
   [['reagent "0.8.1"]
    ['secretary "1.2.3"]
-   ['cljs-ajax "0.7.4"]])
+   ['cljs-ajax "0.7.4"]
+   ['baking-soda "0.2.0"
+    :exclusions
+    ['cljsjs/react-bootstrap]]
+   ['cljsjs/react-transition-group "2.3.1-0"]
+   ['cljsjs/react-popper "0.10.4-0"]])
 
 (defn reagent-features [[assets options :as state]]
   (if (some #{"+reagent"} (:features options))
