@@ -24,7 +24,7 @@
 
 (defn navbar []
   (r/with-let [expanded? (r/atom true)]
-    [b/Navbar {:color "dark"
+    [b/Navbar {:light true
                :class-name "navbar-dark bg-primary"
                :expand "md"}
      [b/NavbarBrand {:href "/"} "<<name>>"]
