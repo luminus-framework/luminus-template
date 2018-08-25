@@ -9,6 +9,12 @@
             [<<project-ns>>.routing :as routing])
   (:import goog.History))
 
+; the navbar components are implemented via baking-soda [1]
+; library that provides a ClojureScript interface for Reactstrap [2]
+; Bootstrap 4 components.
+; [1] https://github.com/gadfly361/baking-soda
+; [2] http://reactstrap.github.io/
+
 (defn nav-link [title page]
   [b/NavItem
    [b/NavLink
