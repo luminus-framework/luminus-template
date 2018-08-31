@@ -1,3 +1,7 @@
+## 3.0.5
+
+- cider/piggieback 0.3.9
+
 ## 3.0.4
 
 - cleanup for re-frame/kee-frame

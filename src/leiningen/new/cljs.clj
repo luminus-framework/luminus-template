@@ -43,7 +43,7 @@
   [['doo doo-version]
    ['binaryage/devtools "0.9.10"]
    ['figwheel-sidecar figwheel-version]
-   ['cider/piggieback "0.3.8"]])
+   ['cider/piggieback "0.3.9"]])
 
 (defn get-output-dir [features]
   (if (some #{"+boot"} features)
