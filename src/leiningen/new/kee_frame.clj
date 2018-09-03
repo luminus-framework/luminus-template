@@ -9,12 +9,10 @@
   ["core.cljs"
    "events.cljs"])
 
-(defn update-assets [assets]
-  (reduce #(remove-conflicting-assets %1 %2) assets conflicting-assets))
-
 (defn kee-frame-features [[assets options :as state]]
   (if (some #{"+kee-frame"} (:features options))
-    [(into (update-assets assets) kee-frame-assets)
+    [(-> (apply remove-conflicting-assets assets conflicting-assets)
+         (into kee-frame-assets))
      (-> options
          (assoc :kee-frame true)
          (append-options :dependencies [['kee-frame "0.2.7"]]))]

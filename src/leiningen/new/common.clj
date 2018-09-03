@@ -46,7 +46,7 @@
 
 (defn render-assets [assets binary-assets options]
   (let [render (init-render)
-        raw    (raw-resourcer template-name)]
+        raw (raw-resourcer template-name)]
     (apply ->files options
            (into
              (map (partial render-asset render options) assets)
@@ -62,7 +62,7 @@
     (subs text 0 (count text))))
 
 (defn indented-code [n form]
-  (let [text    (form->str form)
+  (let [text (form->str form)
         indents (apply str (repeat n " "))]
     (.replaceAll (str text) "\n" (str "\n" indents))))
 
@@ -87,11 +87,14 @@
 (defn append-formatted [options k v indent-width]
   (assoc options k (indent indent-width v)))
 
-(defn remove-conflicting-assets [assets filter-str]
-  (remove #(and (coll? %)
-                (and (string? (second %))
-                     (.endsWith (second %) filter-str)))
-          assets))
+(defn remove-conflicting-assets [assets & filter-strs]
+  (reduce
+    (fn [assets filter-str]
+      (remove #(and (coll? %)
+                    (and (string? (second %))
+                         (.endsWith (second %) filter-str)))
+              assets))
+    assets filter-strs))
 
 (defn unsupported-jetty-java-version? [java-version]
   (as-> java-version %

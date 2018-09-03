@@ -119,11 +119,11 @@
    ['selmer "1.12.0"]
    ['clj-time "0.14.4"]
    ['markdown-clj "1.0.2"]
-   ['metosin/muuntaja "0.5.0"]
+   ['metosin/muuntaja "0.6.0"]
    ['metosin/ring-http-response "0.9.0"]
    ['funcool/struct "1.3.0"]
    ['org.webjars/bootstrap "4.1.3"]
-   ['org.webjars/font-awesome "5.2.0"]
+   ['org.webjars/font-awesome "5.3.1"]
    ['org.webjars.bower/tether "1.4.4"]
    ['org.webjars/jquery "3.3.1-1"]
    ['org.clojure/tools.logging "0.4.1"]
@@ -135,7 +135,7 @@
    ['mount "0.1.13"]
    ['cprop "0.1.11"]
    ['org.clojure/tools.cli "0.3.7"]
-   ['nrepl "0.4.4"]])
+   ['nrepl "0.4.5"]])
 
 (def core-dev-dependencies
   [['expound "0.7.1"]

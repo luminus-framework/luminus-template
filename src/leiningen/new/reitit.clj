@@ -7,8 +7,8 @@
 
 (defn reitit-features [[assets options :as state]]
   (if (some #{"+reitit"} (:features options))
-    [(into (remove-conflicting-assets assets "docs.md") reitit-assets)
+    [(into (remove-conflicting-assets assets "home.clj" "docs.md") reitit-assets)
      (-> options
-         (append-options :dependencies [['metosin/reitit "0.1.3"]])
+         (append-options :dependencies [['metosin/reitit "0.2.0"]])
          (assoc :reitit true))]
     state))

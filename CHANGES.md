@@ -1,6 +1,13 @@
 ## 3.0.5
 
 - cider/piggieback 0.3.9
+- cljsjs/react-transition-group 2.4.0-0
+- luminus-migrations 0.5.3
+- metosin/muuntaja 0.6.0
+- mysql-connector-java 8.0.12
+- nrepl 0.4.5
+- reitit 0.2.0
+- re-frame 0.10.6
 
 ## 3.0.4
 
