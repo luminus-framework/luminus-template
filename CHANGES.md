@@ -1,3 +1,7 @@
+## 3.0.6
+
+- rolled back metosin/muuntaja 0.5.0
+
 ## 3.0.5
 
 - cider/piggieback 0.3.9
