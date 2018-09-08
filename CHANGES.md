@@ -1,3 +1,7 @@
+## 3.0.7
+
+- metosin/muuntaja 0.6.0
+
 ## 3.0.6
 
 - rolled back metosin/muuntaja 0.5.0

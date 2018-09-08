@@ -6,9 +6,7 @@
             [<<project-ns>>.layout :refer [error-page<% if servlet %> *app-context*<% endif %>]]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]<% if not reitit %>
             [ring.middleware.webjars :refer [wrap-webjars]]<% endif %>
-            [muuntaja.core :as muuntaja]
-            [muuntaja.format.json :refer [json-format]]
-            [muuntaja.format.transit :as transit-format]
+            [<<project-ns>>.middleware.formats :as formats]
             [muuntaja.middleware :refer [wrap-format wrap-params]]<% endif %>
             [<<project-ns>>.config :refer [env]]<% if immutant-session %>
             [ring.middleware.flash :refer [wrap-flash]]
@@ -54,35 +52,9 @@
        {:status 403
         :title "Invalid anti-forgery token"})}))
 
-(def joda-time-writer
-  (transit/write-handler
-    (constantly "m")
-    (fn [v] (-> ^ReadableInstant v .getMillis))
-    (fn [v] (-> ^ReadableInstant v .getMillis .toString))))
-
-(cheshire/add-encoder
-  org.joda.time.DateTime
-  (fn [c jsonGenerator]
-    (.writeString jsonGenerator (-> ^ReadableInstant c .getMillis .toString))))
-
-(def restful-format-options
-  (update
-    muuntaja/default-options
-    :formats
-    merge
-    {"application/json"
-     json-format
-
-     "application/transit+json"
-     {:decoder [(partial transit-format/make-transit-decoder :json)]
-      :encoder [#(transit-format/make-transit-encoder
-                   :json
-                   (merge
-                     %
-                     {:handlers {org.joda.time.DateTime joda-time-writer}}))]}}))
 
 (defn wrap-formats [handler]
-  (let [wrapped (-> handler wrap-params (wrap-format restful-format-options))]
+  (let [wrapped (-> handler wrap-params (wrap-format formats/instance))]
     (fn [request]
       ;; disable wrap-formats for websockets
       ;; since they're not compatible with this middleware

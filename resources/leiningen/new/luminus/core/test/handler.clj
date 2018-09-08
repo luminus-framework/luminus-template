@@ -2,7 +2,12 @@
   (:require [clojure.test :refer :all]
             [ring.mock.request :refer :all]
             [<<project-ns>>.handler :refer :all]
+            [<<project-ns>>.middleware.formats :as formats]
+            [muuntaja.core :as m]
             [mount.core :as mount]))
+
+(defn parse-json [body]
+  (m/decode formats/instance "application/json" body))
 
 (use-fixtures
   :once
