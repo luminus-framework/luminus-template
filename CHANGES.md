@@ -1,3 +1,7 @@
+## 3.0.8
+
+- set `:infer-externs true` by default in cljs profile
+
 ## 3.0.7
 
 - metosin/muuntaja 0.6.0

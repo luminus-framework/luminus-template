@@ -59,9 +59,10 @@
        {:output-dir (str (get-output-dir features) "public/js")
         :output-to (str (get-output-dir features) "public/js/app.js")
         :source-map (str (get-output-dir features) "public/js/app.js.map")
-       :optimizations :advanced
-       :pretty-print false
-       :closure-warnings
+        :optimizations :advanced
+        :pretty-print false
+        :infer-externs true
+        :closure-warnings
        {:externs-validation :off :non-standard-jsdoc :off}}
        (when (some #{"+reagent" "+re-frame"} features)
          {:externs ["react/externs/react.js"]}))}}})
