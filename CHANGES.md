@@ -1,3 +1,7 @@
+## 3.0.9
+
+- [pr 386](https://github.com/luminus-framework/luminus-template/pull/386) point Figwheel logs to the log folder
+
 ## 3.0.8
 
 - org.xerial/sqlite-jdbc 3.23.1
