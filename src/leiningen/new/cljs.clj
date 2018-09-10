@@ -100,6 +100,7 @@
 
 (defn figwheel [{:keys [features]}]
   {:http-server-root "public"
+   :server-logfile "log/figwheel-logfile.log"
    :nrepl-port       7002
    :css-dirs         ["resources/public/css"]
    :nrepl-middleware `[cider/wrap-cljs-repl cider.piggieback/wrap-cljs-repl]} )
