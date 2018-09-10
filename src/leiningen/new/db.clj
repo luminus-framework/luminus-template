@@ -11,13 +11,14 @@
     (some #{"+sqlite"} features) :sqlite))
 
 (defn db-dependencies [options]
-  [['luminus-migrations "0.5.3"]
-   ['conman "0.8.2"]
-   ({:postgres ['org.postgresql/postgresql "42.2.4"]
-     :mysql    ['mysql/mysql-connector-java "8.0.12"]
-     :h2       ['com.h2database/h2 "1.4.196"]
-     :sqlite   ['org.xerial/sqlite-jdbc "3.21.0.1"]}
-     (select-db options))])
+  (into [['luminus-migrations "0.5.3"]
+         ['conman "0.8.2"]]
+        ({:postgres [['org.postgresql/postgresql "42.2.4"]]
+          :mysql    [['mysql/mysql-connector-java "8.0.12"]
+                     ['com.google.protobuf/protobuf-java "3.6.1"]]
+          :h2       [['com.h2database/h2 "1.4.196"]]
+          :sqlite   [['org.xerial/sqlite-jdbc "3.23.1"]]}
+          (select-db options))))
 
 (defn db-url [{:keys [sanitized] :as options} suffix]
   ({:postgres (str "postgresql://localhost/" sanitized "_" suffix
