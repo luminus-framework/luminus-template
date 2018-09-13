@@ -1,3 +1,7 @@
+## 3.0.9
+
+- [pr 386](https://github.com/luminus-framework/luminus-template/pull/386) point Figwheel logs to the log folder
+
 ## 3.0.8
 
 - selmer 1.12.1
@@ -8,6 +12,7 @@
 - metosin/reitit 0.2.2
 - set `:infer-externs true` by default in cljs profile
 - added com.google.protobuf/protobuf-java 3.6.1 for mysql profile
+
 ## 3.0.7
 
 - metosin/muuntaja 0.6.0
