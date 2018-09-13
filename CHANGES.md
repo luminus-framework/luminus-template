@@ -1,5 +1,9 @@
 ## 3.0.8
 
+- selmer 1.12.1
+
+## 3.0.8
+
 - org.xerial/sqlite-jdbc 3.23.1
 - metosin/reitit 0.2.2
 - set `:infer-externs true` by default in cljs profile

@@ -21,6 +21,7 @@
         (assoc params
           :page template
           :csrf-token *anti-forgery-token*<% if servlet %>
+          :selmer/context *app-context*
           :servlet-context *app-context*<% endif %>)))
     "text/html; charset=utf-8"))
 
