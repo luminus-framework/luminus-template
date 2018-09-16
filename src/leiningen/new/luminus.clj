@@ -130,21 +130,21 @@
    ['org.webjars.bower/tether "1.4.4"]
    ['org.webjars/jquery "3.3.1-1"]
    ['org.clojure/tools.logging "0.4.1"]
-   ['ring/ring-core "1.6.3"]
+   ['ring/ring-core "1.7.0"]
    ['ring-webjars "0.2.0"]
    ['org.webjars/webjars-locator "0.34"]
    ['ring/ring-defaults "0.3.2"]
    ['luminus/ring-ttl-session "0.3.2"]
    ['mount "0.1.13"]
-   ['cprop "0.1.11"]
-   ['org.clojure/tools.cli "0.3.7"]
+   ['cprop "0.1.13"]
+   ['org.clojure/tools.cli "0.4.0"]
    ['nrepl "0.4.5"]])
 
 (def core-dev-dependencies
   [['expound "0.7.1"]
    ['prone "1.6.0"]
    ['ring/ring-mock "0.3.2"]
-   ['ring/ring-devel "1.6.3"]
+   ['ring/ring-devel "1.7.0"]
    ['pjstadig/humane-test-output "0.8.3"]])
 
 (def core-dev-plugins

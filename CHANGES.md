@@ -1,8 +1,12 @@
-## 3.0.9
+## 3.10.0
 
 - [pr 386](https://github.com/luminus-framework/luminus-template/pull/386) point Figwheel logs to the log folder
+- cprop 0.1.13
+- tools.cli 0.4.0
+- ring-core 1.7.0
+- ring-devel 1.7.0
 
-## 3.0.8
+## 3.0.9
 
 - selmer 1.12.1
 
