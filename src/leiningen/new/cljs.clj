@@ -42,7 +42,6 @@
 (def cljs-dev-dependencies
   [['doo doo-version]
    ['binaryage/devtools "0.9.10"]
-   ['figwheel-sidecar figwheel-version]
    ['cider/piggieback "0.3.9"]])
 
 (defn get-output-dir [features]
@@ -105,6 +104,9 @@
    :css-dirs         ["resources/public/css"]
    :nrepl-middleware `[cider/wrap-cljs-repl cider.piggieback/wrap-cljs-repl]} )
 
+(def cljs-lein-dev-dependencies
+  [['figwheel-sidecar figwheel-version]])
+
 (defn cljs-lein-features [[assets options :as state]]
   [assets
    (-> options
@@ -116,20 +118,22 @@
         :figwheel (indent root-indent (figwheel options))
         :cljs-uberjar-prep ":prep-tasks [\"compile\" [\"cljsbuild\" \"once\" \"min\"]]")
        (append-options :source-paths [(:client-path options) (:cljc-path options)])
-       (append-options :resource-paths resource-paths))])
+       (append-options :resource-paths resource-paths)
+       (append-options :dev-dependencies cljs-lein-dev-dependencies))])
 
 ;; Options for boot
 
 (defn boot-cljs-assets [{:keys [client-path]}]
   [[(str client-path "/app.cljs.edn") "cljs/src/cljs/app.cljs.edn"]])
 
-(def cljs-boot-plugins '[[adzerk/boot-cljs "2.1.0-SNAPSHOT" :scope "test"]
+(def cljs-boot-plugins '[[adzerk/boot-cljs "2.1.4" :scope "test"]
                          [crisptrutski/boot-cljs-test "0.3.2-SNAPSHOT" :scope "test"]
                          [adzerk/boot-cljs-repl "0.3.3" :scope "test"]])
 
 (def cljs-boot-dev-plugins
-  '[[crisptrutski/boot-cljs-test "0.3.2-SNAPSHOT" :scope "test"]
+  '[[crisptrutski/boot-cljs-test "0.3.4" :scope "test"]
     [powerlaces/boot-figreload "0.1.1-SNAPSHOT" :scope "test"]
+    [com.cemerick/piggieback "0.2.1" :scope "test"]
     [org.clojure/clojurescript cljs-version :scope "test"]
     [weasel "0.7.0" :scope "test"]
     [org.clojure/tools.nrepl "0.2.12" :scope "test"]])

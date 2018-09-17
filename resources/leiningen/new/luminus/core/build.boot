@@ -77,9 +77,8 @@
     (comp
      (start-server)
      (watch)
-     (cljs-repl)
      (reload :client-opts {:debug true})
-     (speak)
+     (cljs-repl)
      (cljs))))
 
 (deftask run-cljs-tests
