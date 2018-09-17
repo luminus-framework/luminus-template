@@ -1,3 +1,7 @@
+## 3.10.1
+
+- [fix for boot cljs repl](https://github.com/luminus-framework/luminus-template/commit/2e499555f2450dc136b8dc26ef6841a682eb20ca)
+
 ## 3.10.0
 
 - [pr 386](https://github.com/luminus-framework/luminus-template/pull/386) point Figwheel logs to the log folder
