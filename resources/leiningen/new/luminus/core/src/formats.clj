@@ -1,7 +1,8 @@
 (ns <<project-ns>>.middleware.formats
   (:require [cognitect.transit :as transit]
             [muuntaja.core :as m])
-  (:import com.fasterxml.jackson.datatype.jdk8.Jdk8Module))
+  (:import [com.fasterxml.jackson.datatype.jdk8 Jdk8Module]
+           [java.time LocalDateTime]))
 
 (def instance
   (m/create
