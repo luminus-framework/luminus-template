@@ -1,3 +1,7 @@
+## 3.10.3
+
+- fixed joda time serializer
+
 ## 3.10.2
 
 - replaced `[com.cognitect/transit-java "0.8.337"]` with `[com.cognitect/transit-clj "0.8.313"]` for the `+cljs` profile

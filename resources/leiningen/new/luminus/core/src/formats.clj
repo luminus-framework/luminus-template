@@ -17,6 +17,8 @@
         (assoc-in
           [:formats "application/json" :opts :modules]
           [(JodaModule.)])
-        (assoc-in
-          [:formats "application/transit+json" :encode-opts]
-          {:handlers {org.joda.time.DateTime joda-time-writer}}))))
+        (update-in
+          [:formats "application/transit+json"]
+          merge
+          {:encoder-opts
+           {:handlers {org.joda.time.DateTime joda-time-writer}}}))))
