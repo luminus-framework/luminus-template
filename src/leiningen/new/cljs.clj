@@ -21,7 +21,7 @@
 
 (def cljs-dependencies
   [['org.clojure/clojurescript cljs-version :scope "provided"]
-   ['com.cognitect/transit-java "0.8.337"]])
+   ['com.cognitect/transit-clj "0.8.313"]])
 
 ;;NOTE: under boot, src/cljs is also added to source-paths (see boot-cljs-features)
 

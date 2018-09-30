@@ -1,3 +1,9 @@
+## 3.10.2
+
+- replaced `[com.cognitect/transit-java "0.8.337"]` with `[com.cognitect/transit-clj "0.8.313"]` for the `+cljs` profile
+- org.postgresql/postgresql 42.2.5
+- metosin/muuntaja 0.6.1
+
 ## 3.10.1
 
 - [fix for boot cljs repl](https://github.com/luminus-framework/luminus-template/commit/2e499555f2450dc136b8dc26ef6841a682eb20ca)

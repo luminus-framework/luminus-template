@@ -120,7 +120,7 @@
    ['selmer "1.12.1"]
    ['clj-time "0.14.4"]
    ['markdown-clj "1.0.2"]
-   ['metosin/muuntaja "0.6.0"]
+   ['metosin/muuntaja "0.6.1"]
    ['com.fasterxml.jackson.datatype/jackson-datatype-joda "2.9.6"]
    ['com.fasterxml.jackson.core/jackson-core "2.9.6"]
    ['metosin/ring-http-response "0.9.0"]
