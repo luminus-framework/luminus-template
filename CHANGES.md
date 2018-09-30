@@ -15,6 +15,7 @@
 
 ## 3.10.2
 
+- replaced clj-time with [clojure.java-time](https://github.com/dm3/clojure.java-time)
 - replaced `[com.cognitect/transit-java "0.8.337"]` with `[com.cognitect/transit-clj "0.8.313"]` for the `+cljs` profile
 - org.postgresql/postgresql 42.2.5
 - metosin/muuntaja 0.6.1

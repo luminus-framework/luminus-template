@@ -1,24 +1,24 @@
 (ns <<project-ns>>.middleware.formats
   (:require [cognitect.transit :as transit]
             [muuntaja.core :as m])
-  (:import
-    [com.fasterxml.jackson.datatype.joda JodaModule]
-    [org.joda.time ReadableInstant]))
-
-(def joda-time-writer
-  (transit/write-handler
-    (constantly "m")
-    (fn [v] (-> ^ReadableInstant v .getMillis))
-    (fn [v] (-> ^ReadableInstant v .getMillis .toString))))
+  (:import com.fasterxml.jackson.datatype.jdk8.Jdk8Module))
 
 (def instance
   (m/create
     (-> m/default-options
         (assoc-in
           [:formats "application/json" :opts :modules]
-          [(JodaModule.)])
+          [(Jdk8Module.)])
         (update-in
           [:formats "application/transit+json"]
           merge
           {:encoder-opts
-           {:handlers {org.joda.time.DateTime joda-time-writer}}}))))
+           {:handlers
+            {java.time.LocalDateTime
+             (transit/write-handler
+               (constantly "LocalDateTime")
+               #(.format % java.time.format.DateTimeFormatter/ISO_LOCAL_DATE_TIME))
+             java.time.ZonedDateTime
+             (transit/write-handler
+               (constantly "ZonedDateTime")
+               #(.format % java.time.format.DateTimeFormatter/ISO_OFFSET_DATE_TIME))}}}))))

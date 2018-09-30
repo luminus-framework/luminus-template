@@ -1,15 +1,15 @@
 (ns <<project-ns>>.db.core<% if embedded-db %>
   (:require
-    [clj-time.jdbc]
     [conman.core :as conman]
+    [java-time.pre-java8 :as jt]
     [mount.core :refer [defstate]]
     [<<project-ns>>.config :refer [env]])<% endif %><% ifequal db-type "postgres" %>
   (:require
     [cheshire.core :refer [generate-string parse-string]]
-    [clj-time.jdbc]
     [clojure.java.jdbc :as jdbc]
     [clojure.tools.logging :as log]
     [conman.core :as conman]
+    [java-time :as jt]
     [<<project-ns>>.config :refer [env]]
     [mount.core :refer [defstate]])
   (:import org.postgresql.util.PGobject
@@ -42,39 +42,13 @@
   :stop (conman/disconnect! *db*))
 <% endif %>
 (conman/bind-connection *db* "sql/queries.sql")
-<% ifequal db-type "mysql" %>
-<% endifequal %><% ifequal db-type "postgres" %>
+
+<% ifequal db-type "postgres" %>
+<% include db/src/postgres-fragment.clj %>
+<% else %>
 (extend-protocol jdbc/IResultSetReadColumn
-  Array
-  (result-set-read-column [v _ _] (vec (.getArray v)))
-
-  PGobject
-  (result-set-read-column [pgobj _metadata _index]
-    (let [type  (.getType pgobj)
-          value (.getValue pgobj)]
-      (case type
-        "json" (parse-string value true)
-        "jsonb" (parse-string value true)
-        "citext" (str value)
-        value))))
-
-(defn to-pg-json [value]
-      (doto (PGobject.)
-            (.setType "jsonb")
-            (.setValue (generate-string value))))
-
-(extend-type clojure.lang.IPersistentVector
-  jdbc/ISQLParameter
-  (set-parameter [v ^java.sql.PreparedStatement stmt ^long idx]
-    (let [conn      (.getConnection stmt)
-          meta      (.getParameterMetaData stmt)
-          type-name (.getParameterTypeName meta idx)]
-      (if-let [elem-type (when (= (first type-name) \_) (apply str (rest type-name)))]
-        (.setObject stmt idx (.createArrayOf conn elem-type (to-array v)))
-        (.setObject stmt idx (to-pg-json v))))))
+<% include db/src/datetime-deserializers.clj %>)
 
 (extend-protocol jdbc/ISQLValue
-  IPersistentMap
-  (sql-value [value] (to-pg-json value))
-  IPersistentVector
-  (sql-value [value] (to-pg-json value)))<% endifequal %>
+<% include db/src/datetime-serializers.clj %>)
+<% endifequal %>
