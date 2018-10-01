@@ -1,6 +1,11 @@
 ## 3.10.3
 
 - fixed joda time serializer
+- com.fasterxml.jackson.core/jackson-core 2.9.7
+- com.fasterxml.jackson.datatype/jackson-datatype-joda 2.9.7
+- luminus-migrations 0.5.4
+- metosin/reitit 0.2.3
+- org.clojure/tools.cli 0.4.1
 - org.xerial/sqlite-jdbc 3.25.2
 
 ## 3.10.2
