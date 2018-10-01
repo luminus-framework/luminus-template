@@ -1,6 +1,7 @@
 ## 3.10.3
 
 - fixed joda time serializer
+- org.xerial/sqlite-jdbc 3.25.2
 
 ## 3.10.2
 
