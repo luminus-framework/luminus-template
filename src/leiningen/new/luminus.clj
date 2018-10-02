@@ -119,7 +119,7 @@
   [['org.clojure/clojure "1.9.0"]
    ['selmer "1.12.1"]
    ['clojure.java-time "0.3.2"]
-   ['markdown-clj "1.0.2"]
+   ['markdown-clj "1.0.3"]
    ['metosin/muuntaja "0.6.1"]
    ['com.fasterxml.jackson.datatype/jackson-datatype-jdk8 "2.6.3"]
    ['com.fasterxml.jackson.core/jackson-core "2.9.7"]

@@ -1,7 +1,13 @@
+## 3.10.5
+
+- switch to using native Java 8 time API via [clojure.java-time](https://github.com/dm3/clojure.java-time) instead of Joda
+
 ## 3.10.4
 
 - prone 1.6.1
 - added Reitit support for the `+oauth` profile
+- markdown-clj 1.0.3
+- luminus-migrations 0.5.5
 
 ## 3.10.3
 
