@@ -1,3 +1,8 @@
+## 3.10.4
+
+- prone 1.6.1
+- added Reitit support for the `+oauth` profile
+
 ## 3.10.3
 
 - fixed joda time serializer

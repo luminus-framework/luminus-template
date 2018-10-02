@@ -6,7 +6,8 @@
       (ring/router
         [["/" {:get
                {:handler (constantly {:status 301 :headers {"Location" "/swagger-ui"}})}}]
-         (service-routes)])
+         (service-routes)<% if oauth %>
+         (oauth-routes)<% endif %>])
       (ring/routes
         (swagger-ui/create-swagger-ui-handler
           {:path   "/swagger-ui"
@@ -22,7 +23,8 @@
     (ring/ring-handler
       (ring/router
         [(home-routes)<% if swagger %>
-         (service-routes)<% endif %>])
+         (service-routes)<% endif %><% if oauth %>
+         (oauth-routes)<% endif %>])
       (ring/routes<% if swagger %>
         (swagger-ui/create-swagger-ui-handler
           {:path   "/swagger-ui"

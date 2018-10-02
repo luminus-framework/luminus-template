@@ -119,7 +119,7 @@
   [['org.clojure/clojure "1.9.0"]
    ['selmer "1.12.1"]
    ['clj-time "0.14.4"]
-   ['markdown-clj "1.0.2"]
+   ['markdown-clj "1.0.3"]
    ['metosin/muuntaja "0.6.1"]
    ['com.fasterxml.jackson.datatype/jackson-datatype-joda "2.9.7"]
    ['com.fasterxml.jackson.core/jackson-core "2.9.7"]
@@ -142,7 +142,7 @@
 
 (def core-dev-dependencies
   [['expound "0.7.1"]
-   ['prone "1.6.0"]
+   ['prone "1.6.1"]
    ['ring/ring-mock "0.3.2"]
    ['ring/ring-devel "1.7.0"]
    ['pjstadig/humane-test-output "0.8.3"]])
