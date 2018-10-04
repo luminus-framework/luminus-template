@@ -54,7 +54,7 @@
 
 
 (defn wrap-formats [handler]
-  (let [wrapped (-> handler wrap-params (wrap-format #_formats/instance))]
+  (let [wrapped (-> handler wrap-params (wrap-format formats/instance))]
     (fn [request]
       ;; disable wrap-formats for websockets
       ;; since they're not compatible with this middleware
