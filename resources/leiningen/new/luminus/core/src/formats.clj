@@ -1,24 +1,19 @@
 (ns <<project-ns>>.middleware.formats
   (:require [cognitect.transit :as transit]
+            [luminus-transit.time :as time]
             [muuntaja.core :as m])
-  (:import
-    [com.fasterxml.jackson.datatype.joda JodaModule]
-    [org.joda.time ReadableInstant]))
-
-(def joda-time-writer
-  (transit/write-handler
-    (constantly "m")
-    (fn [v] (-> ^ReadableInstant v .getMillis))
-    (fn [v] (-> ^ReadableInstant v .getMillis .toString))))
+  (:import [com.fasterxml.jackson.datatype.jdk8 Jdk8Module]
+           [java.time LocalDateTime]))
 
 (def instance
   (m/create
     (-> m/default-options
         (assoc-in
           [:formats "application/json" :opts :modules]
-          [(JodaModule.)])
+          [(Jdk8Module.)])
         (update-in
-          [:formats "application/transit+json"]
-          merge
-          {:encoder-opts
-           {:handlers {org.joda.time.DateTime joda-time-writer}}}))))
+          [:formats "application/transit+json" :decoder-opts]
+          (partial merge time/time-deserialization-handlers))
+        (update-in
+          [:formats "application/transit+json" :encoder-opts]
+          (partial merge time/time-serialization-handlers)))))

@@ -1,5 +1,7 @@
 (ns <<project-ns>>.ajax
-  (:require [ajax.core :as ajax]<% if re-frame %>
+  (:require [ajax.core :as ajax]
+            [luminus-transit.time :as time]
+            [cognitect.transit :as transit]<% if re-frame %>
             [re-frame.core :as rf]<% endif %>))
 
 (defn local-uri? [{:keys [uri]}]
@@ -11,6 +13,26 @@
         (update :uri #(str js/context %))<% endif %>
         (update :headers #(merge {"x-csrf-token" js/csrfToken} %)))
     request))
+
+(defn transit-opts [opts]
+  (merge {:raw             false
+          :format          :transit
+          :response-format :transit
+          :reader          (transit/reader :json time/time-deserialization-handlers)
+          :writer          (transit/writer :json time/time-serialization-handlers)}
+         opts))
+
+(defn GET [uri opts]
+  (ajax/GET uri (transit-opts opts)))
+
+(defn POST [uri opts]
+  (ajax/POST uri (transit-opts opts)))
+
+(defn PUT [uri opts]
+  (ajax/PUT uri (transit-opts opts)))
+
+(defn DELETE [uri opts]
+  (ajax/DELETE uri (transit-opts opts)))
 
 (defn load-interceptors! []
   (swap! ajax/default-interceptors

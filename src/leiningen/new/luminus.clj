@@ -118,10 +118,11 @@
 (def core-dependencies
   [['org.clojure/clojure "1.9.0"]
    ['selmer "1.12.1"]
-   ['clj-time "0.14.4"]
+   ['clojure.java-time "0.3.2"]
+   ['luminus-transit "0.1.1"]
    ['markdown-clj "1.0.3"]
    ['metosin/muuntaja "0.6.1"]
-   ['com.fasterxml.jackson.datatype/jackson-datatype-joda "2.9.7"]
+   ['com.fasterxml.jackson.datatype/jackson-datatype-jdk8 "2.6.3"]
    ['com.fasterxml.jackson.core/jackson-core "2.9.7"]
    ['metosin/ring-http-response "0.9.0"]
    ['funcool/struct "1.3.0"]
