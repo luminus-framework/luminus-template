@@ -25,6 +25,11 @@
             :method :get
             :success-event [:set-docs]}}))
 
+(rf/reg-event-db
+  :common/set-error
+  (fn [db [_ error]]
+    (assoc db :common/error error)))
+
 ;;subscriptions
 <% if reitit %>
 (rf/reg-sub
@@ -47,3 +52,8 @@
   :docs
   (fn [db _]
     (:docs db)))
+
+(rf/reg-sub
+  :common/error
+  (fn [db _]
+    (:common/error db)))

@@ -1,6 +1,5 @@
 (ns <<project-ns>>.core
-  (:require [ajax.core :refer [GET POST]]
-            [baking-soda.core :as b]
+  (:require [baking-soda.core :as b]
             [kee-frame.core :as kf]
             [markdown.core :refer [md->html]]
             [reagent.core :as r]

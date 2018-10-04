@@ -14,25 +14,14 @@
         (update :headers #(merge {"x-csrf-token" js/csrfToken} %)))
     request))
 
-(defn transit-opts [opts]
+;; injects transit serialization config into request options
+(defn as-transit [opts]
   (merge {:raw             false
           :format          :transit
           :response-format :transit
           :reader          (transit/reader :json time/time-deserialization-handlers)
           :writer          (transit/writer :json time/time-serialization-handlers)}
          opts))
-
-(defn GET [uri opts]
-  (ajax/GET uri (transit-opts opts)))
-
-(defn POST [uri opts]
-  (ajax/POST uri (transit-opts opts)))
-
-(defn PUT [uri opts]
-  (ajax/PUT uri (transit-opts opts)))
-
-(defn DELETE [uri opts]
-  (ajax/DELETE uri (transit-opts opts)))
 
 (defn load-interceptors! []
   (swap! ajax/default-interceptors

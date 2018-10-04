@@ -5,7 +5,6 @@
             [goog.events :as events]
             [goog.history.EventType :as HistoryEventType]
             [markdown.core :refer [md->html]]
-            [ajax.core :refer [GET POST]]
             [<<project-ns>>.ajax :as ajax]
             [<<project-ns>>.events]<% if reitit %>
             [reitit.core :as reitit]
