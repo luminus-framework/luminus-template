@@ -1,3 +1,7 @@
+## 3.10.6
+
+- kee-frame 0.3.0
+
 ## 3.10.5
 
 - switch to using native Java 8 time API via [clojure.java-time](https://github.com/dm3/clojure.java-time) instead of Joda
