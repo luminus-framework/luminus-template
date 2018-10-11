@@ -16,7 +16,7 @@
         ({:postgres [['org.postgresql/postgresql "42.2.5"]]
           :mysql    [['mysql/mysql-connector-java "8.0.12"]
                      ['com.google.protobuf/protobuf-java "3.6.1"]]
-          :h2       [['com.h2database/h2 "1.4.196"]]
+          :h2       [['com.h2database/h2 "1.4.197"]]
           :sqlite   [['org.xerial/sqlite-jdbc "3.25.2"]]}
           (select-db options))))
 

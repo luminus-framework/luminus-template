@@ -1,6 +1,9 @@
 ## 3.10.6
 
+- com.h2database/h2 1.4.197
 - kee-frame 0.3.0
+- selmer 1.12.2
+- fix for requiring JDBC in embedded db profiles
 
 ## 3.10.5
 

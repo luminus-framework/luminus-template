@@ -1,5 +1,6 @@
 (ns <<project-ns>>.db.core<% if embedded-db %>
   (:require
+    [clojure.java.jdbc :as jdbc]
     [conman.core :as conman]
     [java-time.pre-java8 :as jt]
     [mount.core :refer [defstate]]
