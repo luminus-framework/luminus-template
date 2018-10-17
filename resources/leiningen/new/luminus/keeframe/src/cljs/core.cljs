@@ -89,13 +89,11 @@
 ;; Initialize app
 (defn mount-components []
   (rf/clear-subscription-cache!)
-  (r/render [#'root-component] (.getElementById js/document "app")))
-
-(defn init! []
-  (ajax/load-interceptors!)
   (kf/start! {:debug?         true
-              :router         (routing/->ReititRouter routing/router)
+              :routes         routing/routes
               :chain-links    [ajax/ajax-chain]
               :initial-db     {}
-              :root-component [root-component]})
-  (routing/hook-browser-navigation!))
+              :root-component [root-component]}))
+
+(defn init! []
+  (ajax/load-interceptors!))
