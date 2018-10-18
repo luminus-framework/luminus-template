@@ -13,6 +13,13 @@
   :<- [:kee-frame/route]
   identity)
 
+(rf/reg-event-fx
+  :nav/by-route-name
+  (fn [_ [_ route-name]]
+    (let [route (reitit/match-by-name router route-name)]
+      {:navigate-to [(-> route :data :name) (:path-params route)]})))
+
+
 (rf/reg-sub
   :nav/page
   :<- [:nav/route]
