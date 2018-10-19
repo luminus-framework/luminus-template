@@ -36,6 +36,7 @@ However, if you would like to attach further functionality to your template you 
 * `+mysql` adds db.core namespace and add [MySQL/MariaDB database][my] dependencies
 * `+mongodb` adds support for [MongoDB][mongo] using the [Monger][monger] library
 * `+datomic` adds support for the [Datomic](http://www.datomic.com/) database
+* `+sqlite` adds support for the [SQLite](https://www.sqlite.org/) database
 
 ### service API
 
