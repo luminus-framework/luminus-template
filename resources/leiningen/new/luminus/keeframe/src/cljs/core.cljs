@@ -91,6 +91,7 @@
   (rf/clear-subscription-cache!)
   (kf/start! {:debug?         true
               :routes         routing/routes
+              :hash?          true
               :chain-links    [ajax/ajax-chain]
               :initial-db     {}
               :root-component [root-component]}))
