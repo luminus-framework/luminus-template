@@ -1,5 +1,6 @@
 (ns <<project-ns>>.core
   (:require [baking-soda.core :as b]
+            [day8.re-frame.http-fx]
             [reagent.core :as r]
             [re-frame.core :as rf]
             [goog.events :as events]

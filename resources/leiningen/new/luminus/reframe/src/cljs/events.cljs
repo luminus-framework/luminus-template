@@ -1,5 +1,6 @@
 (ns <<project-ns>>.events
-  (:require [re-frame.core :as rf]))
+  (:require [re-frame.core :as rf]
+            [ajax.core :as ajax]))
 
 ;;dispatchers
 <% if reitit %>
@@ -23,8 +24,8 @@
   (fn [_ _]
     {:http-xhrio {:method          :get
                   :uri             "/docs"
-                  :response-format (http/raw-response-format)
-                  :success-event [:set-docs]}}))
+                  :response-format (ajax/raw-response-format)
+                  :on-success       [:set-docs]}}))
 
 (rf/reg-event-db
   :common/set-error
