@@ -11,6 +11,12 @@
   :<- [:kee-frame/route]
   identity)
 
+(rf/reg-event-fx
+  :nav/route-name
+  (fn [_ [_ route-name]]
+    {:navigate-to [route-name]}))
+
+
 (rf/reg-sub
   :nav/page
   :<- [:nav/route]
