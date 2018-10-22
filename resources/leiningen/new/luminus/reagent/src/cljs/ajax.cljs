@@ -28,30 +28,3 @@
          conj
          (ajax/to-interceptor {:name "default headers"
                                :request default-headers})))
-<% if re-frame %>
-(def http-methods
-  {:get    ajax/GET
-   :post   ajax/POST
-   :put    ajax/PUT
-   :delete ajax/DELETE})
-
-(rf/reg-fx
-  :http
-  (fn [{:keys [method
-               url
-               success-event
-               error-event
-               params
-               ajax-map]
-        :or   {error-event [:common/set-error]
-               ajax-map    {}}}]
-    ((http-methods method)
-      url (merge
-            {:params        params
-             :handler       (fn [response]
-                              (when success-event
-                                (rf/dispatch (conj success-event response))))
-             :error-handler (fn [error]
-                              (rf/dispatch (conj error-event error)))}
-            ajax-map))))
-<% endif %>

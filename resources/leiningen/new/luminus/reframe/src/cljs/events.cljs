@@ -21,9 +21,10 @@
 (rf/reg-event-fx
   :fetch-docs
   (fn [_ _]
-    {:http {:url "/docs"
-            :method :get
-            :success-event [:set-docs]}}))
+    {:http-xhrio {:method          :get
+                  :uri             "/docs"
+                  :response-format (http/raw-response-format)
+                  :success-event [:set-docs]}}))
 
 (rf/reg-event-db
   :common/set-error
