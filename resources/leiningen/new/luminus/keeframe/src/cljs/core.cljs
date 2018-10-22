@@ -4,6 +4,7 @@
             [markdown.core :refer [md->html]]
             [reagent.core :as r]
             [re-frame.core :as rf]
+            [ajax.core :as http]
             [<<project-ns>>.ajax :as ajax]
             [<<project-ns>>.routing :as routing])
   (:import goog.History))
@@ -65,9 +66,10 @@
 (kf/reg-chain
   ::load-home-page
   (fn [_ _]
-    {:http-xhrio {:method     :get
-                  :uri        "/docs"
-                  :on-failure [:common/set-error]}})
+    {:http-xhrio {:method          :get
+                  :uri             "/docs"
+                  :response-format (http/raw-response-format)
+                  :on-failure      [:common/set-error]}})
   (fn [{:keys [db]} [_ docs]]
     {:db (assoc db :docs docs)}))
 
