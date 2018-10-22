@@ -15,5 +15,5 @@
          (into kee-frame-assets))
      (-> options
          (assoc :kee-frame true)
-         (append-options :dependencies [['kee-frame "0.3.0"]]))]
+         (append-options :dependencies [['kee-frame "0.3.1"]]))]
     state))
