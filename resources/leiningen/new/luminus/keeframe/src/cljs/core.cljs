@@ -96,4 +96,5 @@
               :root-component [root-component]}))
 
 (defn init! []
-  (ajax/load-interceptors!))
+  (ajax/load-interceptors!)
+  (mount-components))
