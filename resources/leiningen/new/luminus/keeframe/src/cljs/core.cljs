@@ -65,9 +65,9 @@
 (kf/reg-chain
   ::load-home-page
   (fn [_ _]
-    {:http {:method      :get
-            :url         "/docs"
-            :error-event [:common/set-error]}})
+    {:http-xhrio {:method     :get
+                  :uri        "/docs"
+                  :on-failure [:common/set-error]}})
   (fn [{:keys [db]} [_ docs]]
     {:db (assoc db :docs docs)}))
 
@@ -92,7 +92,6 @@
   (kf/start! {:debug?         true
               :routes         routing/routes
               :hash?          true
-              :chain-links    [ajax/ajax-chain]
               :initial-db     {}
               :root-component [root-component]}))
 

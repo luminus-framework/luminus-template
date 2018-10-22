@@ -55,15 +55,3 @@
                               (rf/dispatch (conj error-event error)))}
             ajax-map))))
 <% endif %>
-<% if kee-frame %>
-(def ajax-chain
-  {;; Is the effect in the map?
-   :effect-present? (fn [effects] (:http effects))
-   ;; The dispatch set for this effect in the map returned from the event handler
-   :get-dispatch    (fn [effects]
-                      (get-in effects [:http :success-event]))
-   ;; Framework will call this function to insert inferred dispatch to next handler in chain
-   :set-dispatch    (fn [effects dispatch]
-                      (assoc-in effects [:http :success-event] dispatch))})
-<% endif %>
-
