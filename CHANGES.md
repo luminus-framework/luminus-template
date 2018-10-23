@@ -1,3 +1,13 @@
+## 3.10.7
+
+- kee-frame profile improvements via [pr 392](https://github.com/luminus-framework/luminus-template/pull/392)
+- cljs-ajax 0.7.5
+- luminus-migrations 0.5.7
+- markdown-clj 1.0.4
+- metosin/reitit 0.2.4
+- org.webjars/font-awesome 5.4.1
+- cider/piggieback 0.3.10
+
 ## 3.10.6
 
 - com.h2database/h2 1.4.197
@@ -13,7 +23,7 @@
 
 - prone 1.6.1
 - added Reitit support for the `+oauth` profile
-- markdown-clj 1.0.3
+- markdown-clj 1.0.3F
 - luminus-migrations 0.5.5
 
 ## 3.10.3

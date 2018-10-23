@@ -42,7 +42,7 @@
 (def cljs-dev-dependencies
   [['doo doo-version]
    ['binaryage/devtools "0.9.10"]
-   ['cider/piggieback "0.3.9"]])
+   ['cider/piggieback "0.3.10"]])
 
 (defn get-output-dir [features]
   (if (some #{"+boot"} features)
