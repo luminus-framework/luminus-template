@@ -1,3 +1,7 @@
+## 3.10.9
+
+- luminus-migrations 0.6.0
+
 ## 3.10.8
 
 - luminus-migrations 0.5.9
