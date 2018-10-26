@@ -1,3 +1,7 @@
+## 3.10.8
+
+- luminus-migrations 0.5.9
+
 ## 3.10.7
 
 - kee-frame profile improvements via [pr 392](https://github.com/luminus-framework/luminus-template/pull/392)
