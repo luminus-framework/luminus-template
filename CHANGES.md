@@ -1,5 +1,6 @@
 ## 3.10.9
 
+= ClojureScript 1.10.439
 - luminus-migrations 0.6.0
 
 ## 3.10.8
