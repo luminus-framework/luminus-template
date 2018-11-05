@@ -15,7 +15,7 @@
 
 (def cljs-version "1.10.439")
 
-(def figwheel-version "0.5.16")
+(def figwheel-version "0.5.17")
 
 (def doo-version "0.1.10")
 
@@ -82,7 +82,7 @@
         :pretty-print  true}
        (when (some #{"+re-frame"} features)
          {:closure-defines {"re_frame.trace.trace_enabled_QMARK_" true}
-          :preloads ['day8.re-frame-10x.preload]}))}}})
+          :preloads ['re-frisk.preload]}))}}})
 
 (defn test-cljsbuild [{:keys [project-ns client-path cljc-path client-test-path]}]
   {:builds

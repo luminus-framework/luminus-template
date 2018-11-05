@@ -1,6 +1,18 @@
-## 3.10.9
+## 3.10.11
 
-= ClojureScript 1.10.439
+- conman 0.8.3
+- luminus-migrations 0.6.1
+- markdown-clj 1.0.5
+- mount 0.1.14
+- ring 1.7.1
+- selmer 1.12.3
+- figwheel 0.5.17
+- pjstadig/humane-test-output 0.9.0
+- switched to re-frisk from re-frame-10x
+
+## 3.10.10
+
+- ClojureScript 1.10.439
 - luminus-migrations 0.6.0
 
 ## 3.10.8

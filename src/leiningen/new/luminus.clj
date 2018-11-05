@@ -117,10 +117,10 @@
 
 (def core-dependencies
   [['org.clojure/clojure "1.9.0"]
-   ['selmer "1.12.2"]
+   ['selmer "1.12.3"]
    ['clojure.java-time "0.3.2"]
    ['luminus-transit "0.1.1"]
-   ['markdown-clj "1.0.4"]
+   ['markdown-clj "1.0.5"]
    ['metosin/muuntaja "0.6.1"]
    ['com.fasterxml.jackson.datatype/jackson-datatype-jdk8 "2.9.7"]
    ['com.fasterxml.jackson.core/jackson-core "2.9.7"]
@@ -131,12 +131,12 @@
    ['org.webjars.bower/tether "1.4.4"]
    ['org.webjars/jquery "3.3.1-1"]
    ['org.clojure/tools.logging "0.4.1"]
-   ['ring/ring-core "1.7.0"]
+   ['ring/ring-core "1.7.1"]
    ['ring-webjars "0.2.0"]
    ['org.webjars/webjars-locator "0.34"]
    ['ring/ring-defaults "0.3.2"]
    ['luminus/ring-ttl-session "0.3.2"]
-   ['mount "0.1.13"]
+   ['mount "0.1.14"]
    ['cprop "0.1.13"]
    ['org.clojure/tools.cli "0.4.1"]
    ['nrepl "0.4.5"]])
@@ -145,8 +145,8 @@
   [['expound "0.7.1"]
    ['prone "1.6.1"]
    ['ring/ring-mock "0.3.2"]
-   ['ring/ring-devel "1.7.0"]
-   ['pjstadig/humane-test-output "0.8.3"]])
+   ['ring/ring-devel "1.7.1"]
+   ['pjstadig/humane-test-output "0.9.0"]])
 
 (def core-dev-plugins
   [['com.jakemccrary/lein-test-refresh "0.23.0"]])
