@@ -1,3 +1,9 @@
+## 3.10.12
+
+- org.webjars/font-awesome 5.5.0
+- metosin/reitit 0.2.6
+- removed `java.xml.bind` as it's no longer required by ClojureScript
+
 ## 3.10.11
 
 - conman 0.8.3

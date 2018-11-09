@@ -127,7 +127,7 @@
    ['metosin/ring-http-response "0.9.0"]
    ['funcool/struct "1.3.0"]
    ['org.webjars/bootstrap "4.1.3"]
-   ['org.webjars/font-awesome "5.4.1"]
+   ['org.webjars/font-awesome "5.5.0"]
    ['org.webjars.bower/tether "1.4.4"]
    ['org.webjars/jquery "3.3.1-1"]
    ['org.clojure/tools.logging "0.4.1"]
@@ -237,10 +237,8 @@
       (and (= x1 x2) (= y1 y2) (< z1 z2)))))
 
 (defn jvm-opts []
-  (when (try
-          (> (Double/parseDouble (subs (System/getProperty "java.version") 0 3)) 1.8)
-          (catch Exception _))
-    ["\"--add-modules\"" "\"java.xml.bind\""]))
+  ;; reserved for JVM opts that may need to be passed to Leiningen
+  )
 
 (defn luminus
   "Create a new Luminus project"
