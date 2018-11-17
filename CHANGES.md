@@ -1,3 +1,7 @@
+## 3.10.14
+
+- added a missing require in mysql profile
+
 ## 3.10.13
 
 - cljs-ajax 0.8.0
