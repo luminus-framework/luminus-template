@@ -9,7 +9,7 @@
   [['hoplon "7.1.0"]
    ['cljsjs/jquery "3.2.1-0"]
    ['secretary "1.2.3"]
-   ['cljs-ajax "0.7.4"]])
+   ['cljs-ajax "0.8.0"]])
 
 (defn hoplon-features [[assets options :as state]]
   (if (some #{"+hoplon"} (:features options))

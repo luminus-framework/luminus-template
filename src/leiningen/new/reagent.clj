@@ -8,7 +8,7 @@
 (def reagent-dependencies
   [['reagent "0.8.1"]
    ['secretary "1.2.3"]
-   ['cljs-ajax "0.7.5"]
+   ['cljs-ajax "0.8.0"]
    ['baking-soda "0.2.0"
     :exclusions
     ['cljsjs/react-bootstrap]]

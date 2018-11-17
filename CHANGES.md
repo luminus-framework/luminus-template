@@ -1,3 +1,10 @@
+## 3.10.13
+
+- cljs-ajax 0.8.0
+- metosin/reitit 0.2.7
+- metosin/ring-http-response 0.9.1
+- selmer 1.12.4
+
 ## 3.10.12
 
 - org.webjars/font-awesome 5.5.0
