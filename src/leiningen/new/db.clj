@@ -78,7 +78,7 @@
            :db-docs ((:selmer-renderer options) (slurp-resource "db/docs/datomic_instructions.md") options))
          (merge (db-profiles options))
          (update :database-profile-dev str info)
-         (append-options :dependencies [['com.datomic/datomic-free "0.9.5561"
+         (append-options :dependencies [['com.datomic/datomic-free "0.9.5697"
                                          :exclusions ['org.slf4j/log4j-over-slf4j
                                                       'org.slf4j/slf4j-nop
                                                       'com.google.guava/guava]]

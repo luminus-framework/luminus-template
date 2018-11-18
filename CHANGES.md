@@ -1,3 +1,7 @@
+## 3.10.15
+
+- com.datomic/datomic-free 0.9.5697
+
 ## 3.10.14
 
 - added a missing require in mysql profile
