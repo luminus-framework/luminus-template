@@ -1,7 +1,7 @@
 ## 3.10.15
 
 - com.datomic/datomic-free 0.9.5697
-
+- added org.clojure/data.json 0.2.6 for the graphql profile
 ## 3.10.14
 
 - added a missing require in mysql profile
