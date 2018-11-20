@@ -17,7 +17,7 @@
             <<auth-session>><% endif %><% if auth-jwe %>
             <<auth-jwe>><% endif %><% endif %>)<% if not service %>
   (:import <% if servlet %>[javax.servlet ServletContext]<% endif %>
-           [org.joda.time ReadableInstant])<% endif %>)
+           )<% endif %>)
 <% if not service %><% if servlet %>
 (defn wrap-context [handler]
   (fn [request]
