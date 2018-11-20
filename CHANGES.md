@@ -1,3 +1,7 @@
+## 3.10.16
+
+- selmer 1.12.5
+
 ## 3.10.15
 
 - com.datomic/datomic-free 0.9.5697
