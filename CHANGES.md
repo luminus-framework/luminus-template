@@ -1,3 +1,7 @@
+## 3.10.18
+
+- switched to use `ring-jetty-adapter` for the `+jetty` profile
+
 ## 3.10.17
 
 - fixed injections for the kee-frame profile
