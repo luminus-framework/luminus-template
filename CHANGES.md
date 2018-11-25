@@ -1,3 +1,10 @@
+## 3.10.17
+
+- fixed injections for the kee-frame profile
+- doo 0.1.11
+- metosin/reitit 0.2.9
+- ring/ring-servlet 1.7.1 for `+war` profile
+
 ## 3.10.16
 
 - selmer 1.12.5

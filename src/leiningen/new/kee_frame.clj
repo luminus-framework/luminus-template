@@ -15,6 +15,7 @@
     [(-> (apply remove-conflicting-assets assets conflicting-assets)
          (into kee-frame-assets))
      (-> options
+
          (assoc :kee-frame true)
          (append-options :dependencies [['kee-frame "0.3.1"]]))]
     state))

@@ -202,7 +202,7 @@
   (-> options
       (set-feature "+immutant" #{"+jetty" "+aleph" "+http-kit"})
       (set-feature "+logback" #{})
-      (set-feature "+compojure" #{"+reitit"})
+      (set-feature "+compojure" #{"+reitit" "+kee-frame"})
       (set-feature "+lein" #{"+boot"})))
 
 (defn set-feature-dependency [options feature dependencies]
