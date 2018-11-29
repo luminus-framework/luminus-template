@@ -1,3 +1,7 @@
+## 3.10.19
+
+- switched `+war` profile to use Jetty as the dev server
+
 ## 3.10.18
 
 - switched to use `ring-jetty-adapter` for the `+jetty` profile

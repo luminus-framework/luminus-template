@@ -200,7 +200,7 @@
 
 (defn set-default-features [options]
   (-> options
-      (set-feature "+immutant" #{"+jetty" "+aleph" "+http-kit"})
+      (set-feature "+immutant" #{"+jetty" "+aleph" "+http-kit" "+war"})
       (set-feature "+logback" #{})
       (set-feature "+compojure" #{"+reitit" "+kee-frame"})
       (set-feature "+lein" #{"+boot"})))
@@ -219,7 +219,8 @@
       (set-feature-dependency "+graphql" #{"+swagger"})
       (set-feature-dependency "+reagent" #{"+cljs"})
       (set-feature-dependency "+re-frame" #{"+cljs" "+reagent"})
-      (set-feature-dependency "+kee-frame" #{"+cljs" "+reitit" "+reagent" "+re-frame"})))
+      (set-feature-dependency "+kee-frame" #{"+cljs" "+reitit" "+reagent" "+re-frame"})
+      (set-feature-dependency "+war" #{"+jetty"})))
 
 (defn parse-version [v]
   (map #(try (Integer/parseInt %)
