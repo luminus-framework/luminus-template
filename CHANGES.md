@@ -1,3 +1,7 @@
+## 3.10.20
+
+- luminus-migrations 0.6.3
+
 ## 3.10.19
 
 - switched `+war` profile to use Jetty as the dev server
