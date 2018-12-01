@@ -1,4 +1,4 @@
-FROM java:8-alpine
+FROM openjdk:8-alpine
 
 COPY target/uberjar/<<name>>.jar /<<name>>/app.jar
 
