@@ -1,3 +1,7 @@
+## 3.10.21
+
+- changed to use openjdk in Dockerfile
+
 ## 3.10.20
 
 - luminus-migrations 0.6.3
