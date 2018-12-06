@@ -16,6 +16,7 @@
   ["/api"
    {:coercion spec-coercion/coercion
     :muuntaja formats/instance
+    :swagger {:id ::api}
     :middleware [;; query-params & form-params
                  parameters/parameters-middleware
                  ;; content-negotiation
