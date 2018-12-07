@@ -1,3 +1,7 @@
+## 3.10.22
+
+- refactor for service routes via [pr 404](https://github.com/luminus-framework/luminus-template/pull/404)
+
 ## 3.10.21
 
 - changed to use openjdk in Dockerfile
