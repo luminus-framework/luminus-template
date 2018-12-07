@@ -9,10 +9,6 @@
          (service-routes)<% if oauth %>
          (oauth-routes)<% endif %>])
       (ring/routes
-        (swagger-ui/create-swagger-ui-handler
-          {:path   "/swagger-ui"
-           :url    "/api/swagger.json"
-           :config {:validator-url nil}})
         (ring/create-resource-handler
           {:path "/"})
         (wrap-content-type (wrap-webjars (constantly nil)))
