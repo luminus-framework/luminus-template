@@ -121,7 +121,7 @@
    ['clojure.java-time "0.3.2"]
    ['luminus-transit "0.1.1"]
    ['markdown-clj "1.0.5"]
-   ['metosin/muuntaja "0.6.1"]
+   ['metosin/muuntaja "0.6.2"]
    ['com.fasterxml.jackson.datatype/jackson-datatype-jdk8 "2.9.7"]
    ['com.fasterxml.jackson.core/jackson-core "2.9.7"]
    ['metosin/ring-http-response "0.9.1"]
@@ -136,10 +136,10 @@
    ['org.webjars/webjars-locator "0.34"]
    ['ring/ring-defaults "0.3.2"]
    ['luminus/ring-ttl-session "0.3.2"]
-   ['mount "0.1.14"]
+   ['mount "0.1.15"]
    ['cprop "0.1.13"]
    ['org.clojure/tools.cli "0.4.1"]
-   ['nrepl "0.4.5"]])
+   ['nrepl "0.5.3"]])
 
 (def core-dev-dependencies
   [['expound "0.7.1"]

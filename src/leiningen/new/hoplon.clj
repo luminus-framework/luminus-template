@@ -8,7 +8,7 @@
 (def hoplon-dependencies
   [['hoplon "7.1.0"]
    ['cljsjs/jquery "3.2.1-0"]
-   ['secretary "1.2.3"]
+   ['clj-commons/secretary "1.2.4"]
    ['cljs-ajax "0.8.0"]])
 
 (defn hoplon-features [[assets options :as state]]

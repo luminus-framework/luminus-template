@@ -7,7 +7,7 @@
 
 (def reagent-dependencies
   [['reagent "0.8.1"]
-   ['secretary "1.2.3"]
+   ['clj-commons/secretary "1.2.4"]
    ['cljs-ajax "0.8.0"]
    ['baking-soda "0.2.0"
     :exclusions

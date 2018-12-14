@@ -17,5 +17,5 @@
      (-> options
 
          (assoc :kee-frame true)
-         (append-options :dependencies [['kee-frame "0.3.1"]]))]
+         (append-options :dependencies [['kee-frame "0.3.2"]]))]
     state))

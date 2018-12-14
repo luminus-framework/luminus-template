@@ -1,3 +1,11 @@
+## 3.10.23
+
+- clj-commons/secretary 1.2.4
+- kee-frame 0.3.2
+- metosin/muuntaja 0.6.2
+- mount 0.1.15
+- nrepl 0.5.3
+
 ## 3.10.22
 
 - refactor for service routes via [pr 404](https://github.com/luminus-framework/luminus-template/pull/404)
