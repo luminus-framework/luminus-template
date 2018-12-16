@@ -1,6 +1,10 @@
-## 3.1024
+## 3.10.25
 
-- default service tests 
+- added cheshire as an explicit dependency
+
+## 3.10.24
+
+- default service tests
 
 ## 3.10.23
 
