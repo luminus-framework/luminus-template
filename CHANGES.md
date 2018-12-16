@@ -1,3 +1,7 @@
+## 3.1024
+
+- default service tests 
+
 ## 3.10.23
 
 - clj-commons/secretary 1.2.4

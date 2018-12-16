@@ -122,6 +122,8 @@
    ['luminus-transit "0.1.1"]
    ['markdown-clj "1.0.5"]
    ['metosin/muuntaja "0.6.3"]
+   ['com.fasterxml.jackson.datatype/jackson-datatype-jdk8 "2.9.7"]
+   ['com.fasterxml.jackson.core/jackson-core "2.9.7"]
    ['metosin/ring-http-response "0.9.1"]
    ['funcool/struct "1.3.0"]
    ['org.webjars/bootstrap "4.1.3"]
