@@ -1,3 +1,7 @@
+## 3.10.26
+
+- Clojure 1.10
+
 ## 3.10.25
 
 - added cheshire as an explicit dependency
