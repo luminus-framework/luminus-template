@@ -126,9 +126,9 @@
 (defn boot-cljs-assets [{:keys [client-path]}]
   [[(str client-path "/app.cljs.edn") "cljs/src/cljs/app.cljs.edn"]])
 
-(def cljs-boot-plugins '[[adzerk/boot-cljs "2.1.4" :scope "test"]
-                         [crisptrutski/boot-cljs-test "0.3.2-SNAPSHOT" :scope "test"]
-                         [adzerk/boot-cljs-repl "0.3.3" :scope "test"]])
+(def cljs-boot-plugins '[[adzerk/boot-cljs "2.1.5" :scope "test"]
+                         [crisptrutski/boot-cljs-test "0.3.4" :scope "test"]
+                         [adzerk/boot-cljs-repl "0.4.0" :scope "test"]])
 
 (def cljs-boot-dev-plugins
   '[[crisptrutski/boot-cljs-test "0.3.4" :scope "test"]
