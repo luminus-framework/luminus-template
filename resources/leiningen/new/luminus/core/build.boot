@@ -72,6 +72,7 @@
   "Runs figwheel and enables reloading."
   []
   (dev)
+  (task-options! repl {:port 7002})
   (require '[powerlaces.boot-figreload :refer [reload]])
   (let [reload (resolve 'powerlaces.boot-figreload/reload)]
     (comp
