@@ -1,3 +1,10 @@
+## 3.10.27
+
+- boot dependency updates, boot cljs REPL update
+- Figwheel 0.5.18
+- expound 0.7.2
+- removed secretary dependency when reitit is used
+
 ## 3.10.26
 
 - Clojure 1.10

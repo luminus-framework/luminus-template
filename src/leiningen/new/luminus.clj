@@ -141,7 +141,7 @@
    ['nrepl "0.5.3"]])
 
 (def core-dev-dependencies
-  [['expound "0.7.1"]
+  [['expound "0.7.2"]
    ['prone "1.6.1"]
    ['ring/ring-mock "0.3.2"]
    ['ring/ring-devel "1.7.1"]

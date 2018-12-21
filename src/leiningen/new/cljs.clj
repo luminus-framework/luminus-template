@@ -15,7 +15,7 @@
 
 (def cljs-version "1.10.439")
 
-(def figwheel-version "0.5.17")
+(def figwheel-version "0.5.18")
 
 (def doo-version "0.1.11")
 

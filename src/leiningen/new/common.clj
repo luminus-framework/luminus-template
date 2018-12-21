@@ -84,6 +84,9 @@
 (defn append-options [options k v]
   (update-in options [k] (fnil into []) v))
 
+(defn remove-dependencies [options vs]
+  (update options :dependencies (fn [deps] (vec (remove #((set vs) (first %)) deps)))))
+
 (defn append-formatted [options k v indent-width]
   (assoc options k (indent indent-width v)))
 
