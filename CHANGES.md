@@ -1,3 +1,7 @@
+## 3.10.28
+
+- metosin/compojure-api 2.0.0-alpha28
+
 ## 3.10.27
 
 - boot dependency updates, boot cljs REPL update

@@ -9,7 +9,7 @@
 (defn swagger-dependencies [{:keys [features]}]
   (if (some #{"+reitit"} features)
     []
-    [['metosin/compojure-api "1.1.12"]]))
+    [['metosin/compojure-api "2.0.0-alpha28"]]))
 
 (defn swagger-features [[assets options :as state]]
   (if (some #{"+swagger"} (:features options))
