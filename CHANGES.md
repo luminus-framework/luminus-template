@@ -1,3 +1,8 @@
+## 3.10.29
+
+- metosin/reitit 0.2.10
+- org.webjars/bootstrap 4.2.1
+
 ## 3.10.28
 
 - metosin/compojure-api 2.0.0-alpha28

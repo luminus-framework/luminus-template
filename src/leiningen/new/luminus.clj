@@ -125,7 +125,7 @@
    ['cheshire "5.8.1"]
    ['metosin/ring-http-response "0.9.1"]
    ['funcool/struct "1.3.0"]
-   ['org.webjars/bootstrap "4.1.3"]
+   ['org.webjars/bootstrap "4.2.1"]
    ['org.webjars/font-awesome "5.6.1"]
    ['org.webjars.bower/tether "1.4.4"]
    ['org.webjars/jquery "3.3.1-1"]
