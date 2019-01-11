@@ -65,7 +65,7 @@
          :db-docs ((:selmer-renderer options) (slurp-resource "db/docs/mongo_instructions.md") options))
        (merge (db-profiles options))
        (append-options :dependencies [['com.novemberain/monger "3.1.0" :exclusions ['com.google.guava/guava]]
-                                      ['com.google.guava/guava "20.0"]]))])
+                                      ['com.google.guava/guava "27.0.1-jre"]]))])
 
 (defn add-datomic [[assets {:keys [sanitized] :as options}]]
   [(into assets datomic-files)
