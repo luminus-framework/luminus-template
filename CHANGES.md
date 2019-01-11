@@ -1,3 +1,7 @@
+## 3.10.30
+
+- com.google.guava/guava 27.0.1-jre for Mongo
+
 ## 3.10.29
 
 - metosin/reitit 0.2.10
