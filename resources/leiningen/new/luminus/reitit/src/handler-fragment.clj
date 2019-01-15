@@ -5,7 +5,7 @@
     (ring/ring-handler
       (ring/router
         [["/" {:get
-               {:handler (constantly {:status 301 :headers {"Location" "/swagger-ui"}})}}]
+               {:handler (constantly {:status 301 :headers {"Location" "/api/api-docs/index.html"}})}}]
          (service-routes)<% if oauth %>
          (oauth-routes)<% endif %>])
       (ring/routes

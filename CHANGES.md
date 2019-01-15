@@ -1,3 +1,7 @@
+## 3.10.31
+
+- fix for loading the correct Swagger UI URL in `+service` profile
+
 ## 3.10.30
 
 - com.google.guava/guava 27.0.1-jre for Mongo
