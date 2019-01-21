@@ -1,3 +1,7 @@
+## 3.10.32
+
+- fixed formatting
+
 ## 3.10.31
 
 - fix for loading the correct Swagger UI URL in `+service` profile
