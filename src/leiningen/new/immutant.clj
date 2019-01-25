@@ -16,6 +16,6 @@
          (append-options :http-server-dependencies
                          (if (some #{"+war"} (:features options))
                            [['org.webjars/webjars-locator-jboss-vfs "0.1.0"]
-                            ['luminus-immutant "0.2.4"]]
-                           [['luminus-immutant "0.2.4"]])))]
+                            ['luminus-immutant "0.2.5"]]
+                           [['luminus-immutant "0.2.5"]])))]
     state))

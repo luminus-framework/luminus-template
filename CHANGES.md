@@ -1,3 +1,7 @@
+## 3.10.33
+
+- Immutant 2.1.10
+
 ## 3.10.32
 
 - fixed formatting
