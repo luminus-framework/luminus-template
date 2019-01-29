@@ -102,7 +102,7 @@
    :server-logfile "log/figwheel-logfile.log"
    :nrepl-port       7002
    :css-dirs         ["resources/public/css"]
-   :nrepl-middleware `[cider/wrap-cljs-repl cider.piggieback/wrap-cljs-repl]} )
+   :nrepl-middleware `[cider.piggieback/wrap-cljs-repl]} )
 
 (def cljs-lein-dev-dependencies
   [['figwheel-sidecar figwheel-version]])
