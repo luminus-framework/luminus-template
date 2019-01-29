@@ -1,3 +1,7 @@
+## 3.10.34
+
+- fix for to [remove Unneeded call to cider/wrap-cljs-repl](https://github.com/luminus-framework/luminus-template/pull/414)
+
 ## 3.10.33
 
 - Immutant 2.1.10
