@@ -1,3 +1,12 @@
+## 3.10.35
+
+- ClojureScript 1.10.516
+- markdown-clj 1.0.7
+- metosin/reitit 0.2.13
+- mount 0.1.16
+- org.webjars/font-awesome 5.6.3
+- org.webjars/webjars-locator 0.35
+
 ## 3.10.34
 
 - fix for to [remove Unneeded call to cider/wrap-cljs-repl](https://github.com/luminus-framework/luminus-template/pull/414)
