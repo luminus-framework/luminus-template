@@ -3,7 +3,7 @@
             [cheshire.generate :as cheshire]
             [cognitect.transit :as transit]
             [clojure.tools.logging :as log]
-            [<<project-ns>>.layout :refer [error-page<% if servlet %> *app-context*<% endif %>]]
+            [<<project-ns>>.layout :refer [error-page]]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]<% if not reitit %>
             [ring.middleware.webjars :refer [wrap-webjars]]<% endif %>
             [<<project-ns>>.middleware.formats :as formats]
@@ -21,7 +21,7 @@
 <% if not service %><% if servlet %>
 (defn wrap-context [handler]
   (fn [request]
-    (binding [*app-context*
+    (assoc-in request [:session :app-context]
               (if-let [context (:servlet-context request)]
                 ;; If we're not inside a servlet environment
                 ;; (for example when using mock requests), then
@@ -31,8 +31,7 @@
                 ;; if the context is not specified in the request
                 ;; we check if one has been specified in the environment
                 ;; instead
-                (:app-context env))]
-      (handler request))))
+                (:app-context env)))))
 <% endif %>
 (defn wrap-internal-error [handler]
   (fn [req]

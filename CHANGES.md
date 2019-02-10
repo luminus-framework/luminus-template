@@ -1,3 +1,7 @@
+## 3.10.38
+
+- got rid of the dynamic app-context variable in layout, updated render to accept the request as a parameter
+- removed `+servlet` profile
 ## 3.10.37
 
 - nREPL 0.6.0
