@@ -1,3 +1,7 @@
+## 3.10.38
+
+- luminus-migrations 0.6.4
+
 ## 3.10.37
 
 - nREPL 0.6.0
