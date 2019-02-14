@@ -1,6 +1,14 @@
+## 3.10.39
+
+- ClojureScript 10.10.520
+- piggieback 0.4.0
+- org.webjars/font-awesome 5.7.1
+- org.webjars/webjars-locator 0.36
+
 ## 3.10.38
 
 - luminus-migrations 0.6.4
+- dev logback config dynamic reloading
 
 ## 3.10.37
 

@@ -13,7 +13,7 @@
    ["{{resource-path}}/html/home.html" "cljs/resources/html/home.html"]
    ["{{resource-path}}/html/error.html" "core/resources/html/error.html"]])
 
-(def cljs-version "1.10.516")
+(def cljs-version "1.10.520")
 
 (def figwheel-version "0.5.18")
 
@@ -42,7 +42,7 @@
 (def cljs-dev-dependencies
   [['doo doo-version]
    ['binaryage/devtools "0.9.10"]
-   ['cider/piggieback "0.3.10"]])
+   ['cider/piggieback "0.4.0"]])
 
 (defn get-output-dir [features]
   (if (some #{"+boot"} features)
