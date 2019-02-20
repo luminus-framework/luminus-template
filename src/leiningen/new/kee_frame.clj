@@ -16,5 +16,5 @@
          (into kee-frame-assets))
      (-> options
          (assoc :kee-frame true)
-         (append-options :dependencies [['kee-frame "0.3.2"]]))]
+         (append-options :dependencies [['kee-frame "0.3.2" :exclusions ['metosin/reitit-core]]]))]
     state))

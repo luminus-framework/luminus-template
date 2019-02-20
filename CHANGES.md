@@ -1,3 +1,9 @@
+## 3.10.40
+
+- fix for Swagger routes in kee-frame profile, addresses issue [420](https://github.com/luminus-framework/luminus-template/issues/420)
+- org.webjars/bootstrap 4.3.1
+- org.webjars/font-awesome 5.7.2
+
 ## 3.10.39
 
 - ClojureScript 10.10.520
