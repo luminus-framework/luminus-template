@@ -15,6 +15,8 @@
 
 - luminus-migrations 0.6.4
 - dev logback config dynamic reloading
+- got rid of the dynamic app-context variable in layout, updated render to accept the request as a parameter
+- removed `+servlet` profile
 
 ## 3.10.37
 
