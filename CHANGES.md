@@ -1,3 +1,7 @@
+## 3.10.41
+
+- added Js symbol printing in dev mode for cljs profile
+
 ## 3.10.40
 
 - fix for Swagger routes in kee-frame profile, addresses issue [420](https://github.com/luminus-framework/luminus-template/issues/420)
