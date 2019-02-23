@@ -54,7 +54,8 @@
   [["{{db-path}}/{{sanitized}}/db/core.clj" "db/src/mongodb.clj"]])
 
 (def datomic-files
-  [["{{db-path}}/{{sanitized}}/db/core.clj" "db/src/datomic.clj"]])
+  [["{{db-path}}/{{sanitized}}/db/core.clj" "db/src/datomic.clj"]
+   ["{{resource-path}}/migrations/schema.edn" "db/migrations/schema.edn"]])
 
 (defn add-mongo [[assets options]]
   [(into assets mongo-files)
@@ -82,7 +83,8 @@
                                          :exclusions ['org.slf4j/log4j-over-slf4j
                                                       'org.slf4j/slf4j-nop
                                                       'com.google.guava/guava]]
-                                        ['com.google.guava/guava "25.1-jre"]])))])
+                                        ['com.google.guava/guava "25.1-jre"]
+                                        ['io.rkn/conformity "0.5.1"]])))])
 
 (defn add-relational-db [db [assets options]]
   [(into assets (relational-db-files options))

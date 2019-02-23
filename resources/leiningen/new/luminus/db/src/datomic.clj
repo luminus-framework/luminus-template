@@ -1,5 +1,6 @@
 (ns <<project-ns>>.db.core
   (:require [datomic.api :as d]
+            [io.rkn.conformity :as c]
             [mount.core :refer [defstate]]
             [<<project-ns>>.config :refer [env]]))
 
@@ -7,25 +8,15 @@
   :start (do (-> env :database-url d/create-database) (-> env :database-url d/connect))
   :stop (-> conn .release))
 
-(defn create-schema []
-  (let [schema [{:db/ident              :user/id
-                 :db/valueType          :db.type/string
-                 :db/cardinality        :db.cardinality/one
-                 :db.install/_attribute :db.part/db}
-                {:db/ident              :user/first-name
-                 :db/valueType          :db.type/string
-                 :db/cardinality        :db.cardinality/one
-                 :db.install/_attribute :db.part/db}
-                {:db/ident              :user/last-name
-                 :db/valueType          :db.type/string
-                 :db/cardinality        :db.cardinality/one
-                 :db.install/_attribute :db.part/db}
-                {:db/ident              :user/email
-                 :db/valueType          :db.type/string
-                 :db/cardinality        :db.cardinality/one
-                 :db/unique             :db.unique/identity
-                 :db.install/_attribute :db.part/db}]]
-    @(d/transact conn schema)))
+(def norms-map (c/read-resource "migrations/schema.edn"))
+
+(defn install-schema
+  "This function expected to be called at system start up.
+
+  Datomic schema migraitons or db preinstalled data can be put into 'migrations/schema.edn'
+  Every txes will be executed exactly once no matter how many times system restart."
+  [conn]
+  (c/ensure-conforms conn norms-map (keys norms-map)))
 
 (defn show-schema
   "Show currenly installed schema"
@@ -50,10 +41,16 @@
   [conn]
   (seq (d/tx-range (d/log conn) nil nil)))
 
-(defn add-user [conn {:keys [id first-name last-name email]}]
+(defn add-user
+  "e.g.
+    (add-user conn {:id \"aaa\"
+                    :screen-name \"AAA\"
+                    :status :user.status/active
+                    :email \"aaa@example.com\" })"
+  [conn {:keys [id screen-name status email]}]
   @(d/transact conn [{:user/id         id
-                      :user/first-name first-name
-                      :user/last-name  last-name
+                      :user/name       screen-name
+                      :user/status     status
                       :user/email      email}]))
 
 (defn find-one-by

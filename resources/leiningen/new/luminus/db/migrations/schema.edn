@@ -1,0 +1,45 @@
+{;; norm1 installs the user table schema into Datomic
+ :project-name/norm1 {:txes [[
+   {:db/doc                "User ID"
+    :db/ident              :user/id
+    :db/valueType          :db.type/string
+    :db/cardinality        :db.cardinality/one
+    :db/id                 #db/id [:db.part/db]
+    :db.install/_attribute :db.part/db}
+   {:db/doc                "User screen name"
+    :db/ident              :user/name
+    :db/valueType          :db.type/string
+    :db/cardinality        :db.cardinality/one
+    :db/id                 #db/id [:db.part/db]
+    :db.install/_attribute :db.part/db}
+   {:db/doc                "User email address"
+    :db/ident              :user/email
+    :db/valueType          :db.type/string
+    :db/cardinality        :db.cardinality/one
+    :db/unique             :db.unique/identity
+    :db/id                 #db/id [:db.part/db]
+    :db.install/_attribute :db.part/db}
+   {:db/doc                "User status"
+    :db/ident              :user/status
+    :db/valueType          :db.type/ref
+    :db/cardinality        :db.cardinality/one
+    :db/id                 #db/id [:db.part/db]
+    :db.install/_attribute :db.part/db}
+   ;; example of enumeration in Datomic
+   [:db/add #db/id [:db.part/user] :db/ident :user.status/pending]
+   [:db/add #db/id [:db.part/user] :db/ident :user.status/active]
+   [:db/add #db/id [:db.part/user] :db/ident :user.status/inactive]
+   [:db/add #db/id [:db.part/user] :db/ident :user.status/cancelled]]]}
+
+ ;; norm2 installs certain user init data into Datomic for testing purpose
+ :project-name/norm2 {:txes [[
+   {:user/id     "abc"
+    :user/name   "Good Name A"
+    :user/email  "abc@example.com"
+    :user/status :user.status/active}
+
+   {:user/id     "efg"
+    :user/name   "Good Name B"
+    :user/email  "efg@example.com"
+    :user/status :user.status/active}]]}
+}
