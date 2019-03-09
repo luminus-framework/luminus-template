@@ -8,15 +8,14 @@
   :start (do (-> env :database-url d/create-database) (-> env :database-url d/connect))
   :stop (-> conn .release))
 
-(def norms-map (c/read-resource "migrations/schema.edn"))
-
 (defn install-schema
   "This function expected to be called at system start up.
 
   Datomic schema migraitons or db preinstalled data can be put into 'migrations/schema.edn'
   Every txes will be executed exactly once no matter how many times system restart."
   [conn]
-  (c/ensure-conforms conn norms-map (keys norms-map)))
+  (let [norms-map (c/read-resource "migrations/schema.edn")]
+    (c/ensure-conforms conn norms-map (keys norms-map))))
 
 (defn show-schema
   "Show currenly installed schema"
