@@ -1,5 +1,5 @@
 Feature: Cukes
-  An example of testing a compojure app with cucumber.
+  An example of testing the app with cucumber.
 
   Scenario: Index Page
     Given I am at the "homepage"

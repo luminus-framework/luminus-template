@@ -6,16 +6,10 @@
     [["{{backend-path}}/{{sanitized}}/routes/services.clj" "reitit/src/services.clj"]]
     [["{{backend-path}}/{{sanitized}}/routes/services.clj" "swagger/src/services.clj"]]))
 
-(defn swagger-dependencies [{:keys [features]}]
-  (if (some #{"+reitit"} features)
-    []
-    [['metosin/compojure-api "2.0.0-alpha28"]]))
-
 (defn swagger-features [[assets options :as state]]
   (if (some #{"+swagger"} (:features options))
     [(into assets (swagger-assets options))
      (-> options
-         (append-options :dependencies (swagger-dependencies options))
          (assoc :swagger true
                 :service-required
                 (indent require-indent

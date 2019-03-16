@@ -1,6 +1,5 @@
 (ns <<project-ns>>.routes.oauth
-  (:require [ring.util.http-response :refer [ok found]]<% if compojure %>
-            [compojure.core :refer [defroutes GET]]<% endif %>
+  (:require [ring.util.http-response :refer [ok found]]
             [clojure.java.io :as io]
             [<<project-ns>>.oauth :as oauth]
             [clojure.tools.logging :as log]))
@@ -27,13 +26,7 @@
           (assoc :session
             (assoc session :user-id user_id :screen-name screen_name))))))
 
-<% if compojure %>
-(defroutes oauth-routes
-  (GET "/oauth/oauth-init" req (oauth-init req))
-  (GET "/oauth/oauth-callback" [& req_token :as req] (oauth-callback req)))
-<% else %>
 (defn oauth-routes []
   ["/oauth"
    ["/oauth-init" {:get oauth-init}]
    ["/oauth-callback" {:get oauth-callback}]])
-<% endif %>
