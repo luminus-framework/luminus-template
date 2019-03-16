@@ -1,3 +1,7 @@
+## 3.20
+
+- Switched to use Bulma as the default CSS framework
+
 ## 3.10.41
 
 - added Js symbol printing in dev mode for cljs profile

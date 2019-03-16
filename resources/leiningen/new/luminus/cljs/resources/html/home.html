@@ -8,10 +8,10 @@
   <body>
     <%if not re-frame %><div id="navbar"></div><% endif %>
     <div id="app">
-      <div class="container-fluid">
-        <div class="card-deck">
-          <div class="card-block">
-            <h4>Welcome to <<name>></h4>
+      <section class="section">
+        <div class="container is-fluid">
+          <div class="content">
+            <h4 class="title">Welcome to <<name>></h4>
             <p>If you're seeing this message, that means you haven't yet compiled your ClojureScript!</p><% if not boot %>
             <p>Please run <code>lein figwheel</code> to start the ClojureScript compiler and reload the page.</p><% else %>
             <p>Please close this process and start the server with <code>boot figwheel</code> to enable the ClojureScript compiler.<% endif %>
@@ -26,18 +26,15 @@
             <p>See <a href="http://www.luminusweb.net/docs/clojurescript.md">ClojureScript</a> documentation for further details.</p>
           </div>
         </div>
-      </div>
+      </section>
     </div>
 
     <!-- scripts and styles -->
-    {% style "/assets/bootstrap/css/bootstrap.min.css" %}
+    {% style "/assets/bulma/css/bulma.min.css" %}
     {% style "/assets/font-awesome/css/all.css" %}
     {% style "/css/screen.css" %}
 
-    {% script "/assets/jquery/jquery.min.js" %}
     {% script "/assets/font-awesome/js/all.js" %}
-    {% script "/assets/tether/dist/js/tether.min.js" %}
-    {% script "/assets/bootstrap/js/bootstrap.min.js" %}
 
     <script type="text/javascript"><% if servlet %>
         var context = "{{servlet-context}}";<% endif %>

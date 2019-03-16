@@ -19,39 +19,46 @@
 
 (defonce docs (cell nil))
 
-(defn nav-link [uri title page expanded?]
-  (h/li :class (cell= {:active (= page selected-page)
-                       :nav-item true})
-    (h/a :class "nav-link"
-         :href uri
-         :click #(do
-                   (reset! expanded? false)
-                   (secretary/dispatch! uri))
-         title)))
+(defn nav-link [uri title page]
+  (h/a :class (cell= {:is-active   (= page selected-page)
+                      :navbar-item true})
+       :href uri
+       :click #(secretary/dispatch! uri)
+       title))
 
 (defn navbar []
   (let [expanded? (cell false)]
-    (h/nav :class "navbar navbar-dark bg-primary"
-      (h/button :class "navbar-toggler hidden-sm-up"
+    (h/nav :class "navbar is-info"
+      (h/div :class "navbar-brand"
+        (h/a :class "navbar-item"
+             :href "/"
+             "myapp")
+        (h/span :class (cell= {:navbar-burger true
+                               :burger        true
+                               :is-active     expanded?})
+                :data-target "nav-menu"
                 :click #(swap! expanded? not)
-                "☰")
-      (h/div :class (cell= {:collapse true
-                            :navbar-toggleable-xs true
-                            :in expanded?})
-       (h/a :class "navbar-brand" :href "/" "<<name>>")
-       (h/ul {:class "nav navbar-nav"}
-         (nav-link "#/" "Home" :home expanded?)
-         (nav-link "#/about" "About" :about expanded?))))))
+                (h/span)
+                (h/span)
+                (h/span)))
+      (h/div :id "nav-menu " :class (cell= {:navbar-menu true
+                                            :burger      true
+                                            :is-active   expanded?})
+             (h/div :class "navbar-end"
+                    (nav-link "#/" "Home" :home)
+                    (nav-link "#/about" "About" :about))))))
 
 (defn about []
-  (h/div :class "container"
-    (h/div :class "row"
-      (h/div :class "col-md-12"
+  (h/section :class "section"
+    (h/div :class "container"
+      (h/div :class "content"
         (h/img :src <% if servlet %>(str js/context "/img/warning_clojure.png")<% else %>"/img/warning_clojure.png"<% endif %>)))))
 
 (defn home []
-  (h/div :class "container"
-    (h/div :html (cell= (md->html docs)))))
+  (h/section :class "section"
+    (h/div :class "container"
+      (h/div :class "content"
+        (h/div :html (cell= (md->html docs)))))))
 
 (h/defelem page []
   (h/div :id "app"

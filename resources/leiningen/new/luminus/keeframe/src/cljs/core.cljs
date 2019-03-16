@@ -1,10 +1,11 @@
 (ns <<project-ns>>.core
-  (:require [kee-frame.core :as kf]
-            [re-frame.core :as rf]
-            [ajax.core :as http]
-            [<<project-ns>>.ajax :as ajax]
-            [<<project-ns>>.routing :as routing]
-            [<<project-ns>>.view :as view]))
+  (:require
+    [kee-frame.core :as kf]
+    [re-frame.core :as rf]
+    [ajax.core :as http]
+    [<<project-ns>>.ajax :as ajax]
+    [<<project-ns>>.routing :as routing]
+    [<<project-ns>>.view :as view]))
 
 
 (rf/reg-event-fx

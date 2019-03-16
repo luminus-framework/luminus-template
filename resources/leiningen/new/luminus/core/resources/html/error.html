@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Something bad happened</title>
+    <title>Something Bad Happened</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% style "/assets/bootstrap/css/bootstrap.min.css" %}    
+    {% style "/assets/bulma/css/bulma.min.css" %}
     <style type="text/css">
         html {
             height: 100%;
@@ -33,22 +33,16 @@
     </style>
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="col-lg-12">
-            <div class="centering text-center">
-                <div class="text-center">
-                    <h1><span class="text-danger">Error: {{status}}</span></h1>
-                    <hr>
-                    {% if title %}
-                    <h2 class="without-margin">{{title}}</h2>
-                    {% endif %}
-                    {% if message %}
-                    <h4 class="text-danger">{{message}}</h4>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
+<div class="container is-fluid">
+    <div class="has-text-centered">
+        <h1><span class="is-size-4 has-text-danger">Error: {{status}}</span></h1>
+        <hr>
+        {% if title %}
+        <h2 class="without-margin">{{title}}</h2>
+        {% endif %}
+        {% if message %}
+        <h4 class="text-danger">{{message}}</h4>
+        {% endif %}
     </div>
 </div>
 </body>

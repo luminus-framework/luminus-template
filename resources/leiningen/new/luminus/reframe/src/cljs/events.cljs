@@ -1,6 +1,7 @@
 (ns <<project-ns>>.events
-  (:require [re-frame.core :as rf]
-            [ajax.core :as ajax]))
+  (:require
+    [re-frame.core :as rf]
+    [ajax.core :as ajax]))
 
 ;;dispatchers
 <% if reitit %>

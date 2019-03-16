@@ -1,8 +1,8 @@
-<h2 class="alert alert-success">Congratulations, your <a class="alert-link" href="http://luminusweb.net">Luminus</a> site is ready!</h2>
+<h1 class="title">Congratulations, your <a class="alert-link" href="http://luminusweb.net">Luminus</a> site is ready!</h1>
 
 This page will help guide you through the first steps of building your site.
 
-#### Why are you seeing this page?
+<p class="title is-5">Why are you seeing this page?</p>
 
 The `home-routes` handler in the `<<project-ns>>.routes.home` namespace
 defines the route that invokes the `home-page` function whenever an HTTP
@@ -53,23 +53,19 @@ The `render` function will render the `home.html` template found in the `resourc
 folder using a parameter map containing the `:docs` key. This key points to the
 contents of the `resources/docs/docs.md` file containing these instructions.
 
-
 The HTML templates are written using [Selmer](https://github.com/yogthos/Selmer) templating engine.
 
-
 ```
-<div class="row">
-  <div class="col-sm-12">
-    {{docs|markdown}}
-  </div>
+<div class="content">
+  {{docs|markdown}}
 </div>
 ```
 
-<a class="btn btn-primary" href="http://www.luminusweb.net/docs/html_templating.md">learn more about HTML templating »</a>
+<a class="level-item button" href="http://www.luminusweb.net/docs/html_templating.md">learn more about HTML templating »</a>
 
 <% endif %>
 
-#### Organizing the routes
+<p class="title is-5">Organizing the routes</p>
 
 The routes are aggregated and wrapped with middleware in the `<<project-ns>>.handler` namespace:
 
@@ -90,12 +86,12 @@ The routes are aggregated and wrapped with middleware in the `<<project-ns>>.han
 The `app` definition groups all the routes in the application into a single handler.
 A default route group is added to handle the `404` case.
 
-<a class="btn btn-primary" href="http://www.luminusweb.net/docs/routes.md">learn more about routing »</a>
+<a class="level-item button" href="http://www.luminusweb.net/docs/routes.md">learn more about routing »</a>
 
 The `home-routes` are wrapped with two middleware functions. The first enables CSRF protection.
 The second takes care of serializing and deserializing various encoding formats, such as JSON.
 
-#### Managing your middleware
+<p class="title is-5">Managing your middleware</p>
 
 Request middleware functions are located under the `<<name>>.middleware` namespace.
 
@@ -105,12 +101,12 @@ already defined here. The middleware is assembled in the `wrap-base` function.
 Middleware used for development is placed in the `<<project-ns>>.dev-middleware` namespace found in
 the `env/dev/clj/` source path.
 
-<a class="btn btn-primary" href="http://www.luminusweb.net/docs/middleware.md">learn more about middleware »</a>
+<a class="level-item button" href="http://www.luminusweb.net/docs/middleware.md">learn more about middleware »</a>
 
 <<db-docs>>
 <<sassc-docs>>
 
-#### Need some help?
+<p class="title is-5">Need some help?</p>
 
 Visit the [official documentation](http://www.luminusweb.net/docs) for examples
 on how to accomplish common tasks with Luminus. The `#luminus` channel on the [Clojurians Slack](http://clojurians.net/) and [Google Group](https://groups.google.com/forum/#!forum/luminusweb) are both great places to seek help and discuss projects with other users.
