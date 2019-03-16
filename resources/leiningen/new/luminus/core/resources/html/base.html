@@ -7,7 +7,7 @@
 
     <!-- styles -->
     {% style "/assets/bulma/css/bulma.min.css" %}
-    {% style "/assets/font-awesome/css/all.css" %}
+      {% style "/assets/material-icons/css/material-icons.min.css" %}
 
     {% style "/css/screen.css" %}
   </head>
@@ -51,7 +51,6 @@
       })();
     </script>
 
-    {% script "/assets/font-awesome/js/all.js" %}
     <% if servlet %><script type="text/javascript">
       var context = "{{servlet-context}}";
     </script><% endif %>

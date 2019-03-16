@@ -126,7 +126,7 @@
    ['metosin/ring-http-response "0.9.1"]
    ['funcool/struct "1.3.0"]
    ['org.webjars.npm/bulma "0.7.4"]
-   ['org.webjars/font-awesome "5.7.2"]
+   ['org.webjars.npm/material-icons "0.3.0"]
    ['org.clojure/tools.logging "0.4.1"]
    ['ring/ring-core "1.7.1"]
    ['ring-webjars "0.2.0"]
