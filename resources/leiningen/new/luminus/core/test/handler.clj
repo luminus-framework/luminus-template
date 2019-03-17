@@ -24,8 +24,7 @@
 
   (testing "not-found route"
     (let [response (app (request :get "/invalid"))]
-      (is (= 404 (:status response)))))<% if reitit %>
-
+      (is (= 404 (:status response)))))<% if swagger %>
   (testing "services"
 
     (testing "success"
