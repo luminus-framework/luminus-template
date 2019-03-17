@@ -1,3 +1,8 @@
+## 3.20
+
+- switched to use Bulma as the default CSS framework (no Js dependencies)
+- switched to use Material icons instead of font-awesome (smaller bundle size)
+
 ## 3.10.41
 
 - added Js symbol printing in dev mode for cljs profile

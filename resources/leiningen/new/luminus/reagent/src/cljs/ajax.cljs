@@ -1,8 +1,9 @@
 (ns <<project-ns>>.ajax
-  (:require [ajax.core :as ajax]
-            [luminus-transit.time :as time]
-            [cognitect.transit :as transit]<% if re-frame %>
-            [re-frame.core :as rf]<% endif %>))
+  (:require
+    [ajax.core :as ajax]
+    [luminus-transit.time :as time]
+    [cognitect.transit :as transit]<% if re-frame %>
+    [re-frame.core :as rf]<% endif %>))
 
 (defn local-uri? [{:keys [uri]}]
   (not (re-find #"^\w+?://" uri)))

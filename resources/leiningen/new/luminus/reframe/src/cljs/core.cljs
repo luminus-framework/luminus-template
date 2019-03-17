@@ -1,55 +1,48 @@
 (ns <<project-ns>>.core
-  (:require [baking-soda.core :as b]
-            [day8.re-frame.http-fx]
-            [reagent.core :as r]
-            [re-frame.core :as rf]
-            [goog.events :as events]
-            [goog.history.EventType :as HistoryEventType]
-            [markdown.core :refer [md->html]]
-            [<<project-ns>>.ajax :as ajax]
-            [<<project-ns>>.events]<% if reitit %>
-            [reitit.core :as reitit]
-            [clojure.string :as string]<% else %>
-            [secretary.core :as secretary]<% endif %>)
+  (:require
+    [day8.re-frame.http-fx]
+    [reagent.core :as r]
+    [re-frame.core :as rf]
+    [goog.events :as events]
+    [goog.history.EventType :as HistoryEventType]
+    [markdown.core :refer [md->html]]
+    [<<project-ns>>.ajax :as ajax]
+    [<<project-ns>>.events]<% if reitit %>
+    [reitit.core :as reitit]
+    [clojure.string :as string]<% else %>
+    [secretary.core :as secretary]<% endif %>)
   (:import goog.History))
 
-; the navbar components are implemented via baking-soda [1]
-; library that provides a ClojureScript interface for Reactstrap [2]
-; Bootstrap 4 components.
-; [1] https://github.com/gadfly361/baking-soda
-; [2] http://reactstrap.github.io/
-
 (defn nav-link [uri title page]
-  [b/NavItem
-   [b/NavLink
-    {:href   uri
-     :active (when (= page @(rf/subscribe [:page])) "active")}
-    title]])
+  [:a.navbar-item
+   {:href   uri
+    :active (when (= page @(rf/subscribe [:page])) "active")}
+   title])
 
 (defn navbar []
-  (r/with-let [expanded? (r/atom true)]
-    [b/Navbar {:light true
-               :class-name "navbar-dark bg-primary"
-               :expand "md"}
-     [b/NavbarBrand {:href "/"} "<<name>>"]
-     [b/NavbarToggler {:on-click #(swap! expanded? not)}]
-     [b/Collapse {:is-open @expanded? :navbar true}
-      [b/Nav {:class-name "mr-auto" :navbar true}
+  (r/with-let [expanded? (r/atom false)]
+    [:nav.navbar.is-info>div.container
+     [:div.navbar-brand
+      [:a.navbar-item {:href "/" :style {:font-weight :bold}} "<<name>>"]
+      [:span.navbar-burger.burger
+       {:data-target :nav-menu
+        :on-click #(swap! expanded? not)
+        :class (when @expanded? :is-active)}
+       [:span][:span][:span]]]
+     [:div#nav-menu.navbar-menu
+      {:class (when @expanded? :is-active)}
+      [:div.navbar-end
        [nav-link "#/" "Home" :home]
        [nav-link "#/about" "About" :about]]]]))
 
 (defn about-page []
-  [:div.container
-   [:div.row
-    [:div.col-md-12
-     [:img {:src <% if servlet %>(str js/context "/img/warning_clojure.png")<% else %>"/img/warning_clojure.png"<% endif %>}]]]])
+  [:section.section>div.container>div.content
+   [:img {:src <% if servlet %>(str js/context "/img/warning_clojure.png")<% else %>"/img/warning_clojure.png"<% endif %>}]])
 
 (defn home-page []
-  [:div.container
+  [:section.section>div.container>div.content
    (when-let [docs @(rf/subscribe [:docs])]
-     [:div.row>div.col-sm-12
-      [:div {:dangerouslySetInnerHTML
-             {:__html (md->html docs)}}]])])
+     [:div {:dangerouslySetInnerHTML {:__html (md->html docs)}}])])
 
 (def pages
   {:home #'home-page

@@ -161,9 +161,6 @@
     (let [updated-state
           [(into (remove-conflicting-assets assets ".html") cljs-assets)
            (-> options
-               (update :dependencies
-                       #(remove (fn [[artifact]]
-                                  (= artifact 'org.webjars/jquery)) %))
                (append-options :dependencies cljs-dependencies)
                (append-options :plugins cljs-plugins)
                (append-options :dev-dependencies cljs-dev-dependencies)
