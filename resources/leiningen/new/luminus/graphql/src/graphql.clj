@@ -1,12 +1,13 @@
 (ns <<project-ns>>.routes.services.graphql
-  (:require [com.walmartlabs.lacinia.util :refer [attach-resolvers]]
-            [com.walmartlabs.lacinia.schema :as schema]
-            [com.walmartlabs.lacinia :as lacinia]
-            [clojure.data.json :as json]
-            [clojure.edn :as edn]
-            [clojure.java.io :as io]
-            [ring.util.http-response :refer :all]
-            [mount.core :refer [defstate]]))
+  (:require
+    [com.walmartlabs.lacinia.util :refer [attach-resolvers]]
+    [com.walmartlabs.lacinia.schema :as schema]
+    [com.walmartlabs.lacinia :as lacinia]
+    [clojure.data.json :as json]
+    [clojure.edn :as edn]
+    [clojure.java.io :as io]
+    [ring.util.http-response :refer :all]
+    [mount.core :refer [defstate]]))
 
 (defn get-hero [context args value]
   (let [data  [{:id 1000

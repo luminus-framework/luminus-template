@@ -1,8 +1,9 @@
 (ns <<project-ns>>.routes.oauth
-  (:require [ring.util.http-response :refer [ok found]]
-            [clojure.java.io :as io]
-            [<<project-ns>>.oauth :as oauth]
-            [clojure.tools.logging :as log]))
+  (:require
+    [ring.util.http-response :refer [ok found]]
+    [clojure.java.io :as io]
+    [<<project-ns>>.oauth :as oauth]
+    [clojure.tools.logging :as log]))
 
 (defn oauth-init
   "Initiates the Twitter OAuth"

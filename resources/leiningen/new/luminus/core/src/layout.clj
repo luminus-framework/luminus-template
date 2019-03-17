@@ -1,10 +1,11 @@
 (ns <<project-ns>>.layout
-  (:require [selmer.parser :as parser]
-            [selmer.filters :as filters]
-            [markdown.core :refer [md-to-html-string]]
-            [ring.util.http-response :refer [content-type ok]]
-            [ring.util.anti-forgery :refer [anti-forgery-field]]
-            [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]))
+  (:require
+    [selmer.parser :as parser]
+    [selmer.filters :as filters]
+    [markdown.core :refer [md-to-html-string]]
+    [ring.util.http-response :refer [content-type ok]]
+    [ring.util.anti-forgery :refer [anti-forgery-field]]
+    [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]))
 
 (parser/set-resource-path!  (clojure.java.io/resource "html"))
 (parser/add-tag! :csrf-field (fn [_ _] (anti-forgery-field)))

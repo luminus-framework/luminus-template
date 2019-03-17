@@ -1,18 +1,19 @@
 (ns <<project-ns>>.core
-  (:require [<<project-ns>>.ajax :refer [load-interceptors!]]
-            [ajax.core :refer [GET]]
-            [cljsjs.jquery]
-            [goog.events :as events]
-            [goog.history.EventType :as HistoryEventType]
-            [hoplon.core
-             :as h
-             :include-macros true]
-            [hoplon.jquery]
-            [javelin.core
-             :refer [cell]
-             :refer-macros [cell= dosync]]
-            [markdown.core :refer [md->html]]
-            [secretary.core :as secretary])
+  (:require
+    [<<project-ns>>.ajax :refer [load-interceptors!]]
+    [ajax.core :refer [GET]]
+    [cljsjs.jquery]
+    [goog.events :as events]
+    [goog.history.EventType :as HistoryEventType]
+    [hoplon.core
+     :as h
+     :include-macros true]
+    [hoplon.jquery]
+    [javelin.core
+     :refer [cell]
+     :refer-macros [cell= dosync]]
+    [markdown.core :refer [md->html]]
+    [secretary.core :as secretary])
   (:import goog.History))
 
 (defonce selected-page (cell :home))
