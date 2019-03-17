@@ -2,6 +2,7 @@
 
 - switched to use Bulma as the default CSS framework (no Js dependencies)
 - switched to use Material icons instead of font-awesome (smaller bundle size)
+- Reitit 0.3.0
 
 ## 3.10.41
 

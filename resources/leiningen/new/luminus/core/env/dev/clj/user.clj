@@ -1,13 +1,14 @@
 (ns user
-  (:require [<<project-ns>>.config :refer [env]]
-            [clojure.spec.alpha :as s]
-            [expound.alpha :as expound]
-            [mount.core :as mount]<% if figwheel %>
-            [<<project-ns>>.figwheel :refer [start-fw stop-fw cljs]]<% endif %>
-            [<<project-ns>>.core :refer [start-app]]<% if relational-db %>
-            [<<project-ns>>.db.core]
-            [conman.core :as conman]
-            [luminus-migrations.core :as migrations]<% endif %>))
+  (:require
+    [<<project-ns>>.config :refer [env]]
+    [clojure.spec.alpha :as s]
+    [expound.alpha :as expound]
+    [mount.core :as mount]<% if figwheel %>
+    [<<project-ns>>.figwheel :refer [start-fw stop-fw cljs]]<% endif %>
+    [<<project-ns>>.core :refer [start-app]]<% if relational-db %>
+    [<<project-ns>>.db.core]
+    [conman.core :as conman]
+    [luminus-migrations.core :as migrations]<% endif %>))
 
 (alter-var-root #'s/*explain-out* (constantly expound/printer))
 

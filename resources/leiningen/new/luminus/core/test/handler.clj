@@ -1,10 +1,11 @@
 (ns <<project-ns>>.test.handler
-  (:require [clojure.test :refer :all]
-            [ring.mock.request :refer :all]
-            [<<project-ns>>.handler :refer :all]
-            [<<project-ns>>.middleware.formats :as formats]
-            [muuntaja.core :as m]
-            [mount.core :as mount]))
+  (:require
+    [clojure.test :refer :all]
+    [ring.mock.request :refer :all]
+    [<<project-ns>>.handler :refer :all]
+    [<<project-ns>>.middleware.formats :as formats]
+    [muuntaja.core :as m]
+    [mount.core :as mount]))
 
 (defn parse-json [body]
   (m/decode formats/instance "application/json" body))
@@ -23,8 +24,7 @@
 
   (testing "not-found route"
     (let [response (app (request :get "/invalid"))]
-      (is (= 404 (:status response)))))<% if reitit %>
-
+      (is (= 404 (:status response)))))<% if swagger %>
   (testing "services"
 
     (testing "success"

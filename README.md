@@ -19,10 +19,6 @@ lein new luminus <your project name>
 
 However, if you would like to attach further functionality to your template you can append [profile hints][ph] for these extended features:
 
-### routing
-
-* `+reitit` adds [Reitit](https://metosin.github.io/reitit/) Clojure/Script router support
-
 ### alternative servers
 
 * `+aleph` adds the [Aleph](https://github.com/ztellman/aleph) server
@@ -41,7 +37,7 @@ However, if you would like to attach further functionality to your template you 
 ### service API
 
 * `+graphql` - adds GraphQL support using [Lacinia](https://github.com/walmartlabs/lacinia)
-* `+swagger` adds support for [Swagger-UI](https://github.com/swagger-api/swagger-ui) using the [compojure-api](https://github.com/metosin/compojure-api) library
+* `+swagger` adds support for [Swagger-UI](https://github.com/swagger-api/swagger-ui)
 * `+service` removes static assets and the layout, adds Swagger support
 
 ### ClojureScript

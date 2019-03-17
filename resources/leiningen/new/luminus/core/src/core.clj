@@ -1,12 +1,13 @@
 (ns <<project-ns>>.core
-  (:require [<<project-ns>>.handler :as handler]
-            [<<project-ns>>.nrepl :as nrepl]
-            [luminus.http-server :as http]<% if relational-db %>
-            [luminus-migrations.core :as migrations]<% endif %>
-            [<<project-ns>>.config :refer [env]]
-            [clojure.tools.cli :refer [parse-opts]]
-            [clojure.tools.logging :as log]
-            [mount.core :as mount])
+  (:require
+    [<<project-ns>>.handler :as handler]
+    [<<project-ns>>.nrepl :as nrepl]
+    [luminus.http-server :as http]<% if relational-db %>
+    [luminus-migrations.core :as migrations]<% endif %>
+    [<<project-ns>>.config :refer [env]]
+    [clojure.tools.cli :refer [parse-opts]]
+    [clojure.tools.logging :as log]
+    [mount.core :as mount])
   (:gen-class))
 
 (def cli-options

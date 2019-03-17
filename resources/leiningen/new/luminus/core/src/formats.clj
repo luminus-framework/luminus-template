@@ -1,7 +1,8 @@
 (ns <<project-ns>>.middleware.formats
-  (:require [cognitect.transit :as transit]
-            [luminus-transit.time :as time]
-            [muuntaja.core :as m]))
+  (:require
+    [cognitect.transit :as transit]
+    [luminus-transit.time :as time]
+    [muuntaja.core :as m]))
 
 (def instance
   (m/create

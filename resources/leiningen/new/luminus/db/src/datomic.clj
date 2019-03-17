@@ -1,8 +1,9 @@
 (ns <<project-ns>>.db.core
-  (:require [datomic.api :as d]
-            [io.rkn.conformity :as c]
-            [mount.core :refer [defstate]]
-            [<<project-ns>>.config :refer [env]]))
+  (:require
+    [datomic.api :as d]
+    [io.rkn.conformity :as c]
+    [mount.core :refer [defstate]]
+    [<<project-ns>>.config :refer [env]]))
 
 (defstate conn
   :start (do (-> env :database-url d/create-database) (-> env :database-url d/connect))

@@ -8,7 +8,6 @@
             [leiningen.new.common :refer :all]
             [leiningen.new.lein :refer [lein-features]]
             [leiningen.new.boot :refer [boot-features]]
-            [leiningen.new.compojure :refer [compojure-features]]
             [leiningen.new.reitit :refer [reitit-features]]
             [leiningen.new.auth :refer [auth-features]]
             [leiningen.new.auth-base :refer [auth-base-features]]
@@ -156,7 +155,6 @@
         (-> [core-assets options]
             lein-features
             boot-features
-            compojure-features
             reitit-features
             service-features
             servlet-features
@@ -199,7 +197,7 @@
   (-> options
       (set-feature "+immutant" #{"+jetty" "+aleph" "+http-kit" "+war"})
       (set-feature "+logback" #{})
-      (set-feature "+compojure" #{"+reitit" "+kee-frame"})
+      (set-feature "+reitit" #{})
       (set-feature "+lein" #{"+boot"})))
 
 (defn set-feature-dependency [options feature dependencies]
@@ -243,7 +241,7 @@
   [name & feature-params]
   (let [min-version "2.5.2"
         supported-features #{;; routing
-                             "+compojure" "+reitit"
+                             "+reitit"
                              ;;databases
                              "+sqlite" "+h2" "+postgres" "+mysql" "+mongodb" "+datomic"
                              ;;servers

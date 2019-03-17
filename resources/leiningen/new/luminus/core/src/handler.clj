@@ -1,20 +1,18 @@
 (ns <<project-ns>>.handler
-  (:require [<<project-ns>>.middleware :as middleware]<% if not service %>
-            [<<project-ns>>.layout :refer [error-page]]
-            [<<project-ns>>.routes.home :refer [home-routes]]<% endif %><% if service-required %>
-            <<service-required>><% endif %><% if oauth-required %>
-            <<oauth-required>><% endif %><% if compojure %>
-            [compojure.core :refer [routes wrap-routes]]<% if compojure %>
-            [ring.util.http-response :as response]<% endif %>
-            [compojure.route :as route]<% endif %><% if reitit %><% if any service swagger %>
-            [reitit.swagger-ui :as swagger-ui]<% endif %>
-            [reitit.ring :as ring]
-            [ring.middleware.content-type :refer [wrap-content-type]]
-            [ring.middleware.webjars :refer [wrap-webjars]]<% endif %>
-            [<<project-ns>>.env :refer [defaults]]
-            [mount.core :as mount]<% if war %>
-            [clojure.tools.logging :as log]
-            [<<project-ns>>.config :refer [env]]<% endif %>))
+  (:require
+    [<<project-ns>>.middleware :as middleware]<% if not service %>
+    [<<project-ns>>.layout :refer [error-page]]
+    [<<project-ns>>.routes.home :refer [home-routes]]<% endif %><% if service-required %>
+    <<service-required>><% endif %><% if oauth-required %>
+    <<oauth-required>><% endif %><% if any service swagger %>
+    [reitit.swagger-ui :as swagger-ui]<% endif %>
+    [reitit.ring :as ring]
+    [ring.middleware.content-type :refer [wrap-content-type]]
+    [ring.middleware.webjars :refer [wrap-webjars]]
+    [<<project-ns>>.env :refer [defaults]]
+    [mount.core :as mount]<% if war %>
+    [clojure.tools.logging :as log]
+    [<<project-ns>>.config :refer [env]]<% endif %>))
 
 (mount/defstate init-app
   :start ((or (:init defaults) identity))
@@ -38,5 +36,4 @@
   (shutdown-agents)
   (log/info "<<name>> has shut down!"))
 <% endif %>
-<% include compojure/src/handler-fragment.clj %>
 <% include reitit/src/handler-fragment.clj %>

@@ -1,21 +1,22 @@
 (ns <<project-ns>>.middleware
-  (:require [<<project-ns>>.env :refer [defaults]]<% if not service %>
-            [cheshire.generate :as cheshire]
-            [cognitect.transit :as transit]
-            [clojure.tools.logging :as log]
-            [<<project-ns>>.layout :refer [error-page]]
-            [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]<% if not reitit %>
-            [ring.middleware.webjars :refer [wrap-webjars]]<% endif %>
-            [<<project-ns>>.middleware.formats :as formats]
-            [muuntaja.middleware :refer [wrap-format wrap-params]]<% endif %>
-            [<<project-ns>>.config :refer [env]]<% if immutant-session %>
-            [ring.middleware.flash :refer [wrap-flash]]
-            [immutant.web.middleware :refer [wrap-session]]<% else %>
-            [ring-ttl-session.core :refer [ttl-memory-store]]<% endif %>
-            [ring.middleware.defaults :refer [site-defaults wrap-defaults]]<% if auth-middleware-required %>
-            <<auth-middleware-required>><% if auth-session %>
-            <<auth-session>><% endif %><% if auth-jwe %>
-            <<auth-jwe>><% endif %><% endif %>)<% if not service %>
+  (:require
+    [<<project-ns>>.env :refer [defaults]]<% if not service %>
+    [cheshire.generate :as cheshire]
+    [cognitect.transit :as transit]
+    [clojure.tools.logging :as log]
+    [<<project-ns>>.layout :refer [error-page]]
+    [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]<% if not reitit %>
+    [ring.middleware.webjars :refer [wrap-webjars]]<% endif %>
+    [<<project-ns>>.middleware.formats :as formats]
+    [muuntaja.middleware :refer [wrap-format wrap-params]]<% endif %>
+    [<<project-ns>>.config :refer [env]]<% if immutant-session %>
+    [ring.middleware.flash :refer [wrap-flash]]
+    [immutant.web.middleware :refer [wrap-session]]<% else %>
+    [ring-ttl-session.core :refer [ttl-memory-store]]<% endif %>
+    [ring.middleware.defaults :refer [site-defaults wrap-defaults]]<% if auth-middleware-required %>
+    <<auth-middleware-required>><% if auth-session %>
+    <<auth-session>><% endif %><% if auth-jwe %>
+    <<auth-jwe>><% endif %><% endif %>)<% if not service %>
   (:import <% if servlet %>[javax.servlet ServletContext]<% endif %>
            )<% endif %>)
 <% if not service %><% if servlet %>
