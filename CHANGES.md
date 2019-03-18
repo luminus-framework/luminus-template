@@ -1,3 +1,8 @@
+## 3.21
+
+- Aleph 0.4.6
+- Reitit 0.3.1
+
 ## 3.20
 
 - switched to use Bulma as the default CSS framework (no Js dependencies)
