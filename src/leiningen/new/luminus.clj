@@ -116,7 +116,7 @@
 
 (def core-dependencies
   [['org.clojure/clojure "1.10.0"]
-   ['selmer "1.12.6"]
+   ['selmer "1.12.11"]
    ['clojure.java-time "0.3.2"]
    ['luminus-transit "0.1.1"]
    ['markdown-clj "1.0.7"]
