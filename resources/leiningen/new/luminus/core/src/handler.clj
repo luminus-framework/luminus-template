@@ -15,8 +15,8 @@
     [<<project-ns>>.config :refer [env]]<% endif %>))
 
 (mount/defstate init-app
-  :start ((or (:init defaults) identity))
-  :stop  ((or (:stop defaults) identity)))
+  :start ((or (:init defaults) (fn [])))
+  :stop  ((or (:stop defaults) (fn []))))
 <% if war %>
 (defn init
   "init will be called once when
