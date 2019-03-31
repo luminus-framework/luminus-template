@@ -1,10 +1,12 @@
-## 3.22
+## 3.23
 
 - fix for omitting [env.clj](https://github.com/luminus-framework/luminus-template/pull/428)
 - kee-frame 0.3.3
 - re-frisk "0.5.4.1
+- com.jakemccrary/lein-test-refresh 0.24.1
 
-## 3.21
+
+## 3.22
 
 - Selmer 1.12.11
 

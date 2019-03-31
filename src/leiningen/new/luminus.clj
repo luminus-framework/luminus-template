@@ -145,7 +145,7 @@
    ['pjstadig/humane-test-output "0.9.0"]])
 
 (def core-dev-plugins
-  [['com.jakemccrary/lein-test-refresh "0.23.0"]])
+  [['com.jakemccrary/lein-test-refresh "0.24.1"]])
 
 (defn generate-project
   "Create a new Luminus project"
