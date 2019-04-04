@@ -5,11 +5,11 @@
     [reitit.ring.coercion :as coercion]
     [reitit.coercion.spec :as spec-coercion]
     [reitit.ring.middleware.muuntaja :as muuntaja]
-    [reitit.ring.middleware.exception :as exception]
     [reitit.ring.middleware.multipart :as multipart]
     [reitit.ring.middleware.parameters :as parameters]<% if graphql %>
     [<<project-ns>>.routes.services.graphql :as graphql]<% endif %>
     [<<project-ns>>.middleware.formats :as formats]
+    [<<project-ns>>.middleware.exception :as exception]
     [ring.util.http-response :refer :all]
     [clojure.java.io :as io]))
 

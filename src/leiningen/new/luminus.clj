@@ -64,6 +64,7 @@
    ["{{backend-path}}/{{sanitized}}/layout.clj" "core/src/layout.clj"]
    ["{{backend-path}}/{{sanitized}}/middleware.clj" "core/src/middleware.clj"]
    ["{{backend-path}}/{{sanitized}}/middleware/formats.clj" "core/src/formats.clj"]
+   ["{{backend-path}}/{{sanitized}}/middleware/exception.clj" "core/src/exception.clj"]
 
    ;;HTML templates
    ["{{resource-path}}/html/base.html" "core/resources/html/base.html"]
