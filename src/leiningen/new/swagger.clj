@@ -2,9 +2,9 @@
   (:require [leiningen.new.common :refer :all]))
 
 (defn swagger-assets [{:keys [features]}]
-  (if (some #{"+reitit"} features)
-    [["{{backend-path}}/{{sanitized}}/routes/services.clj" "reitit/src/services.clj"]]
-    [["{{backend-path}}/{{sanitized}}/routes/services.clj" "swagger/src/services.clj"]]))
+  (when (some #{"+reitit"} features)
+    [["{{backend-path}}/{{sanitized}}/routes/services.clj" "reitit/src/services.clj"]
+     ["{{backend-path}}/{{sanitized}}/middleware/exception.clj" "reitit/src/exception.clj"]]))
 
 (defn swagger-features [[assets options :as state]]
   (if (some #{"+swagger"} (:features options))

@@ -1,3 +1,10 @@
+## 3.24
+
+- [fix for handling Reitit service errors](https://github.com/luminus-framework/luminus-template/pull/430)
+- metosin/muuntaja 0.6.4
+- org.clojure/tools.cli 0.4.2
+- selmer 1.12.12
+
 ## 3.23
 
 - fix for omitting [env.clj](https://github.com/luminus-framework/luminus-template/pull/428)

@@ -64,7 +64,6 @@
    ["{{backend-path}}/{{sanitized}}/layout.clj" "core/src/layout.clj"]
    ["{{backend-path}}/{{sanitized}}/middleware.clj" "core/src/middleware.clj"]
    ["{{backend-path}}/{{sanitized}}/middleware/formats.clj" "core/src/formats.clj"]
-   ["{{backend-path}}/{{sanitized}}/middleware/exception.clj" "core/src/exception.clj"]
 
    ;;HTML templates
    ["{{resource-path}}/html/base.html" "core/resources/html/base.html"]
@@ -117,11 +116,11 @@
 
 (def core-dependencies
   [['org.clojure/clojure "1.10.0"]
-   ['selmer "1.12.11"]
+   ['selmer "1.12.12"]
    ['clojure.java-time "0.3.2"]
    ['luminus-transit "0.1.1"]
    ['markdown-clj "1.0.7"]
-   ['metosin/muuntaja "0.6.3"]
+   ['metosin/muuntaja "0.6.4"]
    ['cheshire "5.8.1"]
    ['metosin/ring-http-response "0.9.1"]
    ['funcool/struct "1.3.0"]
@@ -135,7 +134,7 @@
    ['luminus/ring-ttl-session "0.3.2"]
    ['mount "0.1.16"]
    ['cprop "0.1.13"]
-   ['org.clojure/tools.cli "0.4.1"]
+   ['org.clojure/tools.cli "0.4.2"]
    ['nrepl "0.6.0"]])
 
 (def core-dev-dependencies
