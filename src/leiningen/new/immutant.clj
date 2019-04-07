@@ -12,10 +12,8 @@
            :immutant-session true
            :server "immutant")
          (append-options :plugins immutant-plugins)
-         (update :dependencies #(remove #{['luminus/ring-ttl-session "0.3.1"]} %))
-         (append-options :http-server-dependencies
-                         (if (some #{"+war"} (:features options))
-                           [['org.webjars/webjars-locator-jboss-vfs "0.1.0"]
-                            ['luminus-immutant "0.2.5"]]
-                           [['luminus-immutant "0.2.5"]])))]
+         (update :dependencies #(cond-> (remove #{['luminus/ring-ttl-session "0.3.1"]} %)
+                                        (some #{"+war"} (:features options))
+                                        (conj ['org.webjars/webjars-locator-jboss-vfs "0.1.0"])))
+         (append-options :http-server-dependencies [['luminus-immutant "0.2.5"]]))]
     state))

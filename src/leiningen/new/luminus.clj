@@ -245,7 +245,7 @@
                              ;;databases
                              "+sqlite" "+h2" "+postgres" "+mysql" "+mongodb" "+datomic"
                              ;;servers
-                             "+aleph" "+jetty" "+http-kit"
+                             "+aleph" "+jetty" "+http-kit" "+immutant"
                              ;;misc
                              "+cljs" "+hoplon" "+reagent" "+re-frame" "+kee-frame" "+auth" "+auth-jwe" "+site"
                              "+cucumber" "+sassc" "+oauth"

@@ -1,3 +1,7 @@
+## 3.25
+
+- fix for injecting `webjars-locator-jboss-vfs` when `+war` and `+immutant` profiles are selected
+
 ## 3.24
 
 - [fix for handling Reitit service errors](https://github.com/luminus-framework/luminus-template/pull/430)
