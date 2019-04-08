@@ -1,3 +1,8 @@
+## 3.26
+
+- com.walmartlabs/lacinia 0.32.0
+- include `org.webjars/webjars-locator-jboss-vfs` by default for Immutant
+
 ## 3.25
 
 - fix for injecting `webjars-locator-jboss-vfs` when `+war` and `+immutant` profiles are selected
