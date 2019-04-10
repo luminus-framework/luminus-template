@@ -1,3 +1,8 @@
+## 3.27
+
+- fix for kee-frame navbar
+- set debug? to false for kee-frame in prod mode
+
 ## 3.26
 
 - com.walmartlabs/lacinia 0.32.0

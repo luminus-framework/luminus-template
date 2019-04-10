@@ -4,4 +4,4 @@
 ;;ignore println statements in prod
 (set! *print-fn* (fn [& _]))
 
-(core/init!)
+<% if kee-frame %>(core/init! false)<%else%>(core/init!)<% endif %>

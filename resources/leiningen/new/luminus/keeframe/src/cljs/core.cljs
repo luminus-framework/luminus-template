@@ -40,14 +40,16 @@
 
 ;; -------------------------
 ;; Initialize app
-(defn mount-components []
-  (rf/clear-subscription-cache!)
-  (kf/start! {:debug?         true
-              :routes         routing/routes
-              :hash-routing?  true
-              :initial-db     {}
-              :root-component [view/root-component]}))
+(defn mount-components
+  ([] (mount-components true))
+  ([debug?]
+    (rf/clear-subscription-cache!)
+    (kf/start! {:debug?         debug?
+                :routes         routing/routes
+                :hash-routing?  true
+                :initial-db     {}
+                :root-component [view/root-component]})))
 
-(defn init! []
+(defn init! [debug?]
   (ajax/load-interceptors!)
-  (mount-components))
+  (mount-components debug?))
