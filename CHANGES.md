@@ -1,3 +1,8 @@
+## 3.28
+
+- fix for kee-frame dev time reloading
+
+
 ## 3.27
 
 - fix for kee-frame navbar

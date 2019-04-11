@@ -44,7 +44,7 @@
   ([] (mount-components true))
   ([debug?]
     (rf/clear-subscription-cache!)
-    (kf/start! {:debug?         debug?
+    (kf/start! {:debug?         (boolean debug?)
                 :routes         routing/routes
                 :hash-routing?  true
                 :initial-db     {}
