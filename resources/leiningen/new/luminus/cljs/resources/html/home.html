@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="UTF-8"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Welcome to <<name>></title>
+  </head>
+  <body>
+    <%if not re-frame %><div id="navbar"></div><% endif %>
+    <div id="app">
+      <section class="section">
+        <div class="container is-fluid">
+          <div class="content">
+            <h4 class="title">Welcome to <<name>></h4>
+            <p>If you're seeing this message, that means you haven't yet compiled your ClojureScript!</p><% if not boot %>
+            <p>Please run <code>lein figwheel</code> to start the ClojureScript compiler and reload the page.</p><% else %>
+            <p>Please close this process and start the server with <code>boot figwheel</code> to enable the ClojureScript compiler.<% endif %>
+            <h4>For better ClojureScript development experience in Chrome follow these steps:</h4>
+            <ul>
+              <li>Open DevTools
+              <li>Go to Settings ("three dots" icon in the upper right corner of DevTools > Menu > Settings F1 > General > Console)
+              <li>Check-in "Enable custom formatters"
+              <li>Close DevTools
+              <li>Open DevTools
+            </ul>
+            <p>See <a href="http://www.luminusweb.net/docs/clojurescript.md">ClojureScript</a> documentation for further details.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- scripts and styles -->
+    {% style "/assets/bulma/css/bulma.min.css" %}
+    {% style "/assets/material-icons/css/material-icons.min.css" %}
+    {% style "/css/screen.css" %}
+
+    <script type="text/javascript"><% if servlet %>
+        var context = "{{servlet-context}}";<% endif %>
+        var csrfToken = "{{csrf-token}}";
+    </script>
+    {% script "/js/app.js" %}
+  </body>
+</html>

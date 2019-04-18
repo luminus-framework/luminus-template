@@ -6,34 +6,49 @@
             [leiningen.core.main :refer [leiningen-version]]
             [leiningen.core.main :as main]
             [leiningen.new.common :refer :all]
+            [leiningen.new.lein :refer [lein-features]]
+            [leiningen.new.boot :refer [boot-features]]
+            [leiningen.new.reitit :refer [reitit-features]]
             [leiningen.new.auth :refer [auth-features]]
+            [leiningen.new.auth-base :refer [auth-base-features]]
+            [leiningen.new.auth-jwe :refer [auth-jwe-features]]
             [leiningen.new.db :refer [db-features]]
             [leiningen.new.cljs :refer [cljs-features]]
+            [leiningen.new.hoplon :refer [hoplon-features]]
+            [leiningen.new.reagent :refer [reagent-features]]
+            [leiningen.new.re-frame :refer [re-frame-features]]
+            [leiningen.new.kee-frame :refer [kee-frame-features]]
             [leiningen.new.cucumber :refer [cucumber-features]]
             [leiningen.new.aleph :refer [aleph-features]]
             [leiningen.new.jetty :refer [jetty-features]]
-            [leiningen.new.http-kit :refer [http-kit-features]]
+            [leiningen.new.http-kit-luminus :refer [http-kit-features]]
             [leiningen.new.immutant :refer [immutant-features]]
             [leiningen.new.swagger :refer [swagger-features]]
+            [leiningen.new.graphql :refer [graphql-features]]
             [leiningen.new.sassc :refer [sassc-features]]
+            [leiningen.new.servlet :refer [servlet-features]]
             [leiningen.new.site :refer [site-features]]
             [leiningen.new.war :refer [war-features]]
             [leiningen.new.kibit :refer [kibit-features]]
-            [leiningen.new.log4j :refer [log4j-features]]
-            [leiningen.new.service :refer [service-features]]))
+            [leiningen.new.logback :refer [logback-features]]
+            [leiningen.new.service :refer [service-features]]
+            [leiningen.new.oauth :refer [oauth-features]]))
 
 (defn resource [r]
   (->> r (str "leiningen/new/luminus/core/resources/") (io/resource)))
 
 (def core-assets
   [[".gitignore" "core/gitignore"]
-   ["project.clj" "core/project.clj"]
-   ["profiles.clj" "core/profiles.clj"]
+   ["dev-config.edn" "core/dev-config.edn"]
+   ["test-config.edn" "core/test-config.edn"]
    ["Procfile" "core/Procfile"]
+   ["Dockerfile" "core/Dockerfile"]
+   ["Capstanfile" "core/Capstanfile"]
    ["README.md" "core/README.md"]
    ["env/prod/resources/config.edn" "core/env/prod/resources/config.edn"]
    ["env/dev/resources/config.edn" "core/env/dev/resources/config.edn"]
-   ["env/test/resources/config.edn" "core/env/test/resources/config.edn"]
+   ["env/test/resources/config.edn" "core/env/dev/resources/config.edn"]
+
 
    ;; config namespaces
    ["env/dev/clj/{{sanitized}}/env.clj" "core/env/dev/clj/env.clj"]
@@ -42,58 +57,95 @@
 
    ;; core namespaces
    ["env/dev/clj/user.clj" "core/env/dev/clj/user.clj"]
-   ["src/clj/{{sanitized}}/core.clj" "core/src/core.clj"]
-   ["src/clj/{{sanitized}}/config.clj" "core/src/config.clj"]
-   ["src/clj/{{sanitized}}/handler.clj" "core/src/handler.clj"]
-   ["src/clj/{{sanitized}}/routes/home.clj" "core/src/home.clj"]
-   ["src/clj/{{sanitized}}/layout.clj" "core/src/layout.clj"]
-   ["src/clj/{{sanitized}}/middleware.clj" "core/src/middleware.clj"]
+   ["{{backend-path}}/{{sanitized}}/core.clj" "core/src/core.clj"]
+   ["{{backend-path}}/{{sanitized}}/nrepl.clj" "core/src/nrepl.clj"]
+   ["{{backend-path}}/{{sanitized}}/config.clj" "core/src/config.clj"]
+   ["{{backend-path}}/{{sanitized}}/handler.clj" "core/src/handler.clj"]
+   ["{{backend-path}}/{{sanitized}}/layout.clj" "core/src/layout.clj"]
+   ["{{backend-path}}/{{sanitized}}/middleware.clj" "core/src/middleware.clj"]
+   ["{{backend-path}}/{{sanitized}}/middleware/formats.clj" "core/src/formats.clj"]
 
    ;;HTML templates
-   ["resources/templates/base.html" "core/resources/templates/base.html"]
-   ["resources/templates/home.html" "core/resources/templates/home.html"]
-   ["resources/templates/about.html" "core/resources/templates/about.html"]
-   ["resources/templates/error.html" "core/resources/templates/error.html"]
+   ["{{resource-path}}/html/base.html" "core/resources/html/base.html"]
+   ["{{resource-path}}/html/home.html" "core/resources/html/home.html"]
+   ["{{resource-path}}/html/about.html" "core/resources/html/about.html"]
+   ["{{resource-path}}/html/error.html" "core/resources/html/error.html"]
 
    ;; public resources, example URL: /css/screen.css
-   ["resources/public/favicon.ico"  (resource "site/favicon.ico")]
-   ["resources/public/css/screen.css" "core/resources/css/screen.css"]
-   ["resources/docs/docs.md" "core/resources/docs.md"]
-   "resources/public/js"
-   "resources/public/img"
+   ["{{resource-path}}/public/css/screen.css" "core/resources/css/screen.css"]
+   ["{{resource-path}}/docs/docs.md" "core/resources/docs.md"]
+   "{{resource-path}}/public/js"
 
    ;; tests
-   ["test/clj/{{sanitized}}/test/handler.clj" "core/test/handler.clj"]])
+   ["{{backend-test-path}}/{{sanitized}}/test/handler.clj" "core/test/handler.clj"]])
 
-(defn format-options [options]
-  (-> options
-      (update-in [:dependencies] (partial indent dependency-indent))
-      (update-in [:http-server-dependencies] (partial indent dependency-indent))
-      (update-in [:dev-http-server-dependencies] (partial indent dev-dependency-indent))
-      (update-in [:dev-dependencies] (partial indent dev-dependency-indent))
-      (update-in [:plugins] (partial indent plugin-indent))
-      (update-in [:dev-plugins] (partial indent dev-dependency-indent))))
+(def binary-assets
+  [["{{resource-path}}/public/favicon.ico" "core/resources/favicon.ico"]
+   ["{{resource-path}}/public/img/warning_clojure.png" "core/resources/img/warning_clojure.png"]])
+
+(def project-relative-paths
+  {:backend-path      "src/clj"
+   :backend-test-path "test/clj"
+   :client-path       "src/cljs"
+   :client-test-path  "test/cljs"
+   :resource-path     "resources"
+   :cljc-path         "src/cljc"
+   :db-path           "src/clj"
+   :source-paths      ["src/clj"]
+   :resource-paths    ["resources"]})
+
+(defn sort-deps [deps]
+  (sort-by (fn [[dep]] (str dep)) deps))
+
+(defn format-options [{:keys [http-server-dependencies features] :as options}]
+  (let [boot? (some #{"+boot"} features)
+        dev-indent (if-not boot?
+                     dev-dependency-indent
+                     boot-dev-dependency-indent)]
+    (-> options
+        (dissoc :http-server-dependencies)
+        (update-in [:dependencies] #(->> %
+                                         (into http-server-dependencies)
+                                         (sort-deps)
+                                         (indent dependency-indent)))
+        (update-in [:http-server-dependencies] (partial indent dependency-indent))
+        (update-in [:dev-http-server-dependencies] (partial indent dev-indent))
+        (update-in [:dev-dependencies] #(->> % (sort-deps) (indent dev-indent)))
+        (update-in [:plugins] (partial indent plugin-indent))
+        (update-in [:dev-plugins] (partial indent dev-dependency-indent)))))
 
 (def core-dependencies
-  [['org.clojure/clojure "1.8.0"]
-   ['selmer "1.0.4"]
-   ['markdown-clj "0.9.89"]
-   ['ring-middleware-format "0.7.0"]
-   ['metosin/ring-http-response "0.6.5"]
-   ['bouncer "1.0.0"]
-   ['org.webjars/bootstrap "4.0.0-alpha.2"]
-   ['org.webjars/font-awesome "4.6.3"]
-   ['org.webjars.bower/tether "1.3.2"]
-   ['org.webjars/jquery "2.2.4"]
-   ['org.clojure/tools.logging "0.3.1"]
-   ['compojure "1.5.0"]
-   ['ring-webjars "0.1.1"]
-   ['ring/ring-defaults "0.2.1"]
-   ['luminus/ring-ttl-session "0.3.1"]
-   ['mount "0.1.10"]
-   ['cprop "0.1.8"]
-   ['org.clojure/tools.cli "0.3.5"]
-   ['luminus-nrepl "0.1.4"]])
+  [['org.clojure/clojure "1.10.0"]
+   ['selmer "1.12.12"]
+   ['clojure.java-time "0.3.2"]
+   ['luminus-transit "0.1.1"]
+   ['markdown-clj "1.0.7"]
+   ['metosin/muuntaja "0.6.4"]
+   ['cheshire "5.8.1"]
+   ['metosin/ring-http-response "0.9.1"]
+   ['funcool/struct "1.3.0"]
+   ['org.webjars.npm/bulma "0.7.4"]
+   ['org.webjars.npm/material-icons "0.3.0"]
+   ['org.clojure/tools.logging "0.4.1"]
+   ['ring/ring-core "1.7.1"]
+   ['ring-webjars "0.2.0"]
+   ['org.webjars/webjars-locator "0.36"]
+   ['ring/ring-defaults "0.3.2"]
+   ['luminus/ring-ttl-session "0.3.2"]
+   ['mount "0.1.16"]
+   ['cprop "0.1.13"]
+   ['org.clojure/tools.cli "0.4.2"]
+   ['nrepl "0.6.0"]])
+
+(def core-dev-dependencies
+  [['expound "0.7.2"]
+   ['prone "1.6.1"]
+   ['ring/ring-mock "0.3.2"]
+   ['ring/ring-devel "1.7.1"]
+   ['pjstadig/humane-test-output "0.9.0"]])
+
+(def core-dev-plugins
+  [['com.jakemccrary/lein-test-refresh "0.24.1"]])
 
 (defn generate-project
   "Create a new Luminus project"
@@ -101,22 +153,34 @@
   (main/info "Generating a Luminus project.")
   (let [[assets options]
         (-> [core-assets options]
+            lein-features
+            boot-features
+            reitit-features
             service-features
+            servlet-features
+            auth-base-features
             auth-features
+            auth-jwe-features
             db-features
             cucumber-features
             site-features
             cljs-features
+            hoplon-features
+            reagent-features
+            re-frame-features
+            kee-frame-features
             swagger-features
+            graphql-features
             aleph-features
             jetty-features
             http-kit-features
             immutant-features
             sassc-features
             kibit-features
-            log4j-features
+            logback-features
+            oauth-features
             war-features)]
-    (render-assets (init-render) assets (format-options options))))
+    (render-assets assets binary-assets (format-options options))))
 
 (defn format-features [features]
   (apply str (interpose ", " features)))
@@ -131,12 +195,34 @@
 
 (defn set-default-features [options]
   (-> options
-      (set-feature "+immutant" #{"+jetty" "+aleph" "+http-kit"})
-      (set-feature "+log4j" #{})))
+      (set-feature "+immutant" #{"+jetty" "+aleph" "+http-kit" "+war"})
+      (set-feature "+logback" #{})
+      (set-feature "+reitit" #{})
+      (set-feature "+lein" #{"+boot"})))
+
+(defn set-feature-dependency [options feature dependencies]
+  (let [features (-> options :features set)]
+    (if (features feature)
+      (update-in options [:features] into dependencies)
+      options)))
+
+(defn set-dependent-features [options]
+  (-> options
+      (set-feature-dependency "+auth" #{"+auth-base"})
+      (set-feature-dependency "+auth-jwe" #{"+auth-base"})
+      (set-feature-dependency "+hoplon" #{"+cljs"})
+      (set-feature-dependency "+graphql" #{"+swagger"})
+      (set-feature-dependency "+reagent" #{"+cljs"})
+      (set-feature-dependency "+re-frame" #{"+cljs" "+reagent"})
+      (set-feature-dependency "+kee-frame" #{"+cljs" "+reitit" "+reagent" "+re-frame"})
+      (set-feature-dependency "+war" #{"+jetty"})))
 
 (defn parse-version [v]
-  (map #(Integer/parseInt %)
-       (clojure.string/split v #"\.")))
+  (map #(try (Integer/parseInt %)
+             (catch Exception e
+               (println "Warning: leiningen version not in number format (could just be a snapshot version)")
+               %))
+            (clojure.string/split v #"\.")))
 
 (defn version-before? [v]
   (let [[x1 y1 z1] (parse-version (leiningen-version))
@@ -146,29 +232,39 @@
       (and (= x1 x2) (< y1 y2))
       (and (= x1 x2) (= y1 y2) (< z1 z2)))))
 
+(defn jvm-opts []
+  ;; reserved for JVM opts that may need to be passed to Leiningen
+  )
+
 (defn luminus
   "Create a new Luminus project"
   [name & feature-params]
   (let [min-version "2.5.2"
-        supported-features #{;;databases
+        supported-features #{;; routing
+                             "+reitit"
+                             ;;databases
                              "+sqlite" "+h2" "+postgres" "+mysql" "+mongodb" "+datomic"
                              ;;servers
-                             "+aleph" "+jetty" "+http-kit"
+                             "+aleph" "+jetty" "+http-kit" "+immutant"
                              ;;misc
-                             "+cljs" "+auth" "+site"
-                             "+cucumber" "+sassc"
-                             "+swagger" "+war"
-                             "+kibit" "+service"}
-        options {:name              (project-name name)
-                 :dependencies      core-dependencies
-                 :selmer-renderer   render-template
-                 :min-lein-version  "2.0.0"
-                 :project-ns        (sanitize-ns name)
-                 :sanitized         (name-to-path name)
-                 :year              (year)
-                 :features          (set feature-params)
-                 :source-paths      ["src/clj"]
-                 :resource-paths    ["resources"]}
+                             "+cljs" "+hoplon" "+reagent" "+re-frame" "+kee-frame" "+auth" "+auth-jwe" "+site"
+                             "+cucumber" "+sassc" "+oauth"
+                             "+swagger" "+war" "+graphql"
+                             "+kibit" "+service" "+servlet"
+                             "+boot"}
+        options (merge
+                  project-relative-paths
+                  {:name             (project-name name)
+                   :dependencies     core-dependencies
+                   :dev-dependencies core-dev-dependencies
+                   :dev-plugins      core-dev-plugins
+                   :selmer-renderer  render-template
+                   :min-lein-version "2.0.0"
+                   :project-ns       (sanitize-ns name)
+                   :sanitized        (name-to-path name)
+                   :year             (year)
+                   :features         (set feature-params)
+                   :opts             (jvm-opts)})
         unsupported (-> (set feature-params)
                         (clojure.set/difference supported-features)
                         (not-empty))]
@@ -189,4 +285,4 @@
       (main/info "Could not create project because a directory named" name "already exists!")
 
       :else
-      (-> options set-default-features generate-project))))
+      (-> options set-default-features set-dependent-features generate-project))))

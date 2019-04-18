@@ -11,18 +11,19 @@
     (some #{"+sqlite"} features) :sqlite))
 
 (defn db-dependencies [options]
-  [['luminus-migrations "0.2.2"]
-   ['conman "0.5.8"]
-   ({:postgres ['org.postgresql/postgresql "9.4-1206-jdbc4"]
-     :mysql    ['mysql/mysql-connector-java "5.1.6"]
-     :h2       ['com.h2database/h2 "1.4.192"]
-     :sqlite   ['org.xerial/sqlite-jdbc "3.8.11.2"]}
-     (select-db options))])
+  (into [['luminus-migrations "0.6.5"]
+         ['conman "0.8.3"]]
+        ({:postgres [['org.postgresql/postgresql "42.2.5"]]
+          :mysql    [['mysql/mysql-connector-java "8.0.12"]
+                     ['com.google.protobuf/protobuf-java "3.6.1"]]
+          :h2       [['com.h2database/h2 "1.4.197"]]
+          :sqlite   [['org.xerial/sqlite-jdbc "3.25.2"]]}
+          (select-db options))))
 
 (defn db-url [{:keys [sanitized] :as options} suffix]
-  ({:postgres (str "jdbc:postgresql://localhost/" sanitized "_" suffix
+  ({:postgres (str "postgresql://localhost/" sanitized "_" suffix
                    "?user=db_user_name_here&password=db_user_password_here")
-    :mysql    (str "jdbc:mysql://localhost:3306/" sanitized "_" suffix
+    :mysql    (str "mysql://localhost:3306/" sanitized "_" suffix
                    "?user=db_user_name_here&password=db_user_password_here")
     :h2       (str "jdbc:h2:./" sanitized "_" suffix ".db")
     :sqlite   (str "jdbc:sqlite:" sanitized "_" suffix ".db")
@@ -34,65 +35,79 @@
   (let [timestamp (.format
                     (java.text.SimpleDateFormat. "yyyyMMddHHmmss")
                     (java.util.Date.))]
-    [["src/clj/{{sanitized}}/db/core.clj" "db/src/sql.db.clj"]
-     ["resources/sql/queries.sql" "db/sql/queries.sql"]
-     ["test/clj/{{sanitized}}/test/db/core.clj" "db/test/db/core.clj"]
-     [(str "resources/migrations/" timestamp "-add-users-table.up.sql") "db/migrations/add-users-table.up.sql"]
-     [(str "resources/migrations/" timestamp "-add-users-table.down.sql") "db/migrations/add-users-table.down.sql"]]))
+    [["{{db-path}}/{{sanitized}}/db/core.clj" "db/src/sql.db.clj"]
+     ["{{resource-path}}/sql/queries.sql" "db/sql/queries.sql"]
+     ["{{backend-test-path}}/{{sanitized}}/test/db/core.clj" "db/test/db/core.clj"]
+     [(str "{{resource-path}}/migrations/" timestamp "-add-users-table.up.sql") "db/migrations/add-users-table.up.sql"]
+     [(str "{{resource-path}}/migrations/" timestamp "-add-users-table.down.sql") "db/migrations/add-users-table.down.sql"]]))
 
 (defn db-profiles [options]
-  {:database-profile-dev  (str :database-url " \"" (db-url options "dev") "\"")
-   :database-profile-test (str :database-url " \"" (db-url options "test") "\"")})
+  (merge
+    options
+    (if (:embedded-db options)
+      {:database-profile-dev  (str :database-url " \"" (db-url options "dev") "\"")
+       :database-profile-test (str :database-url " \"" (db-url options "test") "\"")}
+      {:database-profile-dev  (str "; set your dev database connection URL here\n ; " :database-url " \"" (db-url options "dev") "\"\n")
+       :database-profile-test (str "; set your test database connection URL here\n ; " :database-url " \"" (db-url options "test") "\"\n")})))
 
 (def mongo-files
-  [["src/clj/{{sanitized}}/db/core.clj" "db/src/mongodb.clj"]])
+  [["{{db-path}}/{{sanitized}}/db/core.clj" "db/src/mongodb.clj"]])
 
 (def datomic-files
-  [["src/clj/{{sanitized}}/db/core.clj" "db/src/datomic.clj"]])
+  [["{{db-path}}/{{sanitized}}/db/core.clj" "db/src/datomic.clj"]
+   ["{{resource-path}}/migrations/schema.edn" "db/migrations/schema.edn"]])
 
 (defn add-mongo [[assets options]]
   [(into assets mongo-files)
    (-> options
-       (append-options :dependencies [['com.novemberain/monger "3.0.0-rc2"]])
        (assoc
+         :mongodb true
          :db-connection true
          :db-docs ((:selmer-renderer options) (slurp-resource "db/docs/mongo_instructions.md") options))
-       (merge (db-profiles options)))])
+       (merge (db-profiles options))
+       (append-options :dependencies [['com.novemberain/monger "3.1.0" :exclusions ['com.google.guava/guava]]
+                                      ['com.google.guava/guava "27.0.1-jre"]]))])
 
-(defn add-datomic [[assets options]]
+(defn add-datomic [[assets {:keys [sanitized] :as options}]]
   [(into assets datomic-files)
-   (-> options
-       (append-options :dependencies [['com.datomic/datomic-free "0.9.5359"
-                                       :exclusions ['org.slf4j/log4j-over-slf4j
-                                                    'org.slf4j/slf4j-nop]]])
-       (assoc
-         :db-connection true
-         :db-docs ((:selmer-renderer options) (slurp-resource "db/docs/datomic_instructions.md") options))
-       (merge (db-profiles options)))])
+   (let [info (str "\n ; alternatively, you can use the datomic mem db for development:"
+                   "\n ; :database-url \"datomic:mem://" sanitized "_datomic_dev\"\n")]
+     (-> options
+         (assoc
+           :datomic true
+           :db-connection true
+           :db-docs ((:selmer-renderer options) (slurp-resource "db/docs/datomic_instructions.md") options))
+         (merge (db-profiles options))
+         (update :database-profile-dev str info)
+         (append-options :dependencies [['com.datomic/datomic-free "0.9.5697"
+                                         :exclusions ['org.slf4j/log4j-over-slf4j
+                                                      'org.slf4j/slf4j-nop
+                                                      'com.google.guava/guava]]
+                                        ['com.google.guava/guava "25.1-jre"]
+                                        ['io.rkn/conformity "0.5.1"]])))])
 
 (defn add-relational-db [db [assets options]]
   [(into assets (relational-db-files options))
-   (let [embedded-db? (some #{(name db)} ["h2" "sqlite"])]
+   (let [embedded-db? (some #{(name db)} ["h2" "sqlite"])
+         boot? (some #{"+boot"} (:features options))]
      (-> options
          (append-options :dependencies (db-dependencies options))
-         (append-options :plugins [['migratus-lein "0.3.7"]])
          (assoc
            :relational-db true
            :db-connection (not embedded-db?)
            :db-type (name db)
            :embedded-db embedded-db?
-           :migrations "{:store :database :db ~(get (System/getenv) \"DATABASE_URL\")}"
            :db-docs ((:selmer-renderer options)
                       (slurp-resource (if (= :h2 db)
                                         "db/docs/h2_instructions.md"
                                         "db/docs/db_instructions.md"))
                       options))
-         (merge (db-profiles options))))])
+         (db-profiles)))])
 
 (defn db-features [state]
   (if-let [db (select-db (second state))]
     (cond
-      (= :mongo db)   (add-mongo state)
+      (= :mongo db) (add-mongo state)
       (= :datomic db) (add-datomic state)
-      :else           (add-relational-db db state))
+      :else (add-relational-db db state))
     state))

@@ -1,21 +1,28 @@
 (ns <<project-ns>>.middleware
-  (:require [<<project-ns>>.env :refer [defaults]]<% if not service %>
-            [clojure.tools.logging :as log]
-            [<<project-ns>>.layout :refer [*app-context* error-page]]
-            [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
-            [ring.middleware.webjars :refer [wrap-webjars]]
-            [ring.middleware.format :refer [wrap-restful-format]]<% endif %>
-            [<<project-ns>>.config :refer [env]]<% if immutant-session %>
-            [ring.middleware.flash :refer [wrap-flash]]
-            [immutant.web.middleware :refer [wrap-session]]<% else %>
-            [ring-ttl-session.core :refer [ttl-memory-store]]<% endif %>
-            [ring.middleware.defaults :refer [site-defaults wrap-defaults]]<% if auth-middleware-required %>
-            <<auth-middleware-required>><% endif %>)<% if not service %>
-  (:import [javax.servlet ServletContext])<% endif %>)
-<% if not service %>
+  (:require
+    [<<project-ns>>.env :refer [defaults]]<% if not service %>
+    [cheshire.generate :as cheshire]
+    [cognitect.transit :as transit]
+    [clojure.tools.logging :as log]
+    [<<project-ns>>.layout :refer [error-page]]
+    [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]<% if not reitit %>
+    [ring.middleware.webjars :refer [wrap-webjars]]<% endif %>
+    [<<project-ns>>.middleware.formats :as formats]
+    [muuntaja.middleware :refer [wrap-format wrap-params]]<% endif %>
+    [<<project-ns>>.config :refer [env]]<% if immutant-session %>
+    [ring.middleware.flash :refer [wrap-flash]]
+    [immutant.web.middleware :refer [wrap-session]]<% else %>
+    [ring-ttl-session.core :refer [ttl-memory-store]]<% endif %>
+    [ring.middleware.defaults :refer [site-defaults wrap-defaults]]<% if auth-middleware-required %>
+    <<auth-middleware-required>><% if auth-session %>
+    <<auth-session>><% endif %><% if auth-jwe %>
+    <<auth-jwe>><% endif %><% endif %>)<% if not service %>
+  (:import <% if servlet %>[javax.servlet ServletContext]<% endif %>
+           )<% endif %>)
+<% if not service %><% if servlet %>
 (defn wrap-context [handler]
   (fn [request]
-    (binding [*app-context*
+    (assoc-in request [:session :app-context]
               (if-let [context (:servlet-context request)]
                 ;; If we're not inside a servlet environment
                 ;; (for example when using mock requests), then
@@ -25,15 +32,14 @@
                 ;; if the context is not specified in the request
                 ;; we check if one has been specified in the environment
                 ;; instead
-                (:app-context env))]
-      (handler request))))
-
+                (:app-context env)))))
+<% endif %>
 (defn wrap-internal-error [handler]
   (fn [req]
     (try
       (handler req)
       (catch Throwable t
-        (log/error t)
+        (log/error t (.getMessage t))
         (error-page {:status 500
                      :title "Something very bad has happened!"
                      :message "We've dispatched a team of highly trained gnomes to take care of the problem."})))))
@@ -46,10 +52,9 @@
        {:status 403
         :title "Invalid anti-forgery token"})}))
 
+
 (defn wrap-formats [handler]
-  (let [wrapped (wrap-restful-format
-                  handler
-                  {:formats [:json-kw :transit-json :transit-msgpack]})]
+  (let [wrapped (-> handler wrap-params (wrap-format formats/instance))]
     (fn [request]
       ;; disable wrap-formats for websockets
       ;; since they're not compatible with this middleware
@@ -67,24 +72,30 @@
 <% endif %>
 (defn wrap-restricted [handler]
   (restrict handler {:handler authenticated?
-                     :on-error on-error}))
+                     :on-error on-error}))<% if auth-jwe %>
 
-(defn wrap-identity [handler]
-  (fn [request]
-    (binding [*identity* (get-in request [:session :identity])]
-      (handler request))))
+(def secret (random-bytes 32))
+
+(def token-backend
+  (jwe-backend {:secret secret
+                :options {:alg :a256kw
+                          :enc :a128gcm}}))
+
+(defn token [username]
+  (let [claims {:user (keyword username)
+                :exp (plus (now) (minutes 60))}]
+    (encrypt claims secret {:alg :a256kw :enc :a128gcm})))<% endif %>
 
 (defn wrap-auth [handler]
-  (let [backend (session-backend)]
+  (let [backend <% if auth-jwe %>token-backend<% else %><% if auth-session %>(session-backend)<% endif %><% endif %>]
     (-> handler
-        wrap-identity
         (wrap-authentication backend)
         (wrap-authorization backend))))
 <% endif %>
 (defn wrap-base [handler]
   (-> ((:middleware defaults) handler)<% if auth-middleware-required %>
-      wrap-auth<% endif %><% if not service %>
-      wrap-webjars<% endif %><% if immutant-session %>
+      wrap-auth<% endif %><% if not service %><% if not reitit %>
+      wrap-webjars<% endif %><% endif %><% if immutant-session %>
       wrap-flash
       (wrap-session {:cookie-attrs {:http-only true}})
       (wrap-defaults
@@ -94,6 +105,6 @@
       (wrap-defaults
         (-> site-defaults
             (assoc-in [:security :anti-forgery] false)
-            (assoc-in  [:session :store] (ttl-memory-store (* 60 30)))))<% endif %><% if not service %>
-      wrap-context
+            (assoc-in  [:session :store] (ttl-memory-store (* 60 30)))))<% endif %><% if not service %><% if servlet %>
+      wrap-context<% endif %>
       wrap-internal-error<% endif %>))

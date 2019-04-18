@@ -5,12 +5,7 @@
   (if (some #{"+auth"} (:features options))
     [assets
      (-> options
-         (append-options :dependencies [['buddy "0.13.0"]])
-         (append-formatted :auth-middleware-required
-                           [['buddy.auth.middleware :refer ['wrap-authentication 'wrap-authorization]]
-                            ['buddy.auth.backends.session :refer ['session-backend]]
-                            ['buddy.auth.accessrules :refer ['restrict]]
-                            ['buddy.auth :refer ['authenticated?]]
-                            [(symbol (str (:project-ns options) ".layout")) :refer ['*identity*]]]
+         (append-formatted :auth-session
+                           [['buddy.auth.backends.session :refer ['session-backend]]]
                            plugin-indent))]
     state))

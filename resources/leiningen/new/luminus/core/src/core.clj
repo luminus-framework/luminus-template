@@ -1,41 +1,38 @@
 (ns <<project-ns>>.core
-  (:require [<<project-ns>>.handler :as handler]
-            [luminus.repl-server :as repl]
-            [luminus.http-server :as http]<% if relational-db %>
-            [luminus-migrations.core :as migrations]<% endif %>
-            [<<project-ns>>.config :refer [env]]
-            [clojure.tools.cli :refer [parse-opts]]
-            [clojure.tools.logging :as log]<% if not war %>
-            [luminus.logger :as logger]<% endif %>
-            [mount.core :as mount])
+  (:require
+    [<<project-ns>>.handler :as handler]
+    [<<project-ns>>.nrepl :as nrepl]
+    [luminus.http-server :as http]<% if relational-db %>
+    [luminus-migrations.core :as migrations]<% endif %>
+    [<<project-ns>>.config :refer [env]]
+    [clojure.tools.cli :refer [parse-opts]]
+    [clojure.tools.logging :as log]
+    [mount.core :as mount])
   (:gen-class))
 
 (def cli-options
   [["-p" "--port PORT" "Port number"
     :parse-fn #(Integer/parseInt %)]])
 
-(mount/defstate ^{:on-reload :noop}
-                http-server
-                :start
-                (http/start
-                  (-> env
-                      (assoc :handler <% if war %>handler/app<% else %>(handler/app)<% endif %>)
-                      (update :port #(or (-> env :options :port) %))))
-                :stop
-                (http/stop http-server))
+(mount/defstate ^{:on-reload :noop} http-server
+  :start
+  (http/start
+    (-> env
+        (assoc  :handler #'handler/app)
+        (update :io-threads #(or % (* 2 (.availableProcessors (Runtime/getRuntime)))))
+        (update :port #(or (-> env :options :port) %))))
+  :stop
+  (http/stop http-server))
 
-(mount/defstate ^{:on-reload :noop}
-                repl-server
-                :start
-                (when-let [nrepl-port (env :nrepl-port)]
-                  (repl/start {:port nrepl-port}))
-                :stop
-                (when repl-server
-                  (repl/stop repl-server)))
-<% if not war %>
-(mount/defstate log
-                :start (logger/init (:log-config env)))
-<% endif %>
+(mount/defstate ^{:on-reload :noop} repl-server
+  :start
+  (when (env :nrepl-port)
+    (nrepl/start {:bind (env :nrepl-bind)
+                  :port (env :nrepl-port)}))
+  :stop
+  (when repl-server
+    (nrepl/stop repl-server)))
+
 <% if war %>
 (defn init-jndi []
   (System/setProperty "java.naming.factory.initial"
@@ -66,10 +63,18 @@
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app)))
 <% endif %>
 (defn -main [& args]
-  <% if relational-db %>(cond
-    (some #{"migrate" "rollback"} args)
+  <% if relational-db %>(mount/start #'<<project-ns>>.config/env)
+  (cond
+    (nil? (:database-url env))
     (do
-      (mount/start #'<<project-ns>>.config/env)
+      (log/error "Database configuration not found, :database-url environment variable must be set before running")
+      (System/exit 1))
+    (some #{"init"} args)
+    (do
+      (migrations/init (select-keys env [:database-url :init-script]))
+      (System/exit 0))
+    (migrations/migration? args)
+    (do
       (migrations/migrate args (select-keys env [:database-url]))
       (System/exit 0))
     :else

@@ -1,14 +1,19 @@
-(ns ^:figwheel-no-load <<project-ns>>.app
-  (:require [<<project-ns>>.core :as core]
-            [devtools.core :as devtools]
-            [figwheel.client :as figwheel :include-macros true]))
+(ns<% if not hoplon %> ^:figwheel-no-load<% endif %> <<project-ns>>.app
+  (:require
+    [<<project-ns>>.core :as core]
+    [cljs.spec.alpha :as s]
+    [expound.alpha :as expound]
+    [devtools.core :as devtools]))
+
+(extend-protocol IPrintWithWriter
+  js/Symbol
+  (-pr-writer [sym writer _]
+    (-write writer (str "\"" (.toString sym) "\""))))
+
+(set! s/*explain-out* expound/printer)
 
 (enable-console-print!)
 
-(figwheel/watch-and-reload
-  :websocket-url "ws://localhost:3449/figwheel-ws"
-  :on-jsload core/mount-components)
-
 (devtools/install!)
 
-(core/init!)
+<% if kee-frame %>(core/init! true)<%else%>(core/init!)<% endif %>

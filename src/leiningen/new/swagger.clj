@@ -1,17 +1,15 @@
 (ns leiningen.new.swagger
   (:require [leiningen.new.common :refer :all]))
 
-(def swagger-assets
-  [["src/clj/{{sanitized}}/routes/services.clj" "swagger/src/services.clj"]])
-
-(def swagger-dependencies
-  [['metosin/compojure-api "1.1.2"]])
+(defn swagger-assets [{:keys [features]}]
+  (when (some #{"+reitit"} features)
+    [["{{backend-path}}/{{sanitized}}/routes/services.clj" "reitit/src/services.clj"]
+     ["{{backend-path}}/{{sanitized}}/middleware/exception.clj" "reitit/src/exception.clj"]]))
 
 (defn swagger-features [[assets options :as state]]
   (if (some #{"+swagger"} (:features options))
-    [(into assets swagger-assets)
+    [(into assets (swagger-assets options))
      (-> options
-         (append-options :dependencies swagger-dependencies)
          (assoc :swagger true
                 :service-required
                 (indent require-indent

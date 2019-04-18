@@ -1,4 +1,4 @@
-(defproject luminus/lein-template "2.9.10.68"
+(defproject luminus/lein-template "3.28"
   :description "a template for creating Luminus applications"
   :url "https://github.com/yogthos/luminus-template"
   :license {:name "MIT License"
@@ -6,4 +6,4 @@
   :min-lein-version "2.5.3"
   :eval-in-leiningen true
   :dependencies [[leinjacker "0.4.2"]
-                 [selmer "1.0.3"]])
+                 [selmer "1.11.7"]])

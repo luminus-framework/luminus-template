@@ -4,6 +4,6 @@ CREATE TABLE users
  last_name VARCHAR(30),
  email VARCHAR(30),
  admin BOOLEAN,
- last_login TIME,
+ last_login TIMESTAMP,
  is_active BOOLEAN,
  pass VARCHAR(300));

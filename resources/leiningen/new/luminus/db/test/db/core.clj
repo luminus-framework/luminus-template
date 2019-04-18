@@ -1,10 +1,11 @@
 (ns <<project-ns>>.test.db.core
-  (:require [<<project-ns>>.db.core :refer [*db*] :as db]
-            [luminus-migrations.core :as migrations]
-            [clojure.test :refer :all]
-            [clojure.java.jdbc :as jdbc]
-            [<<project-ns>>.config :refer [env]]
-            [mount.core :as mount]))
+  (:require
+    [<<project-ns>>.db.core :refer [*db*] :as db]
+    [luminus-migrations.core :as migrations]
+    [clojure.test :refer :all]
+    [clojure.java.jdbc :as jdbc]
+    [<<project-ns>>.config :refer [env]]
+    [mount.core :as mount]))
 
 (use-fixtures
   :once

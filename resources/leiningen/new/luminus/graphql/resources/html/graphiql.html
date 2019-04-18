@@ -1,0 +1,120 @@
+<!--
+ Copyright 2017 WalmartLabs
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        width: 100%;
+        overflow: hidden;
+      }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/graphiql/0.11.5/graphiql.css" />
+    <script src="https://cdn.jsdelivr.net/fetch/0.9.0/fetch.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/react/0.14.7/react.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/react/0.14.7/react-dom.min.js"></script>
+    <script src="https://unpkg.com/subscriptions-transport-ws@0.8.2/browser/client.js"></script>
+    <script src="https://unpkg.com/graphiql-subscriptions-fetcher@0.0.2/browser/client.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/graphiql/0.11.5/graphiql.js"></script>
+  </head>
+  <body>
+    Loading...
+    <script>
+      /**
+       * This GraphiQL example illustrates how to use some of GraphiQL's props
+       * in order to enable reading and updating the URL parameters, making
+       * link sharing of queries a little bit easier.
+       *
+       * This is only one example of this kind of feature, GraphiQL exposes
+       * various React params to enable interesting integrations.
+       */
+      // Parse the search string to get url parameters.
+      var search = window.location.search;
+      var parameters = {};
+      search.substr(1).split('&').forEach(function (entry) {
+        var eq = entry.indexOf('=');
+        if (eq >= 0) {
+          parameters[decodeURIComponent(entry.slice(0, eq))] =
+            decodeURIComponent(entry.slice(eq + 1));
+        }
+      });
+      // if variables was provided, try to format it.
+      if (parameters.variables) {
+        try {
+          parameters.variables =
+            JSON.stringify(JSON.parse(parameters.variables), null, 2);
+        } catch (e) {
+          // Do nothing, we want to display the invalid JSON as a string, rather
+          // than present an error.
+        }
+      }
+      // When the query and variables string is edited, update the URL bar so
+      // that it can be easily shared
+      function onEditQuery(newQuery) {
+        parameters.query = newQuery;
+        updateURL();
+      }
+      function onEditVariables(newVariables) {
+        parameters.variables = newVariables;
+        updateURL();
+      }
+      function computeParams() {
+        return '?' + Object.keys(parameters).map(function (key) {
+          return encodeURIComponent(key) + '=' +
+            encodeURIComponent(parameters[key]);
+        }).join('&');
+      }
+      function updateURL() {
+        history.replaceState(null, null, computeParams());
+      }
+      // Defines a GraphQL fetcher using the fetch API.
+      function graphQLFetcher(graphQLParams) {
+        console.log(graphQLParams);
+        return fetch(window.location.origin + '/api/graphql' + computeParams(), {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/graphql',
+            'apikey': 'graphiql'
+          },
+		  body: graphQLParams.query
+        }).then(function (response) {
+          return response.text();
+        }).then(function (responseBody) {
+			console.log(responseBody);
+          try {
+            return JSON.parse(responseBody);
+          } catch (error) {
+            return responseBody;
+          }
+        });
+      }
+
+      // Render <GraphiQL /> into the body.
+      ReactDOM.render(
+        React.createElement(GraphiQL, {
+		  fetcher: graphQLFetcher,
+          query: parameters.query,
+          variables: parameters.variables,
+          onEditQuery: onEditQuery,
+          onEditVariables: onEditVariables
+        }),
+        document.body
+      );
+    </script>
+  </body>
+</html>

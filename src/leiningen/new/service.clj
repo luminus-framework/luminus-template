@@ -10,7 +10,7 @@
    ".html"])
 
 (def conflicting-features
-  #{"+auth" "+cljs" "+site"})
+  #{"+cljs" "+site"})
 
 (def required-features
   ["+swagger"])
@@ -20,15 +20,12 @@
       (clojure.set/difference conflicting-features)
       (into required-features)))
 
-(defn update-assets [assets]
-  (reduce #(remove-conflicting-assets %1 %2) assets conflicting-assets))
-
 (defn service-features [[assets options :as state]]
   (if (some #{"+service"} (:features options))
     (do
       (when-let [conflicts (not-empty (clojure.set/intersection conflicting-features (:features options)))]
         (println "ignoring conflicting features" (clojure.string/join ", " conflicts)))
-      [(update-assets assets)
+      [(apply remove-conflicting-assets assets conflicting-assets)
        (-> options
            (update :features update-features)
            (assoc :service true))])
