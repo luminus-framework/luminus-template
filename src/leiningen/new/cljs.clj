@@ -2,16 +2,17 @@
   (:require [leiningen.new.common :refer :all]
             [clojure.string :refer [join]]))
 
-(def cljs-assets
-  [["{{client-path}}/{{sanitized}}/core.cljs" "cljs/src/cljs/core.cljs"]
-   ["{{cljc-path}}/{{sanitized}}/validation.cljc" "cljs/src/cljc/validation.cljc"]
-   ["{{client-test-path}}/{{sanitized}}/doo_runner.cljs" "cljs/test/cljs/doo_runner.cljs"]
-   ["{{client-test-path}}/{{sanitized}}/core_test.cljs" "cljs/test/cljs/core_test.cljs"]
-   ["env/dev/cljs/{{sanitized}}/app.cljs" "cljs/env/dev/cljs/app.cljs"]
-   ["env/dev/clj/{{sanitized}}/figwheel.clj" "cljs/env/dev/clj/figwheel.clj"]
-   ["env/prod/cljs/{{sanitized}}/app.cljs" "cljs/env/prod/cljs/app.cljs"]
-   ["{{resource-path}}/html/home.html" "cljs/resources/html/home.html"]
-   ["{{resource-path}}/html/error.html" "core/resources/html/error.html"]])
+(defn cljs-assets [features]
+  (concat [["{{client-path}}/{{sanitized}}/core.cljs" "cljs/src/cljs/core.cljs"]
+           ["{{cljc-path}}/{{sanitized}}/validation.cljc" "cljs/src/cljc/validation.cljc"]
+           ["{{client-test-path}}/{{sanitized}}/doo_runner.cljs" "cljs/test/cljs/doo_runner.cljs"]
+           ["{{client-test-path}}/{{sanitized}}/core_test.cljs" "cljs/test/cljs/core_test.cljs"]
+           ["{{resource-path}}/html/home.html" "cljs/resources/html/home.html"]
+           ["{{resource-path}}/html/error.html" "core/resources/html/error.html"]
+           ["env/dev/cljs/{{sanitized}}/app.cljs" "cljs/env/dev/cljs/app.cljs"]
+           ["env/prod/cljs/{{sanitized}}/app.cljs" "cljs/env/prod/cljs/app.cljs"]]
+          (when-not (some #{"+shadow-cljs"} features)
+            [["env/dev/clj/{{sanitized}}/figwheel.clj" "cljs/env/dev/clj/figwheel.clj"]])))
 
 (def cljs-version "1.10.520")
 
@@ -31,13 +32,18 @@
 (def cljs-plugins
   [['lein-cljsbuild "1.1.7"]])
 
-(def cljs-dev-plugins
-  [['lein-doo doo-version]
-   ['lein-figwheel figwheel-version]])
+(defn cljs-dev-plugins [features]
+  (if (some #{"+shadow-cljs"} features)
+    [['lein-doo doo-version]]
+    [['lein-doo doo-version]
+     ['lein-figwheel figwheel-version]]))
 
-(def clean-targets [:target-path
-                    [:cljsbuild :builds :app :compiler :output-dir]
-                    [:cljsbuild :builds :app :compiler :output-to]])
+(defn clean-targets [features]
+  (if (some #{"+shadow-cljs"} features)
+    [:target-path "target/cljsbuild"]
+    [:target-path
+     [:cljsbuild :builds :app :compiler :output-dir]
+     [:cljsbuild :builds :app :compiler :output-to]]))
 
 (def cljs-dev-dependencies
   [['doo doo-version]
@@ -108,20 +114,23 @@
   [['figwheel-sidecar figwheel-version]])
 
 (defn cljs-lein-features [[assets options :as state]]
-  [assets
-   (-> options
-       (assoc
-        :dev-cljsbuild (indent dev-indent (dev-cljsbuild options))
-        :test-cljsbuild (indent dev-indent (test-cljsbuild options))
-        :uberjar-cljsbuild (indent uberjar-indent (uberjar-cljsbuild options))
-        :cljs-test cljs-test
-        :figwheel (indent root-indent (figwheel options))
-        :cljs-uberjar-prep ":prep-tasks [\"compile\" [\"cljsbuild\" \"once\" \"min\"]]")
-       (append-options :source-paths [(:client-path options) (:cljc-path options)])
-       (append-options :resource-paths resource-paths)
-       (append-options :dev-dependencies cljs-lein-dev-dependencies))])
+  (let [shadow-cljs? (some #{"+shadow-cljs"} (:features options))]
+    [assets
+     (-> options
+         (assoc
+           :cljs-test cljs-test
+           :cljs-uberjar-prep ":prep-tasks [\"compile\" [\"run\" \"-m\" \"shadow.cljs.devtools.cli\" \"release\" min]]")
+         (merge (when-not shadow-cljs? {:figwheel (indent root-indent (figwheel options))
+                                        :dev-cljsbuild (indent dev-indent (dev-cljsbuild options))
+                                        :test-cljsbuild (indent dev-indent (test-cljsbuild options))
+                                        :uberjar-cljsbuild (indent uberjar-indent (uberjar-cljsbuild options))}))
+         (append-options :source-paths [(:client-path options) (:cljc-path options)])
+         (append-options :resource-paths resource-paths)
+         (append-options :dev-dependencies (if shadow-cljs? [] cljs-lein-dev-dependencies)))]))
 
 ;; Options for boot
+
+;; TODO: review shadow-cljs for boot later
 
 (defn boot-cljs-assets [{:keys [client-path]}]
   [[(str client-path "/app.cljs.edn") "cljs/src/cljs/app.cljs.edn"]])
@@ -141,12 +150,14 @@
 (defn dev-cljs [options]
   (let [lein-map (dev-cljsbuild options)
         test-map (test-cljsbuild options)]
-    {:source-paths (join " " (map #(str "\"" % "\"")
-                                  (get-in lein-map [:builds :app :source-paths])))
-     :figwheel (get-in lein-map [:builds :app :figwheel])
-     :compiler (get-in lein-map [:builds :app :compiler])
-     :test {:source-paths (get-in test-map [:builds :test :source-paths])
-            :compiler (get-in test-map [:builds :test :compiler])}}))
+    (merge
+      {:source-paths (join " " (map #(str "\"" % "\"")
+                                    (get-in lein-map [:builds :app :source-paths])))
+       :compiler     (get-in lein-map [:builds :app :compiler])
+       :test         {:source-paths (get-in test-map [:builds :test :source-paths])
+                      :compiler     (get-in test-map [:builds :test :compiler])}}
+      (when-not (some #{"+shadow-cljs"} (:features options))
+        {:figwheel (get-in lein-map [:builds :app :figwheel])}))))
 
 (defn cljs-boot-features [[assets options :as state]]
   [(into assets (boot-cljs-assets options))
@@ -157,18 +168,19 @@
        (assoc :dev-cljs (dev-cljs options)))])
 
 (defn cljs-features [[assets options :as state]]
-  (if (some #{"+cljs"} (:features options))
-    (let [updated-state
-          [(into (remove-conflicting-assets assets ".html") cljs-assets)
-           (-> options
-               (append-options :dependencies cljs-dependencies)
-               (append-options :plugins cljs-plugins)
-               (append-options :dev-dependencies cljs-dev-dependencies)
-               (append-options :dev-plugins cljs-dev-plugins)
-               (update-in [:clean-targets] (fnil into []) clean-targets)
-               (assoc :cljs true))]
-           boot? (some #{"+boot"} (:features options))]
-      (if boot?
-        (cljs-boot-features updated-state)
-        (cljs-lein-features updated-state)))
-      state))
+  (let [features (:features options)]
+    (if (some #{"+cljs"} features)
+      (let [updated-state
+            [(into (remove-conflicting-assets assets ".html") (cljs-assets features))
+             (-> options
+                 (append-options :dependencies cljs-dependencies)
+                 (append-options :plugins cljs-plugins)
+                 (append-options :dev-dependencies cljs-dev-dependencies)
+                 (append-options :dev-plugins (cljs-dev-plugins features))
+                 (update-in [:clean-targets] (fnil into []) (clean-targets features))
+                 (assoc :cljs true))]
+             boot? (some #{"+boot"} (:features options))]
+        (if boot?
+          (cljs-boot-features updated-state)
+          (cljs-lein-features updated-state)))
+        state)))
