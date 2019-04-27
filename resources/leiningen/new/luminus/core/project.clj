@@ -22,8 +22,9 @@
   <<uberwar-options>><% endif %><% if clean-targets %>
   :clean-targets ^{:protect false}
   <<clean-targets>><% endif %><% if cljs %>
-  <% if not shadow-cljs %>:figwheel<% endif %>
-  <<figwheel>><% endif %>
+  <% if shadow-cljs %>:shadow-cljs
+  <<shadow-cljs-config>><% else %>:figwheel
+  <<figwheel>><% endif %><% endif %>
 
   :profiles
   {:uberjar {:omit-source true<% if cljs %>
