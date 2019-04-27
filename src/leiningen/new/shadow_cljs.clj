@@ -12,44 +12,45 @@
 (defn project-ns-symbol [project-ns suffix]
   (read-string (str project-ns suffix)))
 
+(defn shadow-cljs-config [{:keys [project-ns]}]
+  {:lein
+   true
+
+   :nrepl
+   {:port 7002}
+
+   :builds
+   {:app  {:target        :browser
+           :output-dir    "target/cljsbuild/public/js/out"
+           :asset-path    "/js/out"
+           :modules       {:app
+                           {:entries [(project-ns-symbol project-ns ".app")]}}
+           :optimizations :none
+           :devtools      {:watch-dir  "resources/public"
+                           :preloads   ['devtools.preload]
+                           :after-load (project-ns-symbol project-ns ".core/mount-components")}}
+
+    :test {:target    :browser-test
+           :test-dir  "target/test.js"
+           :runner-ns (project-ns-symbol project-ns ".doo-runner")}
+
+    :min  {:target           :browser
+           :output-dir       "target/cljsbuild/public/js"
+           :asset-path       "/js"
+           :optimizations    :advanced
+           :modules          {:app
+                              {:entries [(project-ns-symbol project-ns ".app")]}}
+           :compiler-options {:closure-warnings {:global-this :off}
+                              :infer-externs    :auto}}}})
+
 (defn shadow-cljs-features [[assets options :as state]]
   (if (some #{"+shadow-cljs"} (:features options))
-    (let [{:keys [project-ns]} options]
-      [(into assets shadow-cljs-assets)
-       (-> options
-           (assoc :shadow-cljs true
-                  :shadow-cljs-config {:lein
-                                       true
-
-                                       :nrepl
-                                       {:port 7002}
-
-                                       :builds
-                                       {:app  {:target        :browser
-                                               :output-dir    "target/cljsbuild/public/js/out"
-                                               :asset-path    "/js/out"
-                                               :modules       {:app
-                                                               {:entries [(project-ns-symbol project-ns ".app")]}}
-                                               :optimizations :none
-                                               :devtools      {:watch-dir  "resources/public"
-                                                               :preloads   ['devtools.preload]
-                                                               :after-load (project-ns-symbol project-ns ".core/mount-components")}}
-
-                                        :test {:target    :browser-test
-                                               :test-dir  "target/test.js"
-                                               :runner-ns (project-ns-symbol project-ns ".doo-runner")}
-
-                                        :min  {:target           :browser
-                                               :output-dir       "target/cljsbuild/public/js"
-                                               :asset-path       "/js"
-                                               :optimizations    :advanced
-                                               :modules          {:app
-                                                                  {:entries [(project-ns-symbol project-ns ".app")]}}
-                                               :compiler-options {:closure-warnings {:global-this :off}
-                                                                  :infer-externs    :auto}}}}
-                  )
-           (append-options :plugins shadow-cljs-plugins)
-           (append-options :dependencies shadow-cljs-dependencies))])
+    [(into assets shadow-cljs-assets)
+     (-> options
+         (assoc :shadow-cljs true
+                :shadow-cljs-config (indent root-indent (shadow-cljs-config options)))
+         (append-options :plugins shadow-cljs-plugins)
+         (append-options :dependencies shadow-cljs-dependencies))]
     state))
 
 ;; TODO: review boot and see if can integrate it w/ boot
