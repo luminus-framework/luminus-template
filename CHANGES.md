@@ -1,3 +1,10 @@
+## 3.29
+
+- doc strings in user ns
+- prone 1.6.3
+- markdown-clj 1.0.8
+- ring/ring-mock 0.4.0
+
 ## 3.28
 
 - fix for kee-frame dev time reloading
