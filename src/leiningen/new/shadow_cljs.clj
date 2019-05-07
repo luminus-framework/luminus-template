@@ -1,8 +1,6 @@
 (ns leiningen.new.shadow-cljs
   (:require [leiningen.new.common :refer :all]))
 
-(def shadow-cljs-assets [["package.json" "shadow_cljs/package.json"]])
-
 (def shadow-cljs-dependencies '[[com.google.javascript/closure-compiler-unshaded "v20190325"]
                                 [org.clojure/google-closure-library "0.0-20190213-2033d5d9"]
                                 [thheller/shadow-cljs "2.8.31"]])
@@ -12,6 +10,7 @@
 (defn project-ns-symbol [project-ns suffix]
   (read-string (str project-ns suffix)))
 
+;; Goal was to reproduce the same profiles as leiningen/cljsbuild approach
 (defn shadow-cljs-config [{:keys [project-ns]}]
   {:lein
    true
@@ -43,12 +42,22 @@
            :compiler-options {:closure-warnings {:global-this :off}
                               :infer-externs    :auto}}}})
 
+;; TODO: Hoplon?
+(defn npm-deps [{:keys [features]}]
+  (concat
+    (when (some #{"+reagent"} features)
+      [['create-react-class "15.6.3"]
+       ['react "16.8.6"]
+       ['react-dom "16.8.6"]])
+    [['shadow-cljs "2.8.31"]]))
+
 (defn shadow-cljs-features [[assets options :as state]]
   (if (some #{"+shadow-cljs"} (:features options))
-    [(into assets shadow-cljs-assets)
+    [assets
      (-> options
          (assoc :shadow-cljs true
-                :shadow-cljs-config (indent root-indent (shadow-cljs-config options)))
+                :shadow-cljs-config (indent root-indent (shadow-cljs-config options))
+                :npm-deps (indent root-indent (npm-deps options)))
          (append-options :plugins shadow-cljs-plugins)
          (append-options :dependencies shadow-cljs-dependencies))]
     state))
