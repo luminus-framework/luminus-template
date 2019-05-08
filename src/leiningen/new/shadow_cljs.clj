@@ -44,12 +44,13 @@
 
 ;; TODO: Hoplon?
 (defn npm-deps [{:keys [features]}]
-  (concat
-    (when (some #{"+reagent"} features)
-      [['create-react-class "15.6.3"]
-       ['react "16.8.6"]
-       ['react-dom "16.8.6"]])
-    [['shadow-cljs "2.8.31"]]))
+  (cond-> [['shadow-cljs "2.8.31"]]
+
+          (some #{"+reagent"} features)
+          ((fnil into [])
+            [['create-react-class "15.6.3"]
+             ['react "16.8.6"]
+             ['react-dom "16.8.6"]])))
 
 (defn shadow-cljs-features [[assets options :as state]]
   (if (some #{"+shadow-cljs"} (:features options))
@@ -57,7 +58,7 @@
      (-> options
          (assoc :shadow-cljs true
                 :shadow-cljs-config (indent root-indent (shadow-cljs-config options))
-                :npm-deps (indent root-indent (npm-deps options)))
+                :npm-deps (indent require-indent (npm-deps options)))
          (append-options :plugins shadow-cljs-plugins)
          (append-options :dependencies shadow-cljs-dependencies))]
     state))

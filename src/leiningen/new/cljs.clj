@@ -11,8 +11,7 @@
            ["{{resource-path}}/html/error.html" "core/resources/html/error.html"]
            ["env/dev/cljs/{{sanitized}}/app.cljs" "cljs/env/dev/cljs/app.cljs"]
            ["env/prod/cljs/{{sanitized}}/app.cljs" "cljs/env/prod/cljs/app.cljs"]]
-          (if (some #{"+shadow-cljs"} features)
-            [["env/dev/clj/{{sanitized}}/shadow.clj" "cljs/env/dev/clj/shadow.clj"]]
+          (when-not (some #{"+shadow-cljs"} features)
             [["env/dev/clj/{{sanitized}}/figwheel.clj" "cljs/env/dev/clj/figwheel.clj"]])))
 
 (def cljs-version "1.10.520")

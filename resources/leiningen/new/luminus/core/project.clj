@@ -24,7 +24,7 @@
   <<clean-targets>><% endif %><% if cljs %>
   <% if shadow-cljs %>:shadow-cljs
   <<shadow-cljs-config>>
-  :npm-deps <<npm-deps>><% else %>:figwheel
+  :npm-deps [<<npm-deps>>]<% else %>:figwheel
   <<figwheel>><% endif %><% endif %>
 
   :profiles
