@@ -5,7 +5,7 @@
                                 [org.clojure/google-closure-library "0.0-20190213-2033d5d9"]
                                 [thheller/shadow-cljs "2.8.31"]])
 
-(def shadow-cljs-plugins [['lein-shadow "0.1.0"]])
+(def shadow-cljs-plugins [['lein-shadow "0.1.1"]])
 
 (defn project-ns-symbol [project-ns suffix]
   (read-string (str project-ns suffix)))
@@ -20,8 +20,8 @@
 
    :builds
    {:app  {:target        :browser
-           :output-dir    "target/cljsbuild/public/js/out"
-           :asset-path    "/js/out"
+           :output-dir    "target/cljsbuild/public/js"
+           :asset-path    "/js"
            :modules       {:app
                            {:entries [(project-ns-symbol project-ns ".app")]}}
            :optimizations :none
