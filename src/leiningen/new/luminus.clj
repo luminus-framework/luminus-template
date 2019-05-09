@@ -120,7 +120,7 @@
    ['selmer "1.12.12"]
    ['clojure.java-time "0.3.2"]
    ['luminus-transit "0.1.1"]
-   ['markdown-clj "1.0.7"]
+   ['markdown-clj "1.0.8"]
    ['metosin/muuntaja "0.6.4"]
    ['cheshire "5.8.1"]
    ['metosin/ring-http-response "0.9.1"]
@@ -140,8 +140,8 @@
 
 (def core-dev-dependencies
   [['expound "0.7.2"]
-   ['prone "1.6.1"]
-   ['ring/ring-mock "0.3.2"]
+   ['prone "1.6.3"]
+   ['ring/ring-mock "0.4.0"]
    ['ring/ring-devel "1.7.1"]
    ['pjstadig/humane-test-output "0.9.0"]])
 

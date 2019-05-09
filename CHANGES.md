@@ -1,3 +1,10 @@
+## 3.29
+
+- doc strings in user ns
+- prone 1.6.3
+- markdown-clj 1.0.8
+- ring/ring-mock 0.4.0
+
 ## 3.28
 
 - fix for kee-frame dev time reloading
@@ -45,7 +52,7 @@
 
 - switched to use Bulma as the default CSS framework (no Js dependencies)
 - switched to use Material icons instead of font-awesome (smaller bundle size)
-- Reitit 0.3.0
+- switched to use Reitit 0.3.0 instead of compojure
 
 ## 3.10.41
 
