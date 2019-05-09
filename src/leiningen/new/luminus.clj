@@ -18,6 +18,7 @@
             [leiningen.new.reagent :refer [reagent-features]]
             [leiningen.new.re-frame :refer [re-frame-features]]
             [leiningen.new.kee-frame :refer [kee-frame-features]]
+            [leiningen.new.shadow-cljs :refer [shadow-cljs-features]]
             [leiningen.new.cucumber :refer [cucumber-features]]
             [leiningen.new.aleph :refer [aleph-features]]
             [leiningen.new.jetty :refer [jetty-features]]
@@ -169,6 +170,7 @@
             reagent-features
             re-frame-features
             kee-frame-features
+            shadow-cljs-features
             swagger-features
             graphql-features
             aleph-features
@@ -215,6 +217,7 @@
       (set-feature-dependency "+reagent" #{"+cljs"})
       (set-feature-dependency "+re-frame" #{"+cljs" "+reagent"})
       (set-feature-dependency "+kee-frame" #{"+cljs" "+reitit" "+reagent" "+re-frame"})
+      (set-feature-dependency "+shadow-cljs" #{"+cljs"})
       (set-feature-dependency "+war" #{"+jetty"})))
 
 (defn parse-version [v]
@@ -251,7 +254,7 @@
                              "+cucumber" "+sassc" "+oauth"
                              "+swagger" "+war" "+graphql"
                              "+kibit" "+service" "+servlet"
-                             "+boot"}
+                             "+boot" "+shadow-cljs"}
         options (merge
                   project-relative-paths
                   {:name             (project-name name)

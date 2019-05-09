@@ -46,6 +46,7 @@ However, if you would like to attach further functionality to your template you 
 * `+reagent` adds [ClojureScript][cljs] support with [Reagent](https://reagent-project.github.io/) to the project along with an example
 * `+re-frame` adds [ClojureScript][cljs] support with [re-frame](https://github.com/Day8/re-frame) to the project along with an example
 * `+kee-frame` added [kee-frame](https://github.com/ingesolvoll/kee-frame) to the project
+* `+shadow-cljs` adds [shadow-cljs](https://github.com/thheller/shadow-cljs) support to the project, replacing the default cljsbuild and figwheel setup.
 
 ### misc
 
@@ -58,7 +59,7 @@ However, if you would like to attach further functionality to your template you 
 * `+sassc` adds support for [SASS/SCSS](http://sass-lang.com/) files using [SassC](http://github.com/sass/sassc) command line compiler
 * `+war` adds support of building WAR archives for deployment to servers such as Apache Tomcat (should NOT be used for [Immutant apps running on WildFly][immutant])
 * `+site` creates template for site using the specified database (H2 by default) and ClojureScript
-*  `+kibit` add [lein-kibit](https://github.com/jonase/kibit) plugin
+* `+kibit` add [lein-kibit](https://github.com/jonase/kibit) plugin
 * `+servlet` adds middleware for handling Servlet context
 
 To add a profile simply pass it as an argument after your application name, e.g.:
