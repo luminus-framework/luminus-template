@@ -1,3 +1,7 @@
+## 3.30
+
+- shadow-cljs support
+
 ## 3.29
 
 - doc strings in user ns
