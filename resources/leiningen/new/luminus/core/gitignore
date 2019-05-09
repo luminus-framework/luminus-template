@@ -11,7 +11,10 @@ test-config.edn
 profiles.clj
 /.env
 .nrepl-port
-/.shadow-cljs
+<% if shadow-cljs %>/.shadow-cljs
+package.json
+package-lock.json
+shadow-cljs.edn<% endif %>
 /node_modules
 /log<% for item in gitignore %>
 <<item>><% endfor %>
