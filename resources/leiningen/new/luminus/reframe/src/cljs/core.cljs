@@ -95,7 +95,7 @@
 <% endif %>
 ;; -------------------------
 ;; Initialize app
-(defn mount-components []
+(defn<% if shadow-cljs %> ^:dev/after-load<% endif %> mount-components []
   (rf/clear-subscription-cache!)
   (r/render [#'page] (.getElementById js/document "app")))
 

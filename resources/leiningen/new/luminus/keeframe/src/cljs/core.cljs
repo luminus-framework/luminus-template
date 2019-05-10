@@ -40,7 +40,7 @@
 
 ;; -------------------------
 ;; Initialize app
-(defn mount-components
+(defn<% if shadow-cljs %> ^:dev/after-load<% endif %> mount-components
   ([] (mount-components true))
   ([debug?]
     (rf/clear-subscription-cache!)

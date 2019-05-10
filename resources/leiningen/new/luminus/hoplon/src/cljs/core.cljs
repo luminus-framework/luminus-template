@@ -95,7 +95,7 @@
 (defn fetch-docs! []
   (GET "/docs" {:handler #(reset! docs %)}))
 
-(defn mount-components []
+(defn<% if shadow-cljs %> ^:dev/after-load<% endif %> mount-components []
   (js/jQuery #(.replaceWith (js/jQuery "#app") (page))))
 
 (defn init! []

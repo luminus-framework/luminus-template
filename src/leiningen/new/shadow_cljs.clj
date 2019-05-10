@@ -5,17 +5,14 @@
                                 [org.clojure/google-closure-library "0.0-20190213-2033d5d9":scope "provided"]
                                 [thheller/shadow-cljs "2.8.36":scope "provided"]])
 
-(def shadow-cljs-plugins [['lein-shadow "0.1.1"]])
+(def shadow-cljs-plugins [['lein-shadow "0.1.2"]])
 
 (defn project-ns-symbol [project-ns suffix]
   (read-string (str project-ns suffix)))
 
 ;; Goal was to reproduce the same profiles as leiningen/cljsbuild approach
 (defn shadow-cljs-config [{:keys [project-ns]}]
-  {:lein
-   true
-
-   :nrepl
+  {:nrepl
    {:port 7002}
 
    :builds
@@ -24,23 +21,11 @@
            :asset-path    "/js"
            :modules       {:app
                            {:entries [(project-ns-symbol project-ns ".app")]}}
-           :optimizations :none
-           :devtools      {:watch-dir  "resources/public"
-                           :preloads   ['devtools.preload]
-                           :after-load (project-ns-symbol project-ns ".core/mount-components")}}
+           :devtools      {:watch-dir  "resources/public"}}
 
-    :test {:target    :browser-test
-           :test-dir  "target/test.js"
-           :runner-ns (project-ns-symbol project-ns ".doo-runner")}
-
-    :min  {:target           :browser
-           :output-dir       "target/cljsbuild/public/js"
-           :asset-path       "/js"
-           :optimizations    :advanced
-           :modules          {:app
-                              {:entries [(project-ns-symbol project-ns ".app")]}}
-           :compiler-options {:closure-warnings {:global-this :off}
-                              :infer-externs    :auto}}}})
+    :test {:target    :node-test
+           :output-to "target/test/test.js"
+           :autorun   true}}})
 
 ;; TODO: Hoplon?
 (defn npm-deps [{:keys [features]}]

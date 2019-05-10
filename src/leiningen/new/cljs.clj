@@ -5,14 +5,14 @@
 (defn cljs-assets [features]
   (concat [["{{client-path}}/{{sanitized}}/core.cljs" "cljs/src/cljs/core.cljs"]
            ["{{cljc-path}}/{{sanitized}}/validation.cljc" "cljs/src/cljc/validation.cljc"]
-           ["{{client-test-path}}/{{sanitized}}/doo_runner.cljs" "cljs/test/cljs/doo_runner.cljs"]
            ["{{client-test-path}}/{{sanitized}}/core_test.cljs" "cljs/test/cljs/core_test.cljs"]
            ["{{resource-path}}/html/home.html" "cljs/resources/html/home.html"]
            ["{{resource-path}}/html/error.html" "core/resources/html/error.html"]
            ["env/dev/cljs/{{sanitized}}/app.cljs" "cljs/env/dev/cljs/app.cljs"]
            ["env/prod/cljs/{{sanitized}}/app.cljs" "cljs/env/prod/cljs/app.cljs"]]
           (when-not (some #{"+shadow-cljs"} features)
-            [["env/dev/clj/{{sanitized}}/figwheel.clj" "cljs/env/dev/clj/figwheel.clj"]])))
+            [["{{client-test-path}}/{{sanitized}}/doo_runner.cljs" "cljs/test/cljs/doo_runner.cljs"]
+             ["env/dev/clj/{{sanitized}}/figwheel.clj" "cljs/env/dev/clj/figwheel.clj"]])))
 
 (def cljs-version "1.10.520")
 
@@ -29,12 +29,14 @@
 (def resource-paths
   ["target/cljsbuild"])
 
-(def cljs-plugins
-  [['lein-cljsbuild "1.1.7"]])
+(defn cljs-plugins [features]
+  (if (some #{"+shadow-cljs"} features)
+    []
+    [['lein-cljsbuild "1.1.7"]]))
 
 (defn cljs-dev-plugins [features]
   (if (some #{"+shadow-cljs"} features)
-    [['lein-doo doo-version]]
+    []
     [['lein-doo doo-version]
      ['lein-figwheel figwheel-version]]))
 
@@ -45,10 +47,13 @@
      [:cljsbuild :builds :app :compiler :output-dir]
      [:cljsbuild :builds :app :compiler :output-to]]))
 
-(def cljs-dev-dependencies
-  [['doo doo-version]
-   ['binaryage/devtools "0.9.10"]
-   ['cider/piggieback "0.4.0"]])
+(defn cljs-dev-dependencies [features]
+  (if (some #{"+shadow-cljs"} features)
+    [['binaryage/devtools "0.9.10"]
+     ['cider/piggieback "0.4.0"]]
+    [['doo doo-version]
+     ['binaryage/devtools "0.9.10"]
+     ['cider/piggieback "0.4.0"]]))
 
 (defn get-output-dir [features]
   (if (some #{"+boot"} features)
@@ -174,8 +179,8 @@
             [(into (remove-conflicting-assets assets ".html") (cljs-assets features))
              (-> options
                  (append-options :dependencies cljs-dependencies)
-                 (append-options :plugins cljs-plugins)
-                 (append-options :dev-dependencies cljs-dev-dependencies)
+                 (append-options :plugins (cljs-plugins features))
+                 (append-options :dev-dependencies (cljs-dev-dependencies features))
                  (append-options :dev-plugins (cljs-dev-plugins features))
                  (update-in [:clean-targets] (fnil into []) (clean-targets features))
                  (assoc :cljs true))]

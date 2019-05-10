@@ -43,9 +43,9 @@
                   :dependencies [<<dev-dependencies>>]
                   :plugins      [<<dev-plugins>>]<% if cljs %>
                   <% if not shadow-cljs %>:cljsbuild<% endif %><<dev-cljsbuild>><% endif %>
-                  <% if cljs-test %>
-                  :doo <<cljs-test>><% endif %>
-                  :source-paths ["env/dev/clj"<% if shadow-cljs %> "env/dev/cljs"<% endif %>]
+                  <% if cljs-test %><% if not shadow-cljs %>
+                  :doo <<cljs-test>><% endif %><% endif %>
+                  :source-paths ["env/dev/clj"<% if shadow-cljs %> "env/dev/cljs" "test/cljs"<% endif %>]
                   :resource-paths ["env/dev/resources"]
                   :repl-options {:init-ns user}
                   :injections [(require 'pjstadig.humane-test-output)

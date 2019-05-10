@@ -99,7 +99,7 @@
 (defn fetch-docs! []
   (GET "/docs" {:handler #(swap! session assoc :docs %)}))
 
-(defn mount-components []
+(defn<% if shadow-cljs %> ^:dev/after-load<% endif %> mount-components []
   (r/render [#'navbar] (.getElementById js/document "navbar"))
   (r/render [#'page] (.getElementById js/document "app")))
 
