@@ -120,7 +120,7 @@
    ['selmer "1.12.12"]
    ['clojure.java-time "0.3.2"]
    ['luminus-transit "0.1.1"]
-   ['markdown-clj "1.0.8"]
+   ['markdown-clj "1.10.0"]
    ['metosin/muuntaja "0.6.4"]
    ['cheshire "5.8.1"]
    ['metosin/ring-http-response "0.9.1"]

@@ -1,6 +1,7 @@
 ## 3.30
 
 - shadow-cljs support
+- markdown-clj 1.10.0
 
 ## 3.29
 
