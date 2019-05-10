@@ -1,3 +1,7 @@
+## 3.32
+
+- fix for Figwheel profile
+
 ## 3.31
 
 - [shadow-cljs improvements](https://github.com/luminus-framework/luminus-template/commit/56154bfb754ada6b4e1449453b652c64ee9ec05a)

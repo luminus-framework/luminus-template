@@ -124,7 +124,9 @@
      (-> options
          (assoc
            :cljs-test cljs-test
-           :cljs-uberjar-prep ":prep-tasks [\"compile\" [\"shadow\" \"release\" \"app\"]]")
+           :cljs-uberjar-prep (if shadow-cljs?
+                                ":prep-tasks [\"compile\" [\"shadow\" \"release\" \"app\"]]"
+                                ":prep-tasks [\"compile\" [\"cljsbuild\" \"once\" \"min\"]]"))
          (merge (when-not shadow-cljs? {:figwheel (indent root-indent (figwheel options))
                                         :dev-cljsbuild (indent dev-indent (dev-cljsbuild options))
                                         :test-cljsbuild (indent dev-indent (test-cljsbuild options))
