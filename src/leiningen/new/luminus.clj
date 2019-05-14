@@ -12,6 +12,7 @@
             [leiningen.new.auth :refer [auth-features]]
             [leiningen.new.auth-base :refer [auth-base-features]]
             [leiningen.new.auth-jwe :refer [auth-jwe-features]]
+            [leiningen.new.emacs-cider :refer [emacs-cider-features]]
             [leiningen.new.db :refer [db-features]]
             [leiningen.new.cljs :refer [cljs-features]]
             [leiningen.new.hoplon :refer [hoplon-features]]
@@ -163,6 +164,7 @@
             auth-features
             auth-jwe-features
             db-features
+            emacs-cider-features
             cucumber-features
             site-features
             cljs-features
@@ -254,7 +256,7 @@
                              "+cucumber" "+sassc" "+oauth"
                              "+swagger" "+war" "+graphql"
                              "+kibit" "+service" "+servlet"
-                             "+boot" "+shadow-cljs"}
+                             "+boot" "+shadow-cljs" "+emacs-cider"}
         options (merge
                   project-relative-paths
                   {:name             (project-name name)

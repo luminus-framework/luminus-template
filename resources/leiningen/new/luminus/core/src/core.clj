@@ -28,6 +28,7 @@
   :start
   (when (env :nrepl-port)
     (nrepl/start {:bind (env :nrepl-bind)
+                  :middleware (env :nrepl-middleware)
                   :port (env :nrepl-port)}))
   :stop
   (when repl-server

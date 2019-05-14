@@ -6,6 +6,9 @@
  :port 3000
  ;; when :nrepl-port is set the application starts the nREPL server on load
  :nrepl-port 7000
+ <% if emacs-cider %>
+ :nrepl-middleware [cider.nrepl/cider-middleware refactor-nrepl.middleware/wrap-refactor]
+ <% endif %>
  <% if oauth %>
  ;;Twitter used as an example, replace these URIs with the OAuth provider of your choice
  :request-token-uri "https://api.twitter.com/oauth/request_token"
