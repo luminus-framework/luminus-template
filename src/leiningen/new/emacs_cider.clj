@@ -7,5 +7,11 @@
 
 (defn emacs-cider-features [state]
   (when (has-select? (second state))
-    [(first state) (assoc (second state) :emacs-cider true)])
+    [(first state)
+     (-> (second state)
+         (assoc :emacs-cider true)
+         (append-options :dev-dependencies [['refactor-nrepl "2.4.0"]
+                                        ['cider/cider-nrepl "0.21.1"]
+                                        ])
+         )])
   )
