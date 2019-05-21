@@ -13,6 +13,8 @@
 
 (alter-var-root #'s/*explain-out* (constantly expound/printer))
 
+(add-tap (bound-fn* clojure.pprint/pprint))
+
 (defn start 
   "Starts application.
   You'll usually want to run this on startup."
