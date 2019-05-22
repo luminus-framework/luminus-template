@@ -1,3 +1,10 @@
+## 3.33
+
+- Reitit 0.3.5
+- default pprint tap in user.clj
+- piggieback 0.4.1
+- shadow-cljs 2.8.37
+
 ## 3.32
 
 - fix for Figwheel profile

@@ -1,9 +1,9 @@
 (ns leiningen.new.shadow-cljs
   (:require [leiningen.new.common :refer :all]))
 
-(def shadow-cljs-dependencies '[[com.google.javascript/closure-compiler-unshaded "v20190415":scope "provided"]
+(def shadow-cljs-dependencies '[[com.google.javascript/closure-compiler-unshaded "v20190513":scope "provided"]
                                 [org.clojure/google-closure-library "0.0-20190213-2033d5d9":scope "provided"]
-                                [thheller/shadow-cljs "2.8.36":scope "provided"]])
+                                [thheller/shadow-cljs "2.8.37":scope "provided"]])
 
 (def shadow-cljs-plugins [['lein-shadow "0.1.2"]])
 
