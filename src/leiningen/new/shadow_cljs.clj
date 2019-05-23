@@ -5,7 +5,7 @@
                                 [org.clojure/google-closure-library "0.0-20190213-2033d5d9":scope "provided"]
                                 [thheller/shadow-cljs "2.8.37":scope "provided"]])
 
-(def shadow-cljs-plugins [['lein-shadow "0.1.2"]])
+(def shadow-cljs-plugins [['lein-shadow "0.1.3"]])
 
 (defn project-ns-symbol [project-ns suffix]
   (read-string (str project-ns suffix)))
