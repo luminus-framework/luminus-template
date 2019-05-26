@@ -23,7 +23,7 @@
        [:span][:span][:span]]]
      [:div#nav-menu.navbar-menu
       {:class (when @expanded? :is-active)}
-      [:div.navbar-end
+      [:div.navbar-start
        [nav-link "Home" :home]
        [nav-link "About" :about]]]]))
 

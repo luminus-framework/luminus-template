@@ -1,7 +1,7 @@
 ## 3.35
 
 - luminus/ring-ttl-session 0.3.3
-
+- changed navbar-end to navbar-start for nav links
 ## 3.34
 
 - lein-shadow 0.1.3

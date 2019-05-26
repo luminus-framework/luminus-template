@@ -45,7 +45,7 @@
       (h/div :id "nav-menu " :class (cell= {:navbar-menu true
                                             :burger      true
                                             :is-active   expanded?})
-             (h/div :class "navbar-end"
+             (h/div :class "navbar-start"
                     (nav-link "#/" "Home" :home)
                     (nav-link "#/about" "About" :about))))))
 
