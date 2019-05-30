@@ -8,7 +8,7 @@
 (defn nav-link [title page]
   [:a.navbar-item
    {:href   (kf/path-for [page])
-    :active (when (= page @(rf/subscribe [:nav/page])) "is-active")}
+    :class (when (= page @(rf/subscribe [:nav/page])) "is-active")}
    title])
 
 (defn navbar []
