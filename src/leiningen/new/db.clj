@@ -21,15 +21,16 @@
           (select-db options))))
 
 (defn db-url [{:keys [sanitized] :as options} suffix]
-  ({:postgres (str "postgresql://localhost/" sanitized "_" suffix
-                   "?user=db_user_name_here&password=db_user_password_here")
-    :mysql    (str "mysql://localhost:3306/" sanitized "_" suffix
-                   "?user=db_user_name_here&password=db_user_password_here")
-    :h2       (str "jdbc:h2:./" sanitized "_" suffix ".db")
-    :sqlite   (str "jdbc:sqlite:" sanitized "_" suffix ".db")
-    :mongo    (str "mongodb://127.0.0.1/" sanitized "_" suffix)
-    :datomic  (str "datomic:free://localhost:4334/" sanitized "_" suffix)}
-    (select-db options)))
+  (let [user (or (System/getenv "USER") "db_user_name_here")]
+    ({:postgres (str "postgresql://localhost/" sanitized "_" suffix
+                     "?user=" user "&password=db_user_password_here")
+      :mysql    (str "mysql://localhost:3306/" sanitized "_" suffix
+                     "?user=" user "&password=db_user_password_here")
+      :h2       (str "jdbc:h2:./" sanitized "_" suffix ".db")
+      :sqlite   (str "jdbc:sqlite:" sanitized "_" suffix ".db")
+      :mongo    (str "mongodb://127.0.0.1/" sanitized "_" suffix)
+      :datomic  (str "datomic:free://localhost:4334/" sanitized "_" suffix)}
+      (select-db options))))
 
 (defn relational-db-files [options]
   (let [timestamp (.format
