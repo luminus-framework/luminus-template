@@ -1,3 +1,7 @@
+## 3.36
+
+- set $USER from the environment as the default user for database profiles
+
 ## 3.35
 
 - luminus/ring-ttl-session 0.3.3
