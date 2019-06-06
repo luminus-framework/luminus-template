@@ -1,6 +1,13 @@
 ## 3.36
 
 - set $USER from the environment as the default user for database profiles
+- Clojure 1.10.1
+- funcool/struct 1.4.0
+- metosin/reitit 0.3.7
+- org.webjars.npm/bulma 0.7.5
+- cider/piggieback 0.4.1
+- thheller/shadow-cljs 2.8.39
+- com.google.javascript/closure-compiler-unshaded v20190528
 
 ## 3.35
 

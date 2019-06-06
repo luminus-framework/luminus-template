@@ -116,7 +116,7 @@
         (update-in [:dev-plugins] (partial indent dev-dependency-indent)))))
 
 (def core-dependencies
-  [['org.clojure/clojure "1.10.0"]
+  [['org.clojure/clojure "1.10.1"]
    ['selmer "1.12.12"]
    ['clojure.java-time "0.3.2"]
    ['luminus-transit "0.1.1"]
@@ -124,8 +124,8 @@
    ['metosin/muuntaja "0.6.4"]
    ['cheshire "5.8.1"]
    ['metosin/ring-http-response "0.9.1"]
-   ['funcool/struct "1.3.0"]
-   ['org.webjars.npm/bulma "0.7.4"]
+   ['funcool/struct "1.4.0"]
+   ['org.webjars.npm/bulma "0.7.5"]
    ['org.webjars.npm/material-icons "0.3.0"]
    ['org.clojure/tools.logging "0.4.1"]
    ['ring/ring-core "1.7.1"]
