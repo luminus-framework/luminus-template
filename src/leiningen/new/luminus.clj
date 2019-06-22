@@ -197,7 +197,7 @@
 
 (defn set-default-features [options]
   (-> options
-      (set-feature "+immutant" #{"+jetty" "+aleph" "+http-kit" "+war"})
+      (set-feature "+jetty" #{"+aleph" "+http-kit" "+immutant" "+war"})
       (set-feature "+logback" #{})
       (set-feature "+reitit" #{})
       (set-feature "+lein" #{"+boot"})))

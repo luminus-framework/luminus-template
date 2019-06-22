@@ -1,3 +1,7 @@
+## 3.37
+
+- switch to Jetty as the default HTTP server
+
 ## 3.36
 
 - set $USER from the environment as the default user for database profiles
