@@ -140,7 +140,7 @@
 
 (def core-dev-dependencies
   [['expound "0.7.2"]
-   ['prone "1.6.3"]
+   ['prone "1.6.4"]
    ['ring/ring-mock "0.4.0"]
    ['ring/ring-devel "1.7.1"]
    ['pjstadig/humane-test-output "0.9.0"]])
