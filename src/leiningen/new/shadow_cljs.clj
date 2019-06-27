@@ -1,9 +1,11 @@
 (ns leiningen.new.shadow-cljs
   (:require [leiningen.new.common :refer :all]))
 
+(def shadow-version "2.8.39")
+
 (def shadow-cljs-dependencies '[[com.google.javascript/closure-compiler-unshaded "v20190528":scope "provided"]
                                 [org.clojure/google-closure-library "0.0-20190213-2033d5d9":scope "provided"]
-                                [thheller/shadow-cljs "2.8.39":scope "provided"]])
+                                [thheller/shadow-cljs shadow-version :scope "provided"]])
 
 (def shadow-cljs-plugins [['lein-shadow "0.1.3"]])
 
@@ -29,7 +31,7 @@
 
 ;; TODO: Hoplon?
 (defn npm-deps [{:keys [features]}]
-  (cond-> [['shadow-cljs "2.8.31"]]
+  (cond-> [['shadow-cljs shadow-version]]
 
           (some #{"+reagent"} features)
           ((fnil into [])

@@ -1,3 +1,7 @@
+## 3.38
+
+- fixed to use the same shadow-cljs version for NPM deps
+
 ## 3.37
 
 - metosin/reitit "0.3.9
