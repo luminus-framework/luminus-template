@@ -2,6 +2,7 @@
 
 - fixed to use the same shadow-cljs version for NPM deps
 - com.h2database/h2 1.4.199
+- closure-compiler-unshaded v20190618
 
 ## 3.37
 
