@@ -1,3 +1,7 @@
+## 3.389
+
+-fixed typo for shadow-cljs profile
+
 ## 3.38
 
 - fixed to use the same shadow-cljs version for NPM deps
