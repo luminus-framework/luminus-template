@@ -134,7 +134,7 @@
    ['ring/ring-defaults "0.3.2"]
    ['luminus/ring-ttl-session "0.3.3"]
    ['mount "0.1.16"]
-   ['cprop "0.1.13"]
+   ['cprop "0.1.14"]
    ['org.clojure/tools.cli "0.4.2"]
    ['nrepl "0.6.0"]])
 

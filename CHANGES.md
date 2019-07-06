@@ -1,3 +1,8 @@
+## 3.41
+
+- include core.async explicitly for the `+shadow-cljs` profile
+- cprop 0.1.14
+
 ## 3.40
 - fixed missing async dependency for kee-frame profile
 - lein-shadow 0.1.4
