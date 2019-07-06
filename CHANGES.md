@@ -1,4 +1,8 @@
-## 3.389
+## 3.40
+- fixed missing async dependency for kee-frame profile
+- lein-shadow 0.1.4
+
+## 3.39
 
 -fixed typo for shadow-cljs profile
 
@@ -11,7 +15,7 @@
 
 ## 3.37
 
-- metosin/reitit "0.3.9
+- metosin/reitit 0.3.9
 - org.postgresql/postgresql 42.2.6
 - re-frame 0.10.7
 - figwheel-sidecar 0.5.19
