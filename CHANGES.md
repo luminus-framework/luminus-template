@@ -1,3 +1,9 @@
+## 3.42
+
+- fixed default tests
+- prone 2019-07-08
+- re-frame 0.10.8
+
 ## 3.41
 
 - include core.async explicitly for the `+shadow-cljs` profile

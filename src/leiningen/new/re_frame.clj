@@ -11,7 +11,7 @@
            re-frame-assets)
      (-> options
          (assoc :re-frame true)
-         (append-options :dependencies [['re-frame "0.10.7"]
+         (append-options :dependencies [['re-frame "0.10.8"]
                                         ['day8.re-frame/http-fx "0.1.6"]])
          (append-options :dev-dependencies [['re-frisk "0.5.4.1"]]))]
     state))
