@@ -1,5 +1,8 @@
 (ns test-templates
-  (:require [clojure.test :refer :all]))
+  (:require [clojure.test :refer :all]
+            [clojure.java.shell :only [sh] :as shell]))
 
 (deftest test-noop
-    (is (= 2 (+ 1 1))))
+  (print (shell/sh "lein" "new" "luminus" "tmp"))
+  (is (= 1 1)))
+
