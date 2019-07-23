@@ -1,3 +1,7 @@
+## 3.43
+
+- added re-frame-10x hook for the shadow-cljs profile
+
 ## 3.42
 
 - fixed default tests

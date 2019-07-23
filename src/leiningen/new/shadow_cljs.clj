@@ -14,17 +14,22 @@
   (read-string (str project-ns suffix)))
 
 ;; Goal was to reproduce the same profiles as leiningen/cljsbuild approach
-(defn shadow-cljs-config [{:keys [project-ns]}]
+(defn shadow-cljs-config [{:keys [features project-ns]}]
   {:nrepl
    {:port 7002}
 
    :builds
-   {:app  {:target        :browser
-           :output-dir    "target/cljsbuild/public/js"
-           :asset-path    "/js"
-           :modules       {:app
-                           {:entries [(project-ns-symbol project-ns ".app")]}}
-           :devtools      {:watch-dir  "resources/public"}}
+   {:app  (merge
+            {:target     :browser
+             :output-dir "target/cljsbuild/public/js"
+             :asset-path "/js"
+             :modules    {:app
+                          {:entries [(project-ns-symbol project-ns ".app")]}}
+             :devtools   (merge {:watch-dir "resources/public"}
+                                (when (some #{"+re-frame"} features)
+                                  {:preloads ['re-frisk.preload]}))}
+            (when (some #{"+re-frame"} features)
+              {:dev {:closure-defines {"re_frame.trace.trace_enabled_QMARK_" true}}}))
 
     :test {:target    :node-test
            :output-to "target/test/test.js"
