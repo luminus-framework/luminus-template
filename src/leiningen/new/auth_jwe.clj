@@ -6,9 +6,9 @@
     [assets
      (-> options
          (append-formatted :auth-jwe
-                            [['buddy.auth.backends.token :refer ['jwe-backend]]
+                           [['buddy.auth.backends.token :refer ['jwe-backend]]
                             ['buddy.sign.jwt :refer ['encrypt]]
-                            ['buddy.core.nonce :refer ['random-bytes]]  
+                            ['buddy.core.nonce :refer ['random-bytes]]
                             ['clj-time.core :refer ['plus 'now 'minutes]]]
                            plugin-indent))]
     state))

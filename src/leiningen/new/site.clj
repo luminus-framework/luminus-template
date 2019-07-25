@@ -13,7 +13,7 @@
   (update-in options
              [:features]
              #(-> % (required-feature #{"+cljs"} "+cljs")
-                    (required-feature #{"+h2" "+mysql" "+postgres"} "+h2"))))
+                  (required-feature #{"+h2" "+mysql" "+postgres"} "+h2"))))
 
 (defn site-features [[assets options :as state]]
   (if (some #{"+site"} (:features options))

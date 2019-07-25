@@ -10,9 +10,9 @@
 
 (defn update-assets [assets]
   (map
-    #(if (and (vector? %) (= (second %) "core/src/core.clj"))
+   #(if (and (vector? %) (= (second %) "core/src/core.clj"))
       (assoc % 0 "env/dev/clj/{{sanitized}}/core.clj") %)
-    assets))
+   assets))
 
 (defn war-features [[assets options :as state]]
   (if (some #{"+war"} (:features options))
@@ -20,8 +20,8 @@
      (-> options
          (dissoc :immutant-session :http-server-dependencies)
          (assoc
-           :war true
-           :uberwar-options (indent root-indent (ring-options options)))
+          :war true
+          :uberwar-options (indent root-indent (ring-options options)))
          (update :dependencies (fn [dependencies]
                                  (if (some #{['luminus/ring-ttl-session "0.3.3"]} dependencies)
                                    dependencies

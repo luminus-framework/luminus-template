@@ -20,16 +20,16 @@
 
    :builds
    {:app  (merge
-            {:target     :browser
-             :output-dir "target/cljsbuild/public/js"
-             :asset-path "/js"
-             :modules    {:app
-                          {:entries [(project-ns-symbol project-ns ".app")]}}
-             :devtools   (merge {:watch-dir "resources/public"}
-                                (when (some #{"+re-frame"} features)
-                                  {:preloads ['re-frisk.preload]}))}
-            (when (some #{"+re-frame"} features)
-              {:dev {:closure-defines {"re_frame.trace.trace_enabled_QMARK_" true}}}))
+           {:target     :browser
+            :output-dir "target/cljsbuild/public/js"
+            :asset-path "/js"
+            :modules    {:app
+                         {:entries [(project-ns-symbol project-ns ".app")]}}
+            :devtools   (merge {:watch-dir "resources/public"}
+                               (when (some #{"+re-frame"} features)
+                                 {:preloads ['re-frisk.preload]}))}
+           (when (some #{"+re-frame"} features)
+             {:dev {:closure-defines {"re_frame.trace.trace_enabled_QMARK_" true}}}))
 
     :test {:target    :node-test
            :output-to "target/test/test.js"
@@ -39,11 +39,11 @@
 (defn npm-deps [{:keys [features]}]
   (cond-> [['shadow-cljs shadow-version]]
 
-          (some #{"+reagent"} features)
-          ((fnil into [])
-            [['create-react-class "15.6.3"]
-             ['react "16.8.6"]
-             ['react-dom "16.8.6"]])))
+    (some #{"+reagent"} features)
+    ((fnil into [])
+     [['create-react-class "15.6.3"]
+      ['react "16.8.6"]
+      ['react-dom "16.8.6"]])))
 
 (defn shadow-cljs-features [[assets options :as state]]
   (if (some #{"+shadow-cljs"} (:features options))
