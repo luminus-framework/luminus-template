@@ -18,7 +18,7 @@
                      ['com.google.protobuf/protobuf-java "3.8.0"]]
           :h2       [['com.h2database/h2 "1.4.199"]]
           :sqlite   [['org.xerial/sqlite-jdbc "3.25.2"]]}
-          (select-db options))))
+         (select-db options))))
 
 (defn db-url [{:keys [sanitized] :as options} suffix]
   (let [user (or (System/getenv "USER") "db_user_name_here")]
@@ -30,12 +30,12 @@
       :sqlite   (str "jdbc:sqlite:" sanitized "_" suffix ".db")
       :mongo    (str "mongodb://127.0.0.1/" sanitized "_" suffix)
       :datomic  (str "datomic:free://localhost:4334/" sanitized "_" suffix)}
-      (select-db options))))
+     (select-db options))))
 
 (defn relational-db-files [options]
   (let [timestamp (.format
-                    (java.text.SimpleDateFormat. "yyyyMMddHHmmss")
-                    (java.util.Date.))]
+                   (java.text.SimpleDateFormat. "yyyyMMddHHmmss")
+                   (java.util.Date.))]
     [["{{db-path}}/{{sanitized}}/db/core.clj" "db/src/sql.db.clj"]
      ["{{resource-path}}/sql/queries.sql" "db/sql/queries.sql"]
      ["{{backend-test-path}}/{{sanitized}}/test/db/core.clj" "db/test/db/core.clj"]
@@ -44,12 +44,12 @@
 
 (defn db-profiles [options]
   (merge
-    options
-    (if (:embedded-db options)
-      {:database-profile-dev  (str :database-url " \"" (db-url options "dev") "\"")
-       :database-profile-test (str :database-url " \"" (db-url options "test") "\"")}
-      {:database-profile-dev  (str "; set your dev database connection URL here\n ; " :database-url " \"" (db-url options "dev") "\"\n")
-       :database-profile-test (str "; set your test database connection URL here\n ; " :database-url " \"" (db-url options "test") "\"\n")})))
+   options
+   (if (:embedded-db options)
+     {:database-profile-dev  (str :database-url " \"" (db-url options "dev") "\"")
+      :database-profile-test (str :database-url " \"" (db-url options "test") "\"")}
+     {:database-profile-dev  (str "; set your dev database connection URL here\n ; " :database-url " \"" (db-url options "dev") "\"\n")
+      :database-profile-test (str "; set your test database connection URL here\n ; " :database-url " \"" (db-url options "test") "\"\n")})))
 
 (def mongo-files
   [["{{db-path}}/{{sanitized}}/db/core.clj" "db/src/mongodb.clj"]])
@@ -62,9 +62,9 @@
   [(into assets mongo-files)
    (-> options
        (assoc
-         :mongodb true
-         :db-connection true
-         :db-docs ((:selmer-renderer options) (slurp-resource "db/docs/mongo_instructions.md") options))
+        :mongodb true
+        :db-connection true
+        :db-docs ((:selmer-renderer options) (slurp-resource "db/docs/mongo_instructions.md") options))
        (merge (db-profiles options))
        (append-options :dependencies [['com.novemberain/monger "3.1.0" :exclusions ['com.google.guava/guava]]
                                       ['com.google.guava/guava "27.0.1-jre"]]))])
@@ -75,9 +75,9 @@
                    "\n ; :database-url \"datomic:mem://" sanitized "_datomic_dev\"\n")]
      (-> options
          (assoc
-           :datomic true
-           :db-connection true
-           :db-docs ((:selmer-renderer options) (slurp-resource "db/docs/datomic_instructions.md") options))
+          :datomic true
+          :db-connection true
+          :db-docs ((:selmer-renderer options) (slurp-resource "db/docs/datomic_instructions.md") options))
          (merge (db-profiles options))
          (update :database-profile-dev str info)
          (append-options :dependencies [['com.datomic/datomic-free "0.9.5697"
@@ -94,15 +94,15 @@
      (-> options
          (append-options :dependencies (db-dependencies options))
          (assoc
-           :relational-db true
-           :db-connection (not embedded-db?)
-           :db-type (name db)
-           :embedded-db embedded-db?
-           :db-docs ((:selmer-renderer options)
-                      (slurp-resource (if (= :h2 db)
-                                        "db/docs/h2_instructions.md"
-                                        "db/docs/db_instructions.md"))
-                      options))
+          :relational-db true
+          :db-connection (not embedded-db?)
+          :db-type (name db)
+          :embedded-db embedded-db?
+          :db-docs ((:selmer-renderer options)
+                    (slurp-resource (if (= :h2 db)
+                                      "db/docs/h2_instructions.md"
+                                      "db/docs/db_instructions.md"))
+                    options))
          (db-profiles)))])
 
 (defn db-features [state]

@@ -66,16 +66,16 @@
     {:source-paths [cljc-path client-path "env/prod/cljs"]
      :compiler
      (merge
-       {:output-dir (str (get-output-dir features) "public/js")
-        :output-to (str (get-output-dir features) "public/js/app.js")
-        :source-map (str (get-output-dir features) "public/js/app.js.map")
-        :optimizations :advanced
-        :pretty-print false
-        :infer-externs true
-        :closure-warnings
+      {:output-dir (str (get-output-dir features) "public/js")
+       :output-to (str (get-output-dir features) "public/js/app.js")
+       :source-map (str (get-output-dir features) "public/js/app.js.map")
+       :optimizations :advanced
+       :pretty-print false
+       :infer-externs true
+       :closure-warnings
        {:externs-validation :off :non-standard-jsdoc :off}}
-       (when (some #{"+reagent" "+re-frame"} features)
-         {:externs ["react/externs/react.js"]}))}}})
+      (when (some #{"+reagent" "+re-frame"} features)
+        {:externs ["react/externs/react.js"]}))}}})
 
 (defn dev-cljsbuild [{:keys [project-ns features client-path cljc-path]}]
   {:builds
@@ -84,16 +84,16 @@
      :figwheel {:on-jsload (str project-ns ".core/mount-components")}
      :compiler
      (merge
-       {:main          (str project-ns ".app")
-        :asset-path    "/js/out"
-        :output-to     (str (get-output-dir features) "public/js/app.js")
-        :output-dir    (str (get-output-dir features) "public/js/out")
-        :source-map    true
-        :optimizations :none
-        :pretty-print  true}
-       (when (some #{"+re-frame"} features)
-         {:closure-defines {"re_frame.trace.trace_enabled_QMARK_" true}
-          :preloads ['re-frisk.preload]}))}}})
+      {:main          (str project-ns ".app")
+       :asset-path    "/js/out"
+       :output-to     (str (get-output-dir features) "public/js/app.js")
+       :output-dir    (str (get-output-dir features) "public/js/out")
+       :source-map    true
+       :optimizations :none
+       :pretty-print  true}
+      (when (some #{"+re-frame"} features)
+        {:closure-defines {"re_frame.trace.trace_enabled_QMARK_" true}
+         :preloads ['re-frisk.preload]}))}}})
 
 (defn test-cljsbuild [{:keys [project-ns client-path cljc-path client-test-path]}]
   {:builds
@@ -113,7 +113,7 @@
    :server-logfile "log/figwheel-logfile.log"
    :nrepl-port       7002
    :css-dirs         ["resources/public/css"]
-   :nrepl-middleware `[cider.piggieback/wrap-cljs-repl]} )
+   :nrepl-middleware `[cider.piggieback/wrap-cljs-repl]})
 
 (def cljs-lein-dev-dependencies
   [['figwheel-sidecar figwheel-version]])
@@ -123,10 +123,10 @@
     [assets
      (-> options
          (assoc
-           :cljs-test cljs-test
-           :cljs-uberjar-prep (if shadow-cljs?
-                                ":prep-tasks [\"compile\" [\"shadow\" \"release\" \"app\"]]"
-                                ":prep-tasks [\"compile\" [\"cljsbuild\" \"once\" \"min\"]]"))
+          :cljs-test cljs-test
+          :cljs-uberjar-prep (if shadow-cljs?
+                               ":prep-tasks [\"compile\" [\"shadow\" \"release\" \"app\"]]"
+                               ":prep-tasks [\"compile\" [\"cljsbuild\" \"once\" \"min\"]]"))
          (merge (when-not shadow-cljs? {:figwheel (indent root-indent (figwheel options))
                                         :dev-cljsbuild (indent dev-indent (dev-cljsbuild options))
                                         :test-cljsbuild (indent dev-indent (test-cljsbuild options))
@@ -158,13 +158,13 @@
   (let [lein-map (dev-cljsbuild options)
         test-map (test-cljsbuild options)]
     (merge
-      {:source-paths (join " " (map #(str "\"" % "\"")
-                                    (get-in lein-map [:builds :app :source-paths])))
-       :compiler     (get-in lein-map [:builds :app :compiler])
-       :test         {:source-paths (get-in test-map [:builds :test :source-paths])
-                      :compiler     (get-in test-map [:builds :test :compiler])}}
-      (when-not (some #{"+shadow-cljs"} (:features options))
-        {:figwheel (get-in lein-map [:builds :app :figwheel])}))))
+     {:source-paths (join " " (map #(str "\"" % "\"")
+                                   (get-in lein-map [:builds :app :source-paths])))
+      :compiler     (get-in lein-map [:builds :app :compiler])
+      :test         {:source-paths (get-in test-map [:builds :test :source-paths])
+                     :compiler     (get-in test-map [:builds :test :compiler])}}
+     (when-not (some #{"+shadow-cljs"} (:features options))
+       {:figwheel (get-in lein-map [:builds :app :figwheel])}))))
 
 (defn cljs-boot-features [[assets options :as state]]
   [(into assets (boot-cljs-assets options))
@@ -186,8 +186,8 @@
                  (append-options :dev-plugins (cljs-dev-plugins features))
                  (update-in [:clean-targets] (fnil into []) (clean-targets features))
                  (assoc :cljs true))]
-             boot? (some #{"+boot"} (:features options))]
+            boot? (some #{"+boot"} (:features options))]
         (if boot?
           (cljs-boot-features updated-state)
           (cljs-lein-features updated-state)))
-        state)))
+      state)))

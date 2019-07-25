@@ -9,8 +9,8 @@
     [assets
      (-> options
          (assoc
-           :immutant-session true
-           :server "immutant")
+          :immutant-session true
+          :server "immutant")
          (append-options :plugins immutant-plugins)
          (update :dependencies #(-> (remove #{['luminus/ring-ttl-session "0.3.3"]} %)
                                     (conj ['org.webjars/webjars-locator-jboss-vfs "0.1.0"])))

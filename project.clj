@@ -6,4 +6,5 @@
   :min-lein-version "2.5.3"
   :eval-in-leiningen true
   :dependencies [[leinjacker "0.4.2"]
-                 [selmer "1.11.7"]])
+                 [selmer "1.11.7"]]
+  :plugins [[lein-cljfmt "0.6.4"]])

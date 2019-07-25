@@ -1,10 +1,10 @@
 (ns leiningen.new.common
   (:require
-    [selmer.parser :as selmer]
-    [leiningen.new.templates :refer [renderer raw-resourcer ->files]]
-    [clojure.pprint :refer [code-dispatch pprint with-pprint-dispatch]]
-    [clojure.string :as string]
-    [clojure.java.io :as io]))
+   [selmer.parser :as selmer]
+   [leiningen.new.templates :refer [renderer raw-resourcer ->files]]
+   [clojure.pprint :refer [code-dispatch pprint with-pprint-dispatch]]
+   [clojure.string :as string]
+   [clojure.java.io :as io]))
 
 (def dependency-indent 17)
 (def dev-dependency-indent 33)
@@ -18,9 +18,9 @@
 
 (defn render-template [template options]
   (selmer/render
-    (str "<% safe %>" template "<% endsafe %>")
-    options
-    {:tag-open \< :tag-close \> :filter-open \< :filter-close \>}))
+   (str "<% safe %>" template "<% endsafe %>")
+   options
+   {:tag-open \< :tag-close \> :filter-open \< :filter-close \>}))
 
 (defn init-render []
   (renderer template-name render-template))
@@ -31,12 +31,12 @@
       slurp))
 
 (selmer/add-tag!
-  :include
-  (fn [args context-map]
-    (-> (slurp-resource (first args))
-        (render-template context-map)
-        (string/replace #"^\n+" "")
-        (string/replace #"\n+$" ""))))
+ :include
+ (fn [args context-map]
+   (-> (slurp-resource (first args))
+       (render-template context-map)
+       (string/replace #"^\n+" "")
+       (string/replace #"\n+$" ""))))
 
 (defn render-asset [render options asset]
   (if (string? asset)
@@ -49,8 +49,8 @@
         raw (raw-resourcer template-name)]
     (apply ->files options
            (into
-             (map (partial render-asset render options) assets)
-             (map (fn [[target source]] [target (raw source)]) binary-assets)))))
+            (map (partial render-asset render options) assets)
+            (map (fn [[target source]] [target (raw source)]) binary-assets)))))
 
 (defn pprint-code [code]
   (-> (pprint code)
@@ -92,17 +92,17 @@
 
 (defn remove-conflicting-assets [assets & filter-strs]
   (reduce
-    (fn [assets filter-str]
-      (remove #(and (coll? %)
-                    (and (string? (second %))
-                         (.endsWith (second %) filter-str)))
-              assets))
-    assets filter-strs))
+   (fn [assets filter-str]
+     (remove #(and (coll? %)
+                   (and (string? (second %))
+                        (.endsWith (second %) filter-str)))
+             assets))
+   assets filter-strs))
 
 (defn unsupported-jetty-java-version? [java-version]
   (as-> java-version %
-        (clojure.string/split % #"\.")
-        (take 2 %)
-        (map #(Integer/parseInt %) %)
-        (and (< (first %) 2)
-             (< (second %) 8))))
+    (clojure.string/split % #"\.")
+    (take 2 %)
+    (map #(Integer/parseInt %) %)
+    (and (< (first %) 2)
+         (< (second %) 8))))

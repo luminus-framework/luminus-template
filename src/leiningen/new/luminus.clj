@@ -52,6 +52,8 @@
 
 
    ;; config namespaces
+
+
    ["env/dev/clj/{{sanitized}}/env.clj" "core/env/dev/clj/env.clj"]
    ["env/dev/clj/{{sanitized}}/dev_middleware.clj" "core/env/dev/clj/dev_middleware.clj"]
    ["env/prod/clj/{{sanitized}}/env.clj" "core/env/prod/clj/env.clj"]
@@ -189,9 +191,9 @@
 
 (defn set-feature [options feature features]
   (if (empty?
-        (clojure.set/intersection
-          (-> options :features set)
-          features))
+       (clojure.set/intersection
+        (-> options :features set)
+        features))
     (update-in options [:features] conj feature)
     options))
 
@@ -225,15 +227,15 @@
              (catch Exception e
                (println "Warning: leiningen version not in number format (could just be a snapshot version)")
                %))
-            (clojure.string/split v #"\.")))
+       (clojure.string/split v #"\.")))
 
 (defn version-before? [v]
   (let [[x1 y1 z1] (parse-version (leiningen-version))
         [x2 y2 z2] (parse-version v)]
     (or
-      (< x1 x2)
-      (and (= x1 x2) (< y1 y2))
-      (and (= x1 x2) (= y1 y2) (< z1 z2)))))
+     (< x1 x2)
+     (and (= x1 x2) (< y1 y2))
+     (and (= x1 x2) (= y1 y2) (< z1 z2)))))
 
 (defn jvm-opts []
   ;; reserved for JVM opts that may need to be passed to Leiningen
@@ -256,18 +258,18 @@
                              "+kibit" "+service" "+servlet"
                              "+boot" "+shadow-cljs"}
         options (merge
-                  project-relative-paths
-                  {:name             (project-name name)
-                   :dependencies     core-dependencies
-                   :dev-dependencies core-dev-dependencies
-                   :dev-plugins      core-dev-plugins
-                   :selmer-renderer  render-template
-                   :min-lein-version "2.0.0"
-                   :project-ns       (sanitize-ns name)
-                   :sanitized        (name-to-path name)
-                   :year             (year)
-                   :features         (set feature-params)
-                   :opts             (jvm-opts)})
+                 project-relative-paths
+                 {:name             (project-name name)
+                  :dependencies     core-dependencies
+                  :dev-dependencies core-dev-dependencies
+                  :dev-plugins      core-dev-plugins
+                  :selmer-renderer  render-template
+                  :min-lein-version "2.0.0"
+                  :project-ns       (sanitize-ns name)
+                  :sanitized        (name-to-path name)
+                  :year             (year)
+                  :features         (set feature-params)
+                  :opts             (jvm-opts)})
         unsupported (-> (set feature-params)
                         (clojure.set/difference supported-features)
                         (not-empty))]
