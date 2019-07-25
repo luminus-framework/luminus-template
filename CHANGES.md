@@ -1,3 +1,7 @@
+## 3.44
+
+- added a default exception handler for uncaught exceptions in threads
+
 ## 3.43
 
 - added re-frame-10x hook for the shadow-cljs profile
