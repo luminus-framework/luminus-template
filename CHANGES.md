@@ -1,3 +1,7 @@
+## 3.45
+
+- org.clojure/tools.logging 0.5.0 
+
 ## 3.44
 
 - added a default exception handler for uncaught exceptions in threads

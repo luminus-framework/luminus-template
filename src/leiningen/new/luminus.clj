@@ -129,7 +129,7 @@
    ['funcool/struct "1.4.0"]
    ['org.webjars.npm/bulma "0.7.5"]
    ['org.webjars.npm/material-icons "0.3.0"]
-   ['org.clojure/tools.logging "0.4.1"]
+   ['org.clojure/tools.logging "0.5.0"]
    ['ring/ring-core "1.7.1"]
    ['ring-webjars "0.2.0"]
    ['org.webjars/webjars-locator "0.36"]
