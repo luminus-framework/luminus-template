@@ -4,6 +4,7 @@
     [<<project-ns>>.db.core :as db]<% endif %>
     [clojure.java.io :as io]
     [<<project-ns>>.middleware :as middleware]
+    [ring.util.response]
     [ring.util.http-response :as response]))
 <% if cljs  %>
 (defn home-page [request]
