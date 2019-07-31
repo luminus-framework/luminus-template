@@ -1,6 +1,8 @@
 (ns <<project-ns>>.test.db.core
   (:require
-    [<<project-ns>>.db.core :refer [*db*] :as db]
+   [<<project-ns>>.db.core :refer [*db*] :as db]
+   [java-time.pre-java8]
+   [
     [luminus-migrations.core :as migrations]
     [clojure.test :refer :all]
     [clojure.java.jdbc :as jdbc]
