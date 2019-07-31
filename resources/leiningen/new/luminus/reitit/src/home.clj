@@ -1,11 +1,11 @@
 (ns <<project-ns>>.routes.home
   (:require
-    [<<project-ns>>.layout :as layout]<% if relational-db %>
-    [<<project-ns>>.db.core :as db]<% endif %>
-    [clojure.java.io :as io]
-    [<<project-ns>>.middleware :as middleware]
-    [ring.util.response]
-    [ring.util.http-response :as response]))
+   [<<project-ns>>.layout :as layout]<% if relational-db %>
+   [<<project-ns>>.db.core :as db]<% endif %>
+   [clojure.java.io :as io]
+   [<<project-ns>>.middleware :as middleware]
+   [ring.util.response]
+   [ring.util.http-response :as response]))
 <% if cljs  %>
 (defn home-page [request]
   (layout/render request "home.html"))
