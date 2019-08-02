@@ -19,6 +19,6 @@
      ::exception/wrap (fn [handler e request]
                         (log/error e (.getMessage e))
                         (handler e request))
-     ;; human-optimized validation message
+     ;; human-optimized validation messages
      ::coercion/request-coercion (coercion-error-handler 400)
      ::coercion/response-coercion (coercion-error-handler 500)})))
