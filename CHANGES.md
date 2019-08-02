@@ -1,3 +1,7 @@
+## 3.46
+
+- [improved error reporting for Swagger routes using expound](https://github.com/luminus-framework/luminus-template/pull/451)
+
 ## 3.45
 
 - org.clojure/tools.logging 0.5.0 
