@@ -20,4 +20,5 @@
                         (log/error e (.getMessage e))
                         (handler e request))
      ;; human-optimized validation message
-     ::coercion/request-coercion (coercion-error-handler 400)})))
+     ::coercion/request-coercion (coercion-error-handler 400)
+     ::coercion/response-coercion (coercion-error-handler 500)})))
