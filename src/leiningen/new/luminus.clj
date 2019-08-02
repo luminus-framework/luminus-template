@@ -138,11 +138,11 @@
    ['mount "0.1.16"]
    ['cprop "0.1.14"]
    ['org.clojure/tools.cli "0.4.2"]
-   ['nrepl "0.6.0"]])
+   ['nrepl "0.6.0"]
+   ['expound "0.7.2"]])
 
 (def core-dev-dependencies
-  [['expound "0.7.2"]
-   ['prone "2019-07-08"]
+  [['prone "2019-07-08"]
    ['ring/ring-mock "0.4.0"]
    ['ring/ring-devel "1.7.1"]
    ['pjstadig/humane-test-output "0.9.0"]])
