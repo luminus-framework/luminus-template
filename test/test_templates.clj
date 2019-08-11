@@ -36,7 +36,8 @@
 
 (deftest smoke-test-templates
   "Smoke-tests each individual template option.
-  For each supported template option, generates a template with that option, lints it, and compiles it."
+  For each supported template option, generates a template with that option, lints it, and compiles it.
+  If you'd like to examine the generated projects, use with-persistent-temp-dir instead of with-temp-dir."
   (doseq [template-option
           [;; Doesn't compile: Couldn't find project.clj, which is needed for compile
            ;; "+boot"
