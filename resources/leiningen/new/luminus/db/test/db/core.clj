@@ -2,19 +2,18 @@
   (:require
    [<<project-ns>>.db.core :refer [*db*] :as db]
    [java-time.pre-java8]
-   [
-    [luminus-migrations.core :as migrations]
-    [clojure.test :refer :all]
-    [clojure.java.jdbc :as jdbc]
-    [<<project-ns>>.config :refer [env]]
-    [mount.core :as mount]))
+   [luminus-migrations.core :as migrations]
+   [clojure.test :refer :all]
+   [clojure.java.jdbc :as jdbc]
+   [<<project-ns>>.config :refer [env]]
+   [mount.core :as mount]))
 
 (use-fixtures
   :once
   (fn [f]
     (mount/start
-      #'<<project-ns>>.config/env
-      #'<<project-ns>>.db.core/*db*)
+     #'<<project-ns>>.config/env
+     #'<<project-ns>>.db.core/*db*)
     (migrations/migrate ["migrate"] (select-keys env [:database-url]))
     (f)))
 
@@ -22,12 +21,12 @@
   (jdbc/with-db-transaction [t-conn *db*]
     (jdbc/db-set-rollback-only! t-conn)
     (is (= 1 (db/create-user!
-               t-conn
-               {:id         "1"
-                :first_name "Sam"
-                :last_name  "Smith"
-                :email      "sam.smith@example.com"
-                :pass       "pass"})))
+              t-conn
+              {:id         "1"
+               :first_name "Sam"
+               :last_name  "Smith"
+               :email      "sam.smith@example.com"
+               :pass       "pass"})))
     (is (= {:id         "1"
             :first_name "Sam"
             :last_name  "Smith"
