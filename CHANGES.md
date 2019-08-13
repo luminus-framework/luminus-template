@@ -1,3 +1,6 @@
+## 3.47
+- selmer 1.12.13
+
 ## 3.46
 
 - [improved error reporting for Swagger routes using expound](https://github.com/luminus-framework/luminus-template/pull/451)
