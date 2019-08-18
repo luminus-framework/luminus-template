@@ -26,7 +26,7 @@
     [clojure.java.jdbc :as jdbc]
     [clojure.tools.logging :as log]
     [conman.core :as conman]
-    [java-time.pre-java8]
+    [java-time.pre-java8 :as jt]
     [<<project-ns>>.config :refer [env]]
     [mount.core :refer [defstate]])
   (:import [java.sql
