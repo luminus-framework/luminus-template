@@ -39,14 +39,15 @@
   For each supported template option, generates a template with that option, lints it, and compiles it.
   If you'd like to examine the generated projects, use with-persistent-temp-dir instead of with-temp-dir."
   (doseq [template-option
-          [
+          [;; Don't test +boot, as this smoke-test only works w/ Leiningen right now.
+           ;; "+boot"
+
            "+aleph"
            "+auth"
            "+auth-jwe"
-           "+boot"
            "+cljs"
            "+cucumber"
-           "+diatomic"
+           "+datomic"
            "+graphql"
            "+h2"
            "+hoplon"
@@ -69,8 +70,7 @@
            "+site"
            "+sqlite"
            "+swagger"
-           "+war"
-           ]]
+           "+war"]]
     (with-temp-dir temp-pathname
       (is (= 0 (sh-logging-err "lein" "new" "luminus" "test-project" ":to-dir" temp-pathname ":force" "t" template-option)) (str "Generate Luminus project with template option " template-option))
       (is (= 0 (sh-logging-err "lein" "compile" :dir temp-pathname)) (str "Compile Luminus project created with template option " template-option))
