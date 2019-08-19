@@ -39,30 +39,16 @@
   For each supported template option, generates a template with that option, lints it, and compiles it.
   If you'd like to examine the generated projects, use with-persistent-temp-dir instead of with-temp-dir."
   (doseq [template-option
-          [;; Doesn't compile: Couldn't find project.clj, which is needed for compile
-           ;; "+boot"
-
-           ;; Doesn't compile: Couldn't find project.clj, which is needed for compile
-           ;; "+diatomic"
-
-           ;; Doesn't parse: {:type :reader-exception, :ex-kind :reader-error}
-           ;; "+h2"
-
-           ;; Doesn't parse: {:type :reader-exception, :ex-kind :reader-error}
-           ;; "+mysql"
-
-           ;; Doesn't parse: {:type :reader-exception, :ex-kind :reader-error}
-           ;; "+postgres"
-
-           ;; Doesn't parse: {:type :reader-exception, :ex-kind :reader-error}
-           ;; "+sqlite"
-
+          [
            "+aleph"
            "+auth"
            "+auth-jwe"
+           "+boot"
            "+cljs"
-            "+cucumber"
+           "+cucumber"
+           "+diatomic"
            "+graphql"
+           "+h2"
            "+hoplon"
            "+http-kit"
            "+immutant"
@@ -70,7 +56,9 @@
            "+kee-frame"
            "+kibit"
            "+mongodb"
+           "+mysql"
            "+oauth"
+           "+postgres"
            "+reagent"
            "+re-frame"
            "+reitit"
@@ -79,8 +67,10 @@
            "+servlet"
            "+shadow-cljs"
            "+site"
+           "+sqlite"
            "+swagger"
-           "+war"]]
+           "+war"
+           ]]
     (with-temp-dir temp-pathname
       (is (= 0 (sh-logging-err "lein" "new" "luminus" "test-project" ":to-dir" temp-pathname ":force" "t" template-option)) (str "Generate Luminus project with template option " template-option))
       (is (= 0 (sh-logging-err "lein" "compile" :dir temp-pathname)) (str "Compile Luminus project created with template option " template-option))
