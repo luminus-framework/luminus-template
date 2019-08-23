@@ -8,7 +8,7 @@
                                ['thheller/shadow-cljs shadow-version :scope "provided"]
                                ['org.clojure/core.async "0.4.500"]])
 
-(def shadow-cljs-plugins [['lein-shadow "0.1.4"]])
+(def shadow-cljs-plugins [['lein-shadow "0.1.5"]])
 
 (defn project-ns-symbol [project-ns suffix]
   (read-string (str project-ns suffix)))
