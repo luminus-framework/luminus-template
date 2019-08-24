@@ -14,6 +14,9 @@
   :main ^:skip-aot <<project-ns>>.core
 
   :plugins [<% if plugins %><<plugins>><% endif %>]<% if cucumber-feature-paths %>
+  ;; Exclude :no-ns-form-found linter to avoid warnings on step definitions.
+  ;; This can be done per step file once https://github.com/jonase/eastwood/issues/165 is done.
+  :eastwood {:exclude-linters [:no-ns-form-found]}
   :cucumber-feature-paths <<cucumber-feature-paths>><% endif %><% if sassc-config-params %>
   <<sassc-config-params>>
   <<sassc-auto-config>>

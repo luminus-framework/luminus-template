@@ -17,8 +17,8 @@
     <<auth-middleware-required>><% if auth-session %>
     <<auth-session>><% endif %><% if auth-jwe %>
     <<auth-jwe>><% endif %><% endif %>)<% if not service %>
-  (:import <% if servlet %>[javax.servlet ServletContext]<% endif %>
-           )<% endif %>)
+  <% if servlet %>(:import [javax.servlet ServletContext])<% endif %>
+           <% endif %>)
 <% if not service %><% if servlet %>
 (defn wrap-context [handler]
   (fn [request]

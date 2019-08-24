@@ -11,6 +11,7 @@
     [clojure.tools.logging :as log]
     [conman.core :as conman]
     [java-time :as jt]
+    [java-time.pre-java8]
     [<<project-ns>>.config :refer [env]]
     [mount.core :refer [defstate]])
   (:import org.postgresql.util.PGobject
