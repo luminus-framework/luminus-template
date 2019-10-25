@@ -1,3 +1,23 @@
+## 3.50
+
+- luminus-migrations 0.6.6
+- conman 0.8.4
+- com.cognitect/transit-clj 0.8.319
+- metosin/muuntaja 0.6.5
+- metosin/reitit 0.3.10
+- org.postgresql/postgresql 42.2.8
+- org.webjars.npm/material-icons 0.3.1
+- org.webjars/webjars-locator 0.37
+- re-frame 0.10.9
+- selmer 1.12.17
+- thheller/shadow-cljs 2.8.67
+- cider/piggieback 0.4.2
+- pjstadig/humane-test-output 0.10.0
+- org.xerial/sqlite-jdbc 3.28.0
+- com.h2database/h2 1.4.200
+- mysql/mysql-connector-java 8.0.18
+- luminus-transit "0.1.2
+
 ## 3.49
 
 - selmer 1.12.16

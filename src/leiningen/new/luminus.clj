@@ -119,20 +119,20 @@
 
 (def core-dependencies
   [['org.clojure/clojure "1.10.1"]
-   ['selmer "1.12.16"]
+   ['selmer "1.12.17"]
    ['clojure.java-time "0.3.2"]
-   ['luminus-transit "0.1.1"]
+   ['luminus-transit "0.1.2"]
    ['markdown-clj "1.10.0"]
-   ['metosin/muuntaja "0.6.4"]
-   ['cheshire "5.8.1"]
+   ['metosin/muuntaja "0.6.5"]
+   ['cheshire "5.9.0"]
    ['metosin/ring-http-response "0.9.1"]
    ['funcool/struct "1.4.0"]
    ['org.webjars.npm/bulma "0.7.5"]
-   ['org.webjars.npm/material-icons "0.3.0"]
+   ['org.webjars.npm/material-icons "0.3.1"]
    ['org.clojure/tools.logging "0.5.0"]
    ['ring/ring-core "1.7.1"]
    ['ring-webjars "0.2.0"]
-   ['org.webjars/webjars-locator "0.36"]
+   ['org.webjars/webjars-locator "0.37"]
    ['ring/ring-defaults "0.3.2"]
    ['luminus/ring-ttl-session "0.3.3"]
    ['mount "0.1.16"]
@@ -145,7 +145,7 @@
   [['prone "2019-07-08"]
    ['ring/ring-mock "0.4.0"]
    ['ring/ring-devel "1.7.1"]
-   ['pjstadig/humane-test-output "0.9.0"]])
+   ['pjstadig/humane-test-output "0.10.0"]])
 
 (def core-dev-plugins
   [['com.jakemccrary/lein-test-refresh "0.24.1"]
