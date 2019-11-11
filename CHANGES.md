@@ -1,3 +1,6 @@
+## 3.51
+- lein-shadow 0.1.6
+
 ## 3.50
 
 - luminus-migrations 0.6.6
