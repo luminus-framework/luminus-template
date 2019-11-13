@@ -1,5 +1,6 @@
 ## 3.51
-- lein-shadow 0.1.6
+- lein-shadow 0.1.7
+- thheller/shadow-cljs 2.8.69
 
 ## 3.50
 
