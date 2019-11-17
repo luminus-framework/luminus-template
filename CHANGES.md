@@ -1,3 +1,16 @@
+## 3.52
+- org.webjars/webjars-locator 0.38
+- org.webjars.npm/bulma 0.8.0
+- ring/ring-core 1.8.0
+- ring/ring-devel 1.8.0
+- metosin/muuntaja 0.6.6
+
+- switched to use latest versions of Buddy libraries:
+  - `[buddy/buddy-auth "2.2.0"]`
+  - `[buddy/buddy-sign "3.1.0"]`
+  - `[buddy/buddy-core "1.6.0"]`
+  - `[buddy/buddy-hashers "1.4.0"]`
+
 ## 3.51
 - lein-shadow 0.1.7
 - thheller/shadow-cljs 2.8.69
