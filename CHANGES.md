@@ -1,3 +1,6 @@
+## 3.53
+- ClojureScript 1.10.597
+ 
 ## 3.52
 - org.webjars/webjars-locator 0.38
 - org.webjars.npm/bulma 0.8.0
