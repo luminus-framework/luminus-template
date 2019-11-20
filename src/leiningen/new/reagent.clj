@@ -6,7 +6,7 @@
    ["{{client-path}}/{{sanitized}}/ajax.cljs" "reagent/src/cljs/ajax.cljs"]])
 
 (defn reagent-dependencies [{:keys [features]}]
-  (cond-> [['reagent "0.8.1"]
+  (cond-> [['reagent "0.9.0-rc3"]
            ['cljs-ajax "0.8.0"]]
     (not-any? #{"+reitit"} features) (conj ['clj-commons/secretary "1.2.4"])))
 
