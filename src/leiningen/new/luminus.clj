@@ -139,7 +139,7 @@
    ['cprop "0.1.14"]
    ['org.clojure/tools.cli "0.4.2"]
    ['nrepl "0.6.0"]
-   ['expound "0.8.0"]])
+   ['expound "0.8.1"]])
 
 (def core-dev-dependencies
   [['prone "2019-07-08"]

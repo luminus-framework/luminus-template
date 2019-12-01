@@ -1,5 +1,6 @@
 ## 3.54
 - reagent 0.9.0-rc3
+- expound 0.8.1
 
 ## 3.53
 - ClojureScript 1.10.597
