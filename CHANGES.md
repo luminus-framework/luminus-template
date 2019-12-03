@@ -1,4 +1,8 @@
 ## 3.54
+
+- Selmer 1.12.18
+
+## 3.54
 - reagent 0.9.0-rc3
 - expound 0.8.1
 
