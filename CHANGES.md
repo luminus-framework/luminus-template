@@ -1,6 +1,11 @@
 ## 3.55
 
 - fixed `+auth-jwe` profile
+- cprop 0.1.15
+- expound 0.8.3
+- markdown-clj 1.10.1
+- org.postgresql/postgresql 42.2.9
+- binaryage/devtools 0.9.11
 
 ## 3.54
 

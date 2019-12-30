@@ -49,7 +49,7 @@
 
 (defn cljs-dev-dependencies [features]
   (let [piggieback-version "0.4.2"
-        devtools-version "0.9.10"]
+        devtools-version "0.9.11"]
     (if (some #{"+shadow-cljs"} features)
     [['binaryage/devtools devtools-version]
      ['cider/piggieback piggieback-version]]

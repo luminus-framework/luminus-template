@@ -122,7 +122,7 @@
    ['selmer "1.12.18"]
    ['clojure.java-time "0.3.2"]
    ['luminus-transit "0.1.2"]
-   ['markdown-clj "1.10.0"]
+   ['markdown-clj "1.10.1"]
    ['metosin/muuntaja "0.6.6"]
    ['cheshire "5.9.0"]
    ['metosin/ring-http-response "0.9.1"]
@@ -136,10 +136,10 @@
    ['ring/ring-defaults "0.3.2"]
    ['luminus/ring-ttl-session "0.3.3"]
    ['mount "0.1.16"]
-   ['cprop "0.1.14"]
+   ['cprop "0.1.15"]
    ['org.clojure/tools.cli "0.4.2"]
    ['nrepl "0.6.0"]
-   ['expound "0.8.1"]])
+   ['expound "0.8.3"]])
 
 (def core-dev-dependencies
   [['prone "2019-07-08"]
