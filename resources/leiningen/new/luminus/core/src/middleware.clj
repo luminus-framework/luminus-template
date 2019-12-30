@@ -83,7 +83,7 @@
 
 (defn token [username]
   (let [claims {:user (keyword username)
-                :exp (plus (now) (minutes 60))}]
+                :exp (tick/new-time (tick/hour (tick/instant)) 60)}]
     (encrypt claims secret {:alg :a256kw :enc :a128gcm})))<% endif %>
 
 (defn wrap-auth [handler]

@@ -1,3 +1,7 @@
+## 3.55
+
+- fixed `+auth-jwe` profile
+
 ## 3.54
 
 - Selmer 1.12.18
