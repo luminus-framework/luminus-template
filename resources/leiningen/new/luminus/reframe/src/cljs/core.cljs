@@ -9,6 +9,9 @@
     [<<project-ns>>.ajax :as ajax]
     [<<project-ns>>.events]<% if reitit %>
     [reitit.core :as reitit]
+    <% if reitit %>
+    [reitit.frontend.easy :as rfe]
+    <% endif %>
     [clojure.string :as string]<% else %>
     [secretary.core :as secretary]<% endif %>)
   (:import goog.History))
@@ -44,6 +47,44 @@
    (when-let [docs @(rf/subscribe [:docs])]
      [:div {:dangerouslySetInnerHTML {:__html (md->html docs)}}])])
 
+<% if reitit %>
+;; -------------------------
+;; Routes
+(defn page []
+  (if-let [page @(rf/subscribe [:page])]
+    [:div
+     [navbar]
+     [page]]))
+
+(defn navigate! [match _]
+  (rf/dispatch [:navigate match]))
+
+(def router
+  (reitit/router
+    [["/" {:name        :home
+           :view        #'home-page
+           :controllers [{:start (fn [_] (rf/dispatch [:page/init-home]))}]}]
+     ["/about" {:name :about
+                :view #'about-page}]]))
+
+(defn start-router! []
+  (rfe/start!
+    router
+    navigate!
+    {}))
+
+;; -------------------------
+;; Initialize app
+(defn<% if shadow-cljs %> ^:dev/after-load<% endif %> mount-components []
+  (rf/clear-subscription-cache!)
+  (r/render [#'page] (.getElementById js/document "app")))
+
+(defn init! []
+  (start-router!)
+  (ajax/load-interceptors!)
+  (mount-components))
+
+<% else %>
 (def pages
   {:home #'home-page
    :about #'about-page})
@@ -55,25 +96,6 @@
 
 ;; -------------------------
 ;; Routes
-<% if reitit %>
-(def router
-  (reitit/router
-    [["/" :home]
-     ["/about" :about]]))
-
-;; -------------------------
-;; History
-;; must be called after routes have been defined
-(defn hook-browser-navigation! []
-  (doto (History.)
-    (events/listen
-      HistoryEventType/NAVIGATE
-      (fn [event]
-        (let [uri (or (not-empty (string/replace (.-token event) #"^.*#" "")) "/")]
-          (rf/dispatch
-            [:navigate (reitit/match-by-path router uri)]))))
-    (.setEnabled true)))
-<% else %>
 (secretary/set-config! :prefix "#")
 
 (secretary/defroute "/" []
@@ -92,7 +114,7 @@
       (fn [event]
         (secretary/dispatch! (.-token event))))
     (.setEnabled true)))
-<% endif %>
+
 ;; -------------------------
 ;; Initialize app
 (defn<% if shadow-cljs %> ^:dev/after-load<% endif %> mount-components []
@@ -100,9 +122,9 @@
   (r/render [#'page] (.getElementById js/document "app")))
 
 (defn init! []
-  <% if reitit %>(rf/dispatch-sync [:navigate (reitit/match-by-name router :home)])
-  <% else %>(rf/dispatch-sync [:navigate :home])<% endif %>
+  (rf/dispatch-sync [:navigate :home])
   (ajax/load-interceptors!)
   (rf/dispatch [:fetch-docs])
   (hook-browser-navigation!)
   (mount-components))
+<% endif %>
