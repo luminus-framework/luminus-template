@@ -1,4 +1,4 @@
-<% if reitit %><% if service %>
+<% if service %>
 (mount/defstate app-routes
   :start
   (ring/ring-handler
@@ -38,4 +38,4 @@
          (constantly (error-page {:status 406, :title "406 - Not acceptable"}))}))))
 <% endif %>
 (defn app []
-  (middleware/wrap-base #'app-routes))<% endif %>
+  (middleware/wrap-base #'app-routes))

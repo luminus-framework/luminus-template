@@ -7,13 +7,10 @@
     [goog.history.EventType :as HistoryEventType]
     [markdown.core :refer [md->html]]
     [<<project-ns>>.ajax :as ajax]
-    [<<project-ns>>.events]<% if reitit %>
+    [<<project-ns>>.events]
     [reitit.core :as reitit]
-    <% if reitit %>
     [reitit.frontend.easy :as rfe]
-    <% endif %>
-    [clojure.string :as string]<% else %>
-    [secretary.core :as secretary]<% endif %>)
+    [clojure.string :as string])
   (:import goog.History))
 
 (defn nav-link [uri title page]
@@ -47,7 +44,6 @@
    (when-let [docs @(rf/subscribe [:docs])]
      [:div {:dangerouslySetInnerHTML {:__html (md->html docs)}}])])
 
-<% if reitit %>
 ;; -------------------------
 ;; Routes
 (defn page []
@@ -83,48 +79,3 @@
   (start-router!)
   (ajax/load-interceptors!)
   (mount-components))
-
-<% else %>
-(def pages
-  {:home #'home-page
-   :about #'about-page})
-
-(defn page []
-  [:div
-   [navbar]
-   [(pages @(rf/subscribe [:page]))]])
-
-;; -------------------------
-;; Routes
-(secretary/set-config! :prefix "#")
-
-(secretary/defroute "/" []
-  (rf/dispatch [:navigate :home]))
-
-(secretary/defroute "/about" []
-  (rf/dispatch [:navigate :about]))
-
-;; -------------------------
-;; History
-;; must be called after routes have been defined
-(defn hook-browser-navigation! []
-  (doto (History.)
-    (events/listen
-      HistoryEventType/NAVIGATE
-      (fn [event]
-        (secretary/dispatch! (.-token event))))
-    (.setEnabled true)))
-
-;; -------------------------
-;; Initialize app
-(defn<% if shadow-cljs %> ^:dev/after-load<% endif %> mount-components []
-  (rf/clear-subscription-cache!)
-  (r/render [#'page] (.getElementById js/document "app")))
-
-(defn init! []
-  (rf/dispatch-sync [:navigate :home])
-  (ajax/load-interceptors!)
-  (rf/dispatch [:fetch-docs])
-  (hook-browser-navigation!)
-  (mount-components))
-<% endif %>

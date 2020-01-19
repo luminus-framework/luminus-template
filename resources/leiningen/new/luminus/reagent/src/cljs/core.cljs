@@ -5,10 +5,9 @@
     [goog.history.EventType :as HistoryEventType]
     [markdown.core :refer [md->html]]
     [<<project-ns>>.ajax :as ajax]
-    [ajax.core :refer [GET POST]]<% if reitit %>
+    [ajax.core :refer [GET POST]]
     [reitit.core :as reitit]
-    [clojure.string :as string]<% else %>
-    [secretary.core :as secretary :include-macros true]<% endif %>)
+    [clojure.string :as string])
   (:import goog.History))
 
 (defonce session (r/atom {:page :home}))
@@ -53,7 +52,7 @@
 
 ;; -------------------------
 ;; Routes
-<% if reitit %>
+
 (def router
   (reitit/router
     [["/" :home]
@@ -74,26 +73,7 @@
       (fn [event]
         (swap! session assoc :page (match-route (.-token event)))))
     (.setEnabled true)))
-<% else %>
-(secretary/set-config! :prefix "#")
 
-(secretary/defroute "/" []
-  (swap! session assoc :page :home))
-
-(secretary/defroute "/about" []
-  (swap! session assoc :page :about))
-
-;; -------------------------
-;; History
-;; must be called after routes have been defined
-(defn hook-browser-navigation! []
-  (doto (History.)
-        (events/listen
-          HistoryEventType/NAVIGATE
-          (fn [event]
-            (secretary/dispatch! (.-token event))))
-        (.setEnabled true)))
-<% endif %>
 ;; -------------------------
 ;; Initialize app
 (defn fetch-docs! []

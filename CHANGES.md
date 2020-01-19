@@ -1,3 +1,7 @@
+## 3.56
+
+- removed Secretary in favor of using built in Reitit history management
+
 ## 3.55
 
 - fixed `+auth-jwe` profile

@@ -5,8 +5,7 @@
     [cognitect.transit :as transit]
     [clojure.tools.logging :as log]
     [<<project-ns>>.layout :refer [error-page]]
-    [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]<% if not reitit %>
-    [ring.middleware.webjars :refer [wrap-webjars]]<% endif %>
+    [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
     [<<project-ns>>.middleware.formats :as formats]
     [muuntaja.middleware :refer [wrap-format wrap-params]]<% endif %>
     [<<project-ns>>.config :refer [env]]<% if immutant-session %>
@@ -83,7 +82,7 @@
 
 (defn token [username]
   (let [claims {:user (keyword username)
-                :exp (let [fmt (java.text.SimpleDateFormat. "yyyy-MM-dd'T'HH:mm:ssZ")]                       
+                :exp (let [fmt (java.text.SimpleDateFormat. "yyyy-MM-dd'T'HH:mm:ssZ")]
                        (.format fmt
                                 (.getTime
                                  (doto (java.util.Calendar/getInstance)
@@ -99,8 +98,7 @@
 <% endif %>
 (defn wrap-base [handler]
   (-> ((:middleware defaults) handler)<% if auth-middleware-required %>
-      wrap-auth<% endif %><% if not service %><% if not reitit %>
-      wrap-webjars<% endif %><% endif %><% if immutant-session %>
+      wrap-auth<% endif %><% if immutant-session %>
       wrap-flash
       (wrap-session {:cookie-attrs {:http-only true}})
       (wrap-defaults
