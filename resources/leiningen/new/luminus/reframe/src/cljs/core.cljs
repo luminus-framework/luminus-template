@@ -44,8 +44,10 @@
    (when-let [docs @(rf/subscribe [:docs])]
      [:div {:dangerouslySetInnerHTML {:__html (md->html docs)}}])])
 
-;; -------------------------
-;; Routes
+(def pages
+  {:home #'home-page
+   :about #'about-page})
+
 (defn page []
   (if-let [page @(rf/subscribe [:page])]
     [:div
