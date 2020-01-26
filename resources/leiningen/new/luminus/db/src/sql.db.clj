@@ -22,7 +22,6 @@
             BatchUpdateException
             PreparedStatement])<% endifequal %><% ifequal db-type "mysql" %>
   (:require
-    [clj-time.jdbc]
     [clojure.java.jdbc :as jdbc]
     [clojure.tools.logging :as log]
     [conman.core :as conman]
