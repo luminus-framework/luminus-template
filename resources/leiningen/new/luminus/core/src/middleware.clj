@@ -15,7 +15,7 @@
     [ring.middleware.defaults :refer [site-defaults wrap-defaults]]<% if auth-middleware-required %>
     <<auth-middleware-required>><% if auth-session %>
     <<auth-session>><% endif %><% if auth-jwe %>
-    <<auth-jwe>><% endif %><% endif %>)<% if not service %>
+    <<auth-jwe>>[buddy.sign.util :refer [to-timestamp]]<% endif %><% endif %>)<% if not service %>
   <% if servlet %>(:import [javax.servlet ServletContext])<% endif %>
            <% endif %>)
 <% if not service %><% if servlet %>
@@ -82,12 +82,11 @@
 
 (defn token [username]
   (let [claims {:user (keyword username)
-                :exp (let [fmt (java.text.SimpleDateFormat. "yyyy-MM-dd'T'HH:mm:ssZ")]
-                       (.format fmt
-                                (.getTime
-                                 (doto (java.util.Calendar/getInstance)
-                                   (.setTime (java.util.Date.))
-                                   (.add java.util.Calendar/HOUR_OF_DAY 1)))))}]
+                :exp (to-timestamp
+                       (.getTime
+                         (doto (Calendar/getInstance)
+                           (.setTime (Date.))
+                           (.add Calendar/HOUR_OF_DAY 1))))}]
     (encrypt claims secret {:alg :a256kw :enc :a128gcm})))<% endif %>
 
 (defn wrap-auth [handler]
