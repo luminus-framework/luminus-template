@@ -50,7 +50,8 @@
                   :doo <<cljs-test>><% endif %><% endif %>
                   :source-paths ["env/dev/clj"<% if shadow-cljs %> "env/dev/cljs" "test/cljs"<% endif %>]
                   :resource-paths ["env/dev/resources"]
-                  :repl-options {:init-ns user}
+                  :repl-options {:init-ns user
+                                 :timeout 120000}
                   :injections [(require 'pjstadig.humane-test-output)
                                (pjstadig.humane-test-output/activate!)]}
    :project/test {:jvm-opts ["-Dconf=test-config.edn"<% for opt in opts %> <<opt>><% endfor %>]

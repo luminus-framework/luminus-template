@@ -1,3 +1,7 @@
+## 3.58
+
+- added timeout to the REPL options for dev
+
 ## 3.57
 
 - remove joda-time reference
