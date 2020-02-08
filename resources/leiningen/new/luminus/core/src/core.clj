@@ -25,9 +25,9 @@
 (mount/defstate ^{:on-reload :noop} http-server
   :start
   (http/start
-    (-> env
+    (-> env<% if immutant %>
+        (update :io-threads #(or % (* 2 (.availableProcessors (Runtime/getRuntime))))) <% endif %>
         (assoc  :handler (handler/app))
-        (update :io-threads #(or % (* 2 (.availableProcessors (Runtime/getRuntime)))))
         (update :port #(or (-> env :options :port) %))))
   :stop
   (http/stop http-server))
