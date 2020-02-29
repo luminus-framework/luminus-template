@@ -1,1 +1,1 @@
-web: java -cp target/uberjar/<<name>>.jar clojure.main -m <<project-ns>>.core
+web: java -Dclojure.main.report=stderr -cp target/uberjar/<<name>>.jar clojure.main -m <<project-ns>>.core
