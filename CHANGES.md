@@ -1,3 +1,7 @@
+## 3.59
+
+- updated Heroku Procfile to log clojure.main errors to stderr by default
+
 ## 3.58
 
 - added timeout to the REPL options for dev
