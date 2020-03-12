@@ -1,12 +1,12 @@
 (ns leiningen.new.shadow-cljs
   (:require [leiningen.new.common :refer :all]))
 
-(def shadow-version "2.8.69")
+(def shadow-version "2.8.92")
 
-(def shadow-cljs-dependencies [['com.google.javascript/closure-compiler-unshaded "v20190618" :scope "provided"]
-                               ['org.clojure/google-closure-library "0.0-20190213-2033d5d9" :scope "provided"]
+(def shadow-cljs-dependencies [['com.google.javascript/closure-compiler-unshaded "v20191027" :scope "provided"]
+                               ['org.clojure/google-closure-library "0.0-20191016-6ae1f72f" :scope "provided"]
                                ['thheller/shadow-cljs shadow-version :scope "provided"]
-                               ['org.clojure/core.async "0.4.500"]])
+                               ['org.clojure/core.async "1.0.567"]])
 
 (def shadow-cljs-plugins [['lein-shadow "0.1.7"]])
 
