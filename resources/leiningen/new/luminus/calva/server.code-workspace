@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		<% include calva/custom-commands-fragment.json %>,
+		"calva.replConnectSequences": [
+	        <% include calva/server-connect-sequence-fragment.json %>
+		]
+	}
+}

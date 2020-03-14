@@ -33,7 +33,8 @@
             [leiningen.new.kibit :refer [kibit-features]]
             [leiningen.new.logback :refer [logback-features]]
             [leiningen.new.service :refer [service-features]]
-            [leiningen.new.oauth :refer [oauth-features]]))
+            [leiningen.new.oauth :refer [oauth-features]]
+            [leiningen.new.calva :refer [calva-features]]))
 
 (defn resource [r]
   (->> r (str "leiningen/new/luminus/core/resources/") (io/resource)))
@@ -155,6 +156,7 @@
   "Create a new Luminus project"
   [options]
   (main/info "Generating a Luminus project.")
+  (main/info (pr-str options))
   (let [[assets options]
         (-> [core-assets options]
             lein-features
@@ -184,7 +186,8 @@
             kibit-features
             logback-features
             oauth-features
-            war-features)]
+            war-features
+            calva-features)]
     (render-assets assets binary-assets (format-options options))))
 
 (defn format-features [features]
