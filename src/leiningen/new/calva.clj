@@ -3,8 +3,7 @@
 (defn calva-files [options]
   (cond 
     (some #{"+shadow-cljs"} (:features options))
-    [["{{name}} Server.code-workspace" "calva/server.code-workspace"]
-     ["{{name}} Client.code-workspace" "calva/client.code-workspace"]]
+    [[".vscode/settings.json" "calva/shadow-settings.json"]]
     
     (some #{"+cljs"} (:features options))
     [[".vscode/settings.json" "calva/figwheel-settings.json"]]

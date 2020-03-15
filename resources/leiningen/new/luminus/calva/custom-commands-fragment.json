@@ -17,4 +17,4 @@
             "repl": "clj",
             "snippet": "(restart)"
         }
-    ],
+    ]
