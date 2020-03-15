@@ -1,0 +1,22 @@
+{
+    <% include calva/custom-commands-fragment.json %>,
+    "calva.replConnectSequences": [
+        <% include calva/server-connect-sequence-fragment.json %>,
+        {
+            "name": "Server + Client – <<name>>",
+            "projectType": "lein-shadow",
+            "afterCLJReplJackInCode": "(start)",
+            "cljsType": "shadow-cljs",
+            "menuSelections": {
+                "leinProfiles": [
+                    "dev"
+                ],
+                "cljsLaunchBuilds": [
+                    "app",
+                    "test"
+                ],
+                "cljsDefaultBuild": "app"
+            }
+        }
+    ]
+}
