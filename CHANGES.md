@@ -1,3 +1,7 @@
+## 3.60
+
+- Calva integration
+
 ## 3.59
 
 - updated Heroku Procfile to log clojure.main errors to stderr by default

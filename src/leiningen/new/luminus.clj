@@ -156,7 +156,6 @@
   "Create a new Luminus project"
   [options]
   (main/info "Generating a Luminus project.")
-  (main/info (pr-str options))
   (let [[assets options]
         (-> [core-assets options]
             lein-features
