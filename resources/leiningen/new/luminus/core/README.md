@@ -1,6 +1,6 @@
 # <<name>>
 
-generated using Luminus version "3.57"
+generated using Luminus version "3.60"
 
 FIXME
 
