@@ -1,4 +1,28 @@
+## 3.62
+
+- fix for shadow-cljs dev NPM modules
+- cheshire 5.10.0
+- com.cognitect/transit-clj 1.0.324
+- cprop 0.1.16
+- expound 0.8.4
+- luminus-jetty 0.1.9
+- markdown-clj 1.10.2
+- metosin/reitit 0.4.2
+- org.clojure/tools.cli 1.0.194
+- org.clojure/tools.logging 1.0.0
+- org.webjars/webjars-locator 0.39
+- reagent 0.10.0
+- re-frame 0.12.0
+- thheller/shadow-cljs 2.8.93
+- binaryage/devtools 1.0.0
+- prone 2020-01-17
+- org.xerial/sqlite-jdbc 3.30.1
+- org.postgresql/postgresql 42.2.11
+
 ## 3.61
+
+- Streamline Calva config for shadow-cljs projects 
+
 ## 3.60
 
 - Calva integration

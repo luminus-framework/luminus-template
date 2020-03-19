@@ -1,7 +1,7 @@
 (ns leiningen.new.shadow-cljs
   (:require [leiningen.new.common :refer :all]))
 
-(def shadow-version "2.8.92")
+(def shadow-version "2.8.93")
 
 (def shadow-cljs-dependencies [['com.google.javascript/closure-compiler-unshaded "v20191027" :scope "provided"]
                                ['org.clojure/google-closure-library "0.0-20191016-6ae1f72f" :scope "provided"]
@@ -38,7 +38,6 @@
 ;; TODO: Hoplon?
 (defn npm-deps [{:keys [features]}]
   (cond-> [['shadow-cljs shadow-version]]
-
     (some #{"+reagent"} features)
     ((fnil into [])
      [['create-react-class "15.6.3"]
@@ -51,6 +50,7 @@
      (-> options
          (assoc :shadow-cljs true
                 :shadow-cljs-config (indent root-indent (shadow-cljs-config options))
+                :npm-dev-deps [['xmlhttprequest "1.8.0"]]
                 :npm-deps (indent require-indent (npm-deps options)))
          (append-options :plugins shadow-cljs-plugins)
          (append-options :dependencies shadow-cljs-dependencies))]

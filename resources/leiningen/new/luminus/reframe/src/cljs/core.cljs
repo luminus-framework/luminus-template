@@ -1,6 +1,7 @@
 (ns <<project-ns>>.core
   (:require
     [day8.re-frame.http-fx]
+    [reagent.dom :as rdom]
     [reagent.core :as r]
     [re-frame.core :as rf]
     [goog.events :as events]
@@ -71,7 +72,7 @@
 ;; Initialize app
 (defn<% if shadow-cljs %> ^:dev/after-load<% endif %> mount-components []
   (rf/clear-subscription-cache!)
-  (r/render [#'page] (.getElementById js/document "app")))
+  (rdom/render [#'page] (.getElementById js/document "app")))
 
 (defn init! []
   (start-router!)

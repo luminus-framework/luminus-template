@@ -13,11 +13,11 @@
 (defn db-dependencies [options]
   (into [['luminus-migrations "0.6.6"]
          ['conman "0.8.4"]]
-        ({:postgres [['org.postgresql/postgresql "42.2.9"]]
+        ({:postgres [['org.postgresql/postgresql "42.2.11"]]
           :mysql    [['mysql/mysql-connector-java "8.0.18"]
                      ['com.google.protobuf/protobuf-java "3.8.0"]]
           :h2       [['com.h2database/h2 "1.4.200"]]
-          :sqlite   [['org.xerial/sqlite-jdbc "3.28.0"]]}
+          :sqlite   [['org.xerial/sqlite-jdbc "3.30.1"]]}
          (select-db options))))
 
 (defn db-url [{:keys [sanitized] :as options} suffix]

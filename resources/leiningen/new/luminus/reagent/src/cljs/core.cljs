@@ -1,6 +1,7 @@
 (ns <<project-ns>>.core
   (:require
     [reagent.core :as r]
+    [reagent.dom :as rdom]
     [goog.events :as events]
     [goog.history.EventType :as HistoryEventType]
     [markdown.core :refer [md->html]]
@@ -80,8 +81,8 @@
   (GET "/docs" {:handler #(swap! session assoc :docs %)}))
 
 (defn<% if shadow-cljs %> ^:dev/after-load<% endif %> mount-components []
-  (r/render [#'navbar] (.getElementById js/document "navbar"))
-  (r/render [#'page] (.getElementById js/document "app")))
+  (rdom/render [#'navbar] (.getElementById js/document "navbar"))
+  (rdom/render [#'page] (.getElementById js/document "app")))
 
 (defn init! []
   (ajax/load-interceptors!)

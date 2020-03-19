@@ -22,7 +22,7 @@
 
 (def cljs-dependencies
   [['org.clojure/clojurescript cljs-version :scope "provided"]
-   ['com.cognitect/transit-clj "0.8.319"]])
+   ['com.cognitect/transit-clj "1.0.324"]])
 
 ;;NOTE: under boot, src/cljs is also added to source-paths (see boot-cljs-features)
 
@@ -49,7 +49,7 @@
 
 (defn cljs-dev-dependencies [features]
   (let [piggieback-version "0.4.2"
-        devtools-version "0.9.11"]
+        devtools-version "1.0.0"]
     (if (some #{"+shadow-cljs"} features)
     [['binaryage/devtools devtools-version]
      ['cider/piggieback piggieback-version]]
