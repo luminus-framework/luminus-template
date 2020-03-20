@@ -8,7 +8,7 @@
             "afterCLJReplJackInCode": "(start)",
             "cljsType": {
                 "dependsOn": "lein-figwheel",
-                "connectCode": "(do (println (str \"Starting Fighweel. Client URL is http://0.0.0.0:\" (:port (clojure.edn/read-string (slurp \"dev-config.edn\"))))) (use 'figwheel-sidecar.repl-api) (when-not (figwheel-sidecar.repl-api/figwheel-running?) (figwheel-sidecar.repl-api/start-figwheel!)) (figwheel-sidecar.repl-api/cljs-repl))",
+                "connectCode": "(do (println (str \"Starting Fighweel. Client URL is http://127.0.0.1:\" (:port (clojure.edn/read-string (slurp \"dev-config.edn\"))))) (use 'figwheel-sidecar.repl-api) (when-not (figwheel-sidecar.repl-api/figwheel-running?) (figwheel-sidecar.repl-api/start-figwheel!)) (figwheel-sidecar.repl-api/cljs-repl))",
                 "isConnectedRegExp": "To quit, type: :cljs/quit",
                 "openUrlRegExp": "Client URL is (?<url>\\S+)",
                 "shouldOpenUrl": true,
