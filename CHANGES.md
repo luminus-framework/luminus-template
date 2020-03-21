@@ -1,3 +1,7 @@
+## 3.63
+
+- luminus-migrations 0.6.7, needed to work with the latest Postgres driver
+
 ## 3.62
 
 - fix for shadow-cljs dev NPM modules
