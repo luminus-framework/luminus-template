@@ -7,8 +7,8 @@
     <<oauth-required>><% endif %><% if any service swagger %>
     [reitit.swagger-ui :as swagger-ui]<% endif %>
     [reitit.ring :as ring]
-    [ring.middleware.content-type :refer [wrap-content-type]]
-    [ring.middleware.webjars :refer [wrap-webjars]]
+    [ring.middleware.content-type :refer [wrap-content-type]]<% if expanded %>
+    [ring.middleware.webjars :refer [wrap-webjars]]<% endif %>
     [<<project-ns>>.env :refer [defaults]]
     [mount.core :as mount]<% if war %>
     [clojure.tools.logging :as log]

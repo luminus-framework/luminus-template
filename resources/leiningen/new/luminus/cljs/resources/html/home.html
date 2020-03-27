@@ -7,7 +7,7 @@
   </head>
   <body>
     <%if not re-frame %><div id="navbar"></div><% endif %>
-    <div id="app">
+    <div id="app"><% if expanded %>
       <section class="section">
         <div class="container is-fluid">
           <div class="content">
@@ -26,13 +26,13 @@
             <p>See <a href="http://www.luminusweb.net/docs/clojurescript.md">ClojureScript</a> documentation for further details.</p>
           </div>
         </div>
-      </section>
+      </section><% endif %>
     </div>
 
     <!-- scripts and styles -->
-    {% style "/assets/bulma/css/bulma.min.css" %}
+    <% if expanded %>{% style "/assets/bulma/css/bulma.min.css" %}
     {% style "/assets/material-icons/css/material-icons.min.css" %}
-    {% style "/css/screen.css" %}
+    <% endif %>{% style "/css/screen.css" %}
 
     <script type="text/javascript"><% if servlet %>
         var context = "{{servlet-context}}";<% endif %>

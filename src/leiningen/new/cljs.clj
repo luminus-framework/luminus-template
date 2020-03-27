@@ -4,12 +4,13 @@
 
 (defn cljs-assets [features]
   (concat [["{{client-path}}/{{sanitized}}/core.cljs" "cljs/src/cljs/core.cljs"]
-           ["{{cljc-path}}/{{sanitized}}/validation.cljc" "cljs/src/cljc/validation.cljc"]
            ["{{client-test-path}}/{{sanitized}}/core_test.cljs" "cljs/test/cljs/core_test.cljs"]
            ["{{resource-path}}/html/home.html" "cljs/resources/html/home.html"]
            ["{{resource-path}}/html/error.html" "core/resources/html/error.html"]
            ["env/dev/cljs/{{sanitized}}/app.cljs" "cljs/env/dev/cljs/app.cljs"]
            ["env/prod/cljs/{{sanitized}}/app.cljs" "cljs/env/prod/cljs/app.cljs"]]
+          (when (some #{"+expanded"} features)
+            [["{{cljc-path}}/{{sanitized}}/validation.cljc" "cljs/src/cljc/validation.cljc"]])
           (when-not (some #{"+shadow-cljs"} features)
             [["{{client-test-path}}/{{sanitized}}/doo_runner.cljs" "cljs/test/cljs/doo_runner.cljs"]
              ["env/dev/clj/{{sanitized}}/figwheel.clj" "cljs/env/dev/clj/figwheel.clj"]])))

@@ -3,8 +3,8 @@
     [reagent.core :as r]
     [reagent.dom :as rdom]
     [goog.events :as events]
-    [goog.history.EventType :as HistoryEventType]
-    [markdown.core :refer [md->html]]
+    [goog.history.EventType :as HistoryEventType]<% if expanded %>
+    [markdown.core :refer [md->html]]<% endif %>
     [<<project-ns>>.ajax :as ajax]
     [ajax.core :refer [GET POST]]
     [reitit.core :as reitit]
@@ -14,12 +14,12 @@
 (defonce session (r/atom {:page :home}))
 
 (defn nav-link [uri title page]
-  [:a.navbar-item
+  [:a<% if expanded %>.navbar-item<% endif %>
    {:href   uri
     :class (when (= page (:page @session)) "is-active")}
    title])
 
-(defn navbar []
+(defn navbar [] <% if expanded %>
   (r/with-let [expanded? (r/atom false)]
     [:nav.navbar.is-info>div.container
      [:div.navbar-brand
@@ -33,16 +33,22 @@
       {:class (when @expanded? :is-active)}
       [:div.navbar-start
        [nav-link "#/" "Home" :home]
-       [nav-link "#/about" "About" :about]]]]))
+       [nav-link "#/about" "About" :about]]]])<% else %>
+  [:nav
+   [nav-link "#/" "Home" :home]
+   [nav-link "#/about" "About" :about]] <% endif %>)
 
-(defn about-page []
+(defn about-page []<% if expanded %>
   [:section.section>div.container>div.content
-   [:img {:src "/img/warning_clojure.png"}]])
+   [:img {:src "/img/warning_clojure.png"}]]<% else %>
+  [:img {:src "/img/warning_clojure.png"}]
+  <% endif %>)
 
-(defn home-page []
+(defn home-page []<% if expanded %>
   [:section.section>div.container>div.content
    (when-let [docs (:docs @session)]
-     [:div {:dangerouslySetInnerHTML {:__html (md->html docs)}}])])
+     [:div {:dangerouslySetInnerHTML {:__html (md->html docs)}}])]<% else %>
+  [:section]<% endif %>)
 
 (def pages
   {:home #'home-page
@@ -77,15 +83,15 @@
 
 ;; -------------------------
 ;; Initialize app
-(defn fetch-docs! []
+<% if expanded %>(defn fetch-docs! []
   (GET "/docs" {:handler #(swap! session assoc :docs %)}))
-
+<% endif %>
 (defn<% if shadow-cljs %> ^:dev/after-load<% endif %> mount-components []
   (rdom/render [#'navbar] (.getElementById js/document "navbar"))
   (rdom/render [#'page] (.getElementById js/document "app")))
 
 (defn init! []
-  (ajax/load-interceptors!)
-  (fetch-docs!)
+  (ajax/load-interceptors!)<% if expanded %>
+  (fetch-docs!)<% endif %>
   (hook-browser-navigation!)
   (mount-components))

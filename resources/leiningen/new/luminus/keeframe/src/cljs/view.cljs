@@ -1,7 +1,7 @@
 (ns <<project-ns>>.view
   (:require
-    [kee-frame.core :as kf]
-    [markdown.core :refer [md->html]]
+    [kee-frame.core :as kf]<%if expanded %>
+    [markdown.core :refer [md->html]]<% endif %>
     [reagent.core :as r]
     [re-frame.core :as rf]))
 
@@ -32,9 +32,9 @@
    [:img {:src <% if servlet %>(str js/context "/img/warning_clojure.png")<% else %>"/img/warning_clojure.png"<% endif %>}]])
 
 (defn home-page []
-  [:section.section>div.container>div.content
+  [:section.section>div.container>div.content<% if expanded %>
    (when-let [docs @(rf/subscribe [:docs])]
-     [:div {:dangerouslySetInnerHTML {:__html (md->html docs)}}])])
+     [:div {:dangerouslySetInnerHTML {:__html (md->html docs)}}])<% endif %>])
 
 (defn root-component []
   [:div

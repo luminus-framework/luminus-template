@@ -11,8 +11,8 @@
     [hoplon.jquery]
     [javelin.core
      :refer [cell]
-     :refer-macros [cell= dosync]]
-    [markdown.core :refer [md->html]]
+     :refer-macros [cell= dosync]]<% if expanded %>
+    [markdown.core :refer [md->html]]<% endif %>
     [secretary.core :as secretary])
   (:import goog.History))
 
@@ -59,7 +59,7 @@
   (h/section :class "section"
     (h/div :class "container"
       (h/div :class "content"
-        (h/div :html (cell= (md->html docs)))))))
+        <%if expanded %>(h/div :html (cell= (md->html docs)))<% else %>"Hello world"<% endif %>))))
 
 (h/defelem page []
   (h/div :id "app"
@@ -91,9 +91,9 @@
    (.setEnabled true)))
 
 ;; -------------------------
-;; Initialize app
+;; Initialize app<% if expanded %>
 (defn fetch-docs! []
-  (GET "/docs" {:handler #(reset! docs %)}))
+  (GET "/docs" {:handler #(reset! docs %)}))<% endif %>
 
 (defn<% if shadow-cljs %> ^:dev/after-load<% endif %> mount-components []
   (js/jQuery #(.replaceWith (js/jQuery "#app") (page))))
@@ -101,5 +101,5 @@
 (defn init! []
   (load-interceptors!)
   (hook-browser-navigation!)
-  (mount-components)
-  (fetch-docs!))
+  (mount-components)<% if expanded %>
+  (fetch-docs!)<% endif %>)
