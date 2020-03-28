@@ -1,5 +1,10 @@
 ## 3.63
 
+- conman 0.8.5
+- re-frisk 0.5.5
+
+## 3.63
+
 - luminus-migrations 0.6.7, needed to work with the latest Postgres driver
 
 ## 3.62
