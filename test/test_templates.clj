@@ -70,7 +70,9 @@
            "+site"
            "+sqlite"
            "+swagger"
-           "+war"]]
+           "+war"
+           "+expanded"
+           "+basic"]]
     (with-temp-dir temp-pathname
       (is (= 0 (sh-logging-err "lein" "new" "luminus" "test-project" ":to-dir" temp-pathname ":force" "t" template-option)) (str "Generate Luminus project with template option " template-option))
       (is (= 0 (sh-logging-err "lein" "compile" :dir temp-pathname)) (str "Compile Luminus project created with template option " template-option))

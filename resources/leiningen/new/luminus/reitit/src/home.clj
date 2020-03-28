@@ -15,13 +15,13 @@
    {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
    ["/" {:get home-page}]<% if graphql %>
-   ["/graphiql" {:get (fn [request] (layout/render request "graphiql.html"))}]<% endif %>
+   ["/graphiql" {:get (fn [request] (layout/render request "graphiql.html"))}]<% endif %><% if expanded %>
    ["/docs" {:get (fn [_]
                     (-> (response/ok (-> "docs/docs.md" io/resource slurp))
-                        (response/header "Content-Type" "text/plain; charset=utf-8")))}]])
+                        (response/header "Content-Type" "text/plain; charset=utf-8")))}]<% endif %>])
 <% else %>
 (defn home-page [request]
-  (layout/render request "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
+  (layout/render request "home.html"<% if expanded %> {:docs (-> "docs/docs.md" io/resource slurp)}<% endif %>))
 
 (defn about-page [request]
   (layout/render request "about.html"))

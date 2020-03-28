@@ -34,7 +34,8 @@
             [leiningen.new.logback :refer [logback-features]]
             [leiningen.new.service :refer [service-features]]
             [leiningen.new.oauth :refer [oauth-features]]
-            [leiningen.new.calva :refer [calva-features]]))
+            [leiningen.new.calva :refer [calva-features]]
+            [leiningen.new.expanded :refer [expanded-features]]))
 
 (defn resource [r]
   (->> r (str "leiningen/new/luminus/core/resources/") (io/resource)))
@@ -77,7 +78,6 @@
 
    ;; public resources, example URL: /css/screen.css
    ["{{resource-path}}/public/css/screen.css" "core/resources/css/screen.css"]
-   ["{{resource-path}}/docs/docs.md" "core/resources/docs.md"]
    "{{resource-path}}/public/js"
 
    ;; tests
@@ -123,17 +123,11 @@
    ['selmer "1.12.18"]
    ['clojure.java-time "0.3.2"]
    ['luminus-transit "0.1.2"]
-   ['markdown-clj "1.10.2"]
    ['metosin/muuntaja "0.6.6"]
    ['cheshire "5.10.0"]
    ['metosin/ring-http-response "0.9.1"]
-   ['funcool/struct "1.4.0"]
-   ['org.webjars.npm/bulma "0.8.0"]
-   ['org.webjars.npm/material-icons "0.3.1"]
    ['org.clojure/tools.logging "1.0.0"]
    ['ring/ring-core "1.8.0"]
-   ['ring-webjars "0.2.0"]
-   ['org.webjars/webjars-locator "0.39"]
    ['ring/ring-defaults "0.3.2"]
    ['luminus/ring-ttl-session "0.3.3"]
    ['mount "0.1.16"]
@@ -186,7 +180,8 @@
             logback-features
             oauth-features
             war-features
-            calva-features)]
+            calva-features
+            expanded-features)]
     (render-assets assets binary-assets (format-options options))))
 
 (defn format-features [features]
@@ -205,6 +200,7 @@
       (set-feature "+jetty" #{"+aleph" "+http-kit" "+immutant" "+war"})
       (set-feature "+logback" #{})
       (set-feature "+reitit" #{})
+      (set-feature "+expanded" #{"+basic"})
       (set-feature "+lein" #{"+boot"})))
 
 (defn set-feature-dependency [options feature dependencies]
@@ -259,7 +255,8 @@
                              "+cucumber" "+sassc" "+oauth"
                              "+swagger" "+war" "+graphql"
                              "+kibit" "+service" "+servlet"
-                             "+boot" "+shadow-cljs"}
+                             "+boot" "+shadow-cljs"
+                             "+basic" "+expanded"}
         options (merge
                  project-relative-paths
                  {:name             (project-name name)

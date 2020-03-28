@@ -16,7 +16,7 @@
   ::about-controller
   {:params (constantly true)
    :start  [::load-about-page]})
-
+<% if expanded %>
 (rf/reg-sub
   :docs
   (fn [db _]
@@ -31,12 +31,12 @@
                   :on-failure      [:common/set-error]}})
   (fn [{:keys [db]} [_ docs]]
     {:db (assoc db :docs docs)}))
-
+<% endif %>
 
 (kf/reg-controller
   ::home-controller
   {:params (constantly true)
-   :start  [::load-home-page]})
+   :start  [<% if expanded %>::load-home-page<% endif %>]})
 
 ;; -------------------------
 ;; Initialize app
