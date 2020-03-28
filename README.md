@@ -61,6 +61,7 @@ However, if you would like to attach further functionality to your template you 
 * `+site` creates template for site using the specified database (H2 by default) and ClojureScript
 * `+kibit` add [lein-kibit](https://github.com/jonase/kibit) plugin
 * `+servlet` adds middleware for handling Servlet context
+* `+basic` generates a bare bones luminus project
 
 To add a profile simply pass it as an argument after your application name, e.g.:
 
