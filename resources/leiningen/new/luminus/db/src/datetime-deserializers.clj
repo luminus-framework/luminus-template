@@ -1,4 +1,4 @@
-  java.sql.Timestamp
+java.sql.Timestamp
   (read-column-by-label [^java.sql.Timestamp v _]
     (.toLocalDateTime v))
   (read-column-by-index [^java.sql.Timestamp v _2 _3]

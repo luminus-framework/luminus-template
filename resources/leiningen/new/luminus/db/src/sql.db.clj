@@ -3,7 +3,6 @@
     [next.jdbc.date-time]
     [next.jdbc.result-set]
     [conman.core :as conman]
-    [java-time.pre-java8 :as jt]
     [mount.core :refer [defstate]]
     [<<project-ns>>.config :refer [env]])
   (:import (java.sql Date Time Timestamp))<% endif %><% ifequal db-type "postgres" %>
@@ -14,8 +13,6 @@
     [next.jdbc.result-set]
     [clojure.tools.logging :as log]
     [conman.core :as conman]
-    [java-time :as jt]
-    [java-time.pre-java8]
     [<<project-ns>>.config :refer [env]]
     [mount.core :refer [defstate]])
   (:import (org.postgresql.util PGobject)
@@ -26,7 +23,6 @@
     [next.jdbc.result-set]
     [clojure.tools.logging :as log]
     [conman.core :as conman]
-    [java-time.pre-java8 :as jt]
     [<<project-ns>>.config :refer [env]]
     [mount.core :refer [defstate]])
   (:import (java.sql Timestamp Date Time))<% endifequal %>)
@@ -34,7 +30,8 @@
 (defstate ^:dynamic *db*
           :start (conman/connect! {:jdbc-url (env :database-url)})
           :stop (conman/disconnect! *db*))
-<% else %>(defstate ^:dynamic *db*
+<% else %>
+(defstate ^:dynamic *db*
   :start (if-let [jdbc-url (env :database-url)]
            (conman/connect! {:jdbc-url jdbc-url})
            (do
@@ -43,10 +40,7 @@
   :stop (conman/disconnect! *db*))
 <% endif %>
 (conman/bind-connection *db* "sql/queries.sql")
-
 <% ifequal db-type "postgres" %>
-<% include db/src/postgres-fragment.clj %>
-<% else %>
+<% include db/src/postgres-fragment.clj %><% else %>
 (extend-protocol next.jdbc.result-set/ReadableColumn
-<% include db/src/datetime-deserializers.clj %>)
-<% endifequal %>
+  <% include db/src/datetime-deserializers.clj %>)<% endifequal %>
