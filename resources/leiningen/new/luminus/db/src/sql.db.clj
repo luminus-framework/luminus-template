@@ -4,8 +4,7 @@
     [next.jdbc.result-set]
     [conman.core :as conman]
     [mount.core :refer [defstate]]
-    [<<project-ns>>.config :refer [env]])
-  (:import (java.sql Date Time Timestamp))<% endif %><% ifequal db-type "postgres" %>
+    [<<project-ns>>.config :refer [env]])<% endif %><% ifequal db-type "postgres" %>
   (:require
     [cheshire.core :refer [generate-string parse-string]]
     [next.jdbc.date-time]
@@ -15,17 +14,14 @@
     [conman.core :as conman]
     [<<project-ns>>.config :refer [env]]
     [mount.core :refer [defstate]])
-  (:import (org.postgresql.util PGobject)
-           (clojure.lang IPersistentMap IPersistentVector)
-           (java.sql Array Date PreparedStatement Time Timestamp))<% endifequal %><% ifequal db-type "mysql" %>
+  (:import (org.postgresql.util PGobject))<% endifequal %><% ifequal db-type "mysql" %>
   (:require
     [next.jdbc.date-time]
     [next.jdbc.result-set]
     [clojure.tools.logging :as log]
     [conman.core :as conman]
     [<<project-ns>>.config :refer [env]]
-    [mount.core :refer [defstate]])
-  (:import (java.sql Timestamp Date Time))<% endifequal %>)
+    [mount.core :refer [defstate]])<% endifequal %>)
 <% if embedded-db %>
 (defstate ^:dynamic *db*
           :start (conman/connect! {:jdbc-url (env :database-url)})
