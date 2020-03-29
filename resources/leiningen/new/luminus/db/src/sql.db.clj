@@ -49,3 +49,4 @@
 <% else %>
 (extend-protocol next.jdbc.result-set/ReadableColumn
 <% include db/src/datetime-deserializers.clj %>)
+<% endifequal %>
