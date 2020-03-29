@@ -2,6 +2,9 @@
 
 - conman 0.8.5
 - re-frisk 0.5.5
+- nrepl 0.7.0
+- update to jdbc.next
+- `+basic` profile for a leaner template 
 
 ## 3.63
 
