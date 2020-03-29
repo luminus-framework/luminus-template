@@ -1,37 +1,42 @@
 <% ifequal db-type "postgres" %>
-(extend-protocol jdbc/IResultSetReadColumn
-  <% include db/src/datetime-deserializers.clj %>
-  Array
-  (result-set-read-column [v _ _] (vec (.getArray v)))
-  PGobject
-  (result-set-read-column [pgobj _metadata _index]
-    (let [type  (.getType pgobj)
-          value (.getValue pgobj)]
-      (case type
-        "json" (parse-string value true)
-        "jsonb" (parse-string value true)
-        "citext" (str value)
-        value))))
+(defn pgobj->clj [^org.postgresql.util.PGobject pgobj]
+  (let [type (.getType pgobj)
+        value (.getValue pgobj)]
+    (case type
+      "json" (parse-string value true)
+      "jsonb" (parse-string value true)
+      "citext" (str value)
+      value)))
 
-(defn to-pg-json [value]
+(extend-protocol next.jdbc.result-set/ReadableColumn
+  <% include db/src/datetime-deserializers.clj %>
+  java.sql.Array
+  (read-column-by-label [^java.sql.Array v _]
+    (vec (.getArray v)))
+  (read-column-by-index [^java.sql.Array v _2 _3]
+    (vec (.getArray v)))
+  org.postgresql.util.PGobject
+  (read-column-by-label [^org.postgresql.util.PGobject pgobj _]
+    (pgobj->clj pgobj))
+  (read-column-by-index [^org.postgresql.util.PGobject pgobj _2 _3]
+    (pgobj->clj pgobj)))
+
+(defn clj->jsonb-pgobj [value]
   (doto (PGobject.)
     (.setType "jsonb")
     (.setValue (generate-string value))))
 
-(extend-type clojure.lang.IPersistentVector
-  jdbc/ISQLParameter
-  (set-parameter [v ^java.sql.PreparedStatement stmt ^long idx]
+(extend-protocol next.jdbc.prepare/SettableParameter
+  clojure.lang.IPersistentMap
+  (set-parameter [^clojure.lang.IPersistentMap v ^java.sql.PreparedStatement stmt ^long idx]
+    (.setObject stmt idx (clj->jsonb-pgobj v)))
+  clojure.lang.IPersistentVector
+  (set-parameter [^clojure.lang.IPersistentVector v ^java.sql.PreparedStatement stmt ^long idx]
     (let [conn      (.getConnection stmt)
           meta      (.getParameterMetaData stmt)
           type-name (.getParameterTypeName meta idx)]
-      (if-let [elem-type (when (= (first type-name) \_) (apply str (rest type-name)))]
+      (if-let [elem-type (when (= (first type-name) \_)
+                           (apply str (rest type-name)))]
         (.setObject stmt idx (.createArrayOf conn elem-type (to-array v)))
-        (.setObject stmt idx (to-pg-json v))))))
-
-(extend-protocol jdbc/ISQLValue
-  <% include db/src/datetime-serializers.clj %>
-  IPersistentMap
-  (sql-value [value] (to-pg-json value))
-  IPersistentVector
-  (sql-value [value] (to-pg-json value)))
+        (.setObject stmt idx (clj->jsonb-pgobj v))))))
 <% endifequal %>

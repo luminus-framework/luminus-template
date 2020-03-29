@@ -4,7 +4,7 @@
    [java-time.pre-java8]
    [luminus-migrations.core :as migrations]
    [clojure.test :refer :all]
-   [clojure.java.jdbc :as jdbc]
+   [next.jdbc :as jdbc]
    [<<project-ns>>.config :refer [env]]
    [mount.core :as mount]))
 
@@ -18,8 +18,7 @@
     (f)))
 
 (deftest test-users
-  (jdbc/with-db-transaction [t-conn *db*]
-    (jdbc/db-set-rollback-only! t-conn)
+  (jdbc/with-transaction [t-conn *db* {:rollback-only true}]
     (is (= 1 (db/create-user!
               t-conn
               {:id         "1"

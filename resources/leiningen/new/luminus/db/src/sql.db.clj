@@ -1,36 +1,35 @@
 (ns <<project-ns>>.db.core<% if embedded-db %>
   (:require
-    [clojure.java.jdbc :as jdbc]
+    [next.jdbc.date-time]
+    [next.jdbc.result-set]
     [conman.core :as conman]
     [java-time.pre-java8 :as jt]
     [mount.core :refer [defstate]]
-    [<<project-ns>>.config :refer [env]])<% endif %><% ifequal db-type "postgres" %>
+    [<<project-ns>>.config :refer [env]])
+  (:import (java.sql Date Time Timestamp))<% endif %><% ifequal db-type "postgres" %>
   (:require
     [cheshire.core :refer [generate-string parse-string]]
-    [clojure.java.jdbc :as jdbc]
+    [next.jdbc.date-time]
+    [next.jdbc.prepare]
+    [next.jdbc.result-set]
     [clojure.tools.logging :as log]
     [conman.core :as conman]
     [java-time :as jt]
     [java-time.pre-java8]
     [<<project-ns>>.config :refer [env]]
     [mount.core :refer [defstate]])
-  (:import org.postgresql.util.PGobject
-           java.sql.Array
-           clojure.lang.IPersistentMap
-           clojure.lang.IPersistentVector
-           [java.sql
-            BatchUpdateException
-            PreparedStatement])<% endifequal %><% ifequal db-type "mysql" %>
+  (:import (org.postgresql.util PGobject)
+           (clojure.lang IPersistentMap IPersistentVector)
+           (java.sql Array Date PreparedStatement Time Timestamp))<% endifequal %><% ifequal db-type "mysql" %>
   (:require
-    [clojure.java.jdbc :as jdbc]
+    [next.jdbc.date-time]
+    [next.jdbc.result-set]
     [clojure.tools.logging :as log]
     [conman.core :as conman]
     [java-time.pre-java8 :as jt]
     [<<project-ns>>.config :refer [env]]
     [mount.core :refer [defstate]])
-  (:import [java.sql
-            BatchUpdateException
-            PreparedStatement])<% endifequal %>)
+  (:import (java.sql Timestamp Date Time))<% endifequal %>)
 <% if embedded-db %>
 (defstate ^:dynamic *db*
           :start (conman/connect! {:jdbc-url (env :database-url)})
@@ -48,9 +47,5 @@
 <% ifequal db-type "postgres" %>
 <% include db/src/postgres-fragment.clj %>
 <% else %>
-(extend-protocol jdbc/IResultSetReadColumn
+(extend-protocol next.jdbc.result-set/ReadableColumn
 <% include db/src/datetime-deserializers.clj %>)
-
-(extend-protocol jdbc/ISQLValue
-<% include db/src/datetime-serializers.clj %>)
-<% endifequal %>
