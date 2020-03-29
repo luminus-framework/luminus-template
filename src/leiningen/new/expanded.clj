@@ -10,7 +10,7 @@
    ['org.webjars/webjars-locator "0.39"]])
 
 (def expanded-assets
-  [["{{resource-path}}/css/screen.css" "expanded/resources/css/screen.css"]
+  [["{{resource-path}}/public/css/screen.css" "expanded/resources/css/screen.css"]
    ["{{resource-path}}/html/base.html" "expanded/resources/html/base.html"]
    ["{{resource-path}}/html/home.html" "expanded/resources/html/home.html"]
    ["{{resource-path}}/html/error.html" "expanded/resources/html/error.html"]
@@ -21,5 +21,5 @@
     [(into (remove-conflicting-assets assets "screen.css" "base.html" "home.html" "error.html" "docs.md") expanded-assets)
      (-> options
          (assoc :expanded true)
-         (append-options :dependencies (expanded-dependencies options)))]
+         (append-options :dependencies expanded-dependencies))]
     state))

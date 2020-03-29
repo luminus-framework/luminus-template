@@ -163,6 +163,7 @@
             db-features
             cucumber-features
             site-features
+            expanded-features
             cljs-features
             hoplon-features
             reagent-features
@@ -180,8 +181,7 @@
             logback-features
             oauth-features
             war-features
-            calva-features
-            expanded-features)]
+            calva-features)]
     (render-assets assets binary-assets (format-options options))))
 
 (defn format-features [features]
