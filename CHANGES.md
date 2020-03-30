@@ -1,4 +1,4 @@
-## unreleased
+## 3.65
 
 - `+basic` profile to exclude about page and initial user migration where applicable
 - fix `+kee-frame` profile when used with `+basic` 
