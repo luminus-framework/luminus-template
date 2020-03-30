@@ -1,3 +1,8 @@
+## unreleased
+
+- `+basic` profile to exclude about page and initial user migration where applicable
+- fix `+kee-frame` profile when used with `+basic` 
+
 ## 3.64
 
 - conman 0.8.5

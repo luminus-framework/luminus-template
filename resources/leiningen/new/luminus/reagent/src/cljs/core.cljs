@@ -35,14 +35,12 @@
        [nav-link "#/" "Home" :home]
        [nav-link "#/about" "About" :about]]]])<% else %>
   [:nav
-   [nav-link "#/" "Home" :home]
-   [nav-link "#/about" "About" :about]] <% endif %>)
-
-(defn about-page []<% if expanded %>
+   [nav-link "#/" "Home" :home]] <% endif %>)
+<% if expanded %>
+(defn about-page []
   [:section.section>div.container>div.content
-   [:img {:src "/img/warning_clojure.png"}]]<% else %>
-  [:img {:src "/img/warning_clojure.png"}]
-  <% endif %>)
+   [:img {:src "/img/warning_clojure.png"}]])
+<% endif %>
 
 (defn home-page []<% if expanded %>
   [:section.section>div.container>div.content
@@ -51,8 +49,8 @@
   [:section]<% endif %>)
 
 (def pages
-  {:home #'home-page
-   :about #'about-page})
+  {:home #'home-page<% if expanded %>
+   :about #'about-page<% endif %>})
 
 (defn page []
   [(pages (:page @session))])
@@ -62,8 +60,8 @@
 
 (def router
   (reitit/router
-    [["/" :home]
-     ["/about" :about]]))
+    [["/" :home]<% if expanded %>
+     ["/about" :about]<% endif %>]))
 
 (defn match-route [uri]
   (->> (or (not-empty (string/replace uri #"^.*#" "")) "/")

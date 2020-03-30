@@ -22,16 +22,16 @@
 <% else %>
 (defn home-page [request]
   (layout/render request "home.html"<% if expanded %> {:docs (-> "docs/docs.md" io/resource slurp)}<% endif %>))
-
+<% if expanded %>
 (defn about-page [request]
   (layout/render request "about.html"))
-
+<% endif %>
 (defn home-routes []
   [""
    {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
    ["/" {:get home-page}]<% if graphql %>
    ["/graphiql" {:get (fn [request]
-                        (layout/render request "graphiql.html"))}]<% endif %>
-   ["/about" {:get about-page}]])
+                        (layout/render request "graphiql.html"))}]<% endif %><% if expanded %>
+   ["/about" {:get about-page}]<% endif %>])
 <% endif %>

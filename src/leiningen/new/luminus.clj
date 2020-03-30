@@ -73,7 +73,6 @@
    ;;HTML templates
    ["{{resource-path}}/html/base.html" "core/resources/html/base.html"]
    ["{{resource-path}}/html/home.html" "core/resources/html/home.html"]
-   ["{{resource-path}}/html/about.html" "core/resources/html/about.html"]
    ["{{resource-path}}/html/error.html" "core/resources/html/error.html"]
 
    ;; public resources, example URL: /css/screen.css

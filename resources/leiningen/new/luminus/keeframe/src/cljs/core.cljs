@@ -7,7 +7,7 @@
     [<<project-ns>>.routing :as routing]
     [<<project-ns>>.view :as view]))
 
-
+<% if expanded %>
 (rf/reg-event-fx
   ::load-about-page
   (constantly nil))
@@ -16,7 +16,7 @@
   ::about-controller
   {:params (constantly true)
    :start  [::load-about-page]})
-<% if expanded %>
+
 (rf/reg-sub
   :docs
   (fn [db _]
@@ -31,12 +31,16 @@
                   :on-failure      [:common/set-error]}})
   (fn [{:keys [db]} [_ docs]]
     {:db (assoc db :docs docs)}))
+<% else %>
+(rf/reg-event-fx
+  ::load-home-page
+  (constantly nil))
 <% endif %>
 
 (kf/reg-controller
   ::home-controller
   {:params (constantly true)
-   :start  [<% if expanded %>::load-home-page<% endif %>]})
+   :start  [::load-home-page]})
 
 ;; -------------------------
 ;; Initialize app

@@ -12,6 +12,7 @@
 (def expanded-assets
   [["{{resource-path}}/public/css/screen.css" "expanded/resources/css/screen.css"]
    ["{{resource-path}}/html/base.html" "expanded/resources/html/base.html"]
+   ["{{resource-path}}/html/about.html" "expanded/resources/html/about.html"]
    ["{{resource-path}}/html/home.html" "expanded/resources/html/home.html"]
    ["{{resource-path}}/html/error.html" "expanded/resources/html/error.html"]
    ["{{resource-path}}/docs/docs.md" "expanded/resources/docs.md"]])

@@ -34,13 +34,15 @@
 
 (defn relational-db-files [options]
   (let [timestamp (.format
-                   (java.text.SimpleDateFormat. "yyyyMMddHHmmss")
-                   (java.util.Date.))]
-    [["{{db-path}}/{{sanitized}}/db/core.clj" "db/src/sql.db.clj"]
-     ["{{resource-path}}/sql/queries.sql" "db/sql/queries.sql"]
-     ["{{backend-test-path}}/{{sanitized}}/test/db/core.clj" "db/test/db/core.clj"]
-     [(str "{{resource-path}}/migrations/" timestamp "-add-users-table.up.sql") "db/migrations/add-users-table.up.sql"]
-     [(str "{{resource-path}}/migrations/" timestamp "-add-users-table.down.sql") "db/migrations/add-users-table.down.sql"]]))
+                    (java.text.SimpleDateFormat. "yyyyMMddHHmmss")
+                    (java.util.Date.))]
+    (concat
+      [["{{db-path}}/{{sanitized}}/db/core.clj" "db/src/sql.db.clj"]
+       ["{{resource-path}}/sql/queries.sql" "db/sql/queries.sql"]
+       ["{{backend-test-path}}/{{sanitized}}/test/db/core.clj" "db/test/db/core.clj"]]
+      (when (some #{"+expanded"} (:features options))
+        [[(str "{{resource-path}}/migrations/" timestamp "-add-users-table.up.sql") "db/migrations/add-users-table.up.sql"]
+         [(str "{{resource-path}}/migrations/" timestamp "-add-users-table.down.sql") "db/migrations/add-users-table.down.sql"]]))))
 
 (defn db-profiles [options]
   (merge

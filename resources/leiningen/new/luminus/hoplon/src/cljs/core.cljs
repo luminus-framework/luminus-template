@@ -46,15 +46,15 @@
                                             :burger      true
                                             :is-active   expanded?})
              (h/div :class "navbar-start"
-                    (nav-link "#/" "Home" :home)
-                    (nav-link "#/about" "About" :about))))))
-
+                    (nav-link "#/" "Home" :home)<% if expanded %>
+                    (nav-link "#/about" "About" :about)<% endif %>)))))
+<% if expanded %>
 (defn about []
   (h/section :class "section"
     (h/div :class "container"
       (h/div :class "content"
         (h/img :src <% if servlet %>(str js/context "/img/warning_clojure.png")<% else %>"/img/warning_clojure.png"<% endif %>)))))
-
+<% endif %>
 (defn home []
   (h/section :class "section"
     (h/div :class "container"
@@ -66,8 +66,8 @@
     (navbar)
     (cell=
      (case selected-page
-       :home (home)
-       :about (about)))))
+       :home (home)<% if expanded %>
+       :about (about)<% endif %>))))
 
 ;; -------------------------
 ;; Routes
@@ -75,10 +75,10 @@
 
 (secretary/defroute "/" []
  (reset! selected-page :home))
-
+<% if expanded %>
 (secretary/defroute "/about" []
  (reset! selected-page :about))
-
+<% endif %>
 ;; -------------------------
 ;; History
 ;; must be called after routes have been defined

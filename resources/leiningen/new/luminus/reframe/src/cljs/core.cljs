@@ -36,14 +36,12 @@
                  [nav-link "#/" "Home" :home]
                  [nav-link "#/about" "About" :about]]]])<% else %>
   [:nav
-   [nav-link "#/" "Home" :home]
-   [nav-link "#/about" "About" :about]] <% endif %>)
-
-(defn about-page []<% if expanded %>
+   [nav-link "#/" "Home" :home]]<% endif %>)
+<% if expanded %>
+(defn about-page []
   [:section.section>div.container>div.content
-   [:img {:src <% if servlet %>(str js/context "/img/warning_clojure.png")<% else %>"/img/warning_clojure.png"<% endif %>}]]<% else %>
-  [:img {:src <% if servlet %>(str js/context "/img/warning_clojure.png")<% else %>"/img/warning_clojure.png"<% endif %>}]<% endif %>)
-
+   [:img {:src <% if servlet %>(str js/context "/img/warning_clojure.png")<% else %>"/img/warning_clojure.png"<% endif %>}]])
+<% endif %>
 (defn home-page []<% if expanded %>
   [:section.section>div.container>div.content
    (when-let [docs @(rf/subscribe [:docs])]
@@ -63,9 +61,9 @@
   (reitit/router
     [["/" {:name        :home
            :view        #'home-page
-           :controllers [{:start (fn [_] (rf/dispatch [:page/init-home]))}]}]
+           :controllers [{:start (fn [_] (rf/dispatch [:page/init-home]))}]}]<% if expanded %>
      ["/about" {:name :about
-                :view #'about-page}]]))
+                :view #'about-page}]<% endif %>]))
 
 (defn start-router! []
   (rfe/start!
