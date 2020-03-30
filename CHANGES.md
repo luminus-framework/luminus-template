@@ -1,3 +1,7 @@
+## 3.66
+
+- selmer 1.12.19
+
 ## 3.65
 
 - `+basic` profile to exclude about page and initial user migration where applicable
