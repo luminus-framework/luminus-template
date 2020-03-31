@@ -6,7 +6,7 @@
 (def shadow-cljs-dependencies [['com.google.javascript/closure-compiler-unshaded "v20191027" :scope "provided"]
                                ['org.clojure/google-closure-library "0.0-20191016-6ae1f72f" :scope "provided"]
                                ['thheller/shadow-cljs shadow-version :scope "provided"]
-                               ['org.clojure/core.async "1.0.567"]])
+                               ['org.clojure/core.async "1.1.582"]])
 
 (def shadow-cljs-plugins [['lein-shadow "0.1.7"]])
 

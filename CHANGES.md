@@ -1,5 +1,6 @@
 ## 3.66
 
+- org.clojure/core.async 1.1.582
 - selmer 1.12.19
 
 ## 3.65
