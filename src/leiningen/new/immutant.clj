@@ -9,7 +9,6 @@
     [assets
      (-> options
          (assoc
-           :immutant-session true
            :undertow-based true
            :server "immutant")
          (append-options :plugins immutant-plugins)

@@ -8,16 +8,16 @@
     [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
     [<<project-ns>>.middleware.formats :as formats]
     [muuntaja.middleware :refer [wrap-format wrap-params]]<% endif %>
-    [<<project-ns>>.config :refer [env]]<% if immutant-session %>
-    [ring.middleware.flash :refer [wrap-flash]]
+    [<<project-ns>>.config :refer [env]]<% if undertow-based %>
+    [ring.middleware.flash :refer [wrap-flash]]<% if immutant %>
     [immutant.web.middleware :refer [wrap-session]]<% else %>
+    [ring.adapter.undertow.middleware :refer [wrap-session]]<% endif %><% else %>
     [ring-ttl-session.core :refer [ttl-memory-store]]<% endif %>
     [ring.middleware.defaults :refer [site-defaults wrap-defaults]]<% if auth-middleware-required %>
     <<auth-middleware-required>><% if auth-session %>
     <<auth-session>><% endif %><% if auth-jwe %>
     <<auth-jwe>>[buddy.sign.util :refer [to-timestamp]]<% endif %><% endif %>)<% if not service %>
-  <% if servlet %>(:import [javax.servlet ServletContext])<% endif %>
-           <% endif %>)
+  <% if servlet %>(:import [javax.servlet ServletContext])<% endif %> <% endif %>)
 <% if not service %><% if servlet %>
 (defn wrap-context [handler]
   (fn [request]
@@ -97,7 +97,7 @@
 <% endif %>
 (defn wrap-base [handler]
   (-> ((:middleware defaults) handler)<% if auth-middleware-required %>
-      wrap-auth<% endif %><% if immutant-session %>
+      wrap-auth<% endif %><% if undertow-based %>
       wrap-flash
       (wrap-session {:cookie-attrs {:http-only true}})
       (wrap-defaults
