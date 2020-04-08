@@ -35,7 +35,8 @@
             [leiningen.new.service :refer [service-features]]
             [leiningen.new.oauth :refer [oauth-features]]
             [leiningen.new.calva :refer [calva-features]]
-            [leiningen.new.expanded :refer [expanded-features]]))
+            [leiningen.new.expanded :refer [expanded-features]]
+            [leiningen.new.undertow :refer [undertow-features]]))
 
 (defn resource [r]
   (->> r (str "leiningen/new/luminus/core/resources/") (io/resource)))
@@ -175,6 +176,7 @@
             jetty-features
             http-kit-features
             immutant-features
+            undertow-features
             sassc-features
             kibit-features
             logback-features
@@ -196,7 +198,7 @@
 
 (defn set-default-features [options]
   (-> options
-      (set-feature "+jetty" #{"+aleph" "+http-kit" "+immutant" "+war"})
+      (set-feature "+jetty" #{"+aleph" "+http-kit" "+immutant" "+war" "+undertow"})
       (set-feature "+logback" #{})
       (set-feature "+reitit" #{})
       (set-feature "+expanded" #{"+basic"})
@@ -248,7 +250,7 @@
                              ;;databases
                              "+sqlite" "+h2" "+postgres" "+mysql" "+mongodb" "+datomic"
                              ;;servers
-                             "+aleph" "+jetty" "+http-kit" "+immutant"
+                             "+aleph" "+jetty" "+http-kit" "+immutant" "+undertow"
                              ;;misc
                              "+cljs" "+hoplon" "+reagent" "+re-frame" "+kee-frame" "+auth" "+auth-jwe" "+site"
                              "+cucumber" "+sassc" "+oauth"
