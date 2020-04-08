@@ -32,7 +32,7 @@
     <logger name="org.eclipse.jetty" level="warn" /><% endifequal %><% ifequal server "aleph" %>
     <logger name="io.netty" level="warn" /><% endifequal %><% if undertow-based %>
     <logger name="io.undertow.session" level="warn" />
-    <logger name="io.undertow.request" level="warn" /><% endifequal %>
+    <logger name="io.undertow.request" level="warn" /><% endif %>
     <root level="DEBUG">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
