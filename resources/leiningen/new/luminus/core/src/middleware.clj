@@ -9,9 +9,9 @@
     [<<project-ns>>.middleware.formats :as formats]
     [muuntaja.middleware :refer [wrap-format wrap-params]]<% endif %>
     [<<project-ns>>.config :refer [env]]<% if undertow-based %>
-    [ring.middleware.flash :refer [wrap-flash]]<% if immutant %>
+    [ring.middleware.flash :refer [wrap-flash]]<% ifequal server "immutant" %>
     [immutant.web.middleware :refer [wrap-session]]<% else %>
-    [ring.adapter.undertow.middleware :refer [wrap-session]]<% endif %><% else %>
+    [ring.adapter.undertow.middleware :refer [wrap-session]]<% endifequal %><% else %>
     [ring-ttl-session.core :refer [ttl-memory-store]]<% endif %>
     [ring.middleware.defaults :refer [site-defaults wrap-defaults]]<% if auth-middleware-required %>
     <<auth-middleware-required>><% if auth-session %>
