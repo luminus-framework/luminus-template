@@ -1,3 +1,9 @@
+## 3.67
+
+- added undertow adapter option using `+undertow` flag
+- org.webjars.npm/bulma 0.8.1
+- luminus-jetty 0.1.9 with support for WebSockets
+
 ## 3.66
 
 - org.clojure/core.async 1.1.582

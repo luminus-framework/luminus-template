@@ -4,7 +4,7 @@
 (def expanded-dependencies
   [['markdown-clj "1.10.2"]
    ['funcool/struct "1.4.0"]
-   ['org.webjars.npm/bulma "0.8.0"]
+   ['org.webjars.npm/bulma "0.8.1"]
    ['org.webjars.npm/material-icons "0.3.1"]
    ['ring-webjars "0.2.0"]
    ['org.webjars/webjars-locator "0.39"]])
