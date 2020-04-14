@@ -1,6 +1,7 @@
 ## 3.68
 
-- selmer 1.12.21
+- selmer 1.12.22
+- markdown-clj 1.10.4
 
 ## 3.67
 

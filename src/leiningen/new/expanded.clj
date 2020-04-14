@@ -2,7 +2,7 @@
   (:require [leiningen.new.common :refer :all]))
 
 (def expanded-dependencies
-  [['markdown-clj "1.10.2"]
+  [['markdown-clj "1.10.4"]
    ['funcool/struct "1.4.0"]
    ['org.webjars.npm/bulma "0.8.1"]
    ['org.webjars.npm/material-icons "0.3.1"]
