@@ -1,3 +1,7 @@
+## 3.68
+
+- selmer 1.12.21
+
 ## 3.67
 
 - added undertow adapter option using `+undertow` flag
