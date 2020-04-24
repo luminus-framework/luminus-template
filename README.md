@@ -22,11 +22,11 @@ However, if you would like to attach further functionality to your template you 
 ### alternative servers
 
 * `+aleph` adds the [Aleph](https://github.com/ztellman/aleph) server
-* `+http-kit` adds the fast [HTTP Kit](https://http-kit.github.io/) web server to the project
+* `+http-kit` adds the fast [HTTP Kit](https://github.com/http-kit/http-kit) web server to the project
 * `+immutant` adds the [immutant](https://github.com/immutant/immutant) web server to the project. Note: this project is no longer funded/maintained
 * `+undertow` adds the [ring-undertow](https://github.com/luminus-framework/ring-undertow-adapter) web server to the project
 
-The default server is [jetty](https://github.com/mpenet/jet) 
+The default server is [jetty](https://github.com/luminus-framework/luminus-jetty) 
 
 ### databases
 
