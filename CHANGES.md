@@ -2,6 +2,7 @@
 
 - selmer 1.12.22
 - markdown-clj 1.10.4
+- ClojureScript 1.10.741
 
 ## 3.67
 
