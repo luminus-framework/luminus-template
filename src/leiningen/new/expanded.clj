@@ -4,10 +4,10 @@
 (def expanded-dependencies
   [['markdown-clj "1.10.4"]
    ['funcool/struct "1.4.0"]
-   ['org.webjars.npm/bulma "0.8.1"]
+   ['org.webjars.npm/bulma "0.8.2"]
    ['org.webjars.npm/material-icons "0.3.1"]
    ['ring-webjars "0.2.0"]
-   ['org.webjars/webjars-locator "0.39"]])
+   ['org.webjars/webjars-locator "0.40"]])
 
 (def expanded-assets
   [["{{resource-path}}/public/css/screen.css" "expanded/resources/css/screen.css"]

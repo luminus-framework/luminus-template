@@ -1,3 +1,13 @@
+## 3.70
+
+- fix for +auth-jwe profile imports
+- org.clojure/clojurescript "1.10.748
+- org.clojure/tools.logging 1.1.0
+- org.webjars.npm/bulma 0.8.2
+- org.webjars/webjars-locator 0.40
+- selmer 1.12.23
+- re-frisk 1.2.0
+
 ## 3.69
 
 - conman 0.8.7

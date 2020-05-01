@@ -17,7 +17,9 @@
     <<auth-middleware-required>><% if auth-session %>
     <<auth-session>><% endif %><% if auth-jwe %>
     <<auth-jwe>>[buddy.sign.util :refer [to-timestamp]]<% endif %><% endif %>)<% if not service %>
-  <% if servlet %>(:import [javax.servlet ServletContext])<% endif %> <% endif %>)
+  <% if any auth-jwe servlet %> (:import
+    <% if auth-jwe %>[java.util Calendar Date]<% endif %>
+    <% if servlet %>[javax.servlet ServletContext]<% endif %>)<% endif %><% endif %>)
 <% if not service %><% if servlet %>
 (defn wrap-context [handler]
   (fn [request]
