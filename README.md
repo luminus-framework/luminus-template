@@ -1,5 +1,7 @@
 # Luminus-Template
 
+[![Clojars Project](https://img.shields.io/clojars/v/luminus/lein-template.svg)](https://clojars.org/luminus/lein-template)
+
 A Leiningen template for projects using [Luminus](http://www.luminusweb.net/).
 
 The template initializes a base Luminus application.
