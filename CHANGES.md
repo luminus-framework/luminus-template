@@ -1,3 +1,7 @@
+## 3.71
+
+- lein-shadow 0.2.0
+
 ## 3.70
 
 - fix for +auth-jwe profile imports
