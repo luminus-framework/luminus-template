@@ -12,7 +12,7 @@
 
 (defn db-dependencies [options]
   (into [['luminus-migrations "0.6.7"]
-         ['conman "0.8.8"]]
+         ['conman "0.8.9"]]
         ({:postgres [['org.postgresql/postgresql "42.2.11"]]
           :mysql    [['mysql/mysql-connector-java "8.0.18"]
                      ['com.google.protobuf/protobuf-java "3.8.0"]]
