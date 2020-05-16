@@ -1,6 +1,13 @@
 ## 3.72
 
 - conman 0.8.9
+- cprop 0.1.17
+- muuntaja 0.6.7
+- ring-core 1.8.1
+- ring-devel 1.8.1
+- luminus-undertow 0.1.3
+- selmer 1.12.23
+
 
 ## 3.71
 
