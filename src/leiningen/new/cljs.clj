@@ -15,9 +15,9 @@
             [["{{client-test-path}}/{{sanitized}}/doo_runner.cljs" "cljs/test/cljs/doo_runner.cljs"]
              ["env/dev/clj/{{sanitized}}/figwheel.clj" "cljs/env/dev/clj/figwheel.clj"]])))
 
-(def cljs-version "1.10.748")
+(def cljs-version "1.10.764")
 
-(def figwheel-version "0.5.19")
+(def figwheel-version "0.5.20")
 
 (def doo-version "0.1.11")
 
@@ -49,7 +49,7 @@
      [:cljsbuild :builds :app :compiler :output-to]]))
 
 (defn cljs-dev-dependencies [features]
-  (let [piggieback-version "0.4.2"
+  (let [piggieback-version "0.5.0"
         devtools-version "1.0.0"]
     (if (some #{"+shadow-cljs"} features)
     [['binaryage/devtools devtools-version]

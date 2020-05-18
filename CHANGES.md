@@ -1,3 +1,11 @@
+## 3.73
+
+- ClojureScript 1.10.764
+- figwheel 0.5.20
+- metosin/reitit 0.5.1
+- piggieback 0.5.0
+- re-frisk 1.3.2
+
 ## 3.72
 
 - conman 0.8.9
