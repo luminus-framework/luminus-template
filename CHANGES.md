@@ -1,3 +1,8 @@
+## 3.74
+
+- luminus-undertow 0.1.4
+- use undertow as the default
+
 ## 3.73
 
 - ClojureScript 1.10.764

@@ -199,7 +199,7 @@
 
 (defn set-default-features [options]
   (-> options
-      (set-feature "+jetty" #{"+aleph" "+http-kit" "+immutant" "+war" "+undertow"})
+      (set-feature "+undertow" #{"+aleph" "+http-kit" "+immutant" "+jetty" "+war" })
       (set-feature "+logback" #{})
       (set-feature "+reitit" #{})
       (set-feature "+expanded" #{"+basic"})
