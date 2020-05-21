@@ -1,3 +1,7 @@
+## 3.75
+
+- selmer 1.12.25
+
 ## 3.74
 
 - luminus-undertow 0.1.4
