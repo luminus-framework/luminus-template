@@ -61,7 +61,7 @@ The HTML templates are written using [Selmer](https://github.com/yogthos/Selmer)
 </div>
 ```
 
-<a class="level-item button" href="http://www.luminusweb.net/docs/html_templating.md">learn more about HTML templating »</a>
+<a class="level-item button" href="https://luminusweb.com/docs/html_templating.html">learn more about HTML templating »</a>
 
 <% endif %>
 
@@ -86,7 +86,7 @@ The routes are aggregated and wrapped with middleware in the `<<project-ns>>.han
 The `app` definition groups all the routes in the application into a single handler.
 A default route group is added to handle the `404` case.
 
-<a class="level-item button" href="http://www.luminusweb.net/docs/routes.md">learn more about routing »</a>
+<a class="level-item button" href="https://luminusweb.com/docs/routes.html">learn more about routing »</a>
 
 The `home-routes` are wrapped with two middleware functions. The first enables CSRF protection.
 The second takes care of serializing and deserializing various encoding formats, such as JSON.
@@ -101,12 +101,12 @@ already defined here. The middleware is assembled in the `wrap-base` function.
 Middleware used for development is placed in the `<<project-ns>>.dev-middleware` namespace found in
 the `env/dev/clj/` source path.
 
-<a class="level-item button" href="http://www.luminusweb.net/docs/middleware.md">learn more about middleware »</a>
+<a class="level-item button" href="https://luminusweb.com/docs/middleware.html">learn more about middleware »</a>
 
 <<db-docs>>
 <<sassc-docs>>
 
 <p class="title is-5">Need some help?</p>
 
-Visit the [official documentation](http://www.luminusweb.net/docs) for examples
+Visit the [official documentation](https://luminusweb.com/docs/guestbook) for examples
 on how to accomplish common tasks with Luminus. The `#luminus` channel on the [Clojurians Slack](http://clojurians.net/) and [Google Group](https://groups.google.com/forum/#!forum/luminusweb) are both great places to seek help and discuss projects with other users.
