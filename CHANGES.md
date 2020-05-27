@@ -1,9 +1,6 @@
-## 3.75
-
-- selmer 1.12.25
-
 ## 3.74
 
+- selmer 1.12.25
 - luminus-undertow 0.1.4
 - use undertow as the default
 
