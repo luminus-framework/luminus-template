@@ -1,3 +1,9 @@
+## 3.75
+
+- luminus-undertow 0.1.5 (listen on 0.0.0.0 by default)
+- metosin/reitit 0.5.2
+- selmer 1.12.27
+
 ## 3.74
 
 - selmer 1.12.25
