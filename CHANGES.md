@@ -1,3 +1,15 @@
+## 3.76
+
+- conman 0.9.0
+- ClojureScript 1.10.773
+- cljs-devtools 1.0.0
+- sqlite-jdbc 3.30.1
+- jackson-core 2.11.1
+- jackson-databind 2.11.1
+- expound 0.8.5
+- shadow-cljs 2.10.13
+- core.async (used in +shadow-cljs profile) 1.2.603
+
 ## 3.75
 
 - luminus-undertow 0.1.5 (listen on 0.0.0.0 by default)
