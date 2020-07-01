@@ -12,14 +12,14 @@
 (defn install-schema
   "This function expected to be called at system start up.
 
-  Datomic schema migraitons or db preinstalled data can be put into 'migrations/schema.edn'
+  Datomic schema migrations or db preinstalled data can be put into 'migrations/schema.edn'
   Every txes will be executed exactly once no matter how many times system restart."
   [conn]
   (let [norms-map (c/read-resource "migrations/schema.edn")]
     (c/ensure-conforms conn norms-map (keys norms-map))))
 
 (defn show-schema
-  "Show currenly installed schema"
+  "Show currently installed schema"
   [conn]
   (let [system-ns #{"db" "db.type" "db.install" "db.part"
                     "db.lang" "fressian" "db.unique" "db.excise"
