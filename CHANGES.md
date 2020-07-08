@@ -1,3 +1,7 @@
+## 3.77
+
+- removed explicit require for Google Closure lib for shadow-cljs
+
 ## 3.76
 
 - conman 0.9.0
