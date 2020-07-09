@@ -13,5 +13,5 @@
          (assoc :re-frame true)
          (append-options :dependencies [['re-frame "0.12.0"]
                                         ['day8.re-frame/http-fx "0.1.6"]])
-         (append-options :dev-dependencies [['re-frisk "1.3.2"]]))]
+         (append-options :dev-dependencies [['re-frisk "1.3.4"]]))]
     state))

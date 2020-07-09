@@ -1,3 +1,12 @@
+## 3.78
+
+- ring-undertow-adapter 1.1.1
+- markdown-clj 1.10.5
+- org.postgresql/postgresql 42.2.14
+- bulma 0.9.0
+- shadow-version 2.10.14
+- re-frisk 1.3.4
+
 ## 3.77
 
 - removed explicit require for Google Closure lib for shadow-cljs
