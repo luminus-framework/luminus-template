@@ -1,3 +1,7 @@
+## 3.79
+- updated generated docs
+- metosin/reitit 0.5.4
+
 ## 3.78
 
 - ring-undertow-adapter 1.1.1

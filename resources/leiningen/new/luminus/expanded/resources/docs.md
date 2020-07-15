@@ -9,20 +9,22 @@ defines the route that invokes the `home-page` function whenever an HTTP
 request is made to the `/` URI using the `GET` method.
 <% if cljs %>
 ```
-(defroutes home-routes
-  (GET "/" []
-       (home-page))
-  (GET "/docs" []
-       (-> (response/ok (-> "docs/docs.md" io/resource slurp))
-           (response/header "Content-Type" "text/plain; charset=utf-8"))))
+(defn home-routes []
+  [""
+   {:middleware [middleware/wrap-csrf
+                 middleware/wrap-formats]}
+   ["/" {:get home-page}]
+   ["/docs" {:get (fn [request]
+                    (-> (response/ok (-> "docs/docs.md" io/resource slurp))
+                        (response/header "Content-Type" "text/plain; charset=utf-8")))}]])
 ```
 
 The `home-page` function will in turn call the `<<project-ns>>.layout/render` function
 to render the HTML content:
 
 ```
-(defn home-page []
-  (layout/render "home.html"))
+(defn home-page [request]
+  (layout/render request "home.html"))
 ```
 
 The page contains a link to the compiled ClojureScript found in the `target/cljsbuild/public` folder:
@@ -35,17 +37,21 @@ The rest of this page is rendered by ClojureScript found in the `src/cljs/<<sani
 
 <% else %>
 ```
-(defroutes home-routes
-  (GET "/" [] (home-page))
-  (GET "/about" [] (about-page)))
+(defn home-routes []
+  [""
+   {:middleware [middleware/wrap-csrf
+                 middleware/wrap-formats]}
+   ["/" {:get home-page}]
+   ["/about" {:get about-page}]])
 ```
 
 The `home-page` function will in turn call the `<<project-ns>>.layout/render` function
 to render the HTML content:
 
 ```
-(defn home-page []
+(defn home-page [request]
   (layout/render
+    request 
     "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
 ```
 
@@ -70,17 +76,23 @@ The HTML templates are written using [Selmer](https://github.com/yogthos/Selmer)
 The routes are aggregated and wrapped with middleware in the `<<project-ns>>.handler` namespace:
 
 ```
-(defstate app
+(mount/defstate app-routes
   :start
-  (middleware/wrap-base
-    (routes
-      (-> #'home-routes
-          (wrap-routes middleware/wrap-csrf)
-          (wrap-routes middleware/wrap-formats))
-      (route/not-found
-        (:body
-          (error-page {:status 404
-                       :title "page not found"}))))))
+  (ring/ring-handler
+    (ring/router
+      [(home-routes)])
+    (ring/routes
+      (ring/create-resource-handler
+        {:path "/"})
+      (wrap-content-type
+        (wrap-webjars (constantly nil)))
+      (ring/create-default-handler
+        {:not-found
+         (constantly (error-page {:status 404, :title "404 - Page not found"}))
+         :method-not-allowed
+         (constantly (error-page {:status 405, :title "405 - Not allowed"}))
+         :not-acceptable
+         (constantly (error-page {:status 406, :title "406 - Not acceptable"}))}))))
 ```
 
 The `app` definition groups all the routes in the application into a single handler.
