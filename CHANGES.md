@@ -1,4 +1,9 @@
 ## 3.79
+
+- metosin/reitit 0.5.5
+
+## 3.79
+
 - updated generated docs
 - metosin/reitit 0.5.4
 
@@ -57,7 +62,6 @@
 - luminus-undertow 0.1.3
 - selmer 1.12.23
 
-
 ## 3.71
 
 - lein-shadow 0.2.0
@@ -96,7 +100,7 @@
 ## 3.65
 
 - `+basic` profile to exclude about page and initial user migration where applicable
-- fix `+kee-frame` profile when used with `+basic` 
+- fix `+kee-frame` profile when used with `+basic`
 
 ## 3.64
 
@@ -104,7 +108,7 @@
 - re-frisk 0.5.5
 - nrepl 0.7.0
 - update to jdbc.next
-- `+basic` profile for a leaner template 
+- `+basic` profile for a leaner template
 
 ## 3.63
 
@@ -133,7 +137,7 @@
 
 ## 3.61
 
-- Streamline Calva config for shadow-cljs projects 
+- Streamline Calva config for shadow-cljs projects
 
 ## 3.60
 
@@ -169,13 +173,16 @@
 - Selmer 1.12.18
 
 ## 3.54
+
 - reagent 0.9.0-rc3
 - expound 0.8.1
 
 ## 3.53
+
 - ClojureScript 1.10.597
 
 ## 3.52
+
 - org.webjars/webjars-locator 0.38
 - org.webjars.npm/bulma 0.8.0
 - ring/ring-core 1.8.0
@@ -189,6 +196,7 @@
   - `[buddy/buddy-hashers "1.4.0"]`
 
 ## 3.51
+
 - lein-shadow 0.1.7
 - thheller/shadow-cljs 2.8.69
 
@@ -230,7 +238,7 @@
 
 ## 3.45
 
-- org.clojure/tools.logging 0.5.0 
+- org.clojure/tools.logging 0.5.0
 
 ## 3.44
 
@@ -252,6 +260,7 @@
 - cprop 0.1.14
 
 ## 3.40
+
 - fixed missing async dependency for kee-frame profile
 - lein-shadow 0.1.4
 
@@ -277,7 +286,7 @@
 
 ## 3.36
 
-- set $USER from the environment as the default user for database profiles
+- set \$USER from the environment as the default user for database profiles
 - Clojure 1.10.1
 - funcool/struct 1.4.0
 - metosin/reitit 0.3.7
@@ -310,6 +319,7 @@
 ## 3.31
 
 - [shadow-cljs improvements](https://github.com/luminus-framework/luminus-template/commit/56154bfb754ada6b4e1449453b652c64ee9ec05a)
+
 ## 3.30
 
 - shadow-cljs support
@@ -325,7 +335,6 @@
 ## 3.28
 
 - fix for kee-frame dev time reloading
-
 
 ## 3.27
 
@@ -354,7 +363,6 @@
 - kee-frame 0.3.3
 - re-frisk "0.5.4.1
 - com.jakemccrary/lein-test-refresh 0.24.1
-
 
 ## 3.22
 
@@ -502,6 +510,7 @@
 
 - com.datomic/datomic-free 0.9.5697
 - added org.clojure/data.json 0.2.6 for the graphql profile
+
 ## 3.10.14
 
 - added a missing require in mysql profile
@@ -785,7 +794,7 @@ metosin/reitit 0.1.1
 
 - re-frame version change for React 16 compatibility
 
-##  2.9.12.54
+## 2.9.12.54
 
 - figwheel 0.5.16
 - `:nrepl-bind` option via [pr 359](https://github.com/luminus-framework/luminus-template/pull/359/files)
@@ -815,7 +824,7 @@ metosin/reitit 0.1.1
 
 ## 2.9.12.49
 
--  added improved error reporting when ``:database-url` is not set
+- added improved error reporting when ``:database-url` is not set
 
 ## 2.9.12.48
 
@@ -1336,6 +1345,7 @@ fixed typo
 - ClojureScript 1.9.521
 - binaryage/devtools 0.9.3
 - figwheel 0.5.10
+
 ## 2.9.11.44
 
 - ClojureScript 1.9.518
@@ -1480,8 +1490,8 @@ fixed typo
 ## 2.9.11.19
 
 - selmer 1.10.3
-- renamed `env/dev/cljs/dev.cljs to `env/dev/cljs/app.cljs`
-- renamed `env/prod/cljs/prod.cljs to `env/prod/cljs/app.cljs`
+- renamed `env/dev/cljs/dev.cljs to`env/dev/cljs/app.cljs`
+- renamed `env/prod/cljs/prod.cljs to`env/prod/cljs/app.cljs`
 - updated `+cljs` profile to remove unused externs, and fixed the `init!` function to work in uberjar
 
 ## 2.9.11.18
@@ -1512,7 +1522,6 @@ The HTTP server is no longer stopped and started by the `(start)`/`(stop)` helpe
 - markdown-clj 0.9.91
 - org.webjars/font-awesome 4.7.0
 - prone 1.1.4
-
 
 ## 2.9.11.13
 
@@ -1598,16 +1607,16 @@ The HTTP server is no longer stopped and started by the `(start)`/`(stop)` helpe
 
 ## 2.9.10.97
 
- - clj-time 0.12.0 for the +atuh-jwe profile
+- clj-time 0.12.0 for the +atuh-jwe profile
 
 ## 2.9.10.96
 
- - +auth-jwe profile
- - datomic 0.9.5394
- - compojure-api 1.1.8
- - clojurescript 1.9.229
- - buddy 1.1.0
- - figwheel-sidecar 0.5.7
+- +auth-jwe profile
+- datomic 0.9.5394
+- compojure-api 1.1.8
+- clojurescript 1.9.229
+- buddy 1.1.0
+- figwheel-sidecar 0.5.7
 
 ## 2.9.10.95
 
@@ -1821,7 +1830,6 @@ added `+re-frame` profile
 ## 2.9.10.54
 
 - bumped up figwheel, cljs-ajax, compojure-api
-
 
 ## 2.9.10.53
 
