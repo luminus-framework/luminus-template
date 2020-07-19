@@ -1,3 +1,7 @@
+## 3.81
+
+- luminus-jetty 0.2.0
+
 ## 3.80
 
 - metosin/reitit 0.5.5
