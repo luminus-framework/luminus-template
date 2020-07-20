@@ -5,7 +5,7 @@
 
 (def shadow-cljs-dependencies [['com.google.javascript/closure-compiler-unshaded "v20200504" :scope "provided"]
                                ['org.clojure/google-closure-library "0.0-20191016-6ae1f72f" :scope "provided"]
-                               ['org.clojure/google-closure-library-third-party "0.0-20191016-6ae1f72f" :scope "provided"]
+                               #_['org.clojure/google-closure-library-third-party "0.0-20191016-6ae1f72f" :scope "provided"]
                                ['thheller/shadow-cljs shadow-version :scope "provided"]
                                ['org.clojure/core.async "1.2.603"]])
 
@@ -38,7 +38,8 @@
 
 ;; TODO: Hoplon?
 (defn npm-deps [{:keys [features]}]
-  (cond-> [['shadow-cljs shadow-version]]
+  []
+  #_(cond-> [['shadow-cljs shadow-version]]
     (some #{"+reagent"} features)
     ((fnil into [])
      [['create-react-class "15.6.3"]
