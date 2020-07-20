@@ -1,3 +1,8 @@
+## 3.82
+
+- re-frame 1.0.0
+- shadow-version 2.10.17
+
 ## 3.81
 
 - luminus-jetty 0.2.0
