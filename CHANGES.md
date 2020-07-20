@@ -1,6 +1,7 @@
 ## 3.81
 
 - luminus-jetty 0.2.0
+- shadow-cljs 2.10.16
 
 ## 3.80
 
