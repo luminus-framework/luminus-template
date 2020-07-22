@@ -33,15 +33,15 @@ The default server is [ring-undertow](https://github.com/luminus-framework/ring-
 ### databases
 
 * `+h2` adds db.core namespace and [H2 database][h2] dependencies
-* `+postgres` adds db.core namespace and add [PostreSQL database][pg] dependencies
-* `+mysql` adds db.core namespace and add [MySQL/MariaDB database][my] dependencies
+* `+postgres` adds db.core namespace and [PostreSQL database][pg] dependencies
+* `+mysql` adds db.core namespace and [MySQL/MariaDB database][my] dependencies
 * `+mongodb` adds support for [MongoDB][mongo] using the [Monger][monger] library
 * `+datomic` adds support for the [Datomic](http://www.datomic.com/) database
 * `+sqlite` adds support for the [SQLite](https://www.sqlite.org/) database
 
 ### service API
 
-* `+graphql` - adds GraphQL support using [Lacinia](https://github.com/walmartlabs/lacinia)
+* `+graphql` adds GraphQL support using [Lacinia](https://github.com/walmartlabs/lacinia)
 * `+swagger` adds support for [Swagger-UI](https://github.com/swagger-api/swagger-ui)
 * `+service` removes static assets and the layout, adds Swagger support
 
@@ -50,8 +50,8 @@ The default server is [ring-undertow](https://github.com/luminus-framework/ring-
 * `+cljs` adds [ClojureScript][cljs] support to the project
 * `+reagent` adds [ClojureScript][cljs] support with [Reagent](https://reagent-project.github.io/) to the project along with an example
 * `+re-frame` adds [ClojureScript][cljs] support with [re-frame](https://github.com/Day8/re-frame) to the project along with an example
-* `+kee-frame` added [kee-frame](https://github.com/ingesolvoll/kee-frame) to the project
-* `+shadow-cljs` adds [shadow-cljs](https://github.com/thheller/shadow-cljs) support to the project, replacing the default cljsbuild and figwheel setup.
+* `+kee-frame` adds [kee-frame](https://github.com/ingesolvoll/kee-frame) to the project
+* `+shadow-cljs` adds [shadow-cljs](https://github.com/thheller/shadow-cljs) support to the project, replacing the default cljsbuild and figwheel setup
 
 ### misc
 
@@ -64,7 +64,7 @@ The default server is [ring-undertow](https://github.com/luminus-framework/ring-
 * `+sassc` adds support for [SASS/SCSS](http://sass-lang.com/) files using [SassC](http://github.com/sass/sassc) command line compiler
 * `+war` adds support of building WAR archives for deployment to servers such as Apache Tomcat (should NOT be used for [Immutant apps running on WildFly][immutant])
 * `+site` creates template for site using the specified database (H2 by default) and ClojureScript
-* `+kibit` add [lein-kibit](https://github.com/jonase/kibit) plugin
+* `+kibit` adds [lein-kibit](https://github.com/jonase/kibit) plugin
 * `+servlet` adds middleware for handling Servlet context
 * `+basic` generates a bare bones luminus project
 
