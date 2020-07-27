@@ -23,50 +23,54 @@ However, if you would like to attach further functionality to your template you 
 
 ### alternative servers
 
-* `+aleph` adds the [Aleph](https://github.com/ztellman/aleph) server
-* `+http-kit` adds the fast [HTTP Kit](https://github.com/http-kit/http-kit) web server to the project
-* `+immutant` adds the [immutant](https://github.com/immutant/immutant) web server to the project. Note: this project is no longer funded/maintained
-* `+jetty` adds the [jetty](https://github.com/luminus-framework/luminus-jetty) web server to the project
+* `+aleph` adds the [Aleph](https://github.com/ztellman/aleph) server ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+aleph))
+* `+http-kit` adds the fast [HTTP Kit](https://github.com/http-kit/http-kit) web server to the project ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+http-kit))
+* `+immutant` adds the [immutant](https://github.com/immutant/immutant) web server to the project. Note: this project is no longer funded/maintained ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+immutant))
+* `+jetty` adds the [jetty](https://github.com/luminus-framework/luminus-jetty) web server to the project ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+jetty))
 
-The default server is [ring-undertow](https://github.com/luminus-framework/ring-undertow-adapter) 
+The default server is [ring-undertow](https://github.com/luminus-framework/ring-undertow-adapter) ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+undertow))
 
 ### databases
 
-* `+h2` adds db.core namespace and [H2 database][h2] dependencies
-* `+postgres` adds db.core namespace and [PostreSQL database][pg] dependencies
-* `+mysql` adds db.core namespace and [MySQL/MariaDB database][my] dependencies
-* `+mongodb` adds support for [MongoDB][mongo] using the [Monger][monger] library
-* `+datomic` adds support for the [Datomic](http://www.datomic.com/) database
-* `+sqlite` adds support for the [SQLite](https://www.sqlite.org/) database
+* `+h2` adds db.core namespace and [H2 database][h2] dependencies ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+h2))
+* `+postgres` adds db.core namespace and [PostreSQL database][pg] dependencies ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+postgres))
+* `+mysql` adds db.core namespace and [MySQL/MariaDB database][my] dependencies ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+mysql))
+* `+mongodb` adds support for [MongoDB][mongo] using the [Monger][monger] library ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+mongodb))
+* `+datomic` adds support for the [Datomic](http://www.datomic.com/) database ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+datomic))
+* `+sqlite` adds support for the [SQLite](https://www.sqlite.org/) database ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+sqlite))
+
 
 ### service API
 
-* `+graphql` adds GraphQL support using [Lacinia](https://github.com/walmartlabs/lacinia)
-* `+swagger` adds support for [Swagger-UI](https://github.com/swagger-api/swagger-ui)
-* `+service` removes static assets and the layout, adds Swagger support
+* `+graphql` adds GraphQL support using [Lacinia](https://github.com/walmartlabs/lacinia) ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+graphql))
+* `+swagger` adds support for [Swagger-UI](https://github.com/swagger-api/swagger-ui) ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+swagger))
+* `+service` removes static assets and the layout, adds Swagger support ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+service))
+
 
 ### ClojureScript
 
-* `+cljs` adds [ClojureScript][cljs] support to the project
-* `+reagent` adds [ClojureScript][cljs] support with [Reagent](https://reagent-project.github.io/) to the project along with an example
-* `+re-frame` adds [ClojureScript][cljs] support with [re-frame](https://github.com/Day8/re-frame) to the project along with an example
-* `+kee-frame` adds [kee-frame](https://github.com/ingesolvoll/kee-frame) to the project
-* `+shadow-cljs` adds [shadow-cljs](https://github.com/thheller/shadow-cljs) support to the project, replacing the default cljsbuild and figwheel setup
+* `+cljs` adds [ClojureScript][cljs] support to the project ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+cljs))
+* `+reagent` adds [ClojureScript][cljs] support with [Reagent](https://reagent-project.github.io/) to the project along with an example ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+reagent))
+* `+re-frame` adds [ClojureScript][cljs] support with [re-frame](https://github.com/Day8/re-frame) to the project along with an example ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+re-frame))
+* `+kee-frame` adds [kee-frame](https://github.com/ingesolvoll/kee-frame) to the project ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+kee-frame))
+* `+shadow-cljs` adds [shadow-cljs](https://github.com/thheller/shadow-cljs) support to the project, replacing the default cljsbuild and figwheel setup ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+shadow-cljs))
+
 
 ### misc
 
-* `+boot` causes the project to run with [Boot](https://github.com/boot-clj/boot) instead of [Leiningen](https://github.com/technomancy/leiningen/)
-* `+auth` adds [Buddy](https://github.com/funcool/buddy) dependency and authentication middleware
-* `+auth-jwe` adds [Buddy](https://github.com/funcool/buddy) dependency with the [JWE](https://jwcrypto.readthedocs.io/en/stable/jwe.html) backend
-* `+oauth` adds [OAuth](https://github.com/mattrepl/clj-oauth) dependency
-* `+hoplon` adds [ClojureScript][cljs] support with [Hoplon](https://github.com/hoplon/hoplon) to the project
-* `+cucumber` adds support for browser based UI testing with [Cucumber][cucumber] and [clj-webdriver][clj-webdriver]
-* `+sassc` adds support for [SASS/SCSS](http://sass-lang.com/) files using [SassC](http://github.com/sass/sassc) command line compiler
-* `+war` adds support of building WAR archives for deployment to servers such as Apache Tomcat (should NOT be used for [Immutant apps running on WildFly][immutant])
-* `+site` creates template for site using the specified database (H2 by default) and ClojureScript
-* `+kibit` adds [lein-kibit](https://github.com/jonase/kibit) plugin
-* `+servlet` adds middleware for handling Servlet context
-* `+basic` generates a bare bones luminus project
+* `+boot` causes the project to run with [Boot](https://github.com/boot-clj/boot) instead of [Leiningen](https://github.com/technomancy/leiningen/) ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+boot))
+* `+auth` adds [Buddy](https://github.com/funcool/buddy) dependency and authentication middleware ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+auth))
+* `+auth-jwe` adds [Buddy](https://github.com/funcool/buddy) dependency with the [JWE](https://jwcrypto.readthedocs.io/en/stable/jwe.html) backend ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+auth-jwe))
+* `+oauth` adds [OAuth](https://github.com/mattrepl/clj-oauth) dependency ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+oauth))
+* `+hoplon` adds [ClojureScript][cljs] support with [Hoplon](https://github.com/hoplon/hoplon) to the project ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+hoplon))
+* `+cucumber` adds support for browser based UI testing with [Cucumber][cucumber] and [clj-webdriver][clj-webdriver] ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+cucumber))
+* `+sassc` adds support for [SASS/SCSS](http://sass-lang.com/) files using [SassC](http://github.com/sass/sassc) command line compiler ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+sassc))
+* `+war` adds support of building WAR archives for deployment to servers such as Apache Tomcat (should NOT be used for [Immutant apps running on WildFly][immutant]) ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+war))
+* `+site` creates template for site using the specified database (H2 by default) and ClojureScript ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+site))
+* `+kibit` adds [lein-kibit](https://github.com/jonase/kibit) plugin ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+kibit))
+* `+servlet` adds middleware for handling Servlet context ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+servlet))
+* `+basic` generates a bare bones luminus project ([diff](https://github.com/nfedyashev/luminusdiff/compare/3.82..3.82+basic))
+
 
 To add a profile simply pass it as an argument after your application name, e.g.:
 
