@@ -51,7 +51,8 @@
    ["/ping"
     {:get (constantly (ok {:message "pong"}))}]
    <% if graphql %>
-   ["/graphql" {:post (fn [req] (ok (graphql/execute-request (-> req :body slurp))))}]<% endif %>
+   ["/graphql" {:no-doc true
+                :post (fn [req] (ok (graphql/execute-request (-> req :body slurp))))}]<% endif %>
 
    ["/math"
     {:swagger {:tags ["math"]}}
