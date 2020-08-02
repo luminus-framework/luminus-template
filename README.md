@@ -121,7 +121,7 @@ Copyright © 2016 Dmitri Sotnikov
 
 Distributed under the [MIT License](http://opensource.org/licenses/MIT).
 
-[ph]: <http://www.luminusweb.net/docs/profiles.md>
+[ph]: <http://www.luminusweb.net/docs/profiles.html>
 [tbs]: <http://twitter.github.io/bootstrap/>
 [cljs]: <https://github.com/clojure/clojurescript>
 [h2]: <http://www.h2database.com/html/main.html>
