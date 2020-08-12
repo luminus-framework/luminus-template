@@ -3,6 +3,8 @@
              :refer [name-to-path year
                      sanitize sanitize-ns project-name]]
             [clojure.java.io :as io]
+            [leiningen.cljfmt]
+            [cljfmt.main]
             [leiningen.core.main :refer [leiningen-version]]
             [leiningen.core.main :as main]
             [leiningen.new.common :refer :all]
@@ -184,7 +186,17 @@
             oauth-features
             war-features
             calva-features)]
-    (render-assets assets binary-assets (format-options options))))
+    (render-assets assets binary-assets (format-options options))
+
+    (main/info "Linting:...")
+    (with-redefs #_[cljfmt.main/exit (fn [x] (println "exit aborted: " x))]
+      (main/info (#'leiningen.cljfmt/cljfmt
+                  (-> cljfmt.main/default-options
+                      (assoc :root leiningen.new.templates/*dir*)
+                      (assoc :project-root leiningen.new.templates/*dir*)
+                      (assoc :source-paths (list (str leiningen.new.templates/*dir* "/src")))
+                      (assoc :test-paths (list (str leiningen.new.templates/*dir* "/test"))))
+                  "fix")))))
 
 (defn format-features [features]
   (apply str (interpose ", " features)))
