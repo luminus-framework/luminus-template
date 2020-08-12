@@ -1,6 +1,8 @@
 ## 3.84
 
 - fix for restarting http-kit from the REPL
+- selmer 1.12.28
+- nrepl 0.8.0
 
 ## 3.83
 

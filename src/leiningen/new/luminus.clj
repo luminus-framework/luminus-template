@@ -120,11 +120,11 @@
 
 (def core-dependencies
   [['org.clojure/clojure "1.10.1"]
-   ['selmer "1.12.27"]
+   ['selmer "1.12.28"]
    ['clojure.java-time "0.3.2"]
    ['luminus-transit "0.1.2"]
    ['metosin/muuntaja "0.6.7"]
-   ['com.fasterxml.jackson.core/jackson-databind "2.11.1"]
+   ['com.fasterxml.jackson.core/jackson-databind "2.11.2"]
    ['cheshire "5.10.0"]
    ['metosin/ring-http-response "0.9.1"]
    ['org.clojure/tools.logging "1.1.0"]
@@ -134,7 +134,7 @@
    ['mount "0.1.16"]
    ['cprop "0.1.17"]
    ['org.clojure/tools.cli "1.0.194"]
-   ['nrepl "0.7.0"]
+   ['nrepl "0.8.0"]
    ['expound "0.8.5"]])
 
 (def core-dev-dependencies
