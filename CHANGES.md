@@ -1,3 +1,7 @@
+## 3.84
+
+- fix for restarting http-kit from the REPL
+
 ## 3.83
 
 - http-kit 2.4.0
