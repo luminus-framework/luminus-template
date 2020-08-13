@@ -1,3 +1,7 @@
+## 3.85
+
+- luminus-undertow 0.1.7
+
 ## 3.84
 
 - fix for restarting http-kit from the REPL
