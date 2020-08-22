@@ -81,7 +81,7 @@
    "{{resource-path}}/public/js"
 
    ;; tests
-   ["{{backend-test-path}}/{{sanitized}}/test/handler_test.clj" "core/test/handler_test.clj"]])
+   ["{{backend-test-path}}/{{sanitized}}/handler_test.clj" "core/test/handler_test.clj"]])
 
 (def binary-assets
   [["{{resource-path}}/public/favicon.ico" "core/resources/favicon.ico"]

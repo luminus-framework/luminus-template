@@ -1,4 +1,4 @@
-(ns <<project-ns>>.test.db.core-test
+(ns <<project-ns>>.db.core-test
   (:require
    [<<project-ns>>.db.core :refer [*db*] :as db]
    [java-time.pre-java8]
