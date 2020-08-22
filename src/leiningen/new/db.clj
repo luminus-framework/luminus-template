@@ -39,7 +39,7 @@
     (concat
       [["{{db-path}}/{{sanitized}}/db/core.clj" "db/src/sql.db.clj"]
        ["{{resource-path}}/sql/queries.sql" "db/sql/queries.sql"]
-       ["{{backend-test-path}}/{{sanitized}}/test/db/core_test.clj" "db/test/db/core_test.clj"]]
+       ["{{backend-test-path}}/{{sanitized}}/db/core_test.clj" "db/test/db/core_test.clj"]]
       (when (some #{"+expanded"} (:features options))
         [[(str "{{resource-path}}/migrations/" timestamp "-add-users-table.up.sql") "db/migrations/add-users-table.up.sql"]
          [(str "{{resource-path}}/migrations/" timestamp "-add-users-table.down.sql") "db/migrations/add-users-table.down.sql"]]))))
