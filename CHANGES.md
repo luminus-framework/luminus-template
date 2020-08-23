@@ -1,6 +1,8 @@
 ## 3.85
 
+- lein-uberwar 0.2.1
 - luminus-undertow 0.1.7
+- test paths refactor for CIDER [PR 509](https://github.com/luminus-framework/luminus-template/pull/509)
 
 ## 3.84
 

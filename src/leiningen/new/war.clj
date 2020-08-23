@@ -30,5 +30,5 @@
          (append-options :dev-dependencies (into [['directory-naming/naming-java "0.8"]]
                                                  (:http-server-dependencies options)))
          (append-options :plugins (if (some #{"+lein"} (:features options))
-                                    [['lein-uberwar "0.2.0"]])))]
+                                    [['lein-uberwar "0.2.1"]])))]
     state))
