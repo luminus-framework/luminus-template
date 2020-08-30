@@ -1,8 +1,6 @@
 (ns <<project-ns>>.middleware
   (:require
     [<<project-ns>>.env :refer [defaults]]<% if not service %>
-    [cheshire.generate :as cheshire]
-    [cognitect.transit :as transit]
     [clojure.tools.logging :as log]
     [<<project-ns>>.layout :refer [error-page]]
     [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
