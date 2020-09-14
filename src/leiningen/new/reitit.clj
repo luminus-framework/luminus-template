@@ -10,7 +10,7 @@
     [(into (remove-conflicting-assets assets "home.clj" "docs.md") reitit-assets)
      (-> options
          (append-options :dependencies [['metosin/reitit "0.5.5"]
-                                        ['metosin/jsonista "0.2.6"]
+                                        ['metosin/jsonista "0.2.7"]
                                         ['com.fasterxml.jackson.core/jackson-core "2.11.2"]])
          (assoc :reitit true))]
     state))

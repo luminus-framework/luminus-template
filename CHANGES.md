@@ -1,3 +1,8 @@
+## 3.86
+
+- nREPL 0.8.1
+- jsonista 0.2.7
+
 ## 3.85
 
 - lein-uberwar 0.2.1
