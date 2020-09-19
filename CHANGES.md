@@ -1,5 +1,6 @@
 ## 3.86
 
+- http-kit 2.5.0
 - nREPL 0.8.1
 - jsonista 0.2.7
 
