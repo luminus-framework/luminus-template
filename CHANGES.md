@@ -3,6 +3,7 @@
 - http-kit 2.5.0
 - nREPL 0.8.1
 - jsonista 0.2.7
+- buddy-hashers 1.6.0
 
 ## 3.85
 
