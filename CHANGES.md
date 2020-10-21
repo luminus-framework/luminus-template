@@ -1,3 +1,7 @@
+## 3.88
+
+- luminus-migrations 0.7.0
+
 ## 3.87
 
 - Selmer 1.12.31
