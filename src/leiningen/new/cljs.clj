@@ -49,7 +49,7 @@
      [:cljsbuild :builds :app :compiler :output-to]]))
 
 (defn cljs-dev-dependencies [features]
-  (let [piggieback-version "0.5.0"
+  (let [piggieback-version "0.5.1"
         devtools-version "1.0.2"]
     (if (some #{"+shadow-cljs"} features)
     [['binaryage/devtools devtools-version]
@@ -152,7 +152,7 @@
 (def cljs-boot-dev-plugins
   '[[crisptrutski/boot-cljs-test "0.3.4" :scope "test"]
     [powerlaces/boot-figreload "0.1.1-SNAPSHOT" :scope "test"]
-    [com.cemerick/piggieback "0.2.1" :scope "test"]
+    [com.cemerick/piggieback "0.5.1" :scope "test"]
     [org.clojure/clojurescript cljs-version :scope "test"]
     [weasel "0.7.0" :scope "test"]
     [org.clojure/tools.nrepl "0.2.12" :scope "test"]])

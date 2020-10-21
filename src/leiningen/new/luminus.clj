@@ -124,23 +124,23 @@
    ['clojure.java-time "0.3.2"]
    ['luminus-transit "0.1.2"]
    ['metosin/muuntaja "0.6.7"]
-   ['com.fasterxml.jackson.core/jackson-databind "2.11.2"]
+   ['com.fasterxml.jackson.core/jackson-databind "2.11.3"]
    ['cheshire "5.10.0"]
    ['metosin/ring-http-response "0.9.1"]
    ['org.clojure/tools.logging "1.1.0"]
-   ['ring/ring-core "1.8.1"]
+   ['ring/ring-core "1.8.2"]
    ['ring/ring-defaults "0.3.2"]
    ['luminus/ring-ttl-session "0.3.3"]
    ['mount "0.1.16"]
    ['cprop "0.1.17"]
    ['org.clojure/tools.cli "1.0.194"]
-   ['nrepl "0.8.1"]
-   ['expound "0.8.5"]])
+   ['nrepl "0.8.2"]
+   ['expound "0.8.6"]])
 
 (def core-dev-dependencies
   [['prone "2020-01-17"]
    ['ring/ring-mock "0.4.0"]
-   ['ring/ring-devel "1.8.1"]
+   ['ring/ring-devel "1.8.2"]
    ['pjstadig/humane-test-output "0.10.0"]])
 
 (def core-dev-plugins

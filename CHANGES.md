@@ -1,7 +1,25 @@
 ## 3.87
 
 - Selmer 1.12.31
-
+- buddy/buddy-core 1.8.0
+- buddy/buddy-hashers 1.6.0
+- buddy/buddy-sign 3.2.0
+- cljs-ajax 0.8.1
+- com.fasterxml.jackson.core/jackson-core 2.11.3
+- com.fasterxml.jackson.core/jackson-databind 2.11.3
+- day8.re-frame/http-fx 0.2.1
+- expound 0.8.6
+- luminus-migrations 0.6.9
+- metosin/jsonista 0.2.7
+- etosin/reitit 0.5.9
+- nrepl 0.8.2
+- org.postgresql/postgresql 42.2.18
+- org.webjars.npm/bulma 0.9.1
+- re-frame 1.1.1
+- ring/ring-core 1.8.2
+- cider/piggieback 0.5.1
+- ring/ring-devel 1.8.2
+- shadow-cljs 2.11.5
 ## 3.86
 
 - http-kit 2.5.0
