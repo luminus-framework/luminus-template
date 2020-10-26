@@ -75,7 +75,7 @@
   (doto (History.)
     (events/listen
       HistoryEventType/NAVIGATE
-      (fn [event]
+      (fn [^js/Event.token event]
         (swap! session assoc :page (match-route (.-token event)))))
     (.setEnabled true)))
 
