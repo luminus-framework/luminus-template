@@ -1,6 +1,8 @@
 ## 3.88
 
-- luminus-migrations 0.7.0
+- luminus-migrations 0.7.1
+- metosin/reitit 0.5.10
+- nrepl 0.8.3
 
 ## 3.87
 
