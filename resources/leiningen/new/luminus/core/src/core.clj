@@ -28,7 +28,8 @@
     (-> env<% if undertow-based %>
         (update :io-threads #(or % (* 2 (.availableProcessors (Runtime/getRuntime))))) <% endif %>
         (assoc  :handler (handler/app))
-        (update :port #(or (-> env :options :port) %))))
+        (update :port #(or (-> env :options :port) %))
+        (select-keys [:handler :host :port])))
   :stop
   (http/stop http-server))
 
@@ -86,5 +87,5 @@
       (migrations/migrate args (select-keys env [:database-url]))
       (System/exit 0))
     :else
-    (start-app args)))
+    (start-app args))
   <% else %>(start-app args))<% endif %>
