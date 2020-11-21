@@ -9,7 +9,6 @@
     [reitit.ring.middleware.parameters :as parameters]<% if graphql %>
     [<<project-ns>>.routes.services.graphql :as graphql]<% endif %>
     [<<project-ns>>.middleware.formats :as formats]
-    [<<project-ns>>.middleware.exception :as exception]
     [ring.util.http-response :refer :all]
     [clojure.java.io :as io]))
 
@@ -25,7 +24,7 @@
                  ;; encoding response body
                  muuntaja/format-response-middleware
                  ;; exception handling
-                 exception/exception-middleware
+                 coercion/coerce-exceptions-middleware
                  ;; decoding request body
                  muuntaja/format-request-middleware
                  ;; coercing response bodys

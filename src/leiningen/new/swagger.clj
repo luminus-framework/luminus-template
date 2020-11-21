@@ -3,8 +3,7 @@
 
 (defn swagger-assets [{:keys [features]}]
   (when (some #{"+reitit"} features)
-    [["{{backend-path}}/{{sanitized}}/routes/services.clj" "reitit/src/services.clj"]
-     ["{{backend-path}}/{{sanitized}}/middleware/exception.clj" "reitit/src/exception.clj"]]))
+    [["{{backend-path}}/{{sanitized}}/routes/services.clj" "reitit/src/services.clj"]]))
 
 (defn swagger-features [[assets options :as state]]
   (if (some #{"+swagger"} (:features options))
