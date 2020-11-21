@@ -20,7 +20,7 @@
 (deftest test-app
   (testing "main route"
     (let [response ((app) (request :get "/"))]
-      (is (= 200 (:status response)))))
+      (is (= <% if service %>301<% else %>200<% endif %> (:status response)))))
 
   (testing "not-found route"
     (let [response ((app) (request :get "/invalid"))]
