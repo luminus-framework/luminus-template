@@ -1,3 +1,7 @@
+## 3.89
+
+- [fix for the tests in `+service` profile](https://github.com/luminus-framework/luminus-template/pull/518)
+
 ## 3.88
 
 - luminus-migrations 0.7.1
