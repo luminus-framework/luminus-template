@@ -38,7 +38,7 @@
   []
   (mount/stop #'<<project-ns>>.db.core/*db*)
   (mount/start #'<<project-ns>>.db.core/*db*)
-  (binding [*ns* '<<project-ns>>.db.core]
+  (binding [*ns* (the-ns '<<project-ns>>.db.core)]
     (conman/bind-connection <<project-ns>>.db.core/*db* "sql/queries.sql")))
 
 (defn reset-db
