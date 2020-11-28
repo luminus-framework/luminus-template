@@ -1,3 +1,8 @@
+## 3.90
+
+- switched to using re-frame-10x for re-frame debugging
+- [fix for *ns* binding in `user/restart-db`](https://github.com/luminus-framework/luminus-template/pull/519)
+
 ## 3.89
 
 - [fix for the tests in `+service` profile](https://github.com/luminus-framework/luminus-template/pull/518)

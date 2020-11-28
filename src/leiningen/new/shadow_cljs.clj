@@ -28,7 +28,7 @@
                          {:entries [(project-ns-symbol project-ns ".app")]}}
             :devtools   (merge {:watch-dir "resources/public"}
                                (when (some #{"+re-frame"} features)
-                                 {:preloads ['re-frisk.preload]}))}
+                                 {:preloads ['day8.re-frame-10x.preload]}))}
            (when (some #{"+re-frame"} features)
              {:dev {:closure-defines {"re_frame.trace.trace_enabled_QMARK_" true}}}))
 
