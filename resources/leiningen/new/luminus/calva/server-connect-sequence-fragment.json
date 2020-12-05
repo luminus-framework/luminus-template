@@ -1,7 +1,7 @@
         {
             "name": "Server only - <<name>>",
             "projectType": "Leiningen",
-            "afterCLJReplJackInCode": "(start)",
+            "afterCLJReplJackInCode": "(in-ns 'user) (start)",
             "cljsType": "none",
             "menuSelections": {
                 "leinProfiles": [
