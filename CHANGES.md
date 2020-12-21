@@ -1,20 +1,29 @@
-## 3.90
+## 3.91
+- buddy/buddy-core 1.9.0
+- buddy/buddy-hashers 1.7.0
+- buddy/buddy-sign 3.3.0
+- com.fasterxml.jackson.core/jackson-core 2.12.0
+- com.fasterxml.jackson.core/jackson-databind 2.12.0
+- conman 0.9.1
+- day8.re-frame/http-fx 0.2.2
+- expound 0.8.7
+- re-frame 1.1.2
+- cider/piggieback 0.5.2
+- switched back to re-frisk due to API incompatibility with re-frame-10x and latest Reagent
 
+## 3.90
 - switched to using re-frame-10x for re-frame debugging
 - [fix for *ns* binding in `user/restart-db`](https://github.com/luminus-framework/luminus-template/pull/519)
 
 ## 3.89
-
 - [fix for the tests in `+service` profile](https://github.com/luminus-framework/luminus-template/pull/518)
 
 ## 3.88
-
 - luminus-migrations 0.7.1
 - metosin/reitit 0.5.10
 - nrepl 0.8.3
 
 ## 3.87
-
 - Selmer 1.12.31
 - buddy/buddy-core 1.8.0
 - buddy/buddy-hashers 1.6.0
