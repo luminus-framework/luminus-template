@@ -1,3 +1,8 @@
+## 3.92
+- metosin/reitit 0.5.11
+- thheller/shadow-cljs 2.11.14
+- removed cheshire as a default dependency
+
 ## 3.91
 - buddy/buddy-core 1.9.0
 - buddy/buddy-hashers 1.7.0

@@ -124,8 +124,6 @@
    ['clojure.java-time "0.3.2"]
    ['luminus-transit "0.1.2"]
    ['metosin/muuntaja "0.6.7"]
-   #_['com.fasterxml.jackson.core/jackson-databind "2.12.0"]
-   ['cheshire "5.10.0"]
    ['metosin/ring-http-response "0.9.1"]
    ['org.clojure/tools.logging "1.1.0"]
    ['ring/ring-core "1.8.2"]

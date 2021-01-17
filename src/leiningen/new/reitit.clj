@@ -9,8 +9,6 @@
   (if (some #{"+reitit"} (:features options))
     [(into (remove-conflicting-assets assets "home.clj" "docs.md") reitit-assets)
      (-> options
-         (append-options :dependencies [['metosin/reitit "0.5.10"]
-                                        #_['metosin/jsonista "0.2.7"]
-                                        #_['com.fasterxml.jackson.core/jackson-core "2.12.0"]])
+         (append-options :dependencies [['metosin/reitit "0.5.11"]])
          (assoc :reitit true))]
     state))
