@@ -1,5 +1,6 @@
 ## 3.93
 - luminus-undertow 0.1.8
+- selmer 1.12.32
 
 ## 3.92
 - metosin/reitit 0.5.11
