@@ -1,3 +1,6 @@
+## 3.94
+- org.clojure/clojure 1.10.2
+
 ## 3.93
 - luminus-undertow 0.1.8
 - selmer 1.12.32
