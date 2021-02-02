@@ -1,3 +1,7 @@
+## 3.95
+- selmer 1.12.33
+- rolled back to luminus-undertow 0.1.7 (bug in 0.1.8)
+
 ## 3.94
 - org.clojure/clojure 1.10.2
 
