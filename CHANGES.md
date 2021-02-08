@@ -1,5 +1,8 @@
 ## 3.96
 - Ring 1.9.0
+- metosin/muuntaja 0.6.8
+- metosin/reitit 0.5.12
+- metosin/ring-http-response 0.9.2
 
 ## 3.95
 - selmer 1.12.33
