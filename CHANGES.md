@@ -1,3 +1,6 @@
+## 3.96
+- Ring 1.9.0
+
 ## 3.95
 - selmer 1.12.33
 - rolled back to luminus-undertow 0.1.7 (bug in 0.1.8)
