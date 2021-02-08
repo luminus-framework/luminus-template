@@ -1,8 +1,10 @@
 ## 3.96
-- Ring 1.9.0
 - metosin/muuntaja 0.6.8
 - metosin/reitit 0.5.12
 - metosin/ring-http-response 0.9.2
+- re-frisk 1.3.6
+- ring 1.9.0
+- shadow-version 2.11.17
 
 ## 3.95
 - selmer 1.12.33
