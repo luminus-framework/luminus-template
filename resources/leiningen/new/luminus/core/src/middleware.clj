@@ -1,27 +1,27 @@
 (ns <<project-ns>>.middleware
-  (:require [<<project-ns>>.env :refer [defaults]]<% if not service %>
-            [cheshire.generate :as cheshire]
-            [cognitect.transit :as transit]
-            [clojure.tools.logging :as log]
-            [<<project-ns>>.layout :refer [error-page<% if servlet %> *app-context*<% endif %>]]
-            [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]<% if not reitit %>
-            [ring.middleware.webjars :refer [wrap-webjars]]<% endif %>
-            [<<project-ns>>.middleware.formats :as formats]
-            [muuntaja.middleware :refer [wrap-format wrap-params]]<% endif %>
-            [<<project-ns>>.config :refer [env]]<% if immutant-session %>
-            [ring.middleware.flash :refer [wrap-flash]]
-            [immutant.web.middleware :refer [wrap-session]]<% else %>
-            [ring-ttl-session.core :refer [ttl-memory-store]]<% endif %>
-            [ring.middleware.defaults :refer [site-defaults wrap-defaults]]<% if auth-middleware-required %>
-            <<auth-middleware-required>><% if auth-session %>
-            <<auth-session>><% endif %><% if auth-jwe %>
-            <<auth-jwe>><% endif %><% endif %>)<% if not service %>
-  (:import <% if servlet %>[javax.servlet ServletContext]<% endif %>
-           [org.joda.time ReadableInstant])<% endif %>)
+  (:require
+    [<<project-ns>>.env :refer [defaults]]<% if not service %>
+    [clojure.tools.logging :as log]
+    [<<project-ns>>.layout :refer [error-page]]
+    [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
+    [<<project-ns>>.middleware.formats :as formats]
+    [muuntaja.middleware :refer [wrap-format wrap-params]]<% endif %>
+    [<<project-ns>>.config :refer [env]]<% if undertow-based %>
+    [ring.middleware.flash :refer [wrap-flash]]<% ifequal server "immutant" %>
+    [immutant.web.middleware :refer [wrap-session]]<% else %>
+    [ring.adapter.undertow.middleware.session :refer [wrap-session]]<% endifequal %><% else %>
+    [ring-ttl-session.core :refer [ttl-memory-store]]<% endif %>
+    [ring.middleware.defaults :refer [site-defaults wrap-defaults]]<% if auth-middleware-required %>
+    <<auth-middleware-required>><% if auth-session %>
+    <<auth-session>><% endif %><% if auth-jwe %>
+    <<auth-jwe>>[buddy.sign.util :refer [to-timestamp]]<% endif %><% endif %>)<% if not service %>
+  <% if any auth-jwe servlet %> (:import
+    <% if auth-jwe %>[java.util Calendar Date]<% endif %>
+    <% if servlet %>[javax.servlet ServletContext]<% endif %>)<% endif %><% endif %>)
 <% if not service %><% if servlet %>
 (defn wrap-context [handler]
   (fn [request]
-    (binding [*app-context*
+    (assoc-in request [:session :app-context]
               (if-let [context (:servlet-context request)]
                 ;; If we're not inside a servlet environment
                 ;; (for example when using mock requests), then
@@ -31,8 +31,7 @@
                 ;; if the context is not specified in the request
                 ;; we check if one has been specified in the environment
                 ;; instead
-                (:app-context env))]
-      (handler request))))
+                (:app-context env)))))
 <% endif %>
 (defn wrap-internal-error [handler]
   (fn [req]
@@ -83,7 +82,11 @@
 
 (defn token [username]
   (let [claims {:user (keyword username)
-                :exp (plus (now) (minutes 60))}]
+                :exp (to-timestamp
+                       (.getTime
+                         (doto (Calendar/getInstance)
+                           (.setTime (Date.))
+                           (.add Calendar/HOUR_OF_DAY 1))))}]
     (encrypt claims secret {:alg :a256kw :enc :a128gcm})))<% endif %>
 
 (defn wrap-auth [handler]
@@ -94,8 +97,7 @@
 <% endif %>
 (defn wrap-base [handler]
   (-> ((:middleware defaults) handler)<% if auth-middleware-required %>
-      wrap-auth<% endif %><% if not service %><% if not reitit %>
-      wrap-webjars<% endif %><% endif %><% if immutant-session %>
+      wrap-auth<% endif %><% if undertow-based %>
       wrap-flash
       (wrap-session {:cookie-attrs {:http-only true}})
       (wrap-defaults

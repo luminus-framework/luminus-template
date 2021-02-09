@@ -1,70 +1,67 @@
 (ns <<project-ns>>.core
-  (:require [baking-soda.core :as b]
-            [reagent.core :as r]
-            [goog.events :as events]
-            [goog.history.EventType :as HistoryEventType]
-            [markdown.core :refer [md->html]]
-            [<<project-ns>>.ajax :as ajax]
-            [ajax.core :refer [GET POST]]<% if reitit %>
-            [reitit.core :as reitit]
-            [clojure.string :as string]<% else %>
-            [secretary.core :as secretary :include-macros true]<% endif %>)
+  (:require
+    [reagent.core :as r]
+    [reagent.dom :as rdom]
+    [goog.events :as events]
+    [goog.history.EventType :as HistoryEventType]<% if expanded %>
+    [markdown.core :refer [md->html]]<% endif %>
+    [<<project-ns>>.ajax :as ajax]
+    [ajax.core :refer [GET POST]]
+    [reitit.core :as reitit]
+    [clojure.string :as string])
   (:import goog.History))
 
 (defonce session (r/atom {:page :home}))
 
-; the navbar components are implemented via baking-soda [1]
-; library that provides a ClojureScript interface for Reactstrap [2]
-; Bootstrap 4 components.
-; [1] https://github.com/gadfly361/baking-soda
-; [2] http://reactstrap.github.io/
-
 (defn nav-link [uri title page]
-  [b/NavItem
-   [b/NavLink
-    {:href   uri
-     :active (when (= page (:page @session)) "active")}
-    title]])
+  [:a<% if expanded %>.navbar-item<% endif %>
+   {:href   uri
+    :class (when (= page (:page @session)) "is-active")}
+   title])
 
-(defn navbar []
-  (r/with-let [expanded? (r/atom true)]
-    [b/Navbar {:light true
-               :class-name "navbar-dark bg-primary"
-               :expand "md"}
-     [b/NavbarBrand {:href "/"} "<<name>>"]
-     [b/NavbarToggler {:on-click #(swap! expanded? not)}]
-     [b/Collapse {:is-open @expanded? :navbar true}
-      [b/Nav {:class-name "mr-auto" :navbar true}
+(defn navbar [] <% if expanded %>
+  (r/with-let [expanded? (r/atom false)]
+    [:nav.navbar.is-info>div.container
+     [:div.navbar-brand
+      [:a.navbar-item {:href "/" :style {:font-weight :bold}} "<<name>>"]
+      [:span.navbar-burger.burger
+       {:data-target :nav-menu
+        :on-click #(swap! expanded? not)
+        :class (when @expanded? :is-active)}
+       [:span][:span][:span]]]
+     [:div#nav-menu.navbar-menu
+      {:class (when @expanded? :is-active)}
+      [:div.navbar-start
        [nav-link "#/" "Home" :home]
-       [nav-link "#/about" "About" :about]]]]))
-
+       [nav-link "#/about" "About" :about]]]])<% else %>
+  [:nav
+   [nav-link "#/" "Home" :home]] <% endif %>)
+<% if expanded %>
 (defn about-page []
-  [:div.container
-   [:div.row
-    [:div.col-md-12
-     [:img {:src <% if servlet %>(str js/context "/img/warning_clojure.png")<% else %>"/img/warning_clojure.png"<% endif %>}]]]])
+  [:section.section>div.container>div.content
+   [:img {:src "/img/warning_clojure.png"}]])
+<% endif %>
 
-(defn home-page []
-  [:div.container
+(defn home-page []<% if expanded %>
+  [:section.section>div.container>div.content
    (when-let [docs (:docs @session)]
-     [:div.row>div.col-sm-12
-      [:div {:dangerouslySetInnerHTML
-             {:__html (md->html docs)}}]])])
+     [:div {:dangerouslySetInnerHTML {:__html (md->html docs)}}])]<% else %>
+  [:section]<% endif %>)
 
 (def pages
-  {:home #'home-page
-   :about #'about-page})
+  {:home #'home-page<% if expanded %>
+   :about #'about-page<% endif %>})
 
 (defn page []
   [(pages (:page @session))])
 
 ;; -------------------------
 ;; Routes
-<% if reitit %>
+
 (def router
   (reitit/router
-    [["/" :home]
-     ["/about" :about]]))
+    [["/" :home]<% if expanded %>
+     ["/about" :about]<% endif %>]))
 
 (defn match-route [uri]
   (->> (or (not-empty (string/replace uri #"^.*#" "")) "/")
@@ -78,40 +75,21 @@
   (doto (History.)
     (events/listen
       HistoryEventType/NAVIGATE
-      (fn [event]
+      (fn [^js/Event.token event]
         (swap! session assoc :page (match-route (.-token event)))))
     (.setEnabled true)))
-<% else %>
-(secretary/set-config! :prefix "#")
 
-(secretary/defroute "/" []
-  (swap! session assoc :page :home))
-
-(secretary/defroute "/about" []
-  (swap! session assoc :page :about))
-
-;; -------------------------
-;; History
-;; must be called after routes have been defined
-(defn hook-browser-navigation! []
-  (doto (History.)
-        (events/listen
-          HistoryEventType/NAVIGATE
-          (fn [event]
-            (secretary/dispatch! (.-token event))))
-        (.setEnabled true)))
-<% endif %>
 ;; -------------------------
 ;; Initialize app
-(defn fetch-docs! []
+<% if expanded %>(defn fetch-docs! []
   (GET "/docs" {:handler #(swap! session assoc :docs %)}))
-
-(defn mount-components []
-  (r/render [#'navbar] (.getElementById js/document "navbar"))
-  (r/render [#'page] (.getElementById js/document "app")))
+<% endif %>
+(defn<% if shadow-cljs %> ^:dev/after-load<% endif %> mount-components []
+  (rdom/render [#'navbar] (.getElementById js/document "navbar"))
+  (rdom/render [#'page] (.getElementById js/document "app")))
 
 (defn init! []
-  (ajax/load-interceptors!)
-  (fetch-docs!)
+  (ajax/load-interceptors!)<% if expanded %>
+  (fetch-docs!)<% endif %>
   (hook-browser-navigation!)
   (mount-components))

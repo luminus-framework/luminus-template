@@ -8,7 +8,6 @@
             [leiningen.new.common :refer :all]
             [leiningen.new.lein :refer [lein-features]]
             [leiningen.new.boot :refer [boot-features]]
-            [leiningen.new.compojure :refer [compojure-features]]
             [leiningen.new.reitit :refer [reitit-features]]
             [leiningen.new.auth :refer [auth-features]]
             [leiningen.new.auth-base :refer [auth-base-features]]
@@ -19,6 +18,7 @@
             [leiningen.new.reagent :refer [reagent-features]]
             [leiningen.new.re-frame :refer [re-frame-features]]
             [leiningen.new.kee-frame :refer [kee-frame-features]]
+            [leiningen.new.shadow-cljs :refer [shadow-cljs-features]]
             [leiningen.new.cucumber :refer [cucumber-features]]
             [leiningen.new.aleph :refer [aleph-features]]
             [leiningen.new.jetty :refer [jetty-features]]
@@ -33,7 +33,10 @@
             [leiningen.new.kibit :refer [kibit-features]]
             [leiningen.new.logback :refer [logback-features]]
             [leiningen.new.service :refer [service-features]]
-            [leiningen.new.oauth :refer [oauth-features]]))
+            [leiningen.new.oauth :refer [oauth-features]]
+            [leiningen.new.calva :refer [calva-features]]
+            [leiningen.new.expanded :refer [expanded-features]]
+            [leiningen.new.undertow :refer [undertow-features]]))
 
 (defn resource [r]
   (->> r (str "leiningen/new/luminus/core/resources/") (io/resource)))
@@ -52,6 +55,8 @@
 
 
    ;; config namespaces
+
+
    ["env/dev/clj/{{sanitized}}/env.clj" "core/env/dev/clj/env.clj"]
    ["env/dev/clj/{{sanitized}}/dev_middleware.clj" "core/env/dev/clj/dev_middleware.clj"]
    ["env/prod/clj/{{sanitized}}/env.clj" "core/env/prod/clj/env.clj"]
@@ -69,16 +74,14 @@
    ;;HTML templates
    ["{{resource-path}}/html/base.html" "core/resources/html/base.html"]
    ["{{resource-path}}/html/home.html" "core/resources/html/home.html"]
-   ["{{resource-path}}/html/about.html" "core/resources/html/about.html"]
    ["{{resource-path}}/html/error.html" "core/resources/html/error.html"]
 
    ;; public resources, example URL: /css/screen.css
    ["{{resource-path}}/public/css/screen.css" "core/resources/css/screen.css"]
-   ["{{resource-path}}/docs/docs.md" "core/resources/docs.md"]
    "{{resource-path}}/public/js"
 
    ;; tests
-   ["{{backend-test-path}}/{{sanitized}}/test/handler.clj" "core/test/handler.clj"]])
+   ["{{backend-test-path}}/{{sanitized}}/handler_test.clj" "core/test/handler_test.clj"]])
 
 (def binary-assets
   [["{{resource-path}}/public/favicon.ico" "core/resources/favicon.ico"]
@@ -116,40 +119,31 @@
         (update-in [:dev-plugins] (partial indent dev-dependency-indent)))))
 
 (def core-dependencies
-  [['org.clojure/clojure "1.9.0"]
-   ['selmer "1.12.2"]
+  [['org.clojure/clojure "1.10.2"]
+   ['selmer "1.12.33"]
    ['clojure.java-time "0.3.2"]
-   ['luminus-transit "0.1.1"]
-   ['markdown-clj "1.0.3"]
-   ['metosin/muuntaja "0.6.1"]
-   ['com.fasterxml.jackson.datatype/jackson-datatype-jdk8 "2.6.3"]
-   ['com.fasterxml.jackson.core/jackson-core "2.9.7"]
-   ['metosin/ring-http-response "0.9.0"]
-   ['funcool/struct "1.3.0"]
-   ['org.webjars/bootstrap "4.1.3"]
-   ['org.webjars/font-awesome "5.3.1"]
-   ['org.webjars.bower/tether "1.4.4"]
-   ['org.webjars/jquery "3.3.1-1"]
-   ['org.clojure/tools.logging "0.4.1"]
-   ['ring/ring-core "1.7.0"]
-   ['ring-webjars "0.2.0"]
-   ['org.webjars/webjars-locator "0.34"]
+   ['luminus-transit "0.1.2"]
+   ['metosin/muuntaja "0.6.8"]
+   ['metosin/ring-http-response "0.9.2"]
+   ['org.clojure/tools.logging "1.1.0"]
+   ['ring/ring-core "1.9.0"]
    ['ring/ring-defaults "0.3.2"]
-   ['luminus/ring-ttl-session "0.3.2"]
-   ['mount "0.1.13"]
-   ['cprop "0.1.13"]
-   ['org.clojure/tools.cli "0.4.1"]
-   ['nrepl "0.4.5"]])
+   ['luminus/ring-ttl-session "0.3.3"]
+   ['mount "0.1.16"]
+   ['cprop "0.1.17"]
+   ['org.clojure/tools.cli "1.0.194"]
+   ['nrepl "0.8.3"]
+   ['expound "0.8.7"]])
 
 (def core-dev-dependencies
-  [['expound "0.7.1"]
-   ['prone "1.6.1"]
-   ['ring/ring-mock "0.3.2"]
-   ['ring/ring-devel "1.7.0"]
-   ['pjstadig/humane-test-output "0.8.3"]])
+  [['prone "2020-01-17"]
+   ['ring/ring-mock "0.4.0"]
+   ['ring/ring-devel "1.9.0"]
+   ['pjstadig/humane-test-output "0.10.0"]])
 
 (def core-dev-plugins
-  [['com.jakemccrary/lein-test-refresh "0.23.0"]])
+  [['com.jakemccrary/lein-test-refresh "0.24.1"]
+   ['jonase/eastwood "0.3.5"]])
 
 (defn generate-project
   "Create a new Luminus project"
@@ -159,7 +153,6 @@
         (-> [core-assets options]
             lein-features
             boot-features
-            compojure-features
             reitit-features
             service-features
             servlet-features
@@ -169,22 +162,26 @@
             db-features
             cucumber-features
             site-features
+            expanded-features
             cljs-features
             hoplon-features
             reagent-features
             re-frame-features
             kee-frame-features
+            shadow-cljs-features
             swagger-features
             graphql-features
             aleph-features
             jetty-features
             http-kit-features
             immutant-features
+            undertow-features
             sassc-features
             kibit-features
             logback-features
             oauth-features
-            war-features)]
+            war-features
+            calva-features)]
     (render-assets assets binary-assets (format-options options))))
 
 (defn format-features [features]
@@ -192,17 +189,18 @@
 
 (defn set-feature [options feature features]
   (if (empty?
-        (clojure.set/intersection
-          (-> options :features set)
-          features))
+       (clojure.set/intersection
+        (-> options :features set)
+        features))
     (update-in options [:features] conj feature)
     options))
 
 (defn set-default-features [options]
   (-> options
-      (set-feature "+immutant" #{"+jetty" "+aleph" "+http-kit"})
+      (set-feature "+undertow" #{"+aleph" "+http-kit" "+immutant" "+jetty" "+war" })
       (set-feature "+logback" #{})
-      (set-feature "+compojure" #{"+reitit"})
+      (set-feature "+reitit" #{})
+      (set-feature "+expanded" #{"+basic"})
       (set-feature "+lein" #{"+boot"})))
 
 (defn set-feature-dependency [options feature dependencies]
@@ -219,58 +217,59 @@
       (set-feature-dependency "+graphql" #{"+swagger"})
       (set-feature-dependency "+reagent" #{"+cljs"})
       (set-feature-dependency "+re-frame" #{"+cljs" "+reagent"})
-      (set-feature-dependency "+kee-frame" #{"+cljs" "+reitit" "+reagent" "+re-frame"})))
+      (set-feature-dependency "+kee-frame" #{"+cljs" "+reitit" "+reagent" "+re-frame"})
+      (set-feature-dependency "+shadow-cljs" #{"+cljs"})
+      (set-feature-dependency "+war" #{"+jetty"})))
 
 (defn parse-version [v]
   (map #(try (Integer/parseInt %)
              (catch Exception e
                (println "Warning: leiningen version not in number format (could just be a snapshot version)")
                %))
-            (clojure.string/split v #"\.")))
+       (clojure.string/split v #"\.")))
 
 (defn version-before? [v]
   (let [[x1 y1 z1] (parse-version (leiningen-version))
         [x2 y2 z2] (parse-version v)]
     (or
-      (< x1 x2)
-      (and (= x1 x2) (< y1 y2))
-      (and (= x1 x2) (= y1 y2) (< z1 z2)))))
+     (< x1 x2)
+     (and (= x1 x2) (< y1 y2))
+     (and (= x1 x2) (= y1 y2) (< z1 z2)))))
 
 (defn jvm-opts []
-  (when (try
-          (> (Double/parseDouble (subs (System/getProperty "java.version") 0 3)) 1.8)
-          (catch Exception _))
-    ["\"--add-modules\"" "\"java.xml.bind\""]))
+  ;; reserved for JVM opts that may need to be passed to Leiningen
+  )
 
 (defn luminus
   "Create a new Luminus project"
   [name & feature-params]
   (let [min-version "2.5.2"
         supported-features #{;; routing
-                             "+compojure" "+reitit"
+                             "+reitit"
                              ;;databases
                              "+sqlite" "+h2" "+postgres" "+mysql" "+mongodb" "+datomic"
                              ;;servers
-                             "+aleph" "+jetty" "+http-kit"
+                             "+aleph" "+jetty" "+http-kit" "+immutant" "+undertow"
                              ;;misc
                              "+cljs" "+hoplon" "+reagent" "+re-frame" "+kee-frame" "+auth" "+auth-jwe" "+site"
                              "+cucumber" "+sassc" "+oauth"
                              "+swagger" "+war" "+graphql"
                              "+kibit" "+service" "+servlet"
-                             "+boot"}
+                             "+boot" "+shadow-cljs"
+                             "+basic" "+expanded"}
         options (merge
-                  project-relative-paths
-                  {:name             (project-name name)
-                   :dependencies     core-dependencies
-                   :dev-dependencies core-dev-dependencies
-                   :dev-plugins      core-dev-plugins
-                   :selmer-renderer  render-template
-                   :min-lein-version "2.0.0"
-                   :project-ns       (sanitize-ns name)
-                   :sanitized        (name-to-path name)
-                   :year             (year)
-                   :features         (set feature-params)
-                   :opts             (jvm-opts)})
+                 project-relative-paths
+                 {:name             (project-name name)
+                  :dependencies     core-dependencies
+                  :dev-dependencies core-dev-dependencies
+                  :dev-plugins      core-dev-plugins
+                  :selmer-renderer  render-template
+                  :min-lein-version "2.0.0"
+                  :project-ns       (sanitize-ns name)
+                  :sanitized        (name-to-path name)
+                  :year             (year)
+                  :features         (set feature-params)
+                  :opts             (jvm-opts)})
         unsupported (-> (set feature-params)
                         (clojure.set/difference supported-features)
                         (not-empty))]

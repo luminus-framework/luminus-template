@@ -6,5 +6,5 @@
     [assets
      (-> options
          (assoc :server "http-kit")
-         (append-options :http-server-dependencies [['luminus-http-kit "0.1.6"]]))]
+         (append-options :http-server-dependencies [['luminus-http-kit "0.1.9"]]))]
     state))

@@ -6,49 +6,19 @@
     <title>Welcome to <<name>></title>
 
     <!-- styles -->
-    {% style "/assets/bootstrap/css/bootstrap.min.css" %}
-    {% style "/assets/font-awesome/css/all.css" %}
 
     {% style "/css/screen.css" %}
   </head>
   <body>
       <!-- navbar -->
-      <nav class="navbar navbar-dark bg-primary navbar-expand-md" role="navigation">
-          <button class="navbar-toggler hidden-sm-up"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#collapsing-navbar">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-          <a class="navbar-brand" href="<% if servlet %>{{servlet-context}}<% endif %>/"><<name>></a>
-          <div class="collapse navbar-collapse" id="collapsing-navbar">
-              <ul class="nav navbar-nav">
-                  <li class="nav-item">
-                      <a href="<% if servlet %>{{servlet-context}}<% endif %>/"
-                         class="nav-link{% ifequal page "home.html" %} active{%endifequal%}">
-                      home
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a href="<% if servlet %>{{servlet-context}}<% endif %>/about"
-                         class="nav-link{% ifequal page "about.html" %} active{%endifequal%}">
-                      about
-                      </a>
-                  </li>
-              </ul>
-          </div>
+      <nav>
       </nav>
 
-    <div class="container">
-      {% block content %}
-      {% endblock %}
-    </div>
+      <section>
+      </section>
 
     <!-- scripts -->
-    {% script "/assets/jquery/jquery.min.js" %}
-    {% script "/assets/font-awesome/js/all.js" %}
-    {% script "/assets/tether/dist/js/tether.min.js" %}
-    {% script "/assets/bootstrap/js/bootstrap.min.js" %}
+
     <% if servlet %><script type="text/javascript">
       var context = "{{servlet-context}}";
     </script><% endif %>

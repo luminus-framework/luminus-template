@@ -1,19 +1,21 @@
 (ns <<project-ns>>.layout
-  (:require [selmer.parser :as parser]
-            [selmer.filters :as filters]
-            [markdown.core :refer [md-to-html-string]]
-            [ring.util.http-response :refer [content-type ok]]
-            [ring.util.anti-forgery :refer [anti-forgery-field]]
-            [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]))
+  (:require
+    [clojure.java.io]
+    [selmer.parser :as parser]<% if expanded %>
+    [selmer.filters :as filters]
+    [markdown.core :refer [md-to-html-string]]<% endif %>
+    [ring.util.http-response :refer [content-type ok]]
+    [ring.util.anti-forgery :refer [anti-forgery-field]]
+    [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]
+    [ring.util.response]))
 
-<% if servlet %>(declare ^:dynamic *app-context*)<% endif %>
 (parser/set-resource-path!  (clojure.java.io/resource "html"))
-(parser/add-tag! :csrf-field (fn [_ _] (anti-forgery-field)))
-(filters/add-filter! :markdown (fn [content] [:safe (md-to-html-string content)]))
+(parser/add-tag! :csrf-field (fn [_ _] (anti-forgery-field)))<% if expanded %>
+(filters/add-filter! :markdown (fn [content] [:safe (md-to-html-string content)]))<% endif %>
 
 (defn render
   "renders the HTML template located relative to resources/html"
-  [template & [params]]
+  [request template & [params]]
   (content-type
     (ok
       (parser/render-file
@@ -21,8 +23,8 @@
         (assoc params
           :page template
           :csrf-token *anti-forgery-token*<% if servlet %>
-          :selmer/context *app-context*
-          :servlet-context *app-context*<% endif %>)))
+          :selmer/context (-> request :session :app-context)
+          :servlet-context (-> request :session :app-context)<% endif %>)))
     "text/html; charset=utf-8"))
 
 (defn error-page

@@ -3,8 +3,8 @@
     [re-frame.core :as rf]))
 
 (def routes
-  [["/" :home]
-   ["/about" :about]])
+  [["/" :home]<% if expanded %>
+   ["/about" :about]<% endif %>])
 
 (rf/reg-sub
   :nav/route

@@ -1,3 +1,668 @@
+## 3.96
+- metosin/muuntaja 0.6.8
+- metosin/reitit 0.5.12
+- metosin/ring-http-response 0.9.2
+- re-frisk 1.3.6
+- ring 1.9.0
+- shadow-version 2.11.17
+
+## 3.95
+- selmer 1.12.33
+- rolled back to luminus-undertow 0.1.7 (bug in 0.1.8)
+
+## 3.94
+- org.clojure/clojure 1.10.2
+
+## 3.93
+- luminus-undertow 0.1.8
+- selmer 1.12.32
+
+## 3.92
+- metosin/reitit 0.5.11
+- thheller/shadow-cljs 2.11.14
+- removed cheshire as a default dependency
+
+## 3.91
+- buddy/buddy-core 1.9.0
+- buddy/buddy-hashers 1.7.0
+- buddy/buddy-sign 3.3.0
+- com.fasterxml.jackson.core/jackson-core 2.12.0
+- com.fasterxml.jackson.core/jackson-databind 2.12.0
+- conman 0.9.1
+- day8.re-frame/http-fx 0.2.2
+- expound 0.8.7
+- re-frame 1.1.2
+- cider/piggieback 0.5.2
+- switched back to re-frisk due to API incompatibility with re-frame-10x and latest Reagent
+
+## 3.90
+- switched to using re-frame-10x for re-frame debugging
+- [fix for *ns* binding in `user/restart-db`](https://github.com/luminus-framework/luminus-template/pull/519)
+
+## 3.89
+- [fix for the tests in `+service` profile](https://github.com/luminus-framework/luminus-template/pull/518)
+
+## 3.88
+- luminus-migrations 0.7.1
+- metosin/reitit 0.5.10
+- nrepl 0.8.3
+
+## 3.87
+- Selmer 1.12.31
+- buddy/buddy-core 1.8.0
+- buddy/buddy-hashers 1.6.0
+- buddy/buddy-sign 3.2.0
+- cljs-ajax 0.8.1
+- com.fasterxml.jackson.core/jackson-core 2.11.3
+- com.fasterxml.jackson.core/jackson-databind 2.11.3
+- day8.re-frame/http-fx 0.2.1
+- expound 0.8.6
+- luminus-migrations 0.6.9
+- metosin/jsonista 0.2.7
+- etosin/reitit 0.5.9
+- nrepl 0.8.2
+- org.postgresql/postgresql 42.2.18
+- org.webjars.npm/bulma 0.9.1
+- re-frame 1.1.1
+- ring/ring-core 1.8.2
+- cider/piggieback 0.5.1
+- ring/ring-devel 1.8.2
+- shadow-cljs 2.11.5
+## 3.86
+
+- http-kit 2.5.0
+- nREPL 0.8.1
+- jsonista 0.2.7
+- buddy-hashers 1.6.0
+
+## 3.85
+
+- lein-uberwar 0.2.1
+- luminus-undertow 0.1.7
+- test paths refactor for CIDER [PR 509](https://github.com/luminus-framework/luminus-template/pull/509)
+
+## 3.84
+
+- fix for restarting http-kit from the REPL
+- selmer 1.12.28
+- nrepl 0.8.0
+
+## 3.83
+
+- http-kit 2.4.0
+- selmer 1.12.28
+
+## 3.82
+
+- re-frame 1.0.0
+- shadow-version 2.10.17
+
+## 3.81
+
+- luminus-jetty 0.2.0
+- shadow-cljs 2.10.16
+
+## 3.80
+
+- metosin/reitit 0.5.5
+
+## 3.79
+
+- updated generated docs
+- metosin/reitit 0.5.4
+
+## 3.78
+
+- ring-undertow-adapter 1.1.1
+- markdown-clj 1.10.5
+- org.postgresql/postgresql 42.2.14
+- bulma 0.9.0
+- shadow-version 2.10.14
+- re-frisk 1.3.4
+
+## 3.77
+
+- removed explicit require for Google Closure lib for shadow-cljs
+
+## 3.76
+
+- conman 0.9.0
+- ClojureScript 1.10.773
+- cljs-devtools 1.0.0
+- sqlite-jdbc 3.30.1
+- jackson-core 2.11.1
+- jackson-databind 2.11.1
+- expound 0.8.5
+- shadow-cljs 2.10.13
+- core.async (used in +shadow-cljs profile) 1.2.603
+
+## 3.75
+
+- luminus-undertow 0.1.5 (listen on 0.0.0.0 by default)
+- metosin/reitit 0.5.2
+- selmer 1.12.27
+
+## 3.74
+
+- selmer 1.12.25
+- luminus-undertow 0.1.4
+- use undertow as the default
+
+## 3.73
+
+- ClojureScript 1.10.764
+- figwheel 0.5.20
+- metosin/reitit 0.5.1
+- piggieback 0.5.0
+- re-frisk 1.3.2
+
+## 3.72
+
+- conman 0.8.9
+- cprop 0.1.17
+- muuntaja 0.6.7
+- ring-core 1.8.1
+- ring-devel 1.8.1
+- luminus-undertow 0.1.3
+- selmer 1.12.23
+
+## 3.71
+
+- lein-shadow 0.2.0
+
+## 3.70
+
+- fix for +auth-jwe profile imports
+- org.clojure/clojurescript "1.10.748
+- org.clojure/tools.logging 1.1.0
+- org.webjars.npm/bulma 0.8.2
+- org.webjars/webjars-locator 0.40
+- selmer 1.12.23
+- re-frisk 1.2.0
+
+## 3.69
+
+- conman 0.8.7
+
+## 3.68
+
+- selmer 1.12.22
+- markdown-clj 1.10.4
+- ClojureScript 1.10.741
+
+## 3.67
+
+- added undertow adapter option using `+undertow` flag
+- org.webjars.npm/bulma 0.8.1
+- luminus-jetty 0.1.9 with support for WebSockets
+
+## 3.66
+
+- org.clojure/core.async 1.1.582
+- selmer 1.12.19
+
+## 3.65
+
+- `+basic` profile to exclude about page and initial user migration where applicable
+- fix `+kee-frame` profile when used with `+basic`
+
+## 3.64
+
+- conman 0.8.5
+- re-frisk 0.5.5
+- nrepl 0.7.0
+- update to jdbc.next
+- `+basic` profile for a leaner template
+
+## 3.63
+
+- luminus-migrations 0.6.7, needed to work with the latest Postgres driver
+
+## 3.62
+
+- fix for shadow-cljs dev NPM modules
+- cheshire 5.10.0
+- com.cognitect/transit-clj 1.0.324
+- cprop 0.1.16
+- expound 0.8.4
+- luminus-jetty 0.1.9
+- markdown-clj 1.10.2
+- metosin/reitit 0.4.2
+- org.clojure/tools.cli 1.0.194
+- org.clojure/tools.logging 1.0.0
+- org.webjars/webjars-locator 0.39
+- reagent 0.10.0
+- re-frame 0.12.0
+- thheller/shadow-cljs 2.8.93
+- binaryage/devtools 1.0.0
+- prone 2020-01-17
+- org.xerial/sqlite-jdbc 3.30.1
+- org.postgresql/postgresql 42.2.11
+
+## 3.61
+
+- Streamline Calva config for shadow-cljs projects
+
+## 3.60
+
+- Calva integration
+
+## 3.59
+
+- updated Heroku Procfile to log clojure.main errors to stderr by default
+
+## 3.58
+
+- added timeout to the REPL options for dev
+
+## 3.57
+
+- remove joda-time reference
+
+## 3.56
+
+- removed Secretary in favor of using built in Reitit history management
+
+## 3.55
+
+- fixed `+auth-jwe` profile
+- cprop 0.1.15
+- expound 0.8.3
+- markdown-clj 1.10.1
+- org.postgresql/postgresql 42.2.9
+- binaryage/devtools 0.9.11
+
+## 3.54
+
+- Selmer 1.12.18
+
+## 3.54
+
+- reagent 0.9.0-rc3
+- expound 0.8.1
+
+## 3.53
+
+- ClojureScript 1.10.597
+
+## 3.52
+
+- org.webjars/webjars-locator 0.38
+- org.webjars.npm/bulma 0.8.0
+- ring/ring-core 1.8.0
+- ring/ring-devel 1.8.0
+- metosin/muuntaja 0.6.6
+
+- switched to use latest versions of Buddy libraries:
+  - `[buddy/buddy-auth "2.2.0"]`
+  - `[buddy/buddy-sign "3.1.0"]`
+  - `[buddy/buddy-core "1.6.0"]`
+  - `[buddy/buddy-hashers "1.4.0"]`
+
+## 3.51
+
+- lein-shadow 0.1.7
+- thheller/shadow-cljs 2.8.69
+
+## 3.50
+
+- luminus-migrations 0.6.6
+- conman 0.8.4
+- com.cognitect/transit-clj 0.8.319
+- metosin/muuntaja 0.6.5
+- metosin/reitit 0.3.10
+- org.postgresql/postgresql 42.2.8
+- org.webjars.npm/material-icons 0.3.1
+- org.webjars/webjars-locator 0.37
+- re-frame 0.10.9
+- selmer 1.12.17
+- thheller/shadow-cljs 2.8.67
+- cider/piggieback 0.4.2
+- pjstadig/humane-test-output 0.10.0
+- org.xerial/sqlite-jdbc 3.28.0
+- com.h2database/h2 1.4.200
+- mysql/mysql-connector-java 8.0.18
+- luminus-transit "0.1.2
+
+## 3.49
+
+- selmer 1.12.16
+
+## 3.48
+
+- selmer 1.12.14
+
+## 3.47
+
+- selmer 1.12.13
+
+## 3.46
+
+- [improved error reporting for Swagger routes using expound](https://github.com/luminus-framework/luminus-template/pull/451)
+
+## 3.45
+
+- org.clojure/tools.logging 0.5.0
+
+## 3.44
+
+- added a default exception handler for uncaught exceptions in threads
+
+## 3.43
+
+- added re-frame-10x hook for the shadow-cljs profile
+
+## 3.42
+
+- fixed default tests
+- prone 2019-07-08
+- re-frame 0.10.8
+
+## 3.41
+
+- include core.async explicitly for the `+shadow-cljs` profile
+- cprop 0.1.14
+
+## 3.40
+
+- fixed missing async dependency for kee-frame profile
+- lein-shadow 0.1.4
+
+## 3.39
+
+-fixed typo for shadow-cljs profile
+
+## 3.38
+
+- fixed to use the same shadow-cljs version for NPM deps
+- com.h2database/h2 1.4.199
+- closure-compiler-unshaded v20190618
+- mysql-connector-java 8.0.16
+
+## 3.37
+
+- metosin/reitit 0.3.9
+- org.postgresql/postgresql 42.2.6
+- re-frame 0.10.7
+- figwheel-sidecar 0.5.19
+- prone 1.6.4
+- switch to Jetty as the default HTTP server
+
+## 3.36
+
+- set \$USER from the environment as the default user for database profiles
+- Clojure 1.10.1
+- funcool/struct 1.4.0
+- metosin/reitit 0.3.7
+- org.webjars.npm/bulma 0.7.5
+- cider/piggieback 0.4.1
+- thheller/shadow-cljs 2.8.39
+- com.google.javascript/closure-compiler-unshaded v20190528
+
+## 3.35
+
+- luminus/ring-ttl-session 0.3.3
+- changed navbar-end to navbar-start for nav links
+- fix for setting the class on selected page
+
+## 3.34
+
+- lein-shadow 0.1.3
+
+## 3.33
+
+- Reitit 0.3.5
+- default pprint tap in user.clj
+- piggieback 0.4.1
+- shadow-cljs 2.8.37
+
+## 3.32
+
+- fix for Figwheel profile
+
+## 3.31
+
+- [shadow-cljs improvements](https://github.com/luminus-framework/luminus-template/commit/56154bfb754ada6b4e1449453b652c64ee9ec05a)
+
+## 3.30
+
+- shadow-cljs support
+- markdown-clj 1.10.0
+
+## 3.29
+
+- doc strings in user ns
+- prone 1.6.3
+- markdown-clj 1.0.8
+- ring/ring-mock 0.4.0
+
+## 3.28
+
+- fix for kee-frame dev time reloading
+
+## 3.27
+
+- fix for kee-frame navbar
+- set debug? to false for kee-frame in prod mode
+
+## 3.26
+
+- com.walmartlabs/lacinia 0.32.0
+- include `org.webjars/webjars-locator-jboss-vfs` by default for Immutant
+
+## 3.25
+
+- fix for injecting `webjars-locator-jboss-vfs` when `+war` and `+immutant` profiles are selected
+
+## 3.24
+
+- [fix for handling Reitit service errors](https://github.com/luminus-framework/luminus-template/pull/430)
+- metosin/muuntaja 0.6.4
+- org.clojure/tools.cli 0.4.2
+- selmer 1.12.12
+
+## 3.23
+
+- fix for omitting [env.clj](https://github.com/luminus-framework/luminus-template/pull/428)
+- kee-frame 0.3.3
+- re-frisk "0.5.4.1
+- com.jakemccrary/lein-test-refresh 0.24.1
+
+## 3.22
+
+- Selmer 1.12.11
+
+## 3.21
+
+- Aleph 0.4.6
+- Reitit 0.3.1
+
+## 3.20
+
+- switched to use Bulma as the default CSS framework (no Js dependencies)
+- switched to use Material icons instead of font-awesome (smaller bundle size)
+- switched to use Reitit 0.3.0 instead of compojure
+
+## 3.10.41
+
+- added Js symbol printing in dev mode for cljs profile
+
+## 3.10.40
+
+- fix for Swagger routes in kee-frame profile, addresses issue [420](https://github.com/luminus-framework/luminus-template/issues/420)
+- org.webjars/bootstrap 4.3.1
+- org.webjars/font-awesome 5.7.2
+
+## 3.10.39
+
+- ClojureScript 10.10.520
+- piggieback 0.4.0
+- org.webjars/font-awesome 5.7.1
+- org.webjars/webjars-locator 0.36
+
+## 3.10.38
+
+- luminus-migrations 0.6.4
+- dev logback config dynamic reloading
+- got rid of the dynamic app-context variable in layout, updated render to accept the request as a parameter
+
+## 3.10.37
+
+- nREPL 0.6.0
+
+## 3.10.36
+
+- Selmer 1.12.6
+
+## 3.10.35
+
+- ClojureScript 1.10.516
+- markdown-clj 1.0.7
+- metosin/reitit 0.2.13
+- mount 0.1.16
+- org.webjars/font-awesome 5.6.3
+- org.webjars/webjars-locator 0.35
+
+## 3.10.34
+
+- fix for to [remove Unneeded call to cider/wrap-cljs-repl](https://github.com/luminus-framework/luminus-template/pull/414)
+
+## 3.10.33
+
+- Immutant 2.1.10
+
+## 3.10.32
+
+- fixed formatting
+
+## 3.10.31
+
+- fix for loading the correct Swagger UI URL in `+service` profile
+
+## 3.10.30
+
+- com.google.guava/guava 27.0.1-jre for Mongo
+
+## 3.10.29
+
+- metosin/reitit 0.2.10
+- org.webjars/bootstrap 4.2.1
+
+## 3.10.28
+
+- metosin/compojure-api 2.0.0-alpha28
+
+## 3.10.27
+
+- boot dependency updates, boot cljs REPL update
+- Figwheel 0.5.18
+- expound 0.7.2
+- removed secretary dependency when reitit is used
+
+## 3.10.26
+
+- Clojure 1.10
+
+## 3.10.25
+
+- added cheshire as an explicit dependency
+
+## 3.10.24
+
+- default service tests
+
+## 3.10.23
+
+- clj-commons/secretary 1.2.4
+- kee-frame 0.3.2
+- metosin/muuntaja 0.6.2
+- mount 0.1.15
+- nrepl 0.5.3
+
+## 3.10.22
+
+- refactor for service routes via [pr 404](https://github.com/luminus-framework/luminus-template/pull/404)
+
+## 3.10.21
+
+- changed to use openjdk in Dockerfile
+
+## 3.10.20
+
+- luminus-migrations 0.6.3
+
+## 3.10.19
+
+- switched `+war` profile to use Jetty as the dev server
+
+## 3.10.18
+
+- switched to use `ring-jetty-adapter` for the `+jetty` profile
+
+## 3.10.17
+
+- fixed injections for the kee-frame profile
+- doo 0.1.11
+- metosin/reitit 0.2.9
+- ring/ring-servlet 1.7.1 for `+war` profile
+
+## 3.10.16
+
+- selmer 1.12.5
+
+## 3.10.15
+
+- com.datomic/datomic-free 0.9.5697
+- added org.clojure/data.json 0.2.6 for the graphql profile
+
+## 3.10.14
+
+- added a missing require in mysql profile
+
+## 3.10.13
+
+- cljs-ajax 0.8.0
+- metosin/reitit 0.2.7
+- metosin/ring-http-response 0.9.1
+- selmer 1.12.4
+
+## 3.10.12
+
+- org.webjars/font-awesome 5.5.0
+- metosin/reitit 0.2.6
+- removed `java.xml.bind` as it's no longer required by ClojureScript
+
+## 3.10.11
+
+- conman 0.8.3
+- luminus-migrations 0.6.1
+- markdown-clj 1.0.5
+- mount 0.1.14
+- ring 1.7.1
+- selmer 1.12.3
+- figwheel 0.5.17
+- pjstadig/humane-test-output 0.9.0
+- switched to re-frisk from re-frame-10x
+
+## 3.10.10
+
+- ClojureScript 1.10.439
+- luminus-migrations 0.6.0
+
+## 3.10.8
+
+- luminus-migrations 0.5.9
+
+## 3.10.7
+
+- kee-frame profile improvements via [pr 392](https://github.com/luminus-framework/luminus-template/pull/392)
+- cljs-ajax 0.7.5
+- luminus-migrations 0.5.7
+- markdown-clj 1.0.4
+- metosin/reitit 0.2.4
+- org.webjars/font-awesome 5.4.1
+- cider/piggieback 0.3.10
+
 ## 3.10.6
 
 - com.h2database/h2 1.4.197
@@ -13,7 +678,7 @@
 
 - prone 1.6.1
 - added Reitit support for the `+oauth` profile
-- markdown-clj 1.0.3
+- markdown-clj 1.0.3F
 - luminus-migrations 0.5.5
 
 ## 3.10.3
@@ -233,7 +898,7 @@ metosin/reitit 0.1.1
 
 - re-frame version change for React 16 compatibility
 
-##  2.9.12.54
+## 2.9.12.54
 
 - figwheel 0.5.16
 - `:nrepl-bind` option via [pr 359](https://github.com/luminus-framework/luminus-template/pull/359/files)
@@ -263,7 +928,7 @@ metosin/reitit 0.1.1
 
 ## 2.9.12.49
 
--  added improved error reporting when ``:database-url` is not set
+- added improved error reporting when ``:database-url` is not set
 
 ## 2.9.12.48
 
@@ -784,6 +1449,7 @@ fixed typo
 - ClojureScript 1.9.521
 - binaryage/devtools 0.9.3
 - figwheel 0.5.10
+
 ## 2.9.11.44
 
 - ClojureScript 1.9.518
@@ -928,8 +1594,8 @@ fixed typo
 ## 2.9.11.19
 
 - selmer 1.10.3
-- renamed `env/dev/cljs/dev.cljs to `env/dev/cljs/app.cljs`
-- renamed `env/prod/cljs/prod.cljs to `env/prod/cljs/app.cljs`
+- renamed `env/dev/cljs/dev.cljs to`env/dev/cljs/app.cljs`
+- renamed `env/prod/cljs/prod.cljs to`env/prod/cljs/app.cljs`
 - updated `+cljs` profile to remove unused externs, and fixed the `init!` function to work in uberjar
 
 ## 2.9.11.18
@@ -960,7 +1626,6 @@ The HTTP server is no longer stopped and started by the `(start)`/`(stop)` helpe
 - markdown-clj 0.9.91
 - org.webjars/font-awesome 4.7.0
 - prone 1.1.4
-
 
 ## 2.9.11.13
 
@@ -1046,16 +1711,16 @@ The HTTP server is no longer stopped and started by the `(start)`/`(stop)` helpe
 
 ## 2.9.10.97
 
- - clj-time 0.12.0 for the +atuh-jwe profile
+- clj-time 0.12.0 for the +atuh-jwe profile
 
 ## 2.9.10.96
 
- - +auth-jwe profile
- - datomic 0.9.5394
- - compojure-api 1.1.8
- - clojurescript 1.9.229
- - buddy 1.1.0
- - figwheel-sidecar 0.5.7
+- +auth-jwe profile
+- datomic 0.9.5394
+- compojure-api 1.1.8
+- clojurescript 1.9.229
+- buddy 1.1.0
+- figwheel-sidecar 0.5.7
 
 ## 2.9.10.95
 
@@ -1269,7 +1934,6 @@ added `+re-frame` profile
 ## 2.9.10.54
 
 - bumped up figwheel, cljs-ajax, compojure-api
-
 
 ## 2.9.10.53
 

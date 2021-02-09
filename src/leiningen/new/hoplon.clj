@@ -6,10 +6,10 @@
    ["{{client-path}}/{{sanitized}}/ajax.cljs" "hoplon/src/cljs/ajax.cljs"]])
 
 (def hoplon-dependencies
-  [['hoplon "7.1.0"]
+  [['hoplon "7.2.0"]
    ['cljsjs/jquery "3.2.1-0"]
-   ['secretary "1.2.3"]
-   ['cljs-ajax "0.7.4"]])
+   ['clj-commons/secretary "1.2.4"]
+   ['cljs-ajax "0.8.1"]])
 
 (defn hoplon-features [[assets options :as state]]
   (if (some #{"+hoplon"} (:features options))

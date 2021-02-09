@@ -1,7 +1,6 @@
-FROM java:8-alpine
-MAINTAINER Your Name <you@example.com>
+FROM openjdk:8-alpine
 
-ADD target/uberjar/<<name>>.jar /<<name>>/app.jar
+COPY target/uberjar/<<name>>.jar /<<name>>/app.jar
 
 EXPOSE 3000
 

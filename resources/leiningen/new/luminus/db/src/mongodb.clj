@@ -1,9 +1,10 @@
 (ns <<project-ns>>.db.core
-    (:require [monger.core :as mg]
-              [monger.collection :as mc]
-              [monger.operators :refer :all]
-              [mount.core :refer [defstate]]
-              [<<project-ns>>.config :refer [env]]))
+    (:require
+      [monger.core :as mg]
+      [monger.collection :as mc]
+      [monger.operators :refer :all]
+      [mount.core :refer [defstate]]
+      [<<project-ns>>.config :refer [env]]))
 
 (defstate db*
   :start (-> env :database-url mg/connect-via-uri)

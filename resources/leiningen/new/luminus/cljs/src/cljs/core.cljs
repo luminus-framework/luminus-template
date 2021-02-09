@@ -1,6 +1,6 @@
 (ns <<project-ns>>.core)
 
-(defn mount-components []
+(defn<% if shadow-cljs %> ^:dev/after-load<% endif %> mount-components []
   (let [content (js/document.getElementById "app")]
     (while (.hasChildNodes content)
       (.removeChild content (.-lastChild content)))

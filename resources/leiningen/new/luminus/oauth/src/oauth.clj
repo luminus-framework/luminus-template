@@ -1,8 +1,9 @@
 (ns <<project-ns>>.oauth
-  (:require [<<project-ns>>.config :refer [env]]
-            [oauth.client :as oauth]
-            [mount.core :refer [defstate]]
-            [clojure.tools.logging :as log]))
+  (:require
+    [<<project-ns>>.config :refer [env]]
+    [oauth.client :as oauth]
+    [mount.core :refer [defstate]]
+    [clojure.tools.logging :as log]))
 
 (defstate consumer
   :start (oauth/make-consumer

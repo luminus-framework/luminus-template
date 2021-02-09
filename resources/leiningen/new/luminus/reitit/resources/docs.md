@@ -23,8 +23,8 @@ The `home-page` function will in turn call the `<<project-ns>>.layout/render` fu
 to render the HTML content:
 
 ```
-(defn home-page [_]
-  (layout/render "home.html"))
+(defn home-page [request]
+  (layout/render request "home.html"))
 ```
 
 The page contains a link to the compiled ClojureScript found in the `target/cljsbuild/public` folder:
@@ -52,12 +52,13 @@ The `home-page` function will in turn call the `<<project-ns>>.layout/render` fu
 to render the HTML content:
 
 ```
-(defn home-page [_]
+(defn home-page [request]
   (layout/render
+    request
     "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
 ```
 
-The `render` function will render the `home.html` template found in the `resources/templates`
+The `render` function will render the `home.html` template found in the `resources/html`
 folder using a parameter map containing the `:docs` key. This key points to the
 contents of the `resources/docs/docs.md` file containing these instructions.
 

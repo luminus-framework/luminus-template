@@ -1,12 +1,13 @@
 (ns <<project-ns>>.core
-  (:require [kee-frame.core :as kf]
-            [re-frame.core :as rf]
-            [ajax.core :as http]
-            [<<project-ns>>.ajax :as ajax]
-            [<<project-ns>>.routing :as routing]
-            [<<project-ns>>.view :as view]))
+  (:require
+    [kee-frame.core :as kf]
+    [re-frame.core :as rf]
+    [ajax.core :as http]
+    [<<project-ns>>.ajax :as ajax]
+    [<<project-ns>>.routing :as routing]
+    [<<project-ns>>.view :as view]))
 
-
+<% if expanded %>
 (rf/reg-event-fx
   ::load-about-page
   (constantly nil))
@@ -30,7 +31,11 @@
                   :on-failure      [:common/set-error]}})
   (fn [{:keys [db]} [_ docs]]
     {:db (assoc db :docs docs)}))
-
+<% else %>
+(rf/reg-event-fx
+  ::load-home-page
+  (constantly nil))
+<% endif %>
 
 (kf/reg-controller
   ::home-controller
@@ -39,14 +44,16 @@
 
 ;; -------------------------
 ;; Initialize app
-(defn mount-components []
-  (rf/clear-subscription-cache!)
-  (kf/start! {:debug?         true
-              :routes         routing/routes
-              :hash-routing?  true
-              :initial-db     {}
-              :root-component [view/root-component]}))
+(defn<% if shadow-cljs %> ^:dev/after-load<% endif %> mount-components
+  ([] (mount-components true))
+  ([debug?]
+    (rf/clear-subscription-cache!)
+    (kf/start! {:debug?         (boolean debug?)
+                :routes         routing/routes
+                :hash-routing?  true
+                :initial-db     {}
+                :root-component [view/root-component]})))
 
-(defn init! []
+(defn init! [debug?]
   (ajax/load-interceptors!)
-  (mount-components))
+  (mount-components debug?))

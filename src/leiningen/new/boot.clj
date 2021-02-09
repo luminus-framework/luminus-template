@@ -12,7 +12,8 @@
                         (update :resource-paths set)
                         (append-options :dependencies boot-dependencies))]
        (if (and (some #{"+war"} (:features options))
-                (some #{"+immutant"} (:features options)))
+                (some #{"+immutant" "+undertow"} (:features options))
+                (some #{"+expanded"} (:features options)))
          ;; There is a conflict with dependencies with ring webjars when
          ;; org.webjars/webjars-locator-jboss-vfs is added, but only under
          ;; boot. This removes the conflict

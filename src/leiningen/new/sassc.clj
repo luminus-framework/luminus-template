@@ -19,7 +19,7 @@
 
 (def sass-plugins
   [['lein-sassc "0.10.4"]
-  ['lein-auto "0.1.2"]])
+   ['lein-auto "0.1.2"]])
 
 (def boot-sass-plugins
   '[[deraen/boot-sass "0.3.1" :scope "test"]])
