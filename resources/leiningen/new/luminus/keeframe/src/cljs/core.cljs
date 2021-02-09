@@ -45,15 +45,16 @@
 ;; -------------------------
 ;; Initialize app
 (defn<% if shadow-cljs %> ^:dev/after-load<% endif %> mount-components
-  ([] (mount-components true))
-  ([debug?]
-    (rf/clear-subscription-cache!)
-    (kf/start! {:debug?         (boolean debug?)
-                :routes         routing/routes
-                :hash-routing?  true
-                :initial-db     {}
-                :root-component [view/root-component]})))
+  []
+  (rf/clear-subscription-cache!)
+  (kf/start! {:routes         routing/routes
+              :hash-routing?  true
+              #_#_
+              :log            {:level        :debug
+                               :ns-blacklist ["kee-frame.event-logger"]}
+              :initial-db     {}
+              :root-component [view/root-component]}))
 
-(defn init! [debug?]
+(defn init! []
   (ajax/load-interceptors!)
-  (mount-components debug?))
+  (mount-components))
