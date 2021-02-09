@@ -16,6 +16,6 @@
          (into kee-frame-assets))
      (-> options
          (assoc :kee-frame true)
-         (append-options :dependencies [['kee-frame "0.3.3" :exclusions ['metosin/reitit-core
+         (append-options :dependencies [['kee-frame "1.1.2" :exclusions ['metosin/reitit-core
                                                                          'org.clojure/core.async]]]))]
     state))

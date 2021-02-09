@@ -16,4 +16,4 @@
 
 (devtools/install!)
 
-<% if kee-frame %>(core/init! true)<%else%>(core/init!)<% endif %>
+(core/init!)
