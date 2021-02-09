@@ -1,3 +1,6 @@
+## NEXT
+- Update `+kee-frame` profile with kee-frame 1.1.2. `debug?` replaced by logging configuration (commented out).
+
 ## 3.96
 - metosin/muuntaja 0.6.8
 - metosin/reitit 0.5.12
