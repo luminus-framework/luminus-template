@@ -1,5 +1,11 @@
-## NEXT
+## 3.97
 - Update `+kee-frame` profile with kee-frame 1.1.2. `debug?` replaced by logging configuration (commented out).
+- expound 0.8.9
+- luminus-undertow 0.1.10
+- ring/ring-core 1.9.1
+- thheller/shadow-cljs 2.11.18
+- re-frisk 1.3.10
+- ring/ring-devel 1.9.1
 
 ## 3.96
 - metosin/muuntaja 0.6.8
