@@ -1,3 +1,10 @@
+## 3.98
+- org.clojure/clojure 1.10.3
+- day8.re-frame/http-fx 0.2.3
+- org.clojure/tools.cli 
+- re-frame 1.2.0
+- re-frisk 1.3.12
+- thheller/shadow-cljs 2.11.22
 ## 3.97
 - Update `+kee-frame` profile with kee-frame 1.1.2. `debug?` replaced by logging configuration (commented out).
 - expound 0.8.9
