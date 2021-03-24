@@ -3,7 +3,7 @@
             [clojure.set :refer [rename-keys]]))
 
 (defn ring-options [{:keys [name project-ns]}]
-  {:handler      (symbol (str project-ns ".handler/app"))
+  {:handler      (symbol (str project-ns ".handler/app-handler"))
    :init         (symbol (str project-ns ".handler/init"))
    :destroy      (symbol (str project-ns ".handler/destroy"))
    :name (str name ".war")})

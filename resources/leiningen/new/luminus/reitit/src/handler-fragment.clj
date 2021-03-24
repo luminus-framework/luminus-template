@@ -36,6 +36,11 @@
          (constantly (error-page {:status 405, :title "405 - Not allowed"}))
          :not-acceptable
          (constantly (error-page {:status 406, :title "406 - Not acceptable"}))}))))
-<% endif %>
+<% endif %><% if war %>
+(mount/defstate app-handler :start (middleware/wrap-base #'app-routes))
+
+(defn app []
+  app-handler)<% else %>
 (defn app []
   (middleware/wrap-base #'app-routes))
+<% endif %>

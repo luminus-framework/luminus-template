@@ -6,10 +6,10 @@
     <title>Welcome to <<name>></title>
 
     <!-- styles -->
-    {% style "/assets/bulma/css/bulma.min.css" %}
-    {% style "/assets/material-icons/css/material-icons.min.css" %}
+    {% style "<% if war %>"/<<name>>"<% else %>""<% endif %>/assets/bulma/css/bulma.min.css" %}
+    {% style "<% if war %>"/<<name>>"<% else %>""<% endif %>/assets/material-icons/css/material-icons.min.css" %}
 
-    {% style "/css/screen.css" %}
+    {% style "<% if war %>"/<<name>>"<% else %>""<% endif %>/css/screen.css" %}
   </head>
   <body>
       <!-- navbar -->

@@ -11,7 +11,7 @@
   (layout/render request "home.html"))
 
 (defn home-routes []
-  [""
+  [<% if war %>"/<<name>>"<% else %>""<% endif %>
    {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
    ["/" {:get home-page}]<% if graphql %>
@@ -27,7 +27,7 @@
   (layout/render request "about.html"))
 <% endif %>
 (defn home-routes []
-  [""
+  [<% if war %> "/<<name>>" <% else %> "" <% endif %>
    {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
    ["/" {:get home-page}]<% if graphql %>

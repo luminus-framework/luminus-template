@@ -1,3 +1,5 @@
+## 3.99
+- fix for `+war` profile
 ## 3.98
 - org.clojure/clojure 1.10.3
 - day8.re-frame/http-fx 0.2.3
