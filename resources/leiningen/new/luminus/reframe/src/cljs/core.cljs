@@ -17,7 +17,7 @@
 (defn nav-link [uri title page]
   [:a<% if expanded %>.navbar-item<% endif %>
    {:href   uri
-    :class (when (= page @(rf/subscribe [:common/page])) :is-active)}
+    :class (when (= page @(rf/subscribe [:common/page-id])) :is-active)}
    title])
 
 (defn navbar [] <% if expanded %>
