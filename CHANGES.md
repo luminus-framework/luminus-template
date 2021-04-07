@@ -1,3 +1,5 @@
+## 4.00
+- shadow-cljs 2.12.1
 ## 3.99
 - fix for `+war` profile
 - ClojureScript 1.10.844
