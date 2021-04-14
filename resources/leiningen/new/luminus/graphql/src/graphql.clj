@@ -35,7 +35,6 @@
      (str "query { hero(id: \"1000\") { name appears_in }}")))
 
 (defn execute-request [query]
-    (let [vars nil
-          context nil]
-    (-> (lacinia/execute compiled-schema query vars context)
+  (let [{:keys [query variables operationName]} (json/read-str query :key-fn keyword)]
+    (-> (lacinia/execute compiled-schema query variables nil)
         (json/write-str))))

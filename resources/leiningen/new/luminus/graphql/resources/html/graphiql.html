@@ -84,25 +84,25 @@
       }
       // Defines a GraphQL fetcher using the fetch API.
       function graphQLFetcher(graphQLParams) {
-        console.log(graphQLParams);
-        return fetch(window.location.origin + '/api/graphql' + computeParams(), {
-          method: 'post',
-          headers: {
+          console.log(graphQLParams);
+          return fetch(window.location.origin + '/api/graphql', {
+            method: 'post',
+            headers: {
             'Content-Type': 'application/graphql',
             'apikey': 'graphiql'
           },
-		  body: graphQLParams.query
-        }).then(function (response) {
-          return response.text();
-        }).then(function (responseBody) {
-			console.log(responseBody);
-          try {
-            return JSON.parse(responseBody);
-          } catch (error) {
-            return responseBody;
-          }
-        });
-      }
+            body: JSON.stringify(graphQLParams)
+  }).then(function (response) {
+              return response.text();
+            }).then(function (responseBody) {
+              console.log(responseBody);
+              try {
+                return JSON.parse(responseBody);
+              } catch (error) {
+                return responseBody;
+              }
+            });
+}
 
       // Render <GraphiQL /> into the body.
       ReactDOM.render(

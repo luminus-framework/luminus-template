@@ -1,3 +1,6 @@
+## 4.01
+- fix for missing request variables in GraphQL explorer [issue 527](https://github.com/luminus-framework/luminus-template/issues/527)
+
 ## 4.00
 - shadow-cljs 2.12.1
 ## 3.99
