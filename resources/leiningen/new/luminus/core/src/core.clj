@@ -72,7 +72,9 @@
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app)))
 <% endif %>
 (defn -main [& args]
-  <% if relational-db %>(mount/start #'<<project-ns>>.config/env)
+  <% if relational-db %>(-> args
+                            (parse-opts cli-options)
+                            (mount/start-with-args #'<<project-ns>>.config/env))
   (cond
     (nil? (:database-url env))
     (do

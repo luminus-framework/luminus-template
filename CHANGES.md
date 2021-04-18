@@ -1,3 +1,5 @@
+## 4.03
+- fix for parsing command line options when using a relations database profile
 ## 4.02
 - luminus-undertow 0.1.11
 - cljs-ajax 0.8.3
