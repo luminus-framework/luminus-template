@@ -7,7 +7,7 @@
 
 (defn reagent-dependencies [{:keys [features]}]
   [['reagent "1.0.0"]
-   ['cljs-ajax "0.8.1"]])
+   ['cljs-ajax "0.8.3"]])
 
 (defn reagent-features [[assets options :as state]]
   (if (some #{"+reagent"} (:features options))

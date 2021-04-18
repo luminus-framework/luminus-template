@@ -1,3 +1,11 @@
+## 4.02
+- luminus-undertow 0.1.11
+- cljs-ajax 0.8.3
+- bulma 0.9.2
+- ring 1.9.2
+- binaryage/devtools 1.0.3
+- pjstadig/humane-test-output 0.11.0
+- re-frisk 1.4.0
 ## 4.01
 - fix for missing request variables in GraphQL explorer [issue 527](https://github.com/luminus-framework/luminus-template/issues/527)
 
