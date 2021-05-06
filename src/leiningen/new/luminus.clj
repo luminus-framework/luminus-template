@@ -120,7 +120,7 @@
 
 (def core-dependencies
   [['org.clojure/clojure "1.10.3"]
-   ['selmer "1.12.37"]
+   ['selmer "1.12.38"]
    ['json-html "0.4.7"]
    ['clojure.java-time "0.3.2"]
    ['luminus-transit "0.1.2"]
