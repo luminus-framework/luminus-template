@@ -1,5 +1,9 @@
+## 4.06
+- selmer 1.12.39
+
 ## 4.05
 - selmer 1.12.38
+
 ## 4.04
 - buddy/buddy-auth 3.0.1
 - buddy/buddy-core 1.10.1
