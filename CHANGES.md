@@ -1,3 +1,15 @@
+## 4.04
+- buddy/buddy-auth 3.0.1
+- buddy/buddy-core 1.10.1
+- buddy/buddy-hashers 1.8.1
+- buddy/buddy-sign 3.4.1
+- metosin/reitit 0.5.13
+- ring/ring-core 1.9.3
+- prone 2021-04-23
+- re-frisk 1.5.1
+- ring/ring-devel 1.9.3
+- selmer 1.12.37
+
 ## 4.03
 - fix for parsing command line options when using a relations database profile
 ## 4.02

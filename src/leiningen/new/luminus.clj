@@ -120,13 +120,14 @@
 
 (def core-dependencies
   [['org.clojure/clojure "1.10.3"]
-   ['selmer "1.12.33"]
+   ['selmer "1.12.37"]
+   ['json-html "0.4.7"]
    ['clojure.java-time "0.3.2"]
    ['luminus-transit "0.1.2"]
    ['metosin/muuntaja "0.6.8"]
    ['metosin/ring-http-response "0.9.2"]
    ['org.clojure/tools.logging "1.1.0"]
-   ['ring/ring-core "1.9.2"]
+   ['ring/ring-core "1.9.3"]
    ['ring/ring-defaults "0.3.2"]
    ['luminus/ring-ttl-session "0.3.3"]
    ['mount "0.1.16"]
@@ -136,9 +137,9 @@
    ['expound "0.8.9"]])
 
 (def core-dev-dependencies
-  [['prone "2020-01-17"]
+  [['prone "2021-04-23"]
    ['ring/ring-mock "0.4.0"]
-   ['ring/ring-devel "1.9.2"]
+   ['ring/ring-devel "1.9.3"]
    ['pjstadig/humane-test-output "0.11.0"]])
 
 (def core-dev-plugins
