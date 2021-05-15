@@ -1,3 +1,7 @@
+## 4.07
+- [`+crux` option for adding Crux support](https://github.com/luminus-framework/luminus-template/pull/530)
+- selmer 1.12.40
+
 ## 4.06
 - selmer 1.12.39
 
