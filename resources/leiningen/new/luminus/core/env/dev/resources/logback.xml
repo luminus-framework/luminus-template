@@ -33,8 +33,8 @@
     <logger name="io.netty" level="warn" /><% endifequal %><% if undertow-based %>
     <logger name="io.undertow.websockets.core.request" level="warn" />
     <logger name="io.undertow.request" level="warn" />
-    <logger name="io.undertow.session" level="warn" />
-    <logger name="io.undertow.request" level="warn" /><% endif %>
+    <logger name="io.undertow.session" level="warn" /><% endif %><% if crux %>
+    <logger name="crux" level="warn" /><% endif %>
     <root level="DEBUG">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />

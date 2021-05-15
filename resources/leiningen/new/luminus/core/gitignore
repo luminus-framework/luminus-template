@@ -15,5 +15,7 @@ profiles.clj
 package.json
 shadow-cljs.edn<% endif %>
 /node_modules
-/log<% for item in gitignore %>
+/log
+<% if crux %>/data<% endif %>
+<% for item in gitignore %>
 <<item>><% endfor %>

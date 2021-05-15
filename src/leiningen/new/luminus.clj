@@ -248,7 +248,7 @@
         supported-features #{;; routing
                              "+reitit"
                              ;;databases
-                             "+sqlite" "+h2" "+postgres" "+mysql" "+mongodb" "+datomic"
+                             "+sqlite" "+h2" "+postgres" "+mysql" "+mongodb" "+datomic" "+crux"
                              ;;servers
                              "+aleph" "+jetty" "+http-kit" "+immutant" "+undertow"
                              ;;misc
