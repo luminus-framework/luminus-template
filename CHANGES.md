@@ -1,3 +1,6 @@
+## 4.08
+- [Update Calva settings to ensure ns user](https://github.com/luminus-framework/luminus-template/pull/531)
+
 ## 4.07
 - [`+crux` option for adding Crux support](https://github.com/luminus-framework/luminus-template/pull/530)
 - selmer 1.12.40
