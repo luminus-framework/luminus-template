@@ -5,7 +5,7 @@
         {
             "name": "Server + Client – <<name>>",
             "projectType": "lein-shadow",
-            "afterCLJReplJackInCode": "(start)",
+            "afterCLJReplJackInCode": "(in-ns 'user) (start) (println \"Access the server at http://localhost:3000\")",
             "cljsType": "shadow-cljs",
             "menuSelections": {
                 "leinProfiles": [

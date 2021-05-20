@@ -1,7 +1,7 @@
         {
             "name": "Server only - <<name>>",
             "projectType": "Leiningen",
-            "afterCLJReplJackInCode": "(in-ns 'user) (start)",
+            "afterCLJReplJackInCode": "(in-ns 'user) (start) (println \"Access the server at http://localhost:3000\")",
             "cljsType": "none",
             "menuSelections": {
                 "leinProfiles": [
