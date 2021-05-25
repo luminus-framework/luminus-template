@@ -1,3 +1,6 @@
+## 4.09
+- ClojureScript 1.10.866
+
 ## 4.08
 - [Update Calva settings to ensure ns user](https://github.com/luminus-framework/luminus-template/pull/531)
 
