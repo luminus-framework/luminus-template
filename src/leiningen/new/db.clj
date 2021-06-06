@@ -18,7 +18,7 @@
           :mysql    [['mysql/mysql-connector-java "8.0.18"]
                      ['com.google.protobuf/protobuf-java "3.8.0"]]
           :h2       [['com.h2database/h2 "1.4.200"]]
-          :sqlite   [['org.xerial/sqlite-jdbc "3.32.3"]]}
+          :sqlite   [['org.xerial/sqlite-jdbc "3.34.0"]]}
          (select-db options))))
 
 (defn db-url [{:keys [sanitized] :as options} suffix]

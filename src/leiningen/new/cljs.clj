@@ -10,36 +10,21 @@
            ["env/dev/cljs/{{sanitized}}/app.cljs" "cljs/env/dev/cljs/app.cljs"]
            ["env/prod/cljs/{{sanitized}}/app.cljs" "cljs/env/prod/cljs/app.cljs"]]
           (when (some #{"+expanded"} features)
-            [["{{cljc-path}}/{{sanitized}}/validation.cljc" "cljs/src/cljc/validation.cljc"]])
-          (when-not (some #{"+shadow-cljs"} features)
-            [["{{client-test-path}}/{{sanitized}}/doo_runner.cljs" "cljs/test/cljs/doo_runner.cljs"]
-             ["env/dev/clj/{{sanitized}}/figwheel.clj" "cljs/env/dev/clj/figwheel.clj"]])))
+            [["{{cljc-path}}/{{sanitized}}/validation.cljc" "cljs/src/cljc/validation.cljc"]])))
 
 (def cljs-version "1.10.866")
-
-(def figwheel-version "0.5.20")
 
 (def doo-version "0.1.11")
 
 (def cljs-dependencies
   [['org.clojure/clojurescript cljs-version :scope "provided"]
-   ['com.cognitect/transit-clj "1.0.324"]])
+   ['com.cognitect/transit-clj "1.0.324"]
+   ['com.cognitect/transit-cljs "0.8.269"]])
 
 ;;NOTE: under boot, src/cljs is also added to source-paths (see boot-cljs-features)
 
 (def resource-paths
   ["target/cljsbuild"])
-
-(defn cljs-plugins [features]
-  (if (some #{"+shadow-cljs"} features)
-    []
-    [['lein-cljsbuild "1.1.7"]]))
-
-(defn cljs-dev-plugins [features]
-  (if (some #{"+shadow-cljs"} features)
-    []
-    [['lein-doo doo-version]
-     ['lein-figwheel figwheel-version]]))
 
 (defn clean-targets [features]
   (if (some #{"+shadow-cljs"} features)
@@ -63,80 +48,58 @@
     ""
     "target/cljsbuild/"))
 
-(defn uberjar-cljsbuild [{:keys [features client-path cljc-path]}]
-  {:builds
-   {:min
-    {:source-paths [cljc-path client-path "env/prod/cljs"]
-     :compiler
-     (merge
-      {:output-dir (str (get-output-dir features) "public/js")
-       :output-to (str (get-output-dir features) "public/js/app.js")
-       :source-map (str (get-output-dir features) "public/js/app.js.map")
-       :optimizations :advanced
-       :pretty-print false
-       :infer-externs true
-       :closure-warnings
-       {:externs-validation :off :non-standard-jsdoc :off}}
-      (when (some #{"+reagent" "+re-frame"} features)
-        {:externs ["react/externs/react.js"]}))}}})
-
 (defn dev-cljsbuild [{:keys [project-ns features client-path cljc-path]}]
   {:builds
    {:app
     {:source-paths [client-path cljc-path "env/dev/cljs"]
      :figwheel {:on-jsload (str project-ns ".core/mount-components")}
      :compiler
-     (merge
-      {:main          (str project-ns ".app")
-       :asset-path    "/js/out"
-       :output-to     (str (get-output-dir features) "public/js/app.js")
-       :output-dir    (str (get-output-dir features) "public/js/out")
-       :source-map    true
-       :optimizations :none
-       :pretty-print  true}
-      (when (some #{"+re-frame"} features)
-        {:closure-defines {"re_frame.trace.trace_enabled_QMARK_" true}
-         :preloads ['re-frisk.preload #_'day8.re-frame-10x.preload]}))}}})
+                   (merge
+                     {:main          (str project-ns ".app")
+                      :asset-path    "/js/out"
+                      :output-to     (str (get-output-dir features) "public/js/app.js")
+                      :output-dir    (str (get-output-dir features) "public/js/out")
+                      :source-map    true
+                      :optimizations :none
+                      :pretty-print  true}
+                     (when (some #{"+re-frame"} features)
+                       {:closure-defines {"re_frame.trace.trace_enabled_QMARK_" true}
+                        :preloads ['re-frisk.preload #_'day8.re-frame-10x.preload]}))}}})
+
+(defn uberjar-cljsbuild [{:keys [features client-path cljc-path]}]
+  {:builds
+   {:min
+    {:source-paths [cljc-path client-path "env/prod/cljs"]
+     :compiler
+                   (merge
+                     {:output-dir (str (get-output-dir features) "public/js")
+                      :output-to (str (get-output-dir features) "public/js/app.js")
+                      :source-map (str (get-output-dir features) "public/js/app.js.map")
+                      :optimizations :advanced
+                      :pretty-print false
+                      :infer-externs true
+                      :closure-warnings
+                      {:externs-validation :off :non-standard-jsdoc :off}}
+                     (when (some #{"+reagent" "+re-frame"} features)
+                       {:externs ["react/externs/react.js"]}))}}})
 
 (defn test-cljsbuild [{:keys [project-ns client-path cljc-path client-test-path]}]
   {:builds
    {:test
     {:source-paths [cljc-path client-path client-test-path]
      :compiler
-     {:output-to     "target/test.js"
-      :main          (str project-ns ".doo-runner")
-      :optimizations :whitespace
-      :pretty-print  true}}}})
-
-(def cljs-test
-  {:build "test"})
-
-(defn figwheel [{:keys [features]}]
-  {:http-server-root "public"
-   :server-logfile "log/figwheel-logfile.log"
-   :nrepl-port       7002
-   :css-dirs         ["resources/public/css"]
-   :nrepl-middleware `[cider.piggieback/wrap-cljs-repl]})
-
-(def cljs-lein-dev-dependencies
-  [['figwheel-sidecar figwheel-version]])
+                   {:output-to     "target/test.js"
+                    :main          (str project-ns ".doo-runner")
+                    :optimizations :whitespace
+                    :pretty-print  true}}}})
 
 (defn cljs-lein-features [[assets options :as state]]
-  (let [shadow-cljs? (some #{"+shadow-cljs"} (:features options))]
-    [assets
-     (-> options
-         (assoc
-          :cljs-test cljs-test
-          :cljs-uberjar-prep (if shadow-cljs?
-                               ":prep-tasks [\"compile\" [\"shadow\" \"release\" \"app\"]]"
-                               ":prep-tasks [\"compile\" [\"cljsbuild\" \"once\" \"min\"]]"))
-         (merge (when-not shadow-cljs? {:figwheel (indent root-indent (figwheel options))
-                                        :dev-cljsbuild (indent dev-indent (dev-cljsbuild options))
-                                        :test-cljsbuild (indent dev-indent (test-cljsbuild options))
-                                        :uberjar-cljsbuild (indent uberjar-indent (uberjar-cljsbuild options))}))
-         (append-options :source-paths [(:client-path options) (:cljc-path options)])
-         (append-options :resource-paths resource-paths)
-         (append-options :dev-dependencies (if shadow-cljs? [] cljs-lein-dev-dependencies)))]))
+  [assets
+   (-> options
+       (assoc
+         :cljs-test {:build "test"})
+       (append-options :source-paths [(:client-path options) (:cljc-path options)])
+       (append-options :resource-paths resource-paths))])
 
 ;; Options for boot
 
@@ -184,9 +147,7 @@
             [(into (remove-conflicting-assets assets ".html") (cljs-assets features))
              (-> options
                  (append-options :dependencies cljs-dependencies)
-                 (append-options :plugins (cljs-plugins features))
                  (append-options :dev-dependencies (cljs-dev-dependencies features))
-                 (append-options :dev-plugins (cljs-dev-plugins features))
                  (update-in [:clean-targets] (fnil into []) (clean-targets features))
                  (assoc :cljs true))]
             boot? (some #{"+boot"} (:features options))]

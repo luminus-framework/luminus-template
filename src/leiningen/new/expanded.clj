@@ -5,9 +5,9 @@
   [['markdown-clj "1.10.5"]
    ['funcool/struct "1.4.0"]
    ['org.webjars.npm/bulma "0.9.2"]
-   ['org.webjars.npm/material-icons "0.3.1"]
+   ['org.webjars.npm/material-icons "0.7.0"]
    ['ring-webjars "0.2.0"]
-   ['org.webjars/webjars-locator "0.40"]])
+   ['org.webjars/webjars-locator "0.41"]])
 
 (def expanded-assets
   [["{{resource-path}}/public/css/screen.css" "expanded/resources/css/screen.css"]

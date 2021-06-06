@@ -6,8 +6,12 @@
    ["{{client-path}}/{{sanitized}}/ajax.cljs" "reagent/src/cljs/ajax.cljs"]])
 
 (defn reagent-dependencies [{:keys [features]}]
-  [['reagent "1.0.0"]
-   ['cljs-ajax "0.8.3"]])
+  (into
+    [['reagent "1.1.0"]
+     ['cljs-ajax "0.8.3"]]
+    (when (some #{"+figwheel"} features)
+      [['cljsjs/react "17.0.2-0"]
+       ['cljsjs/react-dom "17.0.2-0"]])))
 
 (defn reagent-features [[assets options :as state]]
   (if (some #{"+reagent"} (:features options))
