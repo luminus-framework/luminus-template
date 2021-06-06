@@ -19,6 +19,7 @@
             [leiningen.new.re-frame :refer [re-frame-features]]
             [leiningen.new.kee-frame :refer [kee-frame-features]]
             [leiningen.new.shadow-cljs :refer [shadow-cljs-features]]
+            [leiningen.new.figwheel :refer [figwheel-features]]
             [leiningen.new.cucumber :refer [cucumber-features]]
             [leiningen.new.aleph :refer [aleph-features]]
             [leiningen.new.jetty :refer [jetty-features]]
@@ -102,7 +103,7 @@
   (sort-by (fn [[dep]] (str dep)) deps))
 
 (defn format-options [{:keys [http-server-dependencies features] :as options}]
-  (let [boot? (some #{"+boot"} features)
+  (let [boot?      (some #{"+boot"} features)
         dev-indent (if-not boot?
                      dev-dependency-indent
                      boot-dev-dependency-indent)]
@@ -170,6 +171,7 @@
             re-frame-features
             kee-frame-features
             shadow-cljs-features
+            figwheel-features
             swagger-features
             graphql-features
             aleph-features
@@ -198,7 +200,7 @@
 
 (defn set-default-features [options]
   (-> options
-      (set-feature "+undertow" #{"+aleph" "+http-kit" "+immutant" "+jetty" "+war" })
+      (set-feature "+undertow" #{"+aleph" "+http-kit" "+immutant" "+jetty" "+war"})
       (set-feature "+logback" #{})
       (set-feature "+reitit" #{})
       (set-feature "+expanded" #{"+basic"})
@@ -210,6 +212,15 @@
       (update-in options [:features] into dependencies)
       options)))
 
+(defn ensure-dependent-feature [{:keys [features] :as options} feature required default]
+  (if (and (some #{feature} features)
+           (empty? (clojure.set/intersection (set features) required)))
+    (update-in options [:features] conj default)
+    options))
+
+#_(ensure-dependent-feature {:features ["+cljs" "+figwheel"]}
+                          "+cljs" #{"+figwheel" "+shad-wcljs"} "+shadow-cljs")
+
 (defn set-dependent-features [options]
   (-> options
       (set-feature-dependency "+auth" #{"+auth-base"})
@@ -219,7 +230,9 @@
       (set-feature-dependency "+reagent" #{"+cljs"})
       (set-feature-dependency "+re-frame" #{"+cljs" "+reagent"})
       (set-feature-dependency "+kee-frame" #{"+cljs" "+reitit" "+reagent" "+re-frame"})
+      (set-feature-dependency "+figwheel" #{"+cljs"})
       (set-feature-dependency "+shadow-cljs" #{"+cljs"})
+      (ensure-dependent-feature "+cljs" #{"+figwheel" "+shadow-cljs"} "+shadow-cljs")
       (set-feature-dependency "+war" #{"+jetty"})))
 
 (defn parse-version [v]
@@ -233,9 +246,9 @@
   (let [[x1 y1 z1] (parse-version (leiningen-version))
         [x2 y2 z2] (parse-version v)]
     (or
-     (< x1 x2)
-     (and (= x1 x2) (< y1 y2))
-     (and (= x1 x2) (= y1 y2) (< z1 z2)))))
+      (< x1 x2)
+      (and (= x1 x2) (< y1 y2))
+      (and (= x1 x2) (= y1 y2) (< z1 z2)))))
 
 (defn jvm-opts []
   ;; reserved for JVM opts that may need to be passed to Leiningen
@@ -244,7 +257,7 @@
 (defn luminus
   "Create a new Luminus project"
   [name & feature-params]
-  (let [min-version "2.5.2"
+  (let [min-version        "2.5.2"
         supported-features #{;; routing
                              "+reitit"
                              ;;databases
@@ -252,28 +265,28 @@
                              ;;servers
                              "+aleph" "+jetty" "+http-kit" "+immutant" "+undertow"
                              ;;misc
-                             "+cljs" "+hoplon" "+reagent" "+re-frame" "+kee-frame" "+auth" "+auth-jwe" "+site"
+                             "+cljs" "+figwheel" "+hoplon" "+reagent" "+re-frame" "+kee-frame" "+auth" "+auth-jwe" "+site"
                              "+cucumber" "+sassc" "+oauth"
                              "+swagger" "+war" "+graphql"
                              "+kibit" "+service" "+servlet"
                              "+boot" "+shadow-cljs"
                              "+basic" "+expanded"}
-        options (merge
-                 project-relative-paths
-                 {:name             (project-name name)
-                  :dependencies     core-dependencies
-                  :dev-dependencies core-dev-dependencies
-                  :dev-plugins      core-dev-plugins
-                  :selmer-renderer  render-template
-                  :min-lein-version "2.0.0"
-                  :project-ns       (sanitize-ns name)
-                  :sanitized        (name-to-path name)
-                  :year             (year)
-                  :features         (set feature-params)
-                  :opts             (jvm-opts)})
-        unsupported (-> (set feature-params)
-                        (clojure.set/difference supported-features)
-                        (not-empty))]
+        options            (merge
+                             project-relative-paths
+                             {:name             (project-name name)
+                              :dependencies     core-dependencies
+                              :dev-dependencies core-dev-dependencies
+                              :dev-plugins      core-dev-plugins
+                              :selmer-renderer  render-template
+                              :min-lein-version "2.0.0"
+                              :project-ns       (sanitize-ns name)
+                              :sanitized        (name-to-path name)
+                              :year             (year)
+                              :features         (set feature-params)
+                              :opts             (jvm-opts)})
+        unsupported        (-> (set feature-params)
+                               (clojure.set/difference supported-features)
+                               (not-empty))]
     (cond
       (version-before? min-version)
       (main/info "Leiningen version" min-version "or higher is required, found " (leiningen-version)

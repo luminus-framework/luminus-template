@@ -25,16 +25,16 @@
   <<uberwar-options>><% endif %><% if clean-targets %>
   :clean-targets ^{:protect false}
   <<clean-targets>><% endif %><% if cljs %>
-  <% if shadow-cljs %>:shadow-cljs
-  <<shadow-cljs-config>>
-  :npm-deps [<<npm-deps>>]
-  :npm-dev-deps <<npm-dev-deps>><% else %>:figwheel
+  <% if figwheel %>:figwheel
   <<figwheel>><% endif %><% endif %>
 
   :profiles
   {:uberjar {:omit-source true<% if cljs %>
-             <<cljs-uberjar-prep>>
-             <% if not shadow-cljs %>:cljsbuild<% endif %><<uberjar-cljsbuild>><% endif %>
+             <% if shadow-cljs %>
+             <<shadow-uberjar-prep>><% else %>
+             <<figwheel-uberjar-prep>>
+             :cljsbuild
+             <<uberjar-cljsbuild>><% endif %><% endif %>
              :aot :all
              :uberjar-name "<<name>>.jar"
              :source-paths ["env/prod/clj" <% if shadow-cljs %> "env/prod/cljs" <% endif %>]
@@ -46,7 +46,8 @@
    :project/dev  {:jvm-opts ["-Dconf=dev-config.edn" <% for opt in opts %> <<opt>><% endfor %>]
                   :dependencies [<<dev-dependencies>>]
                   :plugins      [<<dev-plugins>>] <% if cljs %>
-                  <% if not shadow-cljs %>:cljsbuild<% endif %><<dev-cljsbuild>><% endif %>
+                  <% if not shadow-cljs %>:cljsbuild
+                  <<dev-cljsbuild>><% endif %><% endif %>
                   <% if cljs-test %><% if not shadow-cljs %>
                   :doo <<cljs-test>><% endif %><% endif %>
                   :source-paths ["env/dev/clj" <% if shadow-cljs %> "env/dev/cljs" "test/cljs" <% endif %>]

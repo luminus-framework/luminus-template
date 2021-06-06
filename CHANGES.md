@@ -1,3 +1,10 @@
+## 4.10
+- reagent 1.1.0
+- switched to shadow-cljs as the default for ClojureScript
+- org.xerial/sqlite-jdbc 3.34.0
+- org.webjars.npm/material-icons 0.7.0
+- org.webjars/webjars-locator 0.41
+
 ## 4.09
 - ClojureScript 1.10.866
 
