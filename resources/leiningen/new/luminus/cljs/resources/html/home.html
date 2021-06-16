@@ -13,7 +13,7 @@
           <div class="content">
             <h4 class="title">Welcome to <<name>></h4>
             <p>If you're seeing this message, that means you haven't yet compiled your ClojureScript!</p><% if not boot %>
-            <p>Please run <code><% if shadow-cljs %>lein shadow watch app<% else %>lein figwheel<% endif %></code> to start the ClojureScript compiler and reload the page.</p><% else %>
+            <p>Please run <code><% if shadow-cljs %>shadow-cljs watch app<% else %>lein figwheel<% endif %></code> to start the ClojureScript compiler and reload the page.</p><% else %>
             <p>Please close this process and start the server with <code>boot figwheel</code> to enable the ClojureScript compiler.<% endif %>
             <h4>For better ClojureScript development experience in Chrome follow these steps:</h4>
             <ul>
