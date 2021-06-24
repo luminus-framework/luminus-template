@@ -1,3 +1,6 @@
+## 4.11
+- [fix for cider-nrepl in dev profile](https://github.com/luminus-framework/luminus-template/issues/534)
+
 ## 4.10
 - reagent 1.1.0
 - switched to shadow-cljs as the default for ClojureScript
