@@ -11,9 +11,7 @@ test-config.edn
 profiles.clj
 /.env
 .nrepl-port
-<% if shadow-cljs %>/.shadow-cljs
-package.json
-shadow-cljs.edn<% endif %>
+<% if shadow-cljs %>/.shadow-cljs<% endif %>
 /node_modules
 /log
 <% if crux %>/data<% endif %>

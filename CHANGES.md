@@ -1,3 +1,6 @@
+## 4.12
+- removed package.json and shadow-cljs.edn from .gitignore
+
 ## 4.11
 - [fix for cider-nrepl in dev profile](https://github.com/luminus-framework/luminus-template/issues/534)
 
