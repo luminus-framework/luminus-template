@@ -14,10 +14,10 @@
     [ring.middleware.defaults :refer [site-defaults wrap-defaults]]<% if auth-middleware-required %>
     <<auth-middleware-required>><% if auth-session %>
     <<auth-session>><% endif %><% if auth-jwe %>
-    <<auth-jwe>>[buddy.sign.util :refer [to-timestamp]]<% endif %><% endif %>)<% if not service %>
+    <<auth-jwe>>[buddy.sign.util :refer [to-timestamp]]<% endif %><% endif %>)
   <% if any auth-jwe servlet %> (:import
     <% if auth-jwe %>[java.util Calendar Date]<% endif %>
-    <% if servlet %>[javax.servlet ServletContext]<% endif %>)<% endif %><% endif %>)
+    <% if servlet %>[javax.servlet ServletContext]<% endif %>)<% endif %>)
 <% if not service %><% if servlet %>
 (defn wrap-context [handler]
   (fn [request]
