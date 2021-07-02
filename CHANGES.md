@@ -1,3 +1,6 @@
+## 4.13
+- fix for imports needed by +auth-jwe profile
+
 ## 4.12
 - removed package.json and shadow-cljs.edn from .gitignore
 
