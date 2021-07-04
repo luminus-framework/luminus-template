@@ -11,4 +11,4 @@
                 :release    {}}
          :test {:target  :node-test, :output-to "target/test/test.js"
                 :autorun true}}
- :lein  true}
+ :lein  {:profile "+dev"}}
