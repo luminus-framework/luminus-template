@@ -3,14 +3,11 @@
     "calva.replConnectSequences": [
         <% include calva/server-connect-sequence-fragment.json %>,
         {
-            "name": "Server + Client – <<name>>",
-            "projectType": "lein-shadow",
+            "name": "<<name>> Server + Client",
+            "projectType": "shadow-cljs",
             "afterCLJReplJackInCode": "(in-ns 'user) (start) (println \"Access the server at http://localhost:3000\")",
             "cljsType": "shadow-cljs",
             "menuSelections": {
-                "leinProfiles": [
-                    "dev"
-                ],
                 "cljsLaunchBuilds": [
                     "app",
                     "test"
