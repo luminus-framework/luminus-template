@@ -1,3 +1,6 @@
+## 4.14
+- [pdate for Calva config from lein-shadow to shadow-cljs project type](https://github.com/luminus-framework/luminus-template/pull/541)
+
 ## 4.13
 - fix for imports needed by +auth-jwe profile
 
