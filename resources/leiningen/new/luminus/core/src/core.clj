@@ -22,7 +22,7 @@
   [["-p" "--port PORT" "Port number"
     :parse-fn #(Integer/parseInt %)]])
 
-(mount/defstate ^{:on-reload :noop} http-server
+(mount/defstate http-server
   :start
   (http/start
     (-> env<% if undertow-based %>
