@@ -1,5 +1,15 @@
 ## 4.15
 - selmer 1.12.44
+- fix for shadow-cljs compiling in uberjar profile
+- ch.qos.logback/logback-classic 1.2.5
+- cprop 0.1.18
+- org.clojure/clojurescript 1.10.879
+- org.postgresql/postgresql 42.2.23
+- ring/ring-core 1.9.4
+- ring/ring-defaults 0.3.3
+- thheller/shadow-cljs 2.15.2
+- ring/ring-devel 1.9.4
+
 ## 4.14
 - [pdate for Calva config from lein-shadow to shadow-cljs project type](https://github.com/luminus-framework/luminus-template/pull/541)
 
