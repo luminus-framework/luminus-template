@@ -63,6 +63,7 @@
            "+reagent"
            "+re-frame"
            "+reitit"
+           "+ctmx"
            "+sassc"
            "+service"
            "+servlet"

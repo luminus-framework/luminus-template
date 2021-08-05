@@ -9,6 +9,7 @@
             [leiningen.new.lein :refer [lein-features]]
             [leiningen.new.boot :refer [boot-features]]
             [leiningen.new.reitit :refer [reitit-features]]
+            [leiningen.new.ctmx :refer [ctmx-features]]
             [leiningen.new.auth :refer [auth-features]]
             [leiningen.new.auth-base :refer [auth-base-features]]
             [leiningen.new.auth-jwe :refer [auth-jwe-features]]
@@ -157,6 +158,7 @@
             lein-features
             boot-features
             reitit-features
+            ctmx-features
             service-features
             servlet-features
             auth-base-features
@@ -270,7 +272,7 @@
                              "+cucumber" "+sassc" "+oauth"
                              "+swagger" "+war" "+graphql"
                              "+kibit" "+service" "+servlet"
-                             "+boot" "+shadow-cljs"
+                             "+boot" "+shadow-cljs" "+ctmx"
                              "+basic" "+expanded"}
         options            (merge
                              project-relative-paths
