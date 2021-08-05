@@ -1,3 +1,6 @@
+## 4.16
+- [+ctmx option](https://github.com/luminus-framework/luminus-template/pull/544)
+
 ## 4.15
 - selmer 1.12.44
 - fix for shadow-cljs compiling in uberjar profile
