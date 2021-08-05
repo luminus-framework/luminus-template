@@ -5,7 +5,6 @@
   [["{{backend-path}}/{{sanitized}}/routes/home.clj" "ctmx/src/home.clj"]])
 
 (defn ctmx-features [[assets options :as state]]
-  (println "ctmx-features" (some #{"+ctmx"} (:features options)))
   (if (some #{"+ctmx"} (:features options))
     [(into (remove-conflicting-assets assets "home.clj") ctmx-assets)
      (-> options
