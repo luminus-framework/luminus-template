@@ -1,3 +1,15 @@
+## 4.17
+- clojure.java-time 0.3.3
+- cprop 0.1.19
+- markdown-clj 1.10.6
+- metosin/reitit 0.5.15
+- metosin/ring-http-response 0.9.3
+- org.webjars.npm/material-icons 1.0.0
+
+### explicit dependencies for
+- funcool/cuerdas 2021.05.29-0
+- org.clojure/tools.namespace 1.1.0
+- 
 ## 4.16
 - [+ctmx option](https://github.com/luminus-framework/luminus-template/pull/544)
 
