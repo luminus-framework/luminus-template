@@ -1,3 +1,7 @@
+## 4.18
+
+reverted dependency for `funcool/cuerdas 2021.05.29-0` as it conflicts with struct
+
 ## 4.17
 - clojure.java-time 0.3.3
 - cprop 0.1.19
