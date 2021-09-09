@@ -1,3 +1,6 @@
+## 4.19
+- [updated Crux references to XTDB](https://github.com/luminus-framework/luminus-template/pull/548)
+
 ## 4.18
 
 reverted dependency for `funcool/cuerdas 2021.05.29-0` as it conflicts with struct
