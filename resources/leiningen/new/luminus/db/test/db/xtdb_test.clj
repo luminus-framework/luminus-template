@@ -1,7 +1,7 @@
 (ns <<project-ns>>.db.core-test
   (:require
     [<<project-ns>>.db.core :as db]
-    [crux.api :as crux]
+    [xtdb.api :as xt]
     [clojure.test :refer :all]
     [mount.core :as mount]))
 
@@ -24,16 +24,16 @@
   (let [{:keys [user/id]} (db/create-user! db/node user-1)]
     (is (uuid? id))
     (is (= (assoc user-1 :user/id id
-                         :crux.db/id id
+                         :xt/id id
                          :<<project-ns>>/type :user)
-           (crux/entity (crux/db db/node) id)))))
+           (xt/entity (xt/db db/node) id)))))
 
 (deftest update-user
   (let [{:keys [user/id]} (db/create-user! db/node user-1)]
     (db/update-user! db/node (assoc user-1 :user/id id
                                            :user/email "updated@test.com"))
     (is (= "updated@test.com"
-           (-> (crux/entity (crux/db db/node) id)
+           (-> (xt/entity (xt/db db/node) id)
                :user/email)))))
 
 (deftest find-user-by-id
