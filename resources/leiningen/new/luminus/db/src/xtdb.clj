@@ -1,26 +1,26 @@
 (ns <<project-ns>>.db.core
   (:require
-    [crux.api :as crux]
+    [xtdb.api :as xt]
     [mount.core :refer [defstate]]
     [<<project-ns>>.config :refer [env]])
   (:import (java.util UUID)))
 
 (defstate node
-  :start (doto (crux/start-node (:crux-config env))
-           crux/sync)
+  :start (doto (xt/start-node (:xtdb-config env))
+           xt/sync)
   :stop (-> node .close))
 
 (defn- put-user!
   [node user]
-  (let [user-doc (assoc user :crux.db/id (:user/id user)
+  (let [user-doc (assoc user :xt/id (:user/id user)
                              :<<project-ns>>/type :user)]
-    (crux/await-tx
+    (xt/await-tx
       node
-      (crux/submit-tx node [[:crux.tx/put user-doc]]))))
+      (xt/submit-tx node [[::xt/put user-doc]]))))
 
-(defn- remove-type-and-crux-id
+(defn- remove-type-and-xtdb-id
   [user-doc]
-  (dissoc user-doc :<<project-ns>>/type :crux.db/id))
+  (dissoc user-doc :<<project-ns>>/type :xt/id))
 
 (defn create-user!
   "e.g.
@@ -37,15 +37,15 @@
 
 (defn find-user-by-attribute
   [node attr value]
-  (-> (crux/q
-        (crux/db node)
+  (-> (xt/q
+        (xt/db node)
         {:find  '[(pull user [*])]
          :where [['user attr 'value]
                  ['user :<<project-ns>>/type :user]]
          :in    '[attr value]}
         attr value)
       ffirst
-      remove-type-and-crux-id))
+      remove-type-and-xtdb-id))
 
 (defn find-user-by-id
   [node id]

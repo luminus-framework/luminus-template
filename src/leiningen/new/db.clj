@@ -7,7 +7,7 @@
     (some #{"+mysql"} features) :mysql
     (some #{"+mongodb"} features) :mongo
     (some #{"+datomic"} features) :datomic
-    (some #{"+crux"} features) :crux
+    (some #{"+xtdb"} features) :xtdb
     (some #{"+h2"} features) :h2
     (some #{"+sqlite"} features) :sqlite))
 
@@ -61,9 +61,9 @@
   [["{{db-path}}/{{sanitized}}/db/core.clj" "db/src/datomic.clj"]
    ["{{resource-path}}/migrations/schema.edn" "db/migrations/schema.edn"]])
 
-(def crux-files
-  [["{{db-path}}/{{sanitized}}/db/core.clj" "db/src/crux.clj"]
-   ["{{backend-test-path}}/{{sanitized}}/db/core_test.clj" "db/test/db/crux_test.clj"]])
+(def xtdb-files
+  [["{{db-path}}/{{sanitized}}/db/core.clj" "db/src/xtdb.clj"]
+   ["{{backend-test-path}}/{{sanitized}}/db/core_test.clj" "db/test/db/xtdb_test.clj"]])
 
 (defn add-mongo [[assets options]]
   [(into assets mongo-files)
@@ -94,24 +94,24 @@
                                         ['com.google.guava/guava "25.1-jre"]
                                         ['io.rkn/conformity "0.5.1"]])))])
 
-(defn add-crux [[assets options]]
-  [(into assets crux-files)
+(defn add-xtdb [[assets options]]
+  [(into assets xtdb-files)
    (-> options
        (assoc
-         :crux true
+         :xtdb true
          :db-connection true
-         :db-docs ((:selmer-renderer options) (slurp-resource "db/docs/crux_instructions.md") options)
-         :database-profile-dev (str :crux-config "\n"
+         :db-docs ((:selmer-renderer options) (slurp-resource "db/docs/xtdb_instructions.md") options)
+         :database-profile-dev (str :xtdb-config "\n"
                                     (with-out-str (clojure.pprint/pprint
-                                                    {:crux/index-store {:kv-store {:crux/module 'crux.rocksdb/->kv-store
+                                                    {:xtdb/index-store {:kv-store {:xtdb/module 'xtdb.rocksdb/->kv-store
                                                                                    :db-dir "data/indices"}}
-                                                     :crux/document-store {:kv-store {:crux/module 'crux.rocksdb/->kv-store
+                                                     :xtdb/document-store {:kv-store {:xtdb/module 'xtdb.rocksdb/->kv-store
                                                                                       :db-dir "data/docs"}}
-                                                     :crux/tx-log {:kv-store {:crux/module 'crux.rocksdb/->kv-store
+                                                     :xtdb/tx-log {:kv-store {:xtdb/module 'xtdb.rocksdb/->kv-store
                                                                               :db-dir "data/transactions"}}})))
-         :database-profile-test (str :crux-config " " {}))
-       (append-options :dependencies [['juxt/crux-core "21.04-1.16.0-beta"]
-                                      ['juxt/crux-rocksdb "21.04-1.16.0-beta"]]))])
+         :database-profile-test (str :xtdb-config " " {}))
+       (append-options :dependencies [['com.xtdb/xtdb-core "1.19.0-beta1"]
+                                      ['com.xtdb/xtdb-rocksdb "1.19.0-beta1"]]))])
 
 (defn add-relational-db [db [assets options]]
   [(into assets (relational-db-files options))
@@ -136,6 +136,6 @@
     (cond
       (= :mongo db) (add-mongo state)
       (= :datomic db) (add-datomic state)
-      (= :crux db) (add-crux state)
+      (= :xtdb db) (add-xtdb state)
       :else (add-relational-db db state))
     state))

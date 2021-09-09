@@ -14,6 +14,6 @@ profiles.clj
 <% if shadow-cljs %>/.shadow-cljs<% endif %>
 /node_modules
 /log
-<% if crux %>/data<% endif %>
+<% if xtdb %>/data<% endif %>
 <% for item in gitignore %>
 <<item>><% endfor %>
