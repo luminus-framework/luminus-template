@@ -1,3 +1,16 @@
+## 4.20
+- [fix for Ajax calls with +re-frame profile](https://github.com/luminus-framework/luminus-template/issues/551)
+  - ch.qos.logback/logback-classic 1.2.6
+  - cljs-ajax 0.8.4
+  - expound 0.8.10
+  - luminus-undertow 0.1.12
+  - org.clojure/core.async 1.3.622
+  - org.webjars.npm/bulma 0.9.3
+  - org.webjars/webjars-locator 0.42
+  - org.xerial/sqlite-jdbc 3.36.0.3
+  - thheller/shadow-cljs 2.15.12
+  - binaryage/devtools 1.0.4
+  
 ## 4.19
 - [updated Crux references to XTDB](https://github.com/luminus-framework/luminus-template/pull/548)
 

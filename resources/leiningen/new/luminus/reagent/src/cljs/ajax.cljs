@@ -16,6 +16,14 @@
     request))
 
 ;; injects transit serialization config into request options
+<% if re-frame %>
+(defn as-transit [opts]
+      (merge {:format          (ajax/transit-request-format
+                                 {:writer (transit/writer :json time/time-serialization-handlers)})
+              :response-format (ajax/transit-response-format
+                                 {:reader (transit/reader :json time/time-deserialization-handlers)})}
+             opts))
+<% else %>
 (defn as-transit [opts]
   (merge {:raw             false
           :format          :transit
@@ -23,7 +31,7 @@
           :reader          (transit/reader :json time/time-deserialization-handlers)
           :writer          (transit/writer :json time/time-serialization-handlers)}
          opts))
-
+<% endif %>
 (defn load-interceptors! []
   (swap! ajax/default-interceptors
          conj
