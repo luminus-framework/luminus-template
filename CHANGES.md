@@ -1,3 +1,6 @@
+## 4.22
+- shadow-cljs 2.15.13
+
 ## 4.21
 - ClojureScript 1.10.891
 
