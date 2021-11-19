@@ -1,3 +1,6 @@
+## 4.23
+- shadow-cljs 2.16.5
+
 ## 4.22
 - shadow-cljs 2.15.13
 
