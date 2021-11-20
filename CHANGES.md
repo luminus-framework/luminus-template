@@ -1,3 +1,6 @@
+## 4.24
+- update shadow-cljs version in package.json
+
 ## 4.23
 - shadow-cljs 2.16.5
 
