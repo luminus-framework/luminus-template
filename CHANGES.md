@@ -1,3 +1,6 @@
+## 4.25
+- [use latest re-frisk](https://github.com/luminus-framework/luminus-template/pull/558) for shadow-cljs compatibility
+
 ## 4.24
 - update shadow-cljs version in package.json
 
