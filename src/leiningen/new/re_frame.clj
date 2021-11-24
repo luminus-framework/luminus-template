@@ -13,6 +13,6 @@
          (assoc :re-frame true)
          (append-options :dependencies [['re-frame "1.2.0"]
                                         ['day8.re-frame/http-fx "0.2.3"]])
-         (append-options :dev-dependencies [['re-frisk "1.5.1"]
+         (append-options :dev-dependencies [['re-frisk "1.5.2"]
                                             #_['day8.re-frame/re-frame-10x "0.7.0"]]))]
     state))
