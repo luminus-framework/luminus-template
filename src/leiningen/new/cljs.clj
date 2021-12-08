@@ -12,7 +12,7 @@
           (when (some #{"+expanded"} features)
             [["{{cljc-path}}/{{sanitized}}/validation.cljc" "cljs/src/cljc/validation.cljc"]])))
 
-(def cljs-version "1.10.891")
+(def cljs-version "1.10.896")
 
 (def doo-version "0.1.11")
 
@@ -34,7 +34,7 @@
      [:cljsbuild :builds :app :compiler :output-to]]))
 
 (defn cljs-dev-dependencies [features]
-  (let [piggieback-version "0.5.2"
+  (let [piggieback-version "0.5.3"
         devtools-version "1.0.4"]
     (if (some #{"+shadow-cljs"} features)
     [['binaryage/devtools devtools-version]

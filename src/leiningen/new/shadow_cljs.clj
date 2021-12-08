@@ -1,10 +1,10 @@
 (ns leiningen.new.shadow-cljs
   (:require [leiningen.new.common :refer :all]))
 
-(def shadow-version "2.16.5")
+(def shadow-version "2.16.7")
 
 (def shadow-cljs-dependencies [['thheller/shadow-cljs shadow-version :scope "provided"]
-                               ['org.clojure/core.async "1.3.622"]])
+                               ['org.clojure/core.async "1.3.644"]])
 
 (def shadow-assets
   [["package.json" "shadow/package.json"]

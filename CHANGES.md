@@ -1,3 +1,15 @@
+## 4.26
+- Ring Undertow adapter 1.2.5 vis luminus-undertow 0.1.14
+- ch.qos.logback/logback-classic 1.2.7
+- luminus-undertow 0.1.14
+- markdown-clj 1.10.7
+- org.clojure/clojurescript 1.10.896
+- org.clojure/core.async 1.5.644
+- selmer 1.12.45
+- thheller/shadow-cljs 2.16.7
+- cider/piggieback 0.5.3
+- org.clojure/tools.namespace 1.1.1
+
 ## 4.25
 - [use latest re-frisk](https://github.com/luminus-framework/luminus-template/pull/558) for shadow-cljs compatibility
 
