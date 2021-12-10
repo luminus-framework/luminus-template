@@ -1,3 +1,6 @@
+## 4.27
+- luminus-transit 0.1.3
+
 ## 4.26
 - Ring Undertow adapter 1.2.5 vis luminus-undertow 0.1.14
 - ch.qos.logback/logback-classic 1.2.7
