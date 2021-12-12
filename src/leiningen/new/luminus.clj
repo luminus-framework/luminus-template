@@ -135,7 +135,7 @@
    ['mount "0.1.16"]
    ['cprop "0.1.19"]
    ['org.clojure/tools.cli "1.0.206"]
-   ['nrepl "0.8.3"]
+   ['nrepl "0.9.0"]
    ['expound "0.8.10"]])
 
 (def core-dev-dependencies
