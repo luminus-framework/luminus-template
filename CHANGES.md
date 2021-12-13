@@ -1,6 +1,6 @@
 ## 4.28
 - nrepl 0.9.0
-- conman 0.9.2
+- conman 0.9.3
 
 ## 4.27
 - luminus-transit 0.1.3
