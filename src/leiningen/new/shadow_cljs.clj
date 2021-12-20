@@ -4,7 +4,7 @@
 (def shadow-version "2.16.7")
 
 (def shadow-cljs-dependencies [['thheller/shadow-cljs shadow-version :scope "provided"]
-                               ['org.clojure/core.async "1.3.644"]])
+                               ['org.clojure/core.async "1.5.644"]])
 
 (def shadow-assets
   [["package.json" "shadow/package.json"]

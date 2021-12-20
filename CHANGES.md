@@ -1,3 +1,6 @@
+## 4.29
+- org.clojure/core.async 1.5.644
+
 ## 4.28
 - nrepl 0.9.0
 - conman 0.9.3
