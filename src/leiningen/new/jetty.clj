@@ -12,5 +12,5 @@
       [assets
        (-> options
            (assoc :server "jetty")
-           (append-options :http-server-dependencies [['luminus-jetty "0.2.0"]]))])
+           (append-options :http-server-dependencies [['luminus-jetty "0.2.2"]]))])
     state))

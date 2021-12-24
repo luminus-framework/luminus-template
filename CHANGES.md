@@ -1,3 +1,6 @@
+## 4.30
+- luminus-jetty 0.2.2
+
 ## 4.29
 - org.clojure/core.async 1.5.644
 
