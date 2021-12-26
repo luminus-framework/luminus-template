@@ -128,7 +128,7 @@
    ['luminus-transit "0.1.3"]
    ['metosin/muuntaja "0.6.8"]
    ['metosin/ring-http-response "0.9.3"]
-   ['org.clojure/tools.logging "1.1.0"]
+   ['org.clojure/tools.logging "1.2.3"]
    ['ring/ring-core "1.9.4"]
    ['ring/ring-defaults "0.3.3"]
    ['luminus/ring-ttl-session "0.3.3"]
