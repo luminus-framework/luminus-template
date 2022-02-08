@@ -122,27 +122,27 @@
 
 (def core-dependencies
   [['org.clojure/clojure "1.10.3"]
-   ['selmer "1.12.48"]
+   ['selmer "1.12.50"]
    ['json-html "0.4.7"]
    ['clojure.java-time "0.3.3"]
    ['luminus-transit "0.1.3"]
    ['metosin/muuntaja "0.6.8"]
    ['metosin/ring-http-response "0.9.3"]
-   ['org.clojure/tools.logging "1.2.3"]
-   ['ring/ring-core "1.9.4"]
+   ['org.clojure/tools.logging "1.2.4"]
+   ['ring/ring-core "1.9.5"]
    ['ring/ring-defaults "0.3.3"]
    ['luminus/ring-ttl-session "0.3.3"]
    ['mount "0.1.16"]
    ['cprop "0.1.19"]
    ['org.clojure/tools.cli "1.0.206"]
    ['nrepl "0.9.0"]
-   ['expound "0.8.10"]])
+   ['expound "0.9.0"]])
 
 (def core-dev-dependencies
   [['prone "2021-04-23"]
    ['ring/ring-mock "0.4.0"]
-   ['ring/ring-devel "1.9.4"]
-   ['org.clojure/tools.namespace "1.1.1"]
+   ['ring/ring-devel "1.9.5"]
+   ['org.clojure/tools.namespace "1.2.0"]
    ['pjstadig/humane-test-output "0.11.0"]])
 
 (def core-dev-plugins

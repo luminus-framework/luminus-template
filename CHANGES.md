@@ -1,3 +1,23 @@
+## 4.33
+- buddy/buddy-auth 3.0.323
+- buddy/buddy-core 1.10.413
+- buddy/buddy-hashers 1.8.158
+- buddy/buddy-sign 3.4.333
+- ch.qos.logback/logback-classic 1.2.10
+- com.cognitect/transit-clj 1.0.329
+- day8.re-frame/http-fx 0.2.4
+- expound 0.9.0
+- markdown-clj 1.10.8
+- org.clojure/clojurescript 1.11.4
+- org.clojure/core.async 1.5.648
+- org.clojure/tools.logging 1.2.4
+- org.postgresql/postgresql 42.3.2
+- ring/ring-core 1.9.5
+- selmer 1.12.50
+- thheller/shadow-cljs 2.17.0
+- org.clojure/tools.namespace 1.2.0
+- ring/ring-devel 1.9.5
+
 ## 4.32
 - luminus-jetty 0.2.3
 ## 4.31
