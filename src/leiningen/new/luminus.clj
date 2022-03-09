@@ -125,7 +125,7 @@
    ['selmer "1.12.50"]
    ['json-html "0.4.7"]
    ['clojure.java-time "0.3.3"]
-   ['luminus-transit "0.1.3"]
+   ['luminus-transit "0.1.4"]
    ['metosin/muuntaja "0.6.8"]
    ['metosin/ring-http-response "0.9.3"]
    ['org.clojure/tools.logging "1.2.4"]

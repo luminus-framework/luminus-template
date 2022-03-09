@@ -1,3 +1,5 @@
+## 4.34
+- luminus-transit 0.1.4
 ## 4.33
 - buddy/buddy-auth 3.0.323
 - buddy/buddy-core 1.10.413
