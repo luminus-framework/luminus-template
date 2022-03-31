@@ -12,7 +12,7 @@
     (some #{"+sqlite"} features) :sqlite))
 
 (defn db-dependencies [options]
-  (into [['luminus-migrations "0.7.1"]
+  (into [['luminus-migrations "0.7.2"]
          ['conman "0.9.3"]]
         ({:postgres [['org.postgresql/postgresql "42.3.2"]]
           :mysql    [['mysql/mysql-connector-java "8.0.18"]

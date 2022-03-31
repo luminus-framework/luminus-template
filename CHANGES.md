@@ -1,4 +1,7 @@
 ## 4.36
+- luminus-migrations 0.7.2
+- 
+## 4.36
 - aleph 0.4.7
 
 ## 4.35
