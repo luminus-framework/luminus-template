@@ -1,6 +1,8 @@
 ## 4.36
+- ClojureScript 1.11.51
+- shaodw-cljs 2.18.0
+## 4.36
 - luminus-migrations 0.7.2
-- 
 ## 4.36
 - aleph 0.4.7
 

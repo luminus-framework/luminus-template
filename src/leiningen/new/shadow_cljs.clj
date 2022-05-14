@@ -1,7 +1,7 @@
 (ns leiningen.new.shadow-cljs
   (:require [leiningen.new.common :refer :all]))
 
-(def shadow-version "2.17.0")
+(def shadow-version "2.18.0")
 
 (def shadow-cljs-dependencies [['thheller/shadow-cljs shadow-version :scope "provided"]
                                ['org.clojure/core.async "1.5.648"]])

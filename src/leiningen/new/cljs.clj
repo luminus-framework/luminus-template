@@ -12,7 +12,7 @@
           (when (some #{"+expanded"} features)
             [["{{cljc-path}}/{{sanitized}}/validation.cljc" "cljs/src/cljc/validation.cljc"]])))
 
-(def cljs-version "1.11.4")
+(def cljs-version "1.11.51")
 
 (def doo-version "0.1.11")
 
