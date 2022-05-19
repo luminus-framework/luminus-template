@@ -1,8 +1,14 @@
-## 4.36
+## 4.38
+- org.clojure/clojure 1.11.1
+- com.google.javascript/closure-compiler-unshaded "v20220301" (for shadow-cljs profile)
+- 
+## 4.37
 - ClojureScript 1.11.51
 - shaodw-cljs 2.18.0
+
 ## 4.36
 - luminus-migrations 0.7.2
+
 ## 4.36
 - aleph 0.4.7
 

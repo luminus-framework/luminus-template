@@ -4,6 +4,7 @@
 (def shadow-version "2.18.0")
 
 (def shadow-cljs-dependencies [['thheller/shadow-cljs shadow-version :scope "provided"]
+                               ['com.google.javascript/closure-compiler-unshaded "v20220301"]
                                ['org.clojure/core.async "1.5.648"]])
 
 (def shadow-assets
