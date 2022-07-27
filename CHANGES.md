@@ -1,4 +1,7 @@
 ## 4.38
+- [bump eastwood](https://github.com/luminus-framework/luminus-template/pull/566)
+  
+## 4.38
 - org.clojure/clojure 1.11.1
 - com.google.javascript/closure-compiler-unshaded "v20220301" (for shadow-cljs profile)
 - 
