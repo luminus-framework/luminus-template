@@ -1,3 +1,6 @@
+## 4.40
+- luminus-undertow 0.1.15
+
 ## 4.38
 - [bump eastwood](https://github.com/luminus-framework/luminus-template/pull/566)
   
