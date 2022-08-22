@@ -12,8 +12,8 @@
     (some #{"+sqlite"} features) :sqlite))
 
 (defn db-dependencies [options]
-  (into [['luminus-migrations "0.7.3"]
-         ['conman "0.9.3"]]
+  (into [['luminus-migrations "0.7.4"]
+         ['conman "0.9.5"]]
         ({:postgres [['org.postgresql/postgresql "42.3.2"]]
           :mysql    [['mysql/mysql-connector-java "8.0.18"]
                      ['com.google.protobuf/protobuf-java "3.8.0"]]
@@ -24,7 +24,7 @@
 (defn db-url [{:keys [sanitized] :as options} suffix]
   (let [user (or (System/getenv "USER") "db_user_name_here")]
     ({:postgres (str "postgresql://localhost/" sanitized "_" suffix
-                     "?user=" user "&password=db_user_password_here")
+                     "?user=" user "&password=db_user_password_here")1
       :mysql    (str "mysql://localhost:3306/" sanitized "_" suffix
                      "?user=" user "&password=db_user_password_here")
       :h2       (str "jdbc:h2:./" sanitized "_" suffix ".db")

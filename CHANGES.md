@@ -1,6 +1,7 @@
 ## 4.42
-- luminus-migrations 0.7.3
-  
+- luminus-migrations 0.7.4
+- conman 0.9.4
+
 ## 4.41
 - fixed HTML template typo
 ## 4.40
