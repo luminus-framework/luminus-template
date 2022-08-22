@@ -1,3 +1,6 @@
+## 4.42
+- luminus-migrations 0.7.3
+  
 ## 4.41
 - fixed HTML template typo
 ## 4.40
