@@ -122,7 +122,7 @@
 
 (def core-dependencies
   [['org.clojure/clojure "1.11.1"]
-   ['selmer "1.12.50"]
+   ['selmer "1.12.53"]
    ['json-html "0.4.7"]
    ['clojure.java-time "0.3.3"]
    ['luminus-transit "0.1.5"]
@@ -142,7 +142,7 @@
   [['prone "2021-04-23"]
    ['ring/ring-mock "0.4.0"]
    ['ring/ring-devel "1.9.5"]
-   ['org.clojure/tools.namespace "1.2.0"]
+   ['org.clojure/tools.namespace "1.3.0"]
    ['pjstadig/humane-test-output "0.11.0"]])
 
 (def core-dev-plugins

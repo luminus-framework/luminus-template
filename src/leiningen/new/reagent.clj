@@ -7,7 +7,7 @@
 
 (defn reagent-dependencies [{:keys [features]}]
   (into
-    [['reagent "1.1.0"]
+    [['reagent "1.1.1"]
      ['cljs-ajax "0.8.4"]]
     (when (some #{"+figwheel"} features)
       [['cljsjs/react "17.0.2-0"]

@@ -1,5 +1,20 @@
+## 4.41
+- fixed HTML template typo
 ## 4.40
 - luminus-undertow 0.1.15
+- logback-classic 1.2.11
+- transit-cljs 0.8.280
+- markdown-clj 1.11.2
+- reitit 0.5.18
+- clojurescript 1.11.60
+- bulma 0.9.4
+- webjars-locator 0.45
+- reagent 1.1.1
+- selmer 1.12.53
+- shadow-cljs 2.19.9
+- devtools 1.0.6
+- tools.namespace 1.3.0
+- re-frisk 1.6.0
 
 ## 4.38
 - [bump eastwood](https://github.com/luminus-framework/luminus-template/pull/566)

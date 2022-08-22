@@ -7,7 +7,7 @@
    ["env/prod/resources/logback.xml" "core/env/prod/resources/logback.xml"]])
 
 (def logback-dependencies
-  [['ch.qos.logback/logback-classic "1.2.10"]])
+  [['ch.qos.logback/logback-classic "1.2.11"]])
 
 (defn logback-features [[assets options :as state]]
   (if (some #{"+logback"} (:features options))

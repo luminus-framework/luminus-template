@@ -12,14 +12,14 @@
           (when (some #{"+expanded"} features)
             [["{{cljc-path}}/{{sanitized}}/validation.cljc" "cljs/src/cljc/validation.cljc"]])))
 
-(def cljs-version "1.11.51")
+(def cljs-version "1.11.60")
 
 (def doo-version "0.1.11")
 
 (def cljs-dependencies
   [['org.clojure/clojurescript cljs-version :scope "provided"]
    ['com.cognitect/transit-clj "1.0.329"]
-   ['com.cognitect/transit-cljs "0.8.269"]])
+   ['com.cognitect/transit-cljs "0.8.280"]])
 
 ;;NOTE: under boot, src/cljs is also added to source-paths (see boot-cljs-features)
 
@@ -35,7 +35,7 @@
 
 (defn cljs-dev-dependencies [features]
   (let [piggieback-version "0.5.3"
-        devtools-version "1.0.4"]
+        devtools-version "1.0.6"]
     (if (some #{"+shadow-cljs"} features)
     [['binaryage/devtools devtools-version]
      ['cider/piggieback piggieback-version]]

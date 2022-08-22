@@ -2,13 +2,13 @@
   (:require [leiningen.new.common :refer :all]))
 
 (def expanded-dependencies
-  [['markdown-clj "1.10.8"]
+  [['markdown-clj "1.11.2"]
    ['funcool/struct "1.4.0"]
    #_['funcool/cuerdas "2021.05.29-0"]
-   ['org.webjars.npm/bulma "0.9.3"]
+   ['org.webjars.npm/bulma "0.9.4"]
    ['org.webjars.npm/material-icons "1.0.0"]
    ['ring-webjars "0.2.0"]
-   ['org.webjars/webjars-locator "0.42"]])
+   ['org.webjars/webjars-locator "0.45"]])
 
 (def expanded-assets
   [["{{resource-path}}/public/css/screen.css" "expanded/resources/css/screen.css"]

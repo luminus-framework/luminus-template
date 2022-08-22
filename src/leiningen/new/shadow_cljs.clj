@@ -1,10 +1,10 @@
 (ns leiningen.new.shadow-cljs
   (:require [leiningen.new.common :refer :all]))
 
-(def shadow-version "2.18.0")
+(def shadow-version "2.19.9")
 
 (def shadow-cljs-dependencies [['thheller/shadow-cljs shadow-version :scope "provided"]
-                               ['com.google.javascript/closure-compiler-unshaded "v20220301"]
+                               ['com.google.javascript/closure-compiler-unshaded "v20220803"]
                                ['org.clojure/core.async "1.5.648"]])
 
 (def shadow-assets
