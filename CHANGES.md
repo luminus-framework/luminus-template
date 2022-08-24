@@ -1,9 +1,13 @@
+## 4.43
+- fixed typo
+
 ## 4.42
 - luminus-migrations 0.7.4
 - conman 0.9.4
 
 ## 4.41
 - fixed HTML template typo
+  
 ## 4.40
 - luminus-undertow 0.1.15
 - logback-classic 1.2.11

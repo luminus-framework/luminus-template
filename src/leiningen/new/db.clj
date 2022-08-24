@@ -24,7 +24,7 @@
 (defn db-url [{:keys [sanitized] :as options} suffix]
   (let [user (or (System/getenv "USER") "db_user_name_here")]
     ({:postgres (str "postgresql://localhost/" sanitized "_" suffix
-                     "?user=" user "&password=db_user_password_here")1
+                     "?user=" user "&password=db_user_password_here")
       :mysql    (str "mysql://localhost:3306/" sanitized "_" suffix
                      "?user=" user "&password=db_user_password_here")
       :h2       (str "jdbc:h2:./" sanitized "_" suffix ".db")
