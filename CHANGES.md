@@ -1,3 +1,6 @@
+## 4.44
+- luminus-migrations 0.7.5
+
 ## 4.43
 - fixed typo
 
