@@ -73,8 +73,8 @@
 <% endif %>
 (defn -main [& args]
   <% if relational-db %>(-> args
-                            (parse-opts cli-options)
-                            (mount/start-with-args #'<<project-ns>>.config/env))
+      (parse-opts cli-options)
+      (mount/start-with-args #'<<project-ns>>.config/env))
   (cond
     (nil? (:database-url env))
     (do
