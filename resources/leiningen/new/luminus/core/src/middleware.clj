@@ -20,18 +20,26 @@
     <% if servlet %>[javax.servlet ServletContext]<% endif %>)<% endif %>)
 <% if not service %><% if servlet %>
 (defn wrap-context [handler]
-  (fn [request]
-    (assoc-in request [:session :app-context]
-              (if-let [context (:servlet-context request)]
-                ;; If we're not inside a servlet environment
-                ;; (for example when using mock requests), then
-                ;; .getContextPath might not exist
-                (try (.getContextPath ^ServletContext context)
-                     (catch IllegalArgumentException _ context))
-                ;; if the context is not specified in the request
-                ;; we check if one has been specified in the environment
-                ;; instead
-                (:app-context env)))))
+  (letfn [(update-request [request]
+            (assoc-in request [:session :app-context]
+                      (if-let [context (:servlet-context request)]
+                        ;; If we're not inside a servlet environment
+                        ;; (for example when using mock requests), then
+                        ;; .getContextPath might not exist
+                        (try (.getContextPath ^ServletContext context)
+                             (catch IllegalArgumentException _ context))
+                        ;; if the context is not specified in the request
+                        ;; we check if one has been specified in the environment
+                        ;; instead
+                        (:app-context env))))]
+    (fn ([request]
+         (-> request
+             update-request
+             handler))
+      ([request respond raise]
+       (-> request
+           update-request
+           (handler respond raise))))))
 <% endif %>
 (defn wrap-internal-error [handler]
   (let [error-result (fn [^Throwable t]
@@ -144,7 +152,7 @@
     "Execute a sync-only handler async.
    
    This allows you to work with simple sync handlers.
-   Note that this must be the outermost handler that is executed.
+   Note that this must be the outermost middleware that is executed.
 
    If the handler is async (= it can take 3 arguments)
    the async version will be called.
@@ -177,7 +185,7 @@
   "Execute a sync-only handler async.
    
    This allows you to work with simple sync handlers.
-   Note that this must be the outermost handler that is executed.
+   Note that this must be the outermost middleware that is executed.
 
    If the handler is async (= it can take 3 arguments)
    the async version will be called.

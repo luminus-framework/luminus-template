@@ -101,6 +101,21 @@ ab -c 10 -n 1000 http://127.0.0.1:3000/
 
 The memory and CPU usage can be inspected by running either `jconsole` or `jvisualvm` and attaching them to a running Luminus server.
 
+## Async Ring Handlers
+
+Using async ring handlers is possible, but 
+you'll see a blank screen, at worst without error messages.
+
+The server (undertow, jetty, ...) and every middleware used has to support async request handling.
+
+To enable: add `:async? true` to your config maps.
+
+Tested combinations:
+
+* default: needs luminus/ring-undertow-adapter 1.2.8-SNAPSHOT
+* +war: needs luminus/ring-undertow-adapter 1.2.8-SNAPSHOT
+* +servlet +war (this implies jetty9)
+
 ## Other Templates
 
 * [chestnut](https://github.com/plexus/chestnut)
