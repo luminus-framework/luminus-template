@@ -29,7 +29,7 @@
         (update :io-threads #(or % (* 2 (.availableProcessors (Runtime/getRuntime))))) <% endif %>
         (assoc  :handler (handler/app))
         (update :port #(or (-> env :options :port) %))
-        (select-keys [:handler :host :port])))
+        (select-keys [:handler :host :port :async?])))
   :stop
   (http/stop http-server))
 

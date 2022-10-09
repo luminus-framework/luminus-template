@@ -34,14 +34,19 @@
                 (:app-context env)))))
 <% endif %>
 (defn wrap-internal-error [handler]
-  (fn [req]
-    (try
-      (handler req)
-      (catch Throwable t
-        (log/error t (.getMessage t))
-        (error-page {:status 500
-                     :title "Something very bad has happened!"
-                     :message "We've dispatched a team of highly trained gnomes to take care of the problem."})))))
+  (let [error-result (fn [^Throwable t]
+                       (log/error t (.getMessage t))
+                       (error-page {:status 500
+                                    :title "Something very bad has happened!"
+                                    :message "We've dispatched a team of highly trained gnomes to take care of the problem."}))]
+    (fn wrap-internal-error-fn
+      ([req respond _]
+       (handler req respond #(respond (error-result %))))
+      ([req]
+       (try
+         (handler req)
+         (catch Throwable t
+           (error-result t)))))))
 
 (defn wrap-csrf [handler]
   (wrap-anti-forgery
@@ -54,10 +59,13 @@
 
 (defn wrap-formats [handler]
   (let [wrapped (-> handler wrap-params (wrap-format formats/instance))]
-    (fn [request]
-      ;; disable wrap-formats for websockets
-      ;; since they're not compatible with this middleware
-      ((if (:websocket? request) handler wrapped) request))))
+    (fn
+      ([request]
+         ;; disable wrap-formats for websockets
+         ;; since they're not compatible with this middleware
+       ((if (:websocket? request) handler wrapped) request))
+      ([request respond raise]
+       ((if (:websocket? request) handler wrapped) request respond raise)))))
 <% endif %><% if auth-middleware-required %><% if not service %>
 (defn on-error [request response]
   (error-page
@@ -110,3 +118,87 @@
             (assoc-in  [:session :store] (ttl-memory-store (* 60 30)))))<% endif %><% if not service %><% if servlet %>
       wrap-context<% endif %>
       wrap-internal-error<% endif %>))
+
+
+(defn- method-name-and-arity-pred [name n]
+  (fn [^java.lang.reflect.Method m]
+    (and (= (.getName m) name)
+         (== n (-> m .getParameterTypes alength)))))
+
+(defn- function-has-arity? [f n]
+  (and (fn? f)
+       (let [f2 ^clojure.lang.Fn f
+             c (.getClass f2)
+             ms (.getDeclaredMethods c)]
+         (->> ms
+              (filter (method-name-and-arity-pred "invoke" n))
+              seq
+              not ; dont keep a pointer to the reflection stuff
+              not))))
+
+
+(comment
+  ;; when using promsa, this is nicer
+  ;; manifold version is left as an exercise for the reader
+  (defn wrap-as-async [handler]
+    "Execute a sync-only handler async.
+   
+   This allows you to work with simple sync handlers.
+   Note that this must be the outermost handler that is executed.
+
+   If the handler is async (= it can take 3 arguments)
+   the async version will be called.
+     
+   This version can handle promesa promises."
+    (let [async? (function-has-arity? handler 3)]
+      (fn
+        ([req]
+       ;; sync - server/middleware is calling the shots
+         (if async?
+           (handler req identity (fn [^Throwable t] (throw t)))
+           (let [rsp (handler req)]
+             (if (p/promise? rsp)
+               (do
+                 (log/warn "using promise from sync ring handler, must block")
+                 @rsp)
+               rsp))))
+      ;; async so far - use sync version if the handler can not talk async
+        ([req respond raise]
+         (if async?
+           (handler req respond raise)
+           (-> (p/do (handler req))
+               (p/handle (fn [result err]
+                           (if result
+                             (respond result)
+                             (raise err)))))))))))
+
+
+(defn wrap-as-async
+  "Execute a sync-only handler async.
+   
+   This allows you to work with simple sync handlers.
+   Note that this must be the outermost handler that is executed.
+
+   If the handler is async (= it can take 3 arguments)
+   the async version will be called.
+     
+   This version will error if a promise is returned.
+   Uncomment the promesa version if you want to do that.
+   "
+  [handler]
+  (let [async? (function-has-arity? handler 3)]
+    (fn
+      ;; sync - server/calling middleware is calling the shots
+      ([req]
+       (if async?
+         (handler req identity (fn [^Throwable t] (throw t)))
+         (handler req)))
+      ;; async so far - use sync version if the handler can not talk async
+      ([req respond raise]
+       (if async?
+         (handler req respond raise)
+         (try
+           (respond (handler req))
+           (catch Throwable t
+             (raise t))))))))
+

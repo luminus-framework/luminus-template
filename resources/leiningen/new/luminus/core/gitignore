@@ -11,6 +11,9 @@ test-config.edn
 profiles.clj
 /.env
 .nrepl-port
+/.clj-kondo/.cache/
+/.lsp/.cache/
+/.calva/output-window/
 <% if shadow-cljs %>/.shadow-cljs<% endif %>
 /node_modules
 /log

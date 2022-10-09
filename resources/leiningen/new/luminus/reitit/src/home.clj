@@ -13,7 +13,9 @@
 (defn home-routes []
   [<% if war %>"/<<name>>"<% else %>""<% endif %>
    {:middleware [middleware/wrap-csrf
-                 middleware/wrap-formats]}
+                 middleware/wrap-formats
+                 ;; wrap-as-async must be last
+                 middleware/wrap-as-async]}
    ["/" {:get home-page}]<% if graphql %>
    ["/graphiql" {:get (fn [request] (layout/render request "graphiql.html"))}]<% endif %><% if expanded %>
    ["/docs" {:get (fn [_]
@@ -29,7 +31,9 @@
 (defn home-routes []
   [<% if war %> "/<<name>>" <% else %> "" <% endif %>
    {:middleware [middleware/wrap-csrf
-                 middleware/wrap-formats]}
+                 middleware/wrap-formats
+                 ;; wrap-as-async must be last
+                 middleware/wrap-as-async]}
    ["/" {:get home-page}]<% if graphql %>
    ["/graphiql" {:get (fn [request]
                         (layout/render request "graphiql.html"))}]<% endif %><% if expanded %>
