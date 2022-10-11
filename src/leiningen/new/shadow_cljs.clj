@@ -1,7 +1,7 @@
 (ns leiningen.new.shadow-cljs
   (:require [leiningen.new.common :refer :all]))
 
-(def shadow-version "2.19.9")
+(def shadow-version "2.20.3")
 
 (def shadow-cljs-dependencies [['thheller/shadow-cljs shadow-version :scope "provided"]
                                ['com.google.javascript/closure-compiler-unshaded "v20220803"]

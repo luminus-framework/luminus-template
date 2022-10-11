@@ -1,4 +1,24 @@
-## 4.44
+## 4.46
+- async support: 1 and 3 argument ring handlers for all middleware
+- fixes +servlet feature - the middleware did not chain to the next handler
+- ring-undertow-adapter: 1.2.8  for async support
+- funcool/promesa 9.0.471 for async support
+- lein-uberwar: 0.2.3 for async support
+- ring-core 1.9.6
+- ring-devel 1.9.6
+- ring-defaults 0.3.4
+- logback-classic 1.4.4
+- clojure.java-time 1.1.0
+- markdown-clj 1.11.3
+- nrepl 1.0.0
+- org.clojure/tools.cli 1.0.2014
+- org.webjars.npm/material-icons 1.10.8
+- selmer 1.12.55
+- thheller/shadow-cljs 2.20.3
+- com.google.javascript/closure-compiler-unshaded kept at v20220803 - v20221004 breaks shadow-cljs
+
+
+## 4.45
 - formatting
   
 ## 4.44

@@ -57,6 +57,7 @@ However, if you would like to attach further functionality to your template you 
 | +kibit       | misc          | adds [lein-kibit](https://github.com/jonase/kibit) plugin                                                                                                       | [diff](https://github.com/nfedyashev/luminusdiff/compare/3.85..3.85+kibit)       |
 | +servlet     | misc          | adds middleware for handling Servlet context                                                                                                                    | [diff](https://github.com/nfedyashev/luminusdiff/compare/3.85..3.85+servlet)     |
 | +basic       | misc          | generates a bare bones luminus project                                                                                                                          | [diff](https://github.com/nfedyashev/luminusdiff/compare/3.85..3.85+basic)       |
+| +async       | misc          | support for async (= 3 argument) ring handlers                                                                                                                  |        |
 
 
 To add a profile simply pass it as an argument after your application name, e.g.:
@@ -100,6 +101,27 @@ ab -c 10 -n 1000 http://127.0.0.1:3000/
 ```
 
 The memory and CPU usage can be inspected by running either `jconsole` or `jvisualvm` and attaching them to a running Luminus server.
+
+## Async Ring Handlers
+
+Using async ring handlers is possible but adds another layer of
+complexity.  If things go wrong you'll see a blank screen, possibly
+without any error message.
+
+The server (undertow, jetty, servlet) and every middleware in the chain has to 
+support async request handling.
+
+To enable: add `:async? true` to your config maps.
+
+Tested combinations:
+
+* default
+* +war
+* +servlet +war (this implies jetty9): http://localhost:3000/your-ns instead of just /
+* +jetty +war: http://localhost:3000/your-ns instead of just /
+* +jetty: works
+* +http-kit: the template works, but http-kit does not support async handlers
+* +aleph: the template works, but aleph does not seem to support async handlers
 
 ## Other Templates
 

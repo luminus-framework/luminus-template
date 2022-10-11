@@ -1,5 +1,6 @@
 (ns <<project-ns>>.dev-middleware
   (:require
+    [<<project-ns>>.config :refer [env]]
     [ring.middleware.reload :refer [wrap-reload]]
     [selmer.middleware :refer [wrap-error-page]]
     [prone.middleware :refer [wrap-exceptions]]))
@@ -8,4 +9,5 @@
   (-> handler
       wrap-reload
       wrap-error-page
-      (wrap-exceptions {:app-namespaces ['<<project-ns>>]})))
+      ;; disable prone middleware, it can not handle async
+      (cond-> (not (env :async?)) (wrap-exceptions {:app-namespaces ['<<project-ns>>]}))))

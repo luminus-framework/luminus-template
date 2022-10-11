@@ -1,3 +1,7 @@
+(defn- async-aware-default-handler
+  ([_] nil)
+  ([_ respond _] (respond nil)))
+
 <% if service %>
 (mount/defstate app-routes
   :start
@@ -10,7 +14,7 @@
     (ring/routes
       (ring/create-resource-handler
         {:path "/"})<% if expanded %>
-      (wrap-content-type (wrap-webjars (constantly nil)))<% endif %>
+      (wrap-content-type (wrap-webjars async-aware-default-handler))<% endif %>
       (ring/create-default-handler))))
 <% else %>
 (mount/defstate app-routes
@@ -28,7 +32,7 @@
       (ring/create-resource-handler
         {:path "/"})<% if expanded %>
       (wrap-content-type
-        (wrap-webjars (constantly nil)))<% endif %>
+        (wrap-webjars async-aware-default-handler))<% endif %>
       (ring/create-default-handler
         {:not-found
          (constantly (error-page {:status 404, :title "404 - Page not found"}))

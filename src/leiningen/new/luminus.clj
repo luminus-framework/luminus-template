@@ -38,7 +38,8 @@
             [leiningen.new.oauth :refer [oauth-features]]
             [leiningen.new.calva :refer [calva-features]]
             [leiningen.new.expanded :refer [expanded-features]]
-            [leiningen.new.undertow :refer [undertow-features]]))
+            [leiningen.new.undertow :refer [undertow-features]]
+            [leiningen.new.async :refer [async-features]]))
 
 (defn resource [r]
   (->> r (str "leiningen/new/luminus/core/resources/") (io/resource)))
@@ -122,26 +123,26 @@
 
 (def core-dependencies
   [['org.clojure/clojure "1.11.1"]
-   ['selmer "1.12.53"]
+   ['selmer "1.12.55"]
    ['json-html "0.4.7"]
-   ['clojure.java-time "0.3.3"]
+   ['clojure.java-time "1.1.0"]
    ['luminus-transit "0.1.5"]
    ['metosin/muuntaja "0.6.8"]
    ['metosin/ring-http-response "0.9.3"]
    ['org.clojure/tools.logging "1.2.4"]
-   ['ring/ring-core "1.9.5"]
-   ['ring/ring-defaults "0.3.3"]
+   ['ring/ring-core "1.9.6"]
+   ['ring/ring-defaults "0.3.4"]
    ['luminus/ring-ttl-session "0.3.3"]
    ['mount "0.1.16"]
    ['cprop "0.1.19"]
-   ['org.clojure/tools.cli "1.0.206"]
-   ['nrepl "0.9.0"]
+   ['org.clojure/tools.cli "1.0.214"]
+   ['nrepl "1.0.0"]
    ['expound "0.9.0"]])
 
 (def core-dev-dependencies
   [['prone "2021-04-23"]
    ['ring/ring-mock "0.4.0"]
-   ['ring/ring-devel "1.9.5"]
+   ['ring/ring-devel "1.9.6"]
    ['org.clojure/tools.namespace "1.3.0"]
    ['pjstadig/humane-test-output "0.11.0"]])
 
@@ -188,7 +189,8 @@
             logback-features
             oauth-features
             war-features
-            calva-features)]
+            calva-features
+            async-features)]
     (render-assets assets binary-assets (format-options options))))
 
 (defn format-features [features]
@@ -274,7 +276,8 @@
                              "+swagger" "+war" "+graphql"
                              "+kibit" "+service" "+servlet"
                              "+boot" "+shadow-cljs" "+ctmx"
-                             "+basic" "+expanded"}
+                             "+basic" "+expanded"
+                             "+async"}
         options            (merge
                              project-relative-paths
                              {:name             (project-name name)
