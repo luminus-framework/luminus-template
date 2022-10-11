@@ -1,4 +1,4 @@
-## 4.45
+## 4.46
 - async support: 1 and 3 argument ring handlers for all middleware
 - fixes +servlet feature - the middleware did not chain to the next handler
 - ring-undertow-adapter: 1.2.8  for async support
@@ -18,7 +18,7 @@
 - com.google.javascript/closure-compiler-unshaded kept at v20220803 - v20221004 breaks shadow-cljs
 
 
-## 4.44
+## 4.45
 - formatting
   
 ## 4.44
