@@ -123,9 +123,9 @@
 
 (def core-dependencies
   [['org.clojure/clojure "1.11.1"]
-   ['selmer "1.12.53"]
+   ['selmer "1.12.55"]
    ['json-html "0.4.7"]
-   ['clojure.java-time "0.3.3"]
+   ['clojure.java-time "1.1.0"]
    ['luminus-transit "0.1.5"]
    ['metosin/muuntaja "0.6.8"]
    ['metosin/ring-http-response "0.9.3"]
@@ -135,8 +135,8 @@
    ['luminus/ring-ttl-session "0.3.3"]
    ['mount "0.1.16"]
    ['cprop "0.1.19"]
-   ['org.clojure/tools.cli "1.0.206"]
-   ['nrepl "0.9.0"]
+   ['org.clojure/tools.cli "1.0.214"]
+   ['nrepl "1.0.0"]
    ['expound "0.9.0"]])
 
 (def core-dev-dependencies

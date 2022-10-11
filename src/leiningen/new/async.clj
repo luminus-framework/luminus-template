@@ -2,7 +2,7 @@
   (:require [leiningen.new.common :refer :all]))
 
 (def async-dependencies
-  [['funcool/promesa "9.0.470"]])
+  [['funcool/promesa "9.0.471"]])
 
 (defn async-features [[assets options :as state]]
   (if (some #{"+async"} (:features options))
