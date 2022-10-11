@@ -10,5 +10,5 @@
            :server "undertow")
          (update :dependencies conj ['org.webjars/webjars-locator-jboss-vfs "0.1.0"])
          (append-options :http-server-dependencies [['luminus-undertow "0.1.15"]
-                                                    ['luminus/ring-undertow-adapter "1.2.8-SNAPSHOT"]]))]
+                                                    ['luminus/ring-undertow-adapter "1.2.8"]]))]
     state))

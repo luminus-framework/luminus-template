@@ -129,8 +129,8 @@
    ['metosin/muuntaja "0.6.8"]
    ['metosin/ring-http-response "0.9.3"]
    ['org.clojure/tools.logging "1.2.4"]
-   ['ring/ring-core "1.9.5"]
-   ['ring/ring-defaults "0.3.3"]
+   ['ring/ring-core "1.9.6"]
+   ['ring/ring-defaults "0.3.4"]
    ['luminus/ring-ttl-session "0.3.3"]
    ['mount "0.1.16"]
    ['cprop "0.1.19"]
@@ -141,7 +141,7 @@
 (def core-dev-dependencies
   [['prone "2021-04-23"]
    ['ring/ring-mock "0.4.0"]
-   ['ring/ring-devel "1.9.5"]
+   ['ring/ring-devel "1.9.6"]
    ['org.clojure/tools.namespace "1.3.0"]
    ['pjstadig/humane-test-output "0.11.0"]])
 

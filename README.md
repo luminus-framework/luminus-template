@@ -103,18 +103,25 @@ The memory and CPU usage can be inspected by running either `jconsole` or `jvisu
 
 ## Async Ring Handlers
 
-Using async ring handlers is possible, but 
-you'll see a blank screen, at worst without error messages.
+Using async ring handlers is possible but adds another layer of
+complexity.  If things go wrong you'll see a blank screen, possibly
+without any error message.
 
-The server (undertow, jetty, ...) and every middleware used has to support async request handling.
+The server (undertow, jetty, servlet) and every middleware in the chain has to 
+support async request handling.
 
 To enable: add `:async? true` to your config maps.
 
 Tested combinations:
 
-* default: needs luminus/ring-undertow-adapter 1.2.8-SNAPSHOT
-* +war: needs luminus/ring-undertow-adapter 1.2.8-SNAPSHOT
-* +servlet +war (this implies jetty9)
+* default
+* +war
+* +servlet +war (this implies jetty9): http://localhost:3000/your-ns instead of just /
+* +jetty +war: http://localhost:3000/your-ns instead of just /
+* +jetty: works
+* +http-kit: the template works, but http-kit does not support async handlers
+* +aleph: the template works, but aleph does not seem to support async handlers
+
 
 ## Other Templates
 

@@ -1,3 +1,12 @@
+## 4.45
+- async support: 1 and 3 argument ring handlers for all middleware
+- fixes +servlet feature - the middleware did not chain to the next handler
+- ring-undertow-adapter: 1.2.8  for async support
+- lein-uberwar: 0.2.3 for async support
+- ring-core 1.9.6
+- ring-devel 1.9.6
+- ring-defaults 0.3.4
+
 ## 4.44
 - formatting
   
