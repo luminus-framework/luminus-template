@@ -57,6 +57,7 @@ However, if you would like to attach further functionality to your template you 
 | +kibit       | misc          | adds [lein-kibit](https://github.com/jonase/kibit) plugin                                                                                                       | [diff](https://github.com/nfedyashev/luminusdiff/compare/3.85..3.85+kibit)       |
 | +servlet     | misc          | adds middleware for handling Servlet context                                                                                                                    | [diff](https://github.com/nfedyashev/luminusdiff/compare/3.85..3.85+servlet)     |
 | +basic       | misc          | generates a bare bones luminus project                                                                                                                          | [diff](https://github.com/nfedyashev/luminusdiff/compare/3.85..3.85+basic)       |
+| +async       | misc          | support for async (= 3 argument) ring handlers                                                                                                                  |        |
 
 
 To add a profile simply pass it as an argument after your application name, e.g.:
@@ -121,7 +122,6 @@ Tested combinations:
 * +jetty: works
 * +http-kit: the template works, but http-kit does not support async handlers
 * +aleph: the template works, but aleph does not seem to support async handlers
-
 
 ## Other Templates
 

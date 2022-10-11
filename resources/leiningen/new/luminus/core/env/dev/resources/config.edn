@@ -1,1 +1,1 @@
-{}
+{<% if async %>:async? true<% endif %>}

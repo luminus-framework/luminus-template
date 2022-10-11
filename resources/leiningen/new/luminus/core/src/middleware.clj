@@ -11,7 +11,8 @@
     [immutant.web.middleware :refer [wrap-session]]<% else %>
     [ring.adapter.undertow.middleware.session :refer [wrap-session]]<% endifequal %><% else %>
     [ring-ttl-session.core :refer [ttl-memory-store]]<% endif %>
-    [ring.middleware.defaults :refer [site-defaults wrap-defaults]]<% if auth-middleware-required %>
+    [ring.middleware.defaults :refer [site-defaults wrap-defaults]]<% if async %>
+    [promesa.core :as p]<% endif %><% if auth-middleware-required %>
     <<auth-middleware-required>><% if auth-session %>
     <<auth-session>><% endif %><% if auth-jwe %>
     <<auth-jwe>>[buddy.sign.util :refer [to-timestamp]]<% endif %><% endif %>)
@@ -127,7 +128,7 @@
       wrap-context<% endif %>
       wrap-internal-error<% endif %>))
 
-
+<% if async %>
 (defn- method-name-and-arity-pred [name n]
   (fn [^java.lang.reflect.Method m]
     (and (= (.getName m) name)
@@ -141,72 +142,38 @@
          (->> ms
               (filter (method-name-and-arity-pred "invoke" n))
               seq
-              not ; dont keep a pointer to the reflection stuff
-              not))))
+              ;; support your local garbage collector
+              boolean))))
 
 
-(comment
-  ;; when using promsa, this is nicer
-  ;; manifold version is left as an exercise for the reader
-  (defn wrap-as-async [handler]
-    "Execute a sync-only handler async.
-   
-   This allows you to work with simple sync handlers.
-   Note that this must be the outermost middleware that is executed.
-
-   If the handler is async (= it can take 3 arguments)
-   the async version will be called.
-     
-   This version can handle promesa promises."
-    (let [async? (function-has-arity? handler 3)]
-      (fn
-        ([req]
-       ;; sync - server/middleware is calling the shots
-         (if async?
-           (handler req identity (fn [^Throwable t] (throw t)))
-           (let [rsp (handler req)]
-             (if (p/promise? rsp)
-               (do
-                 (log/warn "using promise from sync ring handler, must block")
-                 @rsp)
-               rsp))))
-      ;; async so far - use sync version if the handler can not talk async
-        ([req respond raise]
-         (if async?
-           (handler req respond raise)
-           (-> (p/do (handler req))
-               (p/handle (fn [result err]
-                           (if result
-                             (respond result)
-                             (raise err)))))))))))
-
-
-(defn wrap-as-async
+(defn wrap-as-async [handler]
   "Execute a sync-only handler async.
-   
-   This allows you to work with simple sync handlers.
-   Note that this must be the outermost middleware that is executed.
+ 
+ This allows you to work with simple sync handlers.
+ Note that this must be the outermost middleware that is executed.
 
-   If the handler is async (= it can take 3 arguments)
-   the async version will be called.
-     
-   This version will error if a promise is returned.
-   Uncomment the promesa version if you want to do that.
-   "
-  [handler]
+ If the handler is async (= it can take 3 arguments)
+ the async version will be called."
   (let [async? (function-has-arity? handler 3)]
     (fn
-      ;; sync - server/calling middleware is calling the shots
       ([req]
+       ;; sync - server/middleware is calling the shots
        (if async?
          (handler req identity (fn [^Throwable t] (throw t)))
-         (handler req)))
+         (let [rsp (handler req)]
+           (if (p/promise? rsp)
+             (do
+               (log/warn "using promise from sync ring handler, must block")
+               @rsp)
+             rsp))))
       ;; async so far - use sync version if the handler can not talk async
       ([req respond raise]
        (if async?
          (handler req respond raise)
-         (try
-           (respond (handler req))
-           (catch Throwable t
-             (raise t))))))))
+         (-> (p/do (handler req))
+             (p/handle (fn [result err]
+                         (if result
+                           (respond result)
+                           (raise err))))))))))
 
+<% endif %>

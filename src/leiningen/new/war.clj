@@ -2,13 +2,17 @@
   (:require [leiningen.new.common :refer :all]
             [clojure.set :refer [rename-keys]]))
 
-(defn ring-options [{:keys [name project-ns]}]
-  {:handler      (symbol (str project-ns ".handler/app-handler"))
-   :init         (symbol (str project-ns ".handler/init"))
-   :destroy      (symbol (str project-ns ".handler/destroy"))
-   :servlet-version "3.1"
-   :async?       true
-   :name (str name ".war")})
+(defn ring-options [{:keys [name project-ns] :as options}]
+  (let [opts {:handler      (symbol (str project-ns ".handler/app-handler"))
+              :init         (symbol (str project-ns ".handler/init"))
+              :destroy      (symbol (str project-ns ".handler/destroy"))
+              :name (str name ".war")}]
+    ;; put it in war, put it in async, put it in a third place?
+    (if (some #{"+async"} (:features options))
+      (assoc opts
+             :servlet-version "3.1"
+             :async?       true)
+      opts)))
 
 (defn update-assets [assets]
   (map

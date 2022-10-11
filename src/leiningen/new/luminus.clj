@@ -38,7 +38,8 @@
             [leiningen.new.oauth :refer [oauth-features]]
             [leiningen.new.calva :refer [calva-features]]
             [leiningen.new.expanded :refer [expanded-features]]
-            [leiningen.new.undertow :refer [undertow-features]]))
+            [leiningen.new.undertow :refer [undertow-features]]
+            [leiningen.new.async :refer [async-features]]))
 
 (defn resource [r]
   (->> r (str "leiningen/new/luminus/core/resources/") (io/resource)))
@@ -188,7 +189,8 @@
             logback-features
             oauth-features
             war-features
-            calva-features)]
+            calva-features
+            async-features)]
     (render-assets assets binary-assets (format-options options))))
 
 (defn format-features [features]
@@ -274,7 +276,8 @@
                              "+swagger" "+war" "+graphql"
                              "+kibit" "+service" "+servlet"
                              "+boot" "+shadow-cljs" "+ctmx"
-                             "+basic" "+expanded"}
+                             "+basic" "+expanded"
+                             "+async"}
         options            (merge
                              project-relative-paths
                              {:name             (project-name name)

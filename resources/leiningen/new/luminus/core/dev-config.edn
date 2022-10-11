@@ -6,7 +6,8 @@
  :port 3000
  ;; when :nrepl-port is set the application starts the nREPL server on load
  :nrepl-port 7000
- <% if oauth %>
+ <% if async %>:async? true
+ <% endif %><% if oauth %>
  ;;Twitter used as an example, replace these URIs with the OAuth provider of your choice
  :request-token-uri "https://api.twitter.com/oauth/request_token"
  :access-token-uri "https://api.twitter.com/oauth/access_token"
