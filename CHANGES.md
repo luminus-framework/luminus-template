@@ -1,3 +1,7 @@
+## 4.47
+- luminus-aleph 0.2.0
+- luminus-http-kit 0.2.0
+  
 ## 4.46
 - async support: 1 and 3 argument ring handlers for all middleware
 - fixes +servlet feature - the middleware did not chain to the next handler
