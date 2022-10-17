@@ -115,13 +115,13 @@ To enable: add `:async? true` to your config maps.
 
 Tested combinations:
 
-* default
+* default (undertow)
 * +war
 * +servlet +war (this implies jetty9): http://localhost:3000/your-ns instead of just /
 * +jetty +war: http://localhost:3000/your-ns instead of just /
 * +jetty: works
-* +http-kit: the template works, but http-kit does not support async handlers
-* +aleph: the template works, but aleph does not seem to support async handlers
+* +http-kit
+* +aleph
 
 ## Other Templates
 
