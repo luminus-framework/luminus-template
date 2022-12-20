@@ -1,3 +1,6 @@
+## 4.48
+- fixed passing io-threads to the HTTP server
+
 ## 4.47
 - luminus-aleph 0.2.0
 - luminus-http-kit 0.2.0
