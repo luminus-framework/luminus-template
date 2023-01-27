@@ -1,3 +1,6 @@
+## 4.49
+- [fix for font paths](https://github.com/luminus-framework/luminus-template/pull/577)
+  
 ## 4.48
 - fixed passing io-threads to the HTTP server
 
