@@ -1,3 +1,6 @@
+## .4.50
+- luminus-undertow 0.1.18
+
 ## 4.49
 - [fix for font paths](https://github.com/luminus-framework/luminus-template/pull/577)
   
