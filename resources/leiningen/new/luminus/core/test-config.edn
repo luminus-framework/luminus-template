@@ -3,5 +3,5 @@
 ;; This file is listed in .gitignore and will be excluded from version control by Git.
 
 {:port 3000
- <% if async %>:async true
+ <% if async %>:async? true
  <% endif %><% if database-profile-dev %><<database-profile-test>><% endif %>}
