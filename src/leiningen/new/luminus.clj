@@ -56,9 +56,7 @@
    ["env/dev/resources/config.edn" "core/env/dev/resources/config.edn"]
    ["env/test/resources/config.edn" "core/env/dev/resources/config.edn"]
 
-
-   ;; config namespaces
-
+;; config namespaces
 
    ["env/dev/clj/{{sanitized}}/env.clj" "core/env/dev/clj/env.clj"]
    ["env/dev/clj/{{sanitized}}/dev_middleware.clj" "core/env/dev/clj/dev_middleware.clj"]
@@ -130,8 +128,8 @@
    ['metosin/muuntaja "0.6.8"]
    ['metosin/ring-http-response "0.9.3"]
    ['org.clojure/tools.logging "1.2.4"]
-   ['ring/ring-core "1.9.6"]
-   ['ring/ring-defaults "0.3.4"]
+   ['ring/ring-core "1.15.3"]
+   ['ring/ring-defaults "0.7.0"]
    ['luminus/ring-ttl-session "0.3.3"]
    ['mount "0.1.16"]
    ['cprop "0.1.19"]
@@ -225,7 +223,7 @@
     options))
 
 #_(ensure-dependent-feature {:features ["+cljs" "+figwheel"]}
-                          "+cljs" #{"+figwheel" "+shad-wcljs"} "+shadow-cljs")
+                            "+cljs" #{"+figwheel" "+shad-wcljs"} "+shadow-cljs")
 
 (defn set-dependent-features [options]
   (-> options
@@ -252,9 +250,9 @@
   (let [[x1 y1 z1] (parse-version (leiningen-version))
         [x2 y2 z2] (parse-version v)]
     (or
-      (< x1 x2)
-      (and (= x1 x2) (< y1 y2))
-      (and (= x1 x2) (= y1 y2) (< z1 z2)))))
+     (< x1 x2)
+     (and (= x1 x2) (< y1 y2))
+     (and (= x1 x2) (= y1 y2) (< z1 z2)))))
 
 (defn jvm-opts []
   ;; reserved for JVM opts that may need to be passed to Leiningen
@@ -279,18 +277,18 @@
                              "+basic" "+expanded"
                              "+async"}
         options            (merge
-                             project-relative-paths
-                             {:name             (project-name name)
-                              :dependencies     core-dependencies
-                              :dev-dependencies core-dev-dependencies
-                              :dev-plugins      core-dev-plugins
-                              :selmer-renderer  render-template
-                              :min-lein-version "2.0.0"
-                              :project-ns       (sanitize-ns name)
-                              :sanitized        (name-to-path name)
-                              :year             (year)
-                              :features         (set feature-params)
-                              :opts             (jvm-opts)})
+                            project-relative-paths
+                            {:name             (project-name name)
+                             :dependencies     core-dependencies
+                             :dev-dependencies core-dev-dependencies
+                             :dev-plugins      core-dev-plugins
+                             :selmer-renderer  render-template
+                             :min-lein-version "2.0.0"
+                             :project-ns       (sanitize-ns name)
+                             :sanitized        (name-to-path name)
+                             :year             (year)
+                             :features         (set feature-params)
+                             :opts             (jvm-opts)})
         unsupported        (-> (set feature-params)
                                (clojure.set/difference supported-features)
                                (not-empty))]
